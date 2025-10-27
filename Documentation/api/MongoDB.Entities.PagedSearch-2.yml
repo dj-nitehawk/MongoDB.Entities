@@ -34,25 +34,18 @@ items:
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>
   type: Class
-  source:
-    id: PagedSearch
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 29
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRepresents an aggregation query that retrieves results with easy paging support.\n"
+  summary: Represents an aggregation query that retrieves results with easy paging support.
   example: []
   syntax:
-    content: >-
-      public class PagedSearch<T, TProjection>
-
-          where T : IEntity
+    content: 'public class PagedSearch<T, TProjection> where T : IEntity'
     typeParameters:
     - id: T
       description: Any class that implements IEntity
     - id: TProjection
-      description: The type you&apos;d like to project the results to.
+      description: The type you'd like to project the results to.
     content.vb: Public Class PagedSearch(Of T As IEntity, TProjection)
   inheritance:
   - System.Object
@@ -67,12 +60,6 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   nameWithType.vb: PagedSearch(Of T, TProjection)
-  modifiers.csharp:
-  - public
-  - class
-  modifiers.vb:
-  - Public
-  - Class
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
   name.vb: PagedSearch(Of T, TProjection)
 - uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
@@ -86,20 +73,16 @@ items:
   nameWithType: PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
   type: Method
-  source:
-    id: WithFluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 59
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nBegins the paged search aggregation pipeline with the provided fluent pipeline.\n<p>TIP: This method must be first in the chain and it cannot be used with .Match()</p>\n"
+  summary: >-
+    Begins the paged search aggregation pipeline with the provided fluent pipeline.
+
+    <p>TIP: This method must be first in the chain and it cannot be used with .Match()</p>
   example: []
   syntax:
-    content: >-
-      public PagedSearch<T, TProjection> WithFluent<TFluent>(TFluent fluentPipeline)
-
-          where TFluent : IAggregateFluent<T>
+    content: 'public PagedSearch<T, TProjection> WithFluent<TFluent>(TFluent fluentPipeline) where TFluent : IAggregateFluent<T>'
     parameters:
     - id: fluentPipeline
       type: '{TFluent}'
@@ -108,14 +91,10 @@ items:
     - id: TFluent
       description: The type of the input pipeline
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function WithFluent(Of TFluent As IAggregateFluent(Of T))(fluentPipeline As TFluent) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.WithFluent*
   nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
   name.vb: WithFluent(Of TFluent)(TFluent)
 - uid: MongoDB.Entities.PagedSearch`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
@@ -125,35 +104,27 @@ items:
   langs:
   - csharp
   - vb
-  name: Match(Expression<Func<T, Boolean>>)
-  nameWithType: PagedSearch<T, TProjection>.Match(Expression<Func<T, Boolean>>)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  name: Match(Expression<Func<T, bool>>)
+  nameWithType: PagedSearch<T, TProjection>.Match(Expression<Func<T, bool>>)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, bool>>)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 69
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a lambda expression\n"
+  summary: Specify the matching criteria with a lambda expression
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Match(Expression<Func<T, bool>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
-      description: x => x.Property == Value
+      description: x =&gt; x.Property == Value
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, Boolean)))
   name.vb: Match(Expression(Of Func(Of T, Boolean)))
 - uid: MongoDB.Entities.PagedSearch`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
   commentId: M:MongoDB.Entities.PagedSearch`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -166,30 +137,22 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 78
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a filter expression\n"
+  summary: Specify the matching criteria with a filter expression
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     parameters:
     - id: filter
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
-      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+      description: f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
 - uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})
@@ -203,14 +166,10 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Match(FilterDefinition<T>)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 88
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a filter definition\n"
+  summary: Specify the matching criteria with a filter definition
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Match(FilterDefinition<T> filterDefinition)
@@ -219,14 +178,10 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(FilterDefinition(Of T))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
   name.vb: Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Template)
@@ -240,14 +195,10 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Match(Template)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(MongoDB.Entities.Template)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a template\n"
+  summary: Specify the matching criteria with a template
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Match(Template template)
@@ -256,14 +207,10 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Match(template As Template) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Template)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(MongoDB.Entities.Template)
 - uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   commentId: M:MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
@@ -272,21 +219,20 @@ items:
   langs:
   - csharp
   - vb
-  name: Match(Search, String, Boolean, Boolean, String)
-  nameWithType: PagedSearch<T, TProjection>.Match(Search, String, Boolean, Boolean, String)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  name: Match(Search, string, bool, bool, string?)
+  nameWithType: PagedSearch<T, TProjection>.Match(Search, string, bool, bool, string?)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(MongoDB.Entities.Search, string, bool, bool, string?)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 113
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify a search term to find results from the text index of this particular collection.\n<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>\n"
+  summary: >-
+    Specify a search term to find results from the text index of this particular collection.
+
+    <p>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</p>
   example: []
   syntax:
-    content: public PagedSearch<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    content: public PagedSearch<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     parameters:
     - id: searchType
       type: MongoDB.Entities.Search
@@ -304,15 +250,12 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(MongoDB.Entities.Search, String, Boolean, Boolean, String)
+  name.vb: Match(Search, String, Boolean, Boolean, String)
 - uid: MongoDB.Entities.PagedSearch`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   commentId: M:MongoDB.Entities.PagedSearch`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
@@ -320,21 +263,22 @@ items:
   langs:
   - csharp
   - vb
-  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  nameWithType: PagedSearch<T, TProjection>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  name: Match(Expression<Func<T, object?>>, Coordinates2D, double?, double?)
+  nameWithType: PagedSearch<T, TProjection>.Match(Expression<Func<T, object?>>, Coordinates2D, double?, double?)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, object?>>, MongoDB.Entities.Coordinates2D, double?, double?)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 143
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
+  summary: >-
+    Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
+
+    <p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</p>
+
+    <p>Note: DB.FluentGeoNear() supports more advanced options</p>
   example: []
   syntax:
-    content: public PagedSearch<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    content: public PagedSearch<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     parameters:
     - id: coordinatesProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
@@ -349,16 +293,12 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
-  nameWithType.vb: PagedSearch(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
-  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  nameWithType.vb: PagedSearch(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Double?, Double?)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.Coordinates2D, Double?, Double?)
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Double?, Double?)
 - uid: MongoDB.Entities.PagedSearch`2.MatchString(System.String)
   commentId: M:MongoDB.Entities.PagedSearch`2.MatchString(System.String)
   id: MatchString(System.String)
@@ -366,35 +306,28 @@ items:
   langs:
   - csharp
   - vb
-  name: MatchString(String)
-  nameWithType: PagedSearch<T, TProjection>.MatchString(String)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchString(System.String)
+  name: MatchString(string)
+  nameWithType: PagedSearch<T, TProjection>.MatchString(string)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchString(string)
   type: Method
-  source:
-    id: MatchString
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 152
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a JSON string\n"
+  summary: Specify the matching criteria with a JSON string
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> MatchString(string jsonString)
     parameters:
     - id: jsonString
       type: System.String
-      description: '{ Title : &apos;The Power Of Now&apos; }'
+      description: "{ Title : 'The Power Of Now' }"
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function MatchString(jsonString As String) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.MatchString*
   nameWithType.vb: PagedSearch(Of T, TProjection).MatchString(String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchString(System.String)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchString(String)
+  name.vb: MatchString(String)
 - uid: MongoDB.Entities.PagedSearch`2.MatchExpression(System.String)
   commentId: M:MongoDB.Entities.PagedSearch`2.MatchExpression(System.String)
   id: MatchExpression(System.String)
@@ -402,35 +335,28 @@ items:
   langs:
   - csharp
   - vb
-  name: MatchExpression(String)
-  nameWithType: PagedSearch<T, TProjection>.MatchExpression(String)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchExpression(System.String)
+  name: MatchExpression(string)
+  nameWithType: PagedSearch<T, TProjection>.MatchExpression(string)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchExpression(string)
   type: Method
-  source:
-    id: MatchExpression
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 162
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with an aggregation expression (i.e. $expr)\n"
+  summary: Specify the matching criteria with an aggregation expression (i.e. $expr)
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> MatchExpression(string expression)
     parameters:
     - id: expression
       type: System.String
-      description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
+      description: "{ $gt: ['$Property1', '$Property2'] }"
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function MatchExpression(expression As String) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.MatchExpression*
   nameWithType.vb: PagedSearch(Of T, TProjection).MatchExpression(String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchExpression(System.String)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchExpression(String)
+  name.vb: MatchExpression(String)
 - uid: MongoDB.Entities.PagedSearch`2.MatchExpression(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.PagedSearch`2.MatchExpression(MongoDB.Entities.Template)
   id: MatchExpression(MongoDB.Entities.Template)
@@ -442,14 +368,10 @@ items:
   nameWithType: PagedSearch<T, TProjection>.MatchExpression(Template)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchExpression(MongoDB.Entities.Template)
   type: Method
-  source:
-    id: MatchExpression
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 172
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a Template\n"
+  summary: Specify the matching criteria with a Template
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> MatchExpression(Template template)
@@ -458,14 +380,10 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function MatchExpression(template As Template) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.MatchExpression*
   nameWithType.vb: PagedSearch(Of T, TProjection).MatchExpression(Template)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchExpression(MongoDB.Entities.Template)
 - uid: MongoDB.Entities.PagedSearch`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)
   commentId: M:MongoDB.Entities.PagedSearch`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)
@@ -474,38 +392,30 @@ items:
   langs:
   - csharp
   - vb
-  name: Sort(Expression<Func<T, Object>>, Order)
-  nameWithType: PagedSearch<T, TProjection>.Sort(Expression<Func<T, Object>>, Order)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Sort(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Order)
+  name: Sort(Expression<Func<T, object?>>, Order)
+  nameWithType: PagedSearch<T, TProjection>.Sort(Expression<Func<T, object?>>, Order)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Sort(System.Linq.Expressions.Expression<System.Func<T, object?>>, MongoDB.Entities.Order)
   type: Method
-  source:
-    id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 183
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify which property and order to use for sorting (use multiple times if needed)\n"
+  summary: Specify which property and order to use for sorting (use multiple times if needed)
   example: []
   syntax:
-    content: public PagedSearch<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
+    content: public PagedSearch<T, TProjection> Sort(Expression<Func<T, object?>> propertyToSortBy, Order sortOrder)
     parameters:
     - id: propertyToSortBy
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.Prop
+      description: x =&gt; x.Prop
     - id: sortOrder
       type: MongoDB.Entities.Order
       description: The sort order
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Sort(propertyToSortBy As Expression(Of Func(Of T, Object)), sortOrder As Order) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Sort*
   nameWithType.vb: PagedSearch(Of T, TProjection).Sort(Expression(Of Func(Of T, Object)), Order)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Sort(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Order)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Sort(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.Order)
   name.vb: Sort(Expression(Of Func(Of T, Object)), Order)
 - uid: MongoDB.Entities.PagedSearch`2.SortByTextScore
   commentId: M:MongoDB.Entities.PagedSearch`2.SortByTextScore
@@ -518,26 +428,21 @@ items:
   nameWithType: PagedSearch<T, TProjection>.SortByTextScore()
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.SortByTextScore()
   type: Method
-  source:
-    id: SortByTextScore
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 197
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSort the results of a text search by the MetaTextScore\n<p>TIP: Use this method after .Project() if you need to do a projection also</p>\n"
+  summary: >-
+    Sort the results of a text search by the MetaTextScore
+
+    <p>TIP: Use this method after .Project() if you need to do a projection also</p>
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> SortByTextScore()
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
-    content.vb: Public Function SortByTextScore As PagedSearch(Of T, TProjection)
+      type: MongoDB.Entities.PagedSearch`2
+    content.vb: Public Function SortByTextScore() As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.SortByTextScore*
   nameWithType.vb: PagedSearch(Of T, TProjection).SortByTextScore()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).SortByTextScore()
 - uid: MongoDB.Entities.PagedSearch`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   commentId: M:MongoDB.Entities.PagedSearch`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
@@ -546,35 +451,30 @@ items:
   langs:
   - csharp
   - vb
-  name: SortByTextScore(Expression<Func<T, Object>>)
-  nameWithType: PagedSearch<T, TProjection>.SortByTextScore(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.SortByTextScore(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: SortByTextScore(Expression<Func<T, object?>>?)
+  nameWithType: PagedSearch<T, TProjection>.SortByTextScore(Expression<Func<T, object?>>?)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.SortByTextScore(System.Linq.Expressions.Expression<System.Func<T, object?>>?)
   type: Method
-  source:
-    id: SortByTextScore
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 207
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSort the results of a text search by the MetaTextScore and get back the score as well\n<p>TIP: Use this method after .Project() if you need to do a projection also</p>\n"
+  summary: >-
+    Sort the results of a text search by the MetaTextScore and get back the score as well
+
+    <p>TIP: Use this method after .Project() if you need to do a projection also</p>
   example: []
   syntax:
-    content: public PagedSearch<T, TProjection> SortByTextScore(Expression<Func<T, object>> scoreProperty)
+    content: public PagedSearch<T, TProjection> SortByTextScore(Expression<Func<T, object?>>? scoreProperty)
     parameters:
     - id: scoreProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.TextScoreProp
+      description: x =&gt; x.TextScoreProp
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function SortByTextScore(scoreProperty As Expression(Of Func(Of T, Object))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.SortByTextScore*
   nameWithType.vb: PagedSearch(Of T, TProjection).SortByTextScore(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).SortByTextScore(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).SortByTextScore(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: SortByTextScore(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.PagedSearch`2.Sort(System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}})
   commentId: M:MongoDB.Entities.PagedSearch`2.Sort(System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}})
@@ -587,30 +487,22 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>>)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Sort(System.Func<MongoDB.Driver.SortDefinitionBuilder<T>, MongoDB.Driver.SortDefinition<T>>)
   type: Method
-  source:
-    id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 243
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to sort using a sort expression\n"
+  summary: Specify how to sort using a sort expression
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>> sortFunction)
     parameters:
     - id: sortFunction
       type: System.Func{MongoDB.Driver.SortDefinitionBuilder{{T}},MongoDB.Driver.SortDefinition{{T}}}
-      description: s => s.Ascending(&quot;Prop1&quot;).MetaTextScore(&quot;Prop2&quot;)
+      description: s =&gt; s.Ascending("Prop1").MetaTextScore("Prop2")
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Sort(sortFunction As Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Sort*
   nameWithType.vb: PagedSearch(Of T, TProjection).Sort(Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Sort(System.Func(Of MongoDB.Driver.SortDefinitionBuilder(Of T), MongoDB.Driver.SortDefinition(Of T)))
   name.vb: Sort(Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T)))
 - uid: MongoDB.Entities.PagedSearch`2.PageNumber(System.Int32)
@@ -620,18 +512,14 @@ items:
   langs:
   - csharp
   - vb
-  name: PageNumber(Int32)
-  nameWithType: PagedSearch<T, TProjection>.PageNumber(Int32)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.PageNumber(System.Int32)
+  name: PageNumber(int)
+  nameWithType: PagedSearch<T, TProjection>.PageNumber(int)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.PageNumber(int)
   type: Method
-  source:
-    id: PageNumber
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 253
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the page number to get\n"
+  summary: Specify the page number to get
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> PageNumber(int pageNumber)
@@ -640,15 +528,12 @@ items:
       type: System.Int32
       description: The page number
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function PageNumber(pageNumber As Integer) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.PageNumber*
-  nameWithType.vb: PagedSearch(Of T, TProjection).PageNumber(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).PageNumber(System.Int32)
+  nameWithType.vb: PagedSearch(Of T, TProjection).PageNumber(Integer)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).PageNumber(Integer)
+  name.vb: PageNumber(Integer)
 - uid: MongoDB.Entities.PagedSearch`2.PageSize(System.Int32)
   commentId: M:MongoDB.Entities.PagedSearch`2.PageSize(System.Int32)
   id: PageSize(System.Int32)
@@ -656,18 +541,14 @@ items:
   langs:
   - csharp
   - vb
-  name: PageSize(Int32)
-  nameWithType: PagedSearch<T, TProjection>.PageSize(Int32)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.PageSize(System.Int32)
+  name: PageSize(int)
+  nameWithType: PagedSearch<T, TProjection>.PageSize(int)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.PageSize(int)
   type: Method
-  source:
-    id: PageSize
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 263
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the number of items per page\n"
+  summary: Specify the number of items per page
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> PageSize(int pageSize)
@@ -676,15 +557,12 @@ items:
       type: System.Int32
       description: The size of a page
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function PageSize(pageSize As Integer) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.PageSize*
-  nameWithType.vb: PagedSearch(Of T, TProjection).PageSize(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).PageSize(System.Int32)
+  nameWithType.vb: PagedSearch(Of T, TProjection).PageSize(Integer)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).PageSize(Integer)
+  name.vb: PageSize(Integer)
 - uid: MongoDB.Entities.PagedSearch`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
   commentId: M:MongoDB.Entities.PagedSearch`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
   id: Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
@@ -696,30 +574,22 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Project(Expression<Func<T, TProjection>>)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Project(System.Linq.Expressions.Expression<System.Func<T, TProjection>>)
   type: Method
-  source:
-    id: Project
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 273
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to project the results using a lambda expression\n"
+  summary: Specify how to project the results using a lambda expression
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
-      description: x => new Test { PropName = x.Prop }
+      description: x =&gt; new Test { PropName = x.Prop }
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Project(expression As Expression(Of Func(Of T, TProjection))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Project*
   nameWithType.vb: PagedSearch(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Project(System.Linq.Expressions.Expression(Of System.Func(Of T, TProjection)))
   name.vb: Project(Expression(Of Func(Of T, TProjection)))
 - uid: MongoDB.Entities.PagedSearch`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
@@ -733,30 +603,22 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Project(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>)
   type: Method
-  source:
-    id: Project
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 283
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to project the results using a projection expression\n"
+  summary: Specify how to project the results using a projection expression
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     parameters:
     - id: projection
       type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
-      description: p => p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
+      description: p =&gt; p.Include("Prop1").Exclude("Prop2")
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function Project(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Project*
   nameWithType.vb: PagedSearch(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection)))
   name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
 - uid: MongoDB.Entities.PagedSearch`2.ProjectExcluding(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
@@ -766,35 +628,27 @@ items:
   langs:
   - csharp
   - vb
-  name: ProjectExcluding(Expression<Func<T, Object>>)
-  nameWithType: PagedSearch<T, TProjection>.ProjectExcluding(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.ProjectExcluding(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: ProjectExcluding(Expression<Func<T, object?>>)
+  nameWithType: PagedSearch<T, TProjection>.ProjectExcluding(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.ProjectExcluding(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: ProjectExcluding
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 293
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to project the results using an exclusion projection expression.\n"
+  summary: Specify how to project the results using an exclusion projection expression.
   example: []
   syntax:
-    content: public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
+    content: public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object?>> exclusion)
     parameters:
     - id: exclusion
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => new { x.PropToExclude, x.AnotherPropToExclude }
+      description: x =&gt; new { x.PropToExclude, x.AnotherPropToExclude }
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+      type: MongoDB.Entities.PagedSearch`2
     content.vb: Public Function ProjectExcluding(exclusion As Expression(Of Func(Of T, Object))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.ProjectExcluding*
   nameWithType.vb: PagedSearch(Of T, TProjection).ProjectExcluding(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).ProjectExcluding(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).ProjectExcluding(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: ProjectExcluding(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.PagedSearch`2.Option(System.Action{MongoDB.Driver.AggregateOptions})
   commentId: M:MongoDB.Entities.PagedSearch`2.Option(System.Action{MongoDB.Driver.AggregateOptions})
@@ -807,30 +661,22 @@ items:
   nameWithType: PagedSearch<T, TProjection>.Option(Action<AggregateOptions>)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Option(System.Action<MongoDB.Driver.AggregateOptions>)
   type: Method
-  source:
-    id: Option
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 317
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify an option for this find command (use multiple times if needed)\n"
+  summary: Specify an option for this find command (use multiple times if needed)
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> Option(Action<AggregateOptions> option)
     parameters:
     - id: option
       type: System.Action{MongoDB.Driver.AggregateOptions}
-      description: x => x.OptionName = OptionValue
+      description: x =&gt; x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
-    content.vb: Public Function Option(option As Action(Of AggregateOptions)) As PagedSearch(Of T, TProjection)
+      type: MongoDB.Entities.PagedSearch`2
+    content.vb: Public Function [Option]([option] As Action(Of AggregateOptions)) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Option*
   nameWithType.vb: PagedSearch(Of T, TProjection).Option(Action(Of AggregateOptions))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Option(System.Action(Of MongoDB.Driver.AggregateOptions))
   name.vb: Option(Action(Of AggregateOptions))
 - uid: MongoDB.Entities.PagedSearch`2.IgnoreGlobalFilters
@@ -844,26 +690,18 @@ items:
   nameWithType: PagedSearch<T, TProjection>.IgnoreGlobalFilters()
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.IgnoreGlobalFilters()
   type: Method
-  source:
-    id: IgnoreGlobalFilters
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 326
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify that this operation should ignore any global filters\n"
+  summary: Specify that this operation should ignore any global filters
   example: []
   syntax:
     content: public PagedSearch<T, TProjection> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
-    content.vb: Public Function IgnoreGlobalFilters As PagedSearch(Of T, TProjection)
+      type: MongoDB.Entities.PagedSearch`2
+    content.vb: Public Function IgnoreGlobalFilters() As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.IgnoreGlobalFilters*
   nameWithType.vb: PagedSearch(Of T, TProjection).IgnoreGlobalFilters()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).IgnoreGlobalFilters()
 - uid: MongoDB.Entities.PagedSearch`2.ExecuteAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.PagedSearch`2.ExecuteAsync(System.Threading.CancellationToken)
@@ -876,332 +714,286 @@ items:
   nameWithType: PagedSearch<T, TProjection>.ExecuteAsync(CancellationToken)
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.ExecuteAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ExecuteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 336
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the aggregation search command in MongoDB server and get a page of results and total + page count\n"
+  summary: Run the aggregation search command in MongoDB server and get a page of results and total + page count
   example: []
   syntax:
-    content: public async Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)> ExecuteAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
     return:
       type: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int64,System.Int32}}
-    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of(Results As IReadOnlyList(Of TProjection), TotalCount As Long, PageCount As Integer)(Of IReadOnlyList(Of TProjection), Long, Integer)
+    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of (Results As IReadOnlyList(Of TProjection), TotalCount As Long, PageCount As Integer))
   overload: MongoDB.Entities.PagedSearch`2.ExecuteAsync*
   nameWithType.vb: PagedSearch(Of T, TProjection).ExecuteAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).ExecuteAsync(System.Threading.CancellationToken)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: MongoDB.Entities.PagedSearch`2.WithFluent*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.WithFluent
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_WithFluent__1___0_
   name: WithFluent
   nameWithType: PagedSearch<T, TProjection>.WithFluent
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent
@@ -1213,10 +1005,10 @@ references:
   name: TFluent
   nameWithType: TFluent
   fullName: TFluent
-- uid: MongoDB.Entities.PagedSearch{{T},{TProjection}}
-  commentId: T:MongoDB.Entities.PagedSearch{`0,`1}
+- uid: MongoDB.Entities.PagedSearch`2
+  commentId: T:MongoDB.Entities.PagedSearch`2
   parent: MongoDB.Entities
-  definition: MongoDB.Entities.PagedSearch`2
+  href: MongoDB.Entities.PagedSearch-2.html
   name: PagedSearch<T, TProjection>
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>
@@ -1226,98 +1018,33 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.PagedSearch`2
     name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
+    href: MongoDB.Entities.PagedSearch-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.PagedSearch`2
     name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.PagedSearch-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: TFluent
   commentId: '!:TFluent'
   name: TFluent
   nameWithType: TFluent
   fullName: TFluent
-- uid: MongoDB.Entities.PagedSearch`2
-  commentId: T:MongoDB.Entities.PagedSearch`2
-  name: PagedSearch<T, TProjection>
-  nameWithType: PagedSearch<T, TProjection>
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
-  nameWithType.vb: PagedSearch(Of T, TProjection)
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
-  name.vb: PagedSearch(Of T, TProjection)
-  spec.csharp:
-  - uid: MongoDB.Entities.PagedSearch`2
-    name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.PagedSearch`2
-    name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2.Match*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.Match
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___
   name: Match
   nameWithType: PagedSearch<T, TProjection>.Match
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match
@@ -1327,83 +1054,61 @@ references:
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Boolean>>
-  nameWithType: Expression<Func<T, Boolean>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<T, bool>>
+  nameWithType: Expression<Func<T, bool>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, bool>>
   nameWithType.vb: Expression(Of Func(Of T, Boolean))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, Boolean))
   name.vb: Expression(Of Func(Of T, Boolean))
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
+    name: bool
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Boolean
     name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions.Expression`1
   commentId: T:System.Linq.Expressions.Expression`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   name: Expression<TDelegate>
   nameWithType: Expression<TDelegate>
   fullName: System.Linq.Expressions.Expression<TDelegate>
@@ -1413,43 +1118,63 @@ references:
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions
   commentId: N:System.Linq.Expressions
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
 - uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
   commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}}
   parent: System
   definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
   nameWithType: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
   fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>
@@ -1459,92 +1184,55 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
-    nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
-    nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Func`2
   commentId: T:System.Func`2
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<T, TResult>
   nameWithType: Func<T, TResult>
   fullName: System.Func<T, TResult>
@@ -1554,45 +1242,27 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Driver.FilterDefinition{{T}}
   commentId: T:MongoDB.Driver.FilterDefinition{`0}
   parent: MongoDB.Driver
@@ -1606,33 +1276,19 @@ references:
   spec.csharp:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Driver.FilterDefinition`1
   commentId: T:MongoDB.Driver.FilterDefinition`1
   isExternal: true
@@ -1645,48 +1301,52 @@ references:
   spec.csharp:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TDocument
-    nameWithType: TDocument
-    fullName: TDocument
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: TDocument
-    nameWithType: TDocument
-    fullName: TDocument
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Driver
   commentId: N:MongoDB.Driver
   isExternal: true
   name: MongoDB.Driver
   nameWithType: MongoDB.Driver
   fullName: MongoDB.Driver
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Driver
+    name: Driver
+    isExternal: true
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Driver
+    name: Driver
+    isExternal: true
 - uid: MongoDB.Entities.Template
   commentId: T:MongoDB.Entities.Template
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Template.html
   name: Template
   nameWithType: Template
   fullName: MongoDB.Entities.Template
 - uid: MongoDB.Entities.Search
   commentId: T:MongoDB.Entities.Search
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Search.html
   name: Search
   nameWithType: Search
   fullName: MongoDB.Entities.Search
@@ -1694,97 +1354,83 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Object>>
-  nameWithType: Expression<Func<T, Object>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<T, object>>
+  nameWithType: Expression<Func<T, object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, object>>
   nameWithType.vb: Expression(Of Func(Of T, Object))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, Object))
   name.vb: Expression(Of Func(Of T, Object))
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Coordinates2D
   commentId: T:MongoDB.Entities.Coordinates2D
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Coordinates2D.html
   name: Coordinates2D
   nameWithType: Coordinates2D
   fullName: MongoDB.Entities.Coordinates2D
@@ -1792,49 +1438,29 @@ references:
   commentId: T:System.Nullable{System.Double}
   parent: System
   definition: System.Nullable`1
-  name: Nullable<Double>
-  nameWithType: Nullable<Double>
-  fullName: System.Nullable<System.Double>
-  nameWithType.vb: Nullable(Of Double)
-  fullName.vb: System.Nullable(Of System.Double)
-  name.vb: Nullable(Of Double)
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double?
+  nameWithType: double?
+  fullName: double?
+  nameWithType.vb: Double?
+  fullName.vb: Double?
+  name.vb: Double?
   spec.csharp:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Double
-    name: Double
-    nameWithType: Double
-    fullName: System.Double
+    name: double
     isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
   spec.vb:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
   - uid: System.Double
     name: Double
-    nameWithType: Double
-    fullName: System.Double
     isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
 - uid: System.Nullable`1
   commentId: T:System.Nullable`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
   name: Nullable<T>
   nameWithType: Nullable<T>
   fullName: System.Nullable<T>
@@ -1844,35 +1470,24 @@ references:
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Nullable`1
     name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2.MatchString*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.MatchString
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_MatchString_System_String_
   name: MatchString
   nameWithType: PagedSearch<T, TProjection>.MatchString
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchString
@@ -1880,6 +1495,7 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchString
 - uid: MongoDB.Entities.PagedSearch`2.MatchExpression*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.MatchExpression
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_MatchExpression_System_String_
   name: MatchExpression
   nameWithType: PagedSearch<T, TProjection>.MatchExpression
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.MatchExpression
@@ -1887,6 +1503,7 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).MatchExpression
 - uid: MongoDB.Entities.PagedSearch`2.Sort*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.Sort
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_Sort_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Order_
   name: Sort
   nameWithType: PagedSearch<T, TProjection>.Sort
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Sort
@@ -1895,11 +1512,13 @@ references:
 - uid: MongoDB.Entities.Order
   commentId: T:MongoDB.Entities.Order
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Order.html
   name: Order
   nameWithType: Order
   fullName: MongoDB.Entities.Order
 - uid: MongoDB.Entities.PagedSearch`2.SortByTextScore*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.SortByTextScore
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_SortByTextScore
   name: SortByTextScore
   nameWithType: PagedSearch<T, TProjection>.SortByTextScore
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.SortByTextScore
@@ -1909,6 +1528,7 @@ references:
   commentId: T:System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}}
   parent: System
   definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<SortDefinitionBuilder<T>, SortDefinition<T>>
   nameWithType: Func<SortDefinitionBuilder<T>, SortDefinition<T>>
   fullName: System.Func<MongoDB.Driver.SortDefinitionBuilder<T>, MongoDB.Driver.SortDefinition<T>>
@@ -1918,91 +1538,54 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.SortDefinitionBuilder`1
     name: SortDefinitionBuilder
-    nameWithType: SortDefinitionBuilder
-    fullName: MongoDB.Driver.SortDefinitionBuilder
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.SortDefinition`1
     name: SortDefinition
-    nameWithType: SortDefinition
-    fullName: MongoDB.Driver.SortDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.SortDefinitionBuilder`1
     name: SortDefinitionBuilder
-    nameWithType: SortDefinitionBuilder
-    fullName: MongoDB.Driver.SortDefinitionBuilder
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.SortDefinition`1
     name: SortDefinition
-    nameWithType: SortDefinition
-    fullName: MongoDB.Driver.SortDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2.PageNumber*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.PageNumber
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_PageNumber_System_Int32_
   name: PageNumber
   nameWithType: PagedSearch<T, TProjection>.PageNumber
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.PageNumber
@@ -2012,11 +1595,16 @@ references:
   commentId: T:System.Int32
   parent: System
   isExternal: true
-  name: Int32
-  nameWithType: Int32
-  fullName: System.Int32
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: MongoDB.Entities.PagedSearch`2.PageSize*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.PageSize
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_PageSize_System_Int32_
   name: PageSize
   nameWithType: PagedSearch<T, TProjection>.PageSize
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.PageSize
@@ -2024,6 +1612,7 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).PageSize
 - uid: MongoDB.Entities.PagedSearch`2.Project*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.Project
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___
   name: Project
   nameWithType: PagedSearch<T, TProjection>.Project
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Project
@@ -2033,6 +1622,7 @@ references:
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,`1}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   name: Expression<Func<T, TProjection>>
   nameWithType: Expression<Func<T, TProjection>>
   fullName: System.Linq.Expressions.Expression<System.Func<T, TProjection>>
@@ -2042,71 +1632,46 @@ references:
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
   commentId: T:System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}}
   parent: System
   definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>
   nameWithType: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>
   fullName: System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>
@@ -2116,103 +1681,60 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
-    nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.ProjectionDefinition`2
     name: ProjectionDefinition
-    nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
-    nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.ProjectionDefinition`2
     name: ProjectionDefinition
-    nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2.ProjectExcluding*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.ProjectExcluding
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_ProjectExcluding_System_Linq_Expressions_Expression_System_Func__0_System_Object___
   name: ProjectExcluding
   nameWithType: PagedSearch<T, TProjection>.ProjectExcluding
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.ProjectExcluding
@@ -2220,6 +1742,7 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).ProjectExcluding
 - uid: MongoDB.Entities.PagedSearch`2.Option*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.Option
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_Option_System_Action_MongoDB_Driver_AggregateOptions__
   name: Option
   nameWithType: PagedSearch<T, TProjection>.Option
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Option
@@ -2229,6 +1752,7 @@ references:
   commentId: T:System.Action{MongoDB.Driver.AggregateOptions}
   parent: System
   definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
   name: Action<AggregateOptions>
   nameWithType: Action<AggregateOptions>
   fullName: System.Action<MongoDB.Driver.AggregateOptions>
@@ -2238,40 +1762,29 @@ references:
   spec.csharp:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.AggregateOptions
     name: AggregateOptions
-    nameWithType: AggregateOptions
-    fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.AggregateOptions
     name: AggregateOptions
-    nameWithType: AggregateOptions
-    fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Action`1
   commentId: T:System.Action`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
   name: Action<T>
   nameWithType: Action<T>
   fullName: System.Action<T>
@@ -2281,35 +1794,24 @@ references:
   spec.csharp:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2.IgnoreGlobalFilters*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.IgnoreGlobalFilters
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_IgnoreGlobalFilters
   name: IgnoreGlobalFilters
   nameWithType: PagedSearch<T, TProjection>.IgnoreGlobalFilters
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.IgnoreGlobalFilters
@@ -2317,6 +1819,7 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).IgnoreGlobalFilters
 - uid: MongoDB.Entities.PagedSearch`2.ExecuteAsync*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.ExecuteAsync
+  href: MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_ExecuteAsync_System_Threading_CancellationToken_
   name: ExecuteAsync
   nameWithType: PagedSearch<T, TProjection>.ExecuteAsync
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>.ExecuteAsync
@@ -2326,6 +1829,7 @@ references:
   commentId: T:System.Threading.CancellationToken
   parent: System.Threading
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
   name: CancellationToken
   nameWithType: CancellationToken
   fullName: System.Threading.CancellationToken
@@ -2333,127 +1837,134 @@ references:
   commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
-  name: Task<(T1 Item1, T2 Item2, T3 Item3)<IReadOnlyList<TProjection>, Int64, Int32>>
-  nameWithType: Task<(T1 Item1, T2 Item2, T3 Item3)<IReadOnlyList<TProjection>, Int64, Int32>>
-  fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.IReadOnlyList<TProjection>, System.Int64, System.Int32>>
-  nameWithType.vb: Task(Of (Item1 As T1, Item2 As T2, Item3 As T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
-  fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.IReadOnlyList(Of TProjection), System.Int64, System.Int32))
-  name.vb: Task(Of (Item1 As T1, Item2 As T2, Item3 As T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)>
+  nameWithType: Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)>
+  fullName: System.Threading.Tasks.Task<(System.Collections.Generic.IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)>
+  nameWithType.vb: Task(Of (Results As IReadOnlyList(Of TProjection), TotalCount As Long, PageCount As Integer))
+  fullName.vb: System.Threading.Tasks.Task(Of (Results As System.Collections.Generic.IReadOnlyList(Of TProjection), TotalCount As Long, PageCount As Integer))
+  name.vb: Task(Of (Results As IReadOnlyList(Of TProjection), TotalCount As Long, PageCount As Integer))
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.ValueTuple`3
-    name: (T1 Item1, T2 Item2, T3 Item3)
-    nameWithType: (T1 Item1, T2 Item2, T3 Item3)
-    fullName: System.ValueTuple
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
+  - name: (
   - uid: System.Collections.Generic.IReadOnlyList`1
     name: IReadOnlyList
-    nameWithType: IReadOnlyList
-    fullName: System.Collections.Generic.IReadOnlyList
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: " "
+  - uid: System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}.Results
+    name: Results
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.collections.generic.ireadonlylist--1-,system.int64,system.int32-.results
+  - name: ','
+  - name: " "
   - uid: System.Int64
-    name: Int64
-    nameWithType: Int64
-    fullName: System.Int64
+    name: long
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.int64
+  - name: " "
+  - uid: System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}.TotalCount
+    name: TotalCount
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.collections.generic.ireadonlylist--1-,system.int64,system.int32-.totalcount
+  - name: ','
+  - name: " "
   - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
+    name: int
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}.PageCount
+    name: PageCount
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.collections.generic.ireadonlylist--1-,system.int64,system.int32-.pagecount
+  - name: )
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.ValueTuple`3
-    name: (Item1 As T1, Item2 As T2, Item3 As T3)
-    nameWithType: (Item1 As T1, Item2 As T2, Item3 As T3)
-    fullName: System.ValueTuple
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: (
+  - uid: System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}.Results
+    name: Results
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.collections.generic.ireadonlylist--1-,system.int64,system.int32-.results
+  - name: " "
+  - name: As
+  - name: " "
   - uid: System.Collections.Generic.IReadOnlyList`1
     name: IReadOnlyList
-    nameWithType: IReadOnlyList
-    fullName: System.Collections.Generic.IReadOnlyList
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}.TotalCount
+    name: TotalCount
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.collections.generic.ireadonlylist--1-,system.int64,system.int32-.totalcount
+  - name: " "
+  - name: As
+  - name: " "
   - uid: System.Int64
-    name: Int64
-    nameWithType: Int64
-    fullName: System.Int64
+    name: Long
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.int64
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}.PageCount
+    name: PageCount
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.collections.generic.ireadonlylist--1-,system.int64,system.int32-.pagecount
+  - name: " "
+  - name: As
+  - name: " "
   - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
+    name: Integer
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading
   commentId: N:System.Threading
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading
   nameWithType: System.Threading
   fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<TResult>
   nameWithType: Task<TResult>
   fullName: System.Threading.Tasks.Task<TResult>
@@ -2463,36 +1974,55 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Get distinct values of a property | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Get distinct values of a property | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Get distinct values of a property | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Get distinct values of a property | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -98,18 +83,18 @@
 <p><code>T</code> is the type of entity you want to query.
 <code>TProperty</code> is the type of the property whose unique values you want returned.</p>
 <h3 id="get-a-list-of-all-distinct-values">Get a list of all distinct values</h3>
-<pre><code class="lang-csharp">var genres = await DB.Distinct&lt;Book, string&gt;()
+<pre><code class="lang-csharp">var genres = await DB.Instance().Distinct&lt;Book, string&gt;()
                      .Property(b =&gt; b.Genre)
                      .ExecuteAsync();
 </code></pre>
 <p>use <code>.Property()</code> to specify the property you want to get the unique values of, and finally call the <code>.ExecuteAsync()</code> method.</p>
 <h3 id="get-distinct-values-for-a-subset-of-entities">Get distinct values for a subset of entities</h3>
-<pre><code class="lang-csharp">var genres = await DB.Distinct&lt;Book, string&gt;()
+<pre><code class="lang-csharp">var genres = await DB.Instance().Distinct&lt;Book, string&gt;()
                      .Property(b =&gt; b.Genre)
                      .Match(b =&gt; b.AuthorName == &quot;Eckhart Tolle&quot;)
                      .ExecuteAsync();
 </code></pre>
-<p>use <code>.Match()</code> to specify the filter criteria. There are other overloads similar to the <code>DB.Find().Match()</code> method which you can use to filter the data.
+<p>use <code>.Match()</code> to specify the filter criteria. There are other overloads similar to the <code>DB.Instance().Find().Match()</code> method which you can use to filter the data.
 you can also call <code>.Match()</code> multiple times to build an <code>And</code> filter.</p>
 
 </article>

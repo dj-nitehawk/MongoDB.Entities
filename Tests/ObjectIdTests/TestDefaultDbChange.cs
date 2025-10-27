@@ -43,11 +43,11 @@ public class DefaultDatabaseChangingObjectId
         await  DB.InitAsync("test1");
 
         var defaultDb = DB.Instance().Database();
-        var defaultDbName = DB.Instance().DatabaseName<AuthorObjectId>();
+        var defaultDbName = DB.Instance().DatabaseName();
 
          DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Instance().Database<BookObjectId>();
+        var bookDb = DB.Instance().Database();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

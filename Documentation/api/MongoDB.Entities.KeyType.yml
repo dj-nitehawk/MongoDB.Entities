@@ -19,22 +19,12 @@ items:
   nameWithType: KeyType
   fullName: MongoDB.Entities.KeyType
   type: Enum
-  source:
-    id: KeyType
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 165
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
     content: public enum KeyType
     content.vb: Public Enum KeyType
-  modifiers.csharp:
-  - public
-  - enum
-  modifiers.vb:
-  - Public
-  - Enum
 - uid: MongoDB.Entities.KeyType.Ascending
   commentId: F:MongoDB.Entities.KeyType.Ascending
   id: Ascending
@@ -46,10 +36,6 @@ items:
   nameWithType: KeyType.Ascending
   fullName: MongoDB.Entities.KeyType.Ascending
   type: Field
-  source:
-    id: Ascending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 167
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -57,12 +43,6 @@ items:
     content: Ascending = 0
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.KeyType.Descending
   commentId: F:MongoDB.Entities.KeyType.Descending
   id: Descending
@@ -74,10 +54,6 @@ items:
   nameWithType: KeyType.Descending
   fullName: MongoDB.Entities.KeyType.Descending
   type: Field
-  source:
-    id: Descending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 168
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -85,12 +61,6 @@ items:
     content: Descending = 1
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.KeyType.Geo2D
   commentId: F:MongoDB.Entities.KeyType.Geo2D
   id: Geo2D
@@ -102,10 +72,6 @@ items:
   nameWithType: KeyType.Geo2D
   fullName: MongoDB.Entities.KeyType.Geo2D
   type: Field
-  source:
-    id: Geo2D
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 169
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -113,12 +79,6 @@ items:
     content: Geo2D = 2
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.KeyType.Geo2DSphere
   commentId: F:MongoDB.Entities.KeyType.Geo2DSphere
   id: Geo2DSphere
@@ -130,10 +90,6 @@ items:
   nameWithType: KeyType.Geo2DSphere
   fullName: MongoDB.Entities.KeyType.Geo2DSphere
   type: Field
-  source:
-    id: Geo2DSphere
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 170
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -141,12 +97,6 @@ items:
     content: Geo2DSphere = 3
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.KeyType.Hashed
   commentId: F:MongoDB.Entities.KeyType.Hashed
   id: Hashed
@@ -158,10 +108,6 @@ items:
   nameWithType: KeyType.Hashed
   fullName: MongoDB.Entities.KeyType.Hashed
   type: Field
-  source:
-    id: Hashed
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 171
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -169,12 +115,6 @@ items:
     content: Hashed = 4
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.KeyType.Text
   commentId: F:MongoDB.Entities.KeyType.Text
   id: Text
@@ -186,10 +126,6 @@ items:
   nameWithType: KeyType.Text
   fullName: MongoDB.Entities.KeyType.Text
   type: Field
-  source:
-    id: Text
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 172
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -197,12 +133,6 @@ items:
     content: Text = 5
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.KeyType.Wildcard
   commentId: F:MongoDB.Entities.KeyType.Wildcard
   id: Wildcard
@@ -214,10 +144,6 @@ items:
   nameWithType: KeyType.Wildcard
   fullName: MongoDB.Entities.KeyType.Wildcard
   type: Field
-  source:
-    id: Wildcard
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 173
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -225,21 +151,33 @@ items:
     content: Wildcard = 6
     return:
       type: MongoDB.Entities.KeyType
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.KeyType
   commentId: T:MongoDB.Entities.KeyType
   parent: MongoDB.Entities
+  href: MongoDB.Entities.KeyType.html
   name: KeyType
   nameWithType: KeyType
   fullName: MongoDB.Entities.KeyType

@@ -43,11 +43,11 @@ public class DefaultDatabaseChangingInt64
         await  DB.InitAsync("test1");
 
         var defaultDb = DB.Instance().Database();
-        var defaultDbName = DB.Instance().DatabaseName<AuthorInt64>();
+        var defaultDbName = DB.Instance().DatabaseName();
 
          DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Instance().Database<BookInt64>();
+        var bookDb = DB.Instance().Database();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

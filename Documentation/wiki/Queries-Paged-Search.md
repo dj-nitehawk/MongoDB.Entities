@@ -4,7 +4,7 @@ paging in mongodb driver is typically achieved by running two separate db querie
 ## Example
 
 ```csharp
-var res = await DB.PagedSearch<Book>()
+var res = await DB.Instance().PagedSearch<Book>()
                   .Match(b => b.AuthorName == "Eckhart Tolle")
                   .Sort(b => b.Title, Order.Ascending)
                   .PageSize(10)
@@ -27,7 +27,7 @@ the result is a value tuple consisting of the `Results`,`TotalCount`,`PageCount`
 ## Project results to a different type
 if you'd like to change the shape of the returned entity list, use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
 ```csharp
-var res = await DB.PagedSearch<Book, BookListing>()
+var res = await DB.Instance().PagedSearch<Book, BookListing>()
                   .Sort(b => b.Title, Order.Ascending)
                   .Project(b => new BookListing
                   {
@@ -59,11 +59,11 @@ int totalPageCount = res.PageCount;
 you can add paged search to any [fluent pipeline](Queries-Pipelines.md). the difference is, instead of specifying the search criteria with `.Match()`, you start off by using the `.WithFluent()` method like so:
 
 ```csharp
-var pipeline = DB.Fluent<Author>()
+var pipeline = DB.Instance().Fluent<Author>()
                  .Match(a => a.Name == "Author")
                  .SortBy(a => a.Name);
 
-var res = await DB.PagedSearch<Author>()
+var res = await DB.Instance().PagedSearch<Author>()
                   .WithFluent(pipeline)
                   .Sort(a => a.Name, Order.Descending)
                   .PageNumber(1)
@@ -82,7 +82,7 @@ var res = await pipeline.PagedSearch()
 
 it's specially useful when you need to page children of a relationship like so:
 ```csharp
-var res = await DB.Entity<Author>("AuthorID")
+var res = await DB.Instance().Entity<Author>("AuthorID")
                   .Books
                   .ChildrenFluent()
                   .Match(b => b.Title.Contains("The"))

@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Index creation | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Index creation | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Index creation | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Index creation | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -101,7 +86,7 @@
 <p>you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes. if an index exists for the specified config, your commands will just be ignored by the server.</p>
 </div>
 <h2 id="text-indexes">Text indexes</h2>
-<pre><code class="lang-csharp">await DB.Index&lt;Author&gt;()
+<pre><code class="lang-csharp">await DB.Instance().Index&lt;Author&gt;()
         .Key(a =&gt; a.Name, KeyType.Text)
         .Key(a =&gt; a.Surname, KeyType.Text)
         .CreateAsync();
@@ -114,12 +99,12 @@
 </code></pre>
 <h2 id="full-text-search">Full-text search</h2>
 <p>you can do full text searches after defining a text index as described above with the following:</p>
-<pre><code class="lang-csharp">await DB.Find&lt;Book&gt;()
+<pre><code class="lang-csharp">await DB.Instance().Find&lt;Book&gt;()
         .Match(Search.Full, &quot;search term&quot;)
         .ExecuteAsync();
 </code></pre>
 <p>you can also start a fluent aggregation pipeline with a $text stage as follows:</p>
-<pre><code class="lang-csharp">DB.FluentTextSearch&lt;Book&gt;(Search.Full, &quot;search term&quot;)
+<pre><code class="lang-csharp">DB.Instance().FluentTextSearch&lt;Book&gt;(Search.Full, &quot;search term&quot;)
 </code></pre>
 <div class="TIP">
 <h5>Tip</h5>
@@ -127,7 +112,7 @@
 </div>
 <h2 id="fuzzy-text-search">Fuzzy-text search</h2>
 <p>in order to run a fuzzy text match, simply change the first parameter to <code>Search.Fuzzy</code> as shown here:</p>
-<pre><code class="lang-csharp">await DB.Find&lt;Book&gt;()
+<pre><code class="lang-csharp">await DB.Instance().Find&lt;Book&gt;()
         .Match(Search.Fuzzy, &quot;search term&quot;)
         .ExecuteAsync();
 </code></pre>
@@ -147,7 +132,7 @@
 </ul>
 <h2 id="indexing-options">Indexing options</h2>
 <p>To specify options for index creation, specify an action using the <code>.Option()</code> method before calling the <code>.CreateAsync()</code> method.</p>
-<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;()
+<pre><code class="lang-csharp">await DB.Instance().Index&lt;Book&gt;()
         .Key(x =&gt; x.Title, KeyType.Descending)
         .Option(o =&gt;
         {
@@ -158,16 +143,16 @@
 </code></pre>
 <h2 id="retrieve-the-name-of-created-index">Retrieve the name of created index</h2>
 <p>The <code>.CreateAsync()</code> method returns the name of the index that was created.</p>
-<pre><code class="lang-csharp">var name = await DB.Index&lt;Book&gt;()
+<pre><code class="lang-csharp">var name = await DB.Instance().Index&lt;Book&gt;()
                    .Key(x =&gt; x.Title, KeyType.Ascending)
                    .Key(x=&gt; x.Price, KeyType.Descending)
                    .CreateAsync();              
 </code></pre>
 <h2 id="delete-an-index-by-name">Delete an index by name</h2>
-<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;().DropAsync(name);
+<pre><code class="lang-csharp">await DB.Instance().Index&lt;Book&gt;().DropAsync(name);
 </code></pre>
 <h2 id="delete-all-indexes-for-an-entity-type">Delete all indexes for an entity type</h2>
-<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;().DropAllAsync();
+<pre><code class="lang-csharp">await DB.Instance().Index&lt;Book&gt;().DropAllAsync();
 </code></pre>
 
 </article>

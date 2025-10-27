@@ -6,6 +6,12 @@ call `SaveAsync()` on any entity to persist it to the database.
 var book = new Book { Title = "The Power Of Now" }; 
 await book.SaveAsync();
 ```
+call `SaveAsync(dbInstance)` on any entity to persist it to a specific database instance.
+
+```csharp
+var book = new Book { Title = "The Power Of Now" }; 
+await book.SaveAsync(dbInstance);
+```
 new entities are automatically assigned an `ID` when saved. saving an entity that has the `ID` already populated will *[replace](Schema-Changes.md)* the matching entity in the database if it exists. if an entity with that `ID` does not exist in the database, a new one will be created.
 
 # Save multiple entities
@@ -21,11 +27,17 @@ var books = new[] {
 await books.SaveAsync();
 ```
 
-# Save via DB static class
-you can also use the DB static class for saving entities like so:
+# Save via the default DB instance class
+you can also use the DB instance class for saving entities like so:
 ```csharp
-await DB.SaveAsync(book);
-await DB.SaveAsync(books);
+await DB.Instance().SaveAsync(book);
+await DB.Instance().SaveAsync(books);
+```
+# Save via a specific DB instance class
+you can also use the DB instance class for saving entities like so:
+```csharp
+await dbInstance.SaveAsync(book);
+await dbInstance.SaveAsync(books);
 ```
 
 # Save entities partially
@@ -66,8 +78,14 @@ even though inserts can be handled with the `.SaveAsync()` methods above, you ca
 await author.InsertAsync();
 await authors.InsertAsync();
 
+await author.InsertAsync(dbInstance);
+await authors.InsertAsync(dbInstance);
+
 await DB.InsertAsync(author);
 await DB.InsertAsync(authors);
+
+await dbInstance.InsertAsync(author);
+await dbInstance.InsertAsync(authors);
 ```
 
 # Embed an entity

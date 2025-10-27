@@ -12,15 +12,11 @@ items:
   nameWithType: AsyncEventHandler<TEventArgs>
   fullName: MongoDB.Entities.AsyncEventHandler<TEventArgs>
   type: Delegate
-  source:
-    id: AsyncEventHandler
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 12
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: public delegate Task AsyncEventHandler<TEventArgs>(TEventArgs args);
+    content: public delegate Task AsyncEventHandler<in TEventArgs>(TEventArgs args)
     parameters:
     - id: args
       type: '{TEventArgs}'
@@ -28,95 +24,132 @@ items:
     - id: TEventArgs
     return:
       type: System.Threading.Tasks.Task
-    content.vb: Public Delegate Function AsyncEventHandler(Of TEventArgs)(args As TEventArgs) As Task
+    content.vb: Public Delegate Function AsyncEventHandler(Of In TEventArgs)(args As TEventArgs) As Task
   extensionMethods:
   - MongoDB.Entities.AsyncEventHandler`1.MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1
   - MongoDB.Entities.AsyncEventHandler`1.MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1({TEventArgs})
   nameWithType.vb: AsyncEventHandler(Of TEventArgs)
-  modifiers.csharp:
-  - public
-  - delegate
-  modifiers.vb:
-  - Public
-  - Delegate
   fullName.vb: MongoDB.Entities.AsyncEventHandler(Of TEventArgs)
   name.vb: AsyncEventHandler(Of TEventArgs)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.AsyncEventHandler`1.MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1
   commentId: M:MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
   parent: MongoDB.Entities.AsyncEventHandlerExtensions
   definition: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
-  name: GetHandlers<TEventArgs>()
-  nameWithType: AsyncEventHandlerExtensions.GetHandlers<TEventArgs>()
-  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers<TEventArgs>()
-  nameWithType.vb: AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)()
-  fullName.vb: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)()
-  name.vb: GetHandlers(Of TEventArgs)()
+  href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
+  name: GetHandlers<TEventArgs>(AsyncEventHandler<TEventArgs>)
+  nameWithType: AsyncEventHandlerExtensions.GetHandlers<TEventArgs>(AsyncEventHandler<TEventArgs>)
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers<TEventArgs>(MongoDB.Entities.AsyncEventHandler<TEventArgs>)
+  nameWithType.vb: AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)(AsyncEventHandler(Of TEventArgs))
+  fullName.vb: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)(MongoDB.Entities.AsyncEventHandler(Of TEventArgs))
+  name.vb: GetHandlers(Of TEventArgs)(AsyncEventHandler(Of TEventArgs))
   spec.csharp:
-  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1
-    name: GetHandlers<TEventArgs>
-    nameWithType: AsyncEventHandlerExtensions.GetHandlers<TEventArgs>
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers<TEventArgs>
+  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{`0})
+    name: GetHandlers
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
+  - name: <
+  - name: TEventArgs
+  - name: '>'
   - name: (
-    nameWithType: (
-    fullName: (
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: <
+  - name: TEventArgs
+  - name: '>'
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1
-    name: GetHandlers(Of TEventArgs)
-    nameWithType: AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)
+  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{`0})
+    name: GetHandlers
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
   - name: (
-    nameWithType: (
-    fullName: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
+  - name: (
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+  - name: )
 - uid: MongoDB.Entities.AsyncEventHandler`1.MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1({TEventArgs})
   commentId: M:MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
   parent: MongoDB.Entities.AsyncEventHandlerExtensions
   definition: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
-  name: InvokeAllAsync<TEventArgs>(TEventArgs)
-  nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(TEventArgs)
-  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(TEventArgs)
-  nameWithType.vb: AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)(TEventArgs)
-  fullName.vb: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)(TEventArgs)
-  name.vb: InvokeAllAsync(Of TEventArgs)(TEventArgs)
+  href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
+  name: InvokeAllAsync<TEventArgs>(AsyncEventHandler<TEventArgs>, TEventArgs)
+  nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(AsyncEventHandler<TEventArgs>, TEventArgs)
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(MongoDB.Entities.AsyncEventHandler<TEventArgs>, TEventArgs)
+  nameWithType.vb: AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)(AsyncEventHandler(Of TEventArgs), TEventArgs)
+  fullName.vb: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)(MongoDB.Entities.AsyncEventHandler(Of TEventArgs), TEventArgs)
+  name.vb: InvokeAllAsync(Of TEventArgs)(AsyncEventHandler(Of TEventArgs), TEventArgs)
   spec.csharp:
-  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(``0)
-    name: InvokeAllAsync<TEventArgs>
-    nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>
-  - name: (
-    nameWithType: (
-    fullName: (
+  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{`0},`0)
+    name: InvokeAllAsync
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
+  - name: <
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(``0)
-    name: InvokeAllAsync(Of TEventArgs)
-    nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)
+  - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{`0},`0)
+    name: InvokeAllAsync
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
   - name: (
-    nameWithType: (
-    fullName: (
+  - name: Of
+  - name: " "
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
+  - name: (
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+  - name: ','
+  - name: " "
+  - name: TEventArgs
+  - name: )
 - uid: '{TEventArgs}'
   commentId: '!:TEventArgs'
   definition: TEventArgs
@@ -127,11 +160,13 @@ references:
   commentId: T:System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
   name: Task
   nameWithType: Task
   fullName: System.Threading.Tasks.Task
 - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
   commentId: M:MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
+  href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
   name: GetHandlers<TEventArgs>(AsyncEventHandler<TEventArgs>)
   nameWithType: AsyncEventHandlerExtensions.GetHandlers<TEventArgs>(AsyncEventHandler<TEventArgs>)
   fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers<TEventArgs>(MongoDB.Entities.AsyncEventHandler<TEventArgs>)
@@ -140,60 +175,48 @@ references:
   name.vb: GetHandlers(Of TEventArgs)(AsyncEventHandler(Of TEventArgs))
   spec.csharp:
   - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
-    name: GetHandlers<TEventArgs>
-    nameWithType: AsyncEventHandlerExtensions.GetHandlers<TEventArgs>
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers<TEventArgs>
+    name: GetHandlers
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
+  - name: <
+  - name: TEventArgs
+  - name: '>'
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: MongoDB.Entities.AsyncEventHandler`1
     name: AsyncEventHandler
-    nameWithType: AsyncEventHandler
-    fullName: MongoDB.Entities.AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
-    name: GetHandlers(Of TEventArgs)
-    nameWithType: AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)
+    name: GetHandlers
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
   - name: (
-    nameWithType: (
-    fullName: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+  - name: (
   - uid: MongoDB.Entities.AsyncEventHandler`1
     name: AsyncEventHandler
-    nameWithType: AsyncEventHandler
-    fullName: MongoDB.Entities.AsyncEventHandler
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.AsyncEventHandlerExtensions
   commentId: T:MongoDB.Entities.AsyncEventHandlerExtensions
   parent: MongoDB.Entities
+  href: MongoDB.Entities.AsyncEventHandlerExtensions.html
   name: AsyncEventHandlerExtensions
   nameWithType: AsyncEventHandlerExtensions
   fullName: MongoDB.Entities.AsyncEventHandlerExtensions
 - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
   commentId: M:MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
+  href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
   name: InvokeAllAsync<TEventArgs>(AsyncEventHandler<TEventArgs>, TEventArgs)
   nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(AsyncEventHandler<TEventArgs>, TEventArgs)
   fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(MongoDB.Entities.AsyncEventHandler<TEventArgs>, TEventArgs)
@@ -202,64 +225,44 @@ references:
   name.vb: InvokeAllAsync(Of TEventArgs)(AsyncEventHandler(Of TEventArgs), TEventArgs)
   spec.csharp:
   - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
-    name: InvokeAllAsync<TEventArgs>
-    nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>
+    name: InvokeAllAsync
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
+  - name: <
+  - name: TEventArgs
+  - name: '>'
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: MongoDB.Entities.AsyncEventHandler`1
     name: AsyncEventHandler
-    nameWithType: AsyncEventHandler
-    fullName: MongoDB.Entities.AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
-    name: InvokeAllAsync(Of TEventArgs)
-    nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)
-    fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)
+    name: InvokeAllAsync
+    href: MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
   - name: (
-    nameWithType: (
-    fullName: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+  - name: (
   - uid: MongoDB.Entities.AsyncEventHandler`1
     name: AsyncEventHandler
-    nameWithType: AsyncEventHandler
-    fullName: MongoDB.Entities.AsyncEventHandler
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: TEventArgs
   name: TEventArgs
   nameWithType: TEventArgs
@@ -267,6 +270,37 @@ references:
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

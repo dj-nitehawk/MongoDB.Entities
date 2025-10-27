@@ -35,10 +35,16 @@ public static class InitTest
 
     public static async Task<DB> InitTestDatabase(string databaseName)
     {
+        var databaseSettings = new MongoDatabaseSettings()
+        {
+            ReadConcern = ReadConcern.Majority,
+            WriteConcern = WriteConcern.WMajority
+        };
+        
         if (UseTestContainers)
         {
-            await DB.InitAsync(databaseName, ClientSettings2);
-            return await DB.InitAsync(databaseName, ClientSettings1);
+            await DB.InitAsync(databaseName, ClientSettings2, databaseSettings);
+            return await DB.InitAsync(databaseName, ClientSettings1, databaseSettings);
         }
 
         return await DB.InitAsync(databaseName);

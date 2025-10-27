@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Fluent aggregation pipelines | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Fluent aggregation pipelines | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Fluent aggregation pipelines | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Fluent aggregation pipelines | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -95,7 +80,7 @@
 <h1 id="fluent-aggregation-pipelines">Fluent aggregation pipelines</h1>
 
 <p>most querying requirements can be catered to with the <a href="Queries-Find.html"><em>Find</em></a> &amp; <a href="Queries-Linq.html"><em>Queryable</em></a> APIs. in case you need to build fluent aggregation pipelines, use the <code>Fluent</code> method for getting access to the <code>IAggregateFluent&lt;T&gt;</code> interface for a given entity type like so:</p>
-<pre><code class="lang-csharp">var author = await DB.Fluent&lt;Author&gt;()
+<pre><code class="lang-csharp">var author = await DB.Instance().Fluent&lt;Author&gt;()
                      .Match(a =&gt; a.Surname == &quot;Stark&quot; &amp;&amp; a.Age &gt; 10)
                      .SortByDescending(a =&gt; a.Age)
                      .ThenByAscending(a =&gt; a.Name)
@@ -109,7 +94,7 @@
 </div>
 <h1 id="geonear-aggregation-pipelines">GeoNear aggregation pipelines</h1>
 <p>in order to start a fluent aggregation pipeline with a <code>GeoNear</code> query, simply do the following:</p>
-<pre><code class="lang-csharp">var query = DB.FluentGeoNear&lt;Place&gt;(
+<pre><code class="lang-csharp">var query = DB.Instance().FluentGeoNear&lt;Place&gt;(
                NearCoordinates: new Coordinates2D(48.857908, 2.295243),
                DistanceField: x =&gt; x.DistanceMeters,
                MaxDistance: 20000);
@@ -122,10 +107,10 @@
 Many&lt;T&gt;.ParentsFluent() //access parents of a given child
 Many&lt;T&gt;.JoinFluent() //all records of the join collection
 Transaction.Fluent&lt;T&gt;() //transactional variation of DB.Fluent&lt;T&gt;()
-DB.FluentTextSearch&lt;T&gt;() //full text search
-DB.FluentGeoNear&lt;T&gt;() //geospatial fluent pupeline
+DB.Instance().FluentTextSearch&lt;T&gt;() //full text search
+DB.Instance().FluentGeoNear&lt;T&gt;() //geospatial fluent pupeline
 Transaction.FluentTextSearch&lt;T&gt;() //transactional full text search
-DB.Fluent&lt;T&gt;().MatchExpression() //$expr queries
+DB.Instance().Fluent&lt;T&gt;().MatchExpression() //$expr queries
 author.Fluent() //shortcut for DB.Fluent&lt;Author&gt;()
 </code></pre>
 

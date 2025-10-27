@@ -1,0 +1,3293 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.ObjectIdEntity
+  commentId: T:MongoDB.Entities.ObjectIdEntity
+  id: ObjectIdEntity
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.ObjectIdEntity.GenerateNewID
+  - MongoDB.Entities.ObjectIdEntity.HasDefaultID
+  - MongoDB.Entities.ObjectIdEntity.Id
+  langs:
+  - csharp
+  - vb
+  name: ObjectIdEntity
+  nameWithType: ObjectIdEntity
+  fullName: MongoDB.Entities.ObjectIdEntity
+  type: Class
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Inherit this class for all entities you want to store in their own collection.
+  example: []
+  syntax:
+    content: 'public abstract class ObjectIdEntity : IEntity'
+    content.vb: Public MustInherit Class ObjectIdEntity Implements IEntity
+  inheritance:
+  - System.Object
+  implements:
+  - MongoDB.Entities.IEntity
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InitManyToMany``2(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild},{TParent}}}},System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.CollectionName``1(MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Collection``1(MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.DatabaseName``1(MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Database``1(MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Fluent``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.InitOneToMany``2(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild},MongoDB.Entities.ObjectIdEntity}}},MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(MongoDB.Entities.DB,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Queryable``1(MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SavePreservingAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.ToDocument``1(MongoDB.Entities.DB)
+  - MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.ToReference``1
+- uid: MongoDB.Entities.ObjectIdEntity.Id
+  commentId: P:MongoDB.Entities.ObjectIdEntity.Id
+  id: Id
+  parent: MongoDB.Entities.ObjectIdEntity
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: ObjectIdEntity.Id
+  fullName: MongoDB.Entities.ObjectIdEntity.Id
+  type: Property
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: This property is auto managed. A new ID will be assigned for new entities upon saving.
+  example: []
+  syntax:
+    content: >-
+      [BsonId]
+
+      public ObjectId Id { get; set; }
+    parameters: []
+    return:
+      type: MongoDB.Bson.ObjectId
+    content.vb: >-
+      <BsonId>
+
+      Public Property Id As ObjectId
+  overload: MongoDB.Entities.ObjectIdEntity.Id*
+  attributes:
+  - type: MongoDB.Bson.Serialization.Attributes.BsonIdAttribute
+    ctor: MongoDB.Bson.Serialization.Attributes.BsonIdAttribute.#ctor
+    arguments: []
+- uid: MongoDB.Entities.ObjectIdEntity.GenerateNewID
+  commentId: M:MongoDB.Entities.ObjectIdEntity.GenerateNewID
+  id: GenerateNewID
+  parent: MongoDB.Entities.ObjectIdEntity
+  langs:
+  - csharp
+  - vb
+  name: GenerateNewID()
+  nameWithType: ObjectIdEntity.GenerateNewID()
+  fullName: MongoDB.Entities.ObjectIdEntity.GenerateNewID()
+  type: Method
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: >-
+    Generate and return a new ID from this method. It will be used when saving new entities that don't have their ID set.
+
+    I.e. if an entity has a default ID value (determined by calling `HasDefaultID()` /&gt; method),
+
+    this method will be called for obtaining a new ID value. If you're not doing custom ID generation, simply do
+
+    <code>return ObjectId.GenerateNewId().ToString()</code>
+  example: []
+  syntax:
+    content: public object GenerateNewID()
+    return:
+      type: System.Object
+    content.vb: Public Function GenerateNewID() As Object
+  overload: MongoDB.Entities.ObjectIdEntity.GenerateNewID*
+  implements:
+  - MongoDB.Entities.IEntity.GenerateNewID
+- uid: MongoDB.Entities.ObjectIdEntity.HasDefaultID
+  commentId: M:MongoDB.Entities.ObjectIdEntity.HasDefaultID
+  id: HasDefaultID
+  parent: MongoDB.Entities.ObjectIdEntity
+  langs:
+  - csharp
+  - vb
+  name: HasDefaultID()
+  nameWithType: ObjectIdEntity.HasDefaultID()
+  fullName: MongoDB.Entities.ObjectIdEntity.HasDefaultID()
+  type: Method
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public bool HasDefaultID()
+    return:
+      type: System.Boolean
+    content.vb: Public Function HasDefaultID() As Boolean
+  overload: MongoDB.Entities.ObjectIdEntity.HasDefaultID*
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  href: MongoDB.html
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: MongoDB.Entities.IEntity
+  commentId: T:MongoDB.Entities.IEntity
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.IEntity.html
+  name: IEntity
+  nameWithType: IEntity
+  fullName: MongoDB.Entities.IEntity
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InitManyToMany``2(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild},{TParent}}}},System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitManyToMany__2_MongoDB_Entities_IEntity_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_
+  name: InitManyToMany<TChild, TParent>(IEntity, Expression<Func<Many<TChild, TParent>>>, Expression<Func<TChild, object>>, DB)
+  nameWithType: Extensions.InitManyToMany<TChild, TParent>(IEntity, Expression<Func<Many<TChild, TParent>>>, Expression<Func<TChild, object>>, DB)
+  fullName: MongoDB.Entities.Extensions.InitManyToMany<TChild, TParent>(MongoDB.Entities.IEntity, System.Linq.Expressions.Expression<System.Func<MongoDB.Entities.Many<TChild, TParent>>>, System.Linq.Expressions.Expression<System.Func<TChild, object>>, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.InitManyToMany(Of TChild, TParent)(IEntity, Expression(Of Func(Of Many(Of TChild, TParent))), Expression(Of Func(Of TChild, Object)), DB)
+  fullName.vb: MongoDB.Entities.Extensions.InitManyToMany(Of TChild, TParent)(MongoDB.Entities.IEntity, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.Many(Of TChild, TParent))), System.Linq.Expressions.Expression(Of System.Func(Of TChild, Object)), MongoDB.Entities.DB)
+  name.vb: InitManyToMany(Of TChild, TParent)(IEntity, Expression(Of Func(Of Many(Of TChild, TParent))), Expression(Of Func(Of TChild, Object)), DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+    name: InitManyToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitManyToMany__2_MongoDB_Entities_IEntity_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.IEntity
+    name: IEntity
+    href: MongoDB.Entities.IEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: '>'
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+    name: InitManyToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitManyToMany__2_MongoDB_Entities_IEntity_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.IEntity
+    name: IEntity
+    href: MongoDB.Entities.IEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: )
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.CollectionName``1(MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.CollectionName``1(``0,MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.CollectionName``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_CollectionName__1___0_MongoDB_Entities_DB_
+  name: CollectionName<ObjectIdEntity>(ObjectIdEntity, DB)
+  nameWithType: Extensions.CollectionName<ObjectIdEntity>(ObjectIdEntity, DB)
+  fullName: MongoDB.Entities.Extensions.CollectionName<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.CollectionName(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  fullName.vb: MongoDB.Entities.Extensions.CollectionName(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  name.vb: CollectionName(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.CollectionName``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: CollectionName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_CollectionName__1___0_MongoDB_Entities_DB_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.CollectionName``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: CollectionName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_CollectionName__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Collection``1(MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.Collection``1(``0,MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.Collection``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Collection__1___0_MongoDB_Entities_DB_
+  name: Collection<ObjectIdEntity>(ObjectIdEntity, DB)
+  nameWithType: Extensions.Collection<ObjectIdEntity>(ObjectIdEntity, DB)
+  fullName: MongoDB.Entities.Extensions.Collection<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.Collection(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  fullName.vb: MongoDB.Entities.Extensions.Collection(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  name.vb: Collection(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Collection``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: Collection
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Collection__1___0_MongoDB_Entities_DB_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Collection``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: Collection
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Collection__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.DatabaseName``1(MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.DatabaseName``1(``0,MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.DatabaseName``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DatabaseName__1___0_MongoDB_Entities_DB_
+  name: DatabaseName<ObjectIdEntity>(ObjectIdEntity, DB)
+  nameWithType: Extensions.DatabaseName<ObjectIdEntity>(ObjectIdEntity, DB)
+  fullName: MongoDB.Entities.Extensions.DatabaseName<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.DatabaseName(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  fullName.vb: MongoDB.Entities.Extensions.DatabaseName(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  name.vb: DatabaseName(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.DatabaseName``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: DatabaseName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DatabaseName__1___0_MongoDB_Entities_DB_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.DatabaseName``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: DatabaseName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DatabaseName__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Database``1(MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.Database``1(``0,MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.Database``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Database__1___0_MongoDB_Entities_DB_
+  name: Database<ObjectIdEntity>(ObjectIdEntity, DB)
+  nameWithType: Extensions.Database<ObjectIdEntity>(ObjectIdEntity, DB)
+  fullName: MongoDB.Entities.Extensions.Database<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.Database(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  fullName.vb: MongoDB.Entities.Extensions.Database(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  name.vb: Database(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Database``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: Database
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Database__1___0_MongoDB_Entities_DB_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Database``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: Database
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Database__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: DeleteAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Fluent``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_
+  name: Fluent<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, AggregateOptions)
+  nameWithType: Extensions.Fluent<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Extensions.Fluent<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  nameWithType.vb: Extensions.Fluent(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, AggregateOptions)
+  fullName.vb: MongoDB.Entities.Extensions.Fluent(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  name.vb: Fluent(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, AggregateOptions)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Fluent``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+    name: Fluent
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Fluent``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+    name: Fluent
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.InitOneToMany``2(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild},MongoDB.Entities.ObjectIdEntity}}},MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.InitOneToMany``2(``1,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.InitOneToMany``2(``1,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitOneToMany__2___1_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____MongoDB_Entities_DB_
+  name: InitOneToMany<TChild, ObjectIdEntity>(ObjectIdEntity, Expression<Func<Many<TChild, ObjectIdEntity>>>, DB)
+  nameWithType: Extensions.InitOneToMany<TChild, ObjectIdEntity>(ObjectIdEntity, Expression<Func<Many<TChild, ObjectIdEntity>>>, DB)
+  fullName: MongoDB.Entities.Extensions.InitOneToMany<TChild, MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, System.Linq.Expressions.Expression<System.Func<MongoDB.Entities.Many<TChild, MongoDB.Entities.ObjectIdEntity>>>, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.InitOneToMany(Of TChild, ObjectIdEntity)(ObjectIdEntity, Expression(Of Func(Of Many(Of TChild, ObjectIdEntity))), DB)
+  fullName.vb: MongoDB.Entities.Extensions.InitOneToMany(Of TChild, MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.Many(Of TChild, MongoDB.Entities.ObjectIdEntity))), MongoDB.Entities.DB)
+  name.vb: InitOneToMany(Of TChild, ObjectIdEntity)(ObjectIdEntity, Expression(Of Func(Of Many(Of TChild, ObjectIdEntity))), DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InitOneToMany``2(MongoDB.Entities.ObjectIdEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,MongoDB.Entities.ObjectIdEntity}}},MongoDB.Entities.DB)
+    name: InitOneToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitOneToMany__2___1_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____MongoDB_Entities_DB_
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InitOneToMany``2(MongoDB.Entities.ObjectIdEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,MongoDB.Entities.ObjectIdEntity}}},MongoDB.Entities.DB)
+    name: InitOneToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitOneToMany__2___1_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: InsertAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.InsertAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(MongoDB.Entities.DB,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,MongoDB.Entities.DB,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,MongoDB.Entities.DB,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_NextSequentialNumberAsync__1___0_MongoDB_Entities_DB_System_Threading_CancellationToken_
+  name: NextSequentialNumberAsync<ObjectIdEntity>(ObjectIdEntity, DB, CancellationToken)
+  nameWithType: Extensions.NextSequentialNumberAsync<ObjectIdEntity>(ObjectIdEntity, DB, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, System.Threading.CancellationToken)
+  name.vb: NextSequentialNumberAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,System.Threading.CancellationToken)
+    name: NextSequentialNumberAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_NextSequentialNumberAsync__1___0_MongoDB_Entities_DB_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,System.Threading.CancellationToken)
+    name: NextSequentialNumberAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_NextSequentialNumberAsync__1___0_MongoDB_Entities_DB_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.Queryable``1(MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Entities_DB_MongoDB_Driver_AggregateOptions_
+  name: Queryable<ObjectIdEntity>(ObjectIdEntity, DB, AggregateOptions)
+  nameWithType: Extensions.Queryable<ObjectIdEntity>(ObjectIdEntity, DB, AggregateOptions)
+  fullName: MongoDB.Entities.Extensions.Queryable<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.AggregateOptions)
+  nameWithType.vb: Extensions.Queryable(Of ObjectIdEntity)(ObjectIdEntity, DB, AggregateOptions)
+  fullName.vb: MongoDB.Entities.Extensions.Queryable(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.AggregateOptions)
+  name.vb: Queryable(Of ObjectIdEntity)(ObjectIdEntity, DB, AggregateOptions)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Queryable``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+    name: Queryable
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Entities_DB_MongoDB_Driver_AggregateOptions_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Queryable``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+    name: Queryable
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Entities_DB_MongoDB_Driver_AggregateOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveExceptAsync<ObjectIdEntity>(ObjectIdEntity, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<ObjectIdEntity>(ObjectIdEntity, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, System.Collections.Generic.IEnumerable<string>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveExceptAsync(Of ObjectIdEntity)(ObjectIdEntity, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, System.Collections.Generic.IEnumerable(Of String), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of ObjectIdEntity)(ObjectIdEntity, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(MongoDB.Entities.ObjectIdEntity,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(MongoDB.Entities.ObjectIdEntity,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveExceptAsync<ObjectIdEntity>(ObjectIdEntity, Expression<Func<ObjectIdEntity, object>>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<ObjectIdEntity>(ObjectIdEntity, Expression<Func<ObjectIdEntity, object>>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, System.Linq.Expressions.Expression<System.Func<MongoDB.Entities.ObjectIdEntity, object>>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveExceptAsync(Of ObjectIdEntity)(ObjectIdEntity, Expression(Of Func(Of ObjectIdEntity, Object)), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.ObjectIdEntity, Object)), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of ObjectIdEntity)(ObjectIdEntity, Expression(Of Func(Of ObjectIdEntity, Object)), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(MongoDB.Entities.ObjectIdEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(MongoDB.Entities.ObjectIdEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveOnlyAsync<ObjectIdEntity>(ObjectIdEntity, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<ObjectIdEntity>(ObjectIdEntity, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, System.Collections.Generic.IEnumerable<string>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of ObjectIdEntity)(ObjectIdEntity, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, System.Collections.Generic.IEnumerable(Of String), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of ObjectIdEntity)(ObjectIdEntity, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(MongoDB.Entities.ObjectIdEntity,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(MongoDB.Entities.ObjectIdEntity,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveOnlyAsync<ObjectIdEntity>(ObjectIdEntity, Expression<Func<ObjectIdEntity, object>>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<ObjectIdEntity>(ObjectIdEntity, Expression<Func<ObjectIdEntity, object>>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, System.Linq.Expressions.Expression<System.Func<MongoDB.Entities.ObjectIdEntity, object>>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of ObjectIdEntity)(ObjectIdEntity, Expression(Of Func(Of ObjectIdEntity, Object)), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.ObjectIdEntity, Object)), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of ObjectIdEntity)(ObjectIdEntity, Expression(Of Func(Of ObjectIdEntity, Object)), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(MongoDB.Entities.ObjectIdEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(MongoDB.Entities.ObjectIdEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.ObjectIdEntity,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.SavePreservingAsync``1(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SavePreservingAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SavePreservingAsync<ObjectIdEntity>(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SavePreservingAsync<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SavePreservingAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SavePreservingAsync(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SavePreservingAsync(Of ObjectIdEntity)(ObjectIdEntity, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SavePreservingAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SavePreservingAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.ToDocument``1(MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.ToDocument``1(``0,MongoDB.Entities.DB)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.ToDocument``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument__1___0_MongoDB_Entities_DB_
+  name: ToDocument<ObjectIdEntity>(ObjectIdEntity, DB)
+  nameWithType: Extensions.ToDocument<ObjectIdEntity>(ObjectIdEntity, DB)
+  fullName: MongoDB.Entities.Extensions.ToDocument<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.ToDocument(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  fullName.vb: MongoDB.Entities.Extensions.ToDocument(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity, MongoDB.Entities.DB)
+  name.vb: ToDocument(Of ObjectIdEntity)(ObjectIdEntity, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.ToDocument``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: ToDocument
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument__1___0_MongoDB_Entities_DB_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.ToDocument``1(MongoDB.Entities.ObjectIdEntity,MongoDB.Entities.DB)
+    name: ToDocument
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.MongoDB.Entities.Extensions.ToReference``1
+  commentId: M:MongoDB.Entities.Extensions.ToReference``1(``0)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.ToReference``1(``0)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference__1___0_
+  name: ToReference<ObjectIdEntity>(ObjectIdEntity)
+  nameWithType: Extensions.ToReference<ObjectIdEntity>(ObjectIdEntity)
+  fullName: MongoDB.Entities.Extensions.ToReference<MongoDB.Entities.ObjectIdEntity>(MongoDB.Entities.ObjectIdEntity)
+  nameWithType.vb: Extensions.ToReference(Of ObjectIdEntity)(ObjectIdEntity)
+  fullName.vb: MongoDB.Entities.Extensions.ToReference(Of MongoDB.Entities.ObjectIdEntity)(MongoDB.Entities.ObjectIdEntity)
+  name.vb: ToReference(Of ObjectIdEntity)(ObjectIdEntity)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.ToReference``1(MongoDB.Entities.ObjectIdEntity)
+    name: ToReference
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference__1___0_
+  - name: <
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.ToReference``1(MongoDB.Entities.ObjectIdEntity)
+    name: ToReference
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    href: MongoDB.Entities.ObjectIdEntity.html
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitManyToMany__2_MongoDB_Entities_IEntity_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_
+  name: InitManyToMany<TChild, TParent>(IEntity, Expression<Func<Many<TChild, TParent>>>, Expression<Func<TChild, object>>, DB)
+  nameWithType: Extensions.InitManyToMany<TChild, TParent>(IEntity, Expression<Func<Many<TChild, TParent>>>, Expression<Func<TChild, object>>, DB)
+  fullName: MongoDB.Entities.Extensions.InitManyToMany<TChild, TParent>(MongoDB.Entities.IEntity, System.Linq.Expressions.Expression<System.Func<MongoDB.Entities.Many<TChild, TParent>>>, System.Linq.Expressions.Expression<System.Func<TChild, object>>, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.InitManyToMany(Of TChild, TParent)(IEntity, Expression(Of Func(Of Many(Of TChild, TParent))), Expression(Of Func(Of TChild, Object)), DB)
+  fullName.vb: MongoDB.Entities.Extensions.InitManyToMany(Of TChild, TParent)(MongoDB.Entities.IEntity, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.Many(Of TChild, TParent))), System.Linq.Expressions.Expression(Of System.Func(Of TChild, Object)), MongoDB.Entities.DB)
+  name.vb: InitManyToMany(Of TChild, TParent)(IEntity, Expression(Of Func(Of Many(Of TChild, TParent))), Expression(Of Func(Of TChild, Object)), DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+    name: InitManyToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitManyToMany__2_MongoDB_Entities_IEntity_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: '>'
+  - name: (
+  - uid: MongoDB.Entities.IEntity
+    name: IEntity
+    href: MongoDB.Entities.IEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: '>'
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InitManyToMany``2(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB)
+    name: InitManyToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitManyToMany__2_MongoDB_Entities_IEntity_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: )
+  - name: (
+  - uid: MongoDB.Entities.IEntity
+    name: IEntity
+    href: MongoDB.Entities.IEntity.html
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: )
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions
+  commentId: T:MongoDB.Entities.Extensions
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Extensions.html
+  name: Extensions
+  nameWithType: Extensions
+  fullName: MongoDB.Entities.Extensions
+- uid: MongoDB.Entities.Extensions.CollectionName``1(``0,MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.CollectionName``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_CollectionName__1___0_MongoDB_Entities_DB_
+  name: CollectionName<T>(T, DB)
+  nameWithType: Extensions.CollectionName<T>(T, DB)
+  fullName: MongoDB.Entities.Extensions.CollectionName<T>(T, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.CollectionName(Of T)(T, DB)
+  fullName.vb: MongoDB.Entities.Extensions.CollectionName(Of T)(T, MongoDB.Entities.DB)
+  name.vb: CollectionName(Of T)(T, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.CollectionName``1(``0,MongoDB.Entities.DB)
+    name: CollectionName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_CollectionName__1___0_MongoDB_Entities_DB_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.CollectionName``1(``0,MongoDB.Entities.DB)
+    name: CollectionName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_CollectionName__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions.Collection``1(``0,MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.Collection``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Collection__1___0_MongoDB_Entities_DB_
+  name: Collection<T>(T, DB)
+  nameWithType: Extensions.Collection<T>(T, DB)
+  fullName: MongoDB.Entities.Extensions.Collection<T>(T, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.Collection(Of T)(T, DB)
+  fullName.vb: MongoDB.Entities.Extensions.Collection(Of T)(T, MongoDB.Entities.DB)
+  name.vb: Collection(Of T)(T, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Collection``1(``0,MongoDB.Entities.DB)
+    name: Collection
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Collection__1___0_MongoDB_Entities_DB_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Collection``1(``0,MongoDB.Entities.DB)
+    name: Collection
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Collection__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions.DatabaseName``1(``0,MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.DatabaseName``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DatabaseName__1___0_MongoDB_Entities_DB_
+  name: DatabaseName<T>(T, DB)
+  nameWithType: Extensions.DatabaseName<T>(T, DB)
+  fullName: MongoDB.Entities.Extensions.DatabaseName<T>(T, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.DatabaseName(Of T)(T, DB)
+  fullName.vb: MongoDB.Entities.Extensions.DatabaseName(Of T)(T, MongoDB.Entities.DB)
+  name.vb: DatabaseName(Of T)(T, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.DatabaseName``1(``0,MongoDB.Entities.DB)
+    name: DatabaseName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DatabaseName__1___0_MongoDB_Entities_DB_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.DatabaseName``1(``0,MongoDB.Entities.DB)
+    name: DatabaseName
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DatabaseName__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions.Database``1(``0,MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.Database``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Database__1___0_MongoDB_Entities_DB_
+  name: Database<T>(T, DB)
+  nameWithType: Extensions.Database<T>(T, DB)
+  fullName: MongoDB.Entities.Extensions.Database<T>(T, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.Database(Of T)(T, DB)
+  fullName.vb: MongoDB.Entities.Extensions.Database(Of T)(T, MongoDB.Entities.DB)
+  name.vb: Database(Of T)(T, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Database``1(``0,MongoDB.Entities.DB)
+    name: Database
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Database__1___0_MongoDB_Entities_DB_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Database``1(``0,MongoDB.Entities.DB)
+    name: Database
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Database__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: DeleteAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAsync<T>(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of T)(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_
+  name: Fluent<T>(T, DB, IClientSessionHandle, AggregateOptions)
+  nameWithType: Extensions.Fluent<T>(T, DB, IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Extensions.Fluent<T>(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  nameWithType.vb: Extensions.Fluent(Of T)(T, DB, IClientSessionHandle, AggregateOptions)
+  fullName.vb: MongoDB.Entities.Extensions.Fluent(Of T)(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  name.vb: Fluent(Of T)(T, DB, IClientSessionHandle, AggregateOptions)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+    name: Fluent
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+    name: Fluent
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+- uid: MongoDB.Entities.Extensions.InitOneToMany``2(``1,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.InitOneToMany``2(``1,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},MongoDB.Entities.DB)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitOneToMany__2___1_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____MongoDB_Entities_DB_
+  name: InitOneToMany<TChild, TParent>(TParent, Expression<Func<Many<TChild, TParent>>>, DB)
+  nameWithType: Extensions.InitOneToMany<TChild, TParent>(TParent, Expression<Func<Many<TChild, TParent>>>, DB)
+  fullName: MongoDB.Entities.Extensions.InitOneToMany<TChild, TParent>(TParent, System.Linq.Expressions.Expression<System.Func<MongoDB.Entities.Many<TChild, TParent>>>, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.InitOneToMany(Of TChild, TParent)(TParent, Expression(Of Func(Of Many(Of TChild, TParent))), DB)
+  fullName.vb: MongoDB.Entities.Extensions.InitOneToMany(Of TChild, TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.Many(Of TChild, TParent))), MongoDB.Entities.DB)
+  name.vb: InitOneToMany(Of TChild, TParent)(TParent, Expression(Of Func(Of Many(Of TChild, TParent))), DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InitOneToMany``2(``1,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},MongoDB.Entities.DB)
+    name: InitOneToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitOneToMany__2___1_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____MongoDB_Entities_DB_
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: '>'
+  - name: (
+  - name: TParent
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: <
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: '>'
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InitOneToMany``2(``1,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0,``1}}},MongoDB.Entities.DB)
+    name: InitOneToMany
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InitOneToMany__2___1_System_Linq_Expressions_Expression_System_Func_MongoDB_Entities_Many___0___1____MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: )
+  - name: (
+  - name: TParent
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Entities.Many`2
+    name: Many
+    href: MongoDB.Entities.Many-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
+  - name: )
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: InsertAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<T>(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.InsertAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of T)(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,MongoDB.Entities.DB,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,MongoDB.Entities.DB,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_NextSequentialNumberAsync__1___0_MongoDB_Entities_DB_System_Threading_CancellationToken_
+  name: NextSequentialNumberAsync<T>(T, DB, CancellationToken)
+  nameWithType: Extensions.NextSequentialNumberAsync<T>(T, DB, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<T>(T, MongoDB.Entities.DB, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of T)(T, DB, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)(T, MongoDB.Entities.DB, System.Threading.CancellationToken)
+  name.vb: NextSequentialNumberAsync(Of T)(T, DB, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,MongoDB.Entities.DB,System.Threading.CancellationToken)
+    name: NextSequentialNumberAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_NextSequentialNumberAsync__1___0_MongoDB_Entities_DB_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,MongoDB.Entities.DB,System.Threading.CancellationToken)
+    name: NextSequentialNumberAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_NextSequentialNumberAsync__1___0_MongoDB_Entities_DB_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Entities_DB_MongoDB_Driver_AggregateOptions_
+  name: Queryable<T>(T, DB, AggregateOptions)
+  nameWithType: Extensions.Queryable<T>(T, DB, AggregateOptions)
+  fullName: MongoDB.Entities.Extensions.Queryable<T>(T, MongoDB.Entities.DB, MongoDB.Driver.AggregateOptions)
+  nameWithType.vb: Extensions.Queryable(Of T)(T, DB, AggregateOptions)
+  fullName.vb: MongoDB.Entities.Extensions.Queryable(Of T)(T, MongoDB.Entities.DB, MongoDB.Driver.AggregateOptions)
+  name.vb: Queryable(Of T)(T, DB, AggregateOptions)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+    name: Queryable
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Entities_DB_MongoDB_Driver_AggregateOptions_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Entities.DB,MongoDB.Driver.AggregateOptions)
+    name: Queryable
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Entities_DB_MongoDB_Driver_AggregateOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.AggregateOptions
+    name: AggregateOptions
+    isExternal: true
+  - name: )
+- uid: MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveAsync<T>(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of T)(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveExceptAsync<T>(T, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<T>(T, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<T>(T, System.Collections.Generic.IEnumerable<string>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveExceptAsync(Of T)(T, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of String), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveExceptAsync<T>(T, Expression<Func<T, object>>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<T>(T, Expression<Func<T, object>>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, object>>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveExceptAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveOnlyAsync<T>(T, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<T>(T, IEnumerable<string>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<T>(T, System.Collections.Generic.IEnumerable<string>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of T)(T, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of String), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, IEnumerable(Of String), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Collections_Generic_IEnumerable_System_String__MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SaveOnlyAsync<T>(T, Expression<Func<T, object>>, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<T>(T, Expression<Func<T, object>>, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, object>>, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveOnlyAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: SavePreservingAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SavePreservingAsync<T>(T, DB, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SavePreservingAsync<T>(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SavePreservingAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SavePreservingAsync(Of T)(T, MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SavePreservingAsync(Of T)(T, DB, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SavePreservingAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SavePreservingAsync
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: MongoDB.Entities.Extensions.ToDocument``1(``0,MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Extensions.ToDocument``1(``0,MongoDB.Entities.DB)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument__1___0_MongoDB_Entities_DB_
+  name: ToDocument<T>(T, DB)
+  nameWithType: Extensions.ToDocument<T>(T, DB)
+  fullName: MongoDB.Entities.Extensions.ToDocument<T>(T, MongoDB.Entities.DB)
+  nameWithType.vb: Extensions.ToDocument(Of T)(T, DB)
+  fullName.vb: MongoDB.Entities.Extensions.ToDocument(Of T)(T, MongoDB.Entities.DB)
+  name.vb: ToDocument(Of T)(T, DB)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.ToDocument``1(``0,MongoDB.Entities.DB)
+    name: ToDocument
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument__1___0_MongoDB_Entities_DB_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.ToDocument``1(``0,MongoDB.Entities.DB)
+    name: ToDocument
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument__1___0_MongoDB_Entities_DB_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Entities.DB
+    name: DB
+    href: MongoDB.Entities.DB.html
+  - name: )
+- uid: MongoDB.Entities.Extensions.ToReference``1(``0)
+  commentId: M:MongoDB.Entities.Extensions.ToReference``1(``0)
+  href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference__1___0_
+  name: ToReference<T>(T)
+  nameWithType: Extensions.ToReference<T>(T)
+  fullName: MongoDB.Entities.Extensions.ToReference<T>(T)
+  nameWithType.vb: Extensions.ToReference(Of T)(T)
+  fullName.vb: MongoDB.Entities.Extensions.ToReference(Of T)(T)
+  name.vb: ToReference(Of T)(T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.ToReference``1(``0)
+    name: ToReference
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.ToReference``1(``0)
+    name: ToReference
+    href: MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.Id*
+  commentId: Overload:MongoDB.Entities.ObjectIdEntity.Id
+  href: MongoDB.Entities.ObjectIdEntity.html#MongoDB_Entities_ObjectIdEntity_Id
+  name: Id
+  nameWithType: ObjectIdEntity.Id
+  fullName: MongoDB.Entities.ObjectIdEntity.Id
+- uid: MongoDB.Bson.ObjectId
+  commentId: T:MongoDB.Bson.ObjectId
+  parent: MongoDB.Bson
+  isExternal: true
+  name: ObjectId
+  nameWithType: ObjectId
+  fullName: MongoDB.Bson.ObjectId
+- uid: MongoDB.Bson
+  commentId: N:MongoDB.Bson
+  isExternal: true
+  name: MongoDB.Bson
+  nameWithType: MongoDB.Bson
+  fullName: MongoDB.Bson
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Bson
+    name: Bson
+    isExternal: true
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Bson
+    name: Bson
+    isExternal: true
+- uid: MongoDB.Entities.ObjectIdEntity.GenerateNewID*
+  commentId: Overload:MongoDB.Entities.ObjectIdEntity.GenerateNewID
+  href: MongoDB.Entities.ObjectIdEntity.html#MongoDB_Entities_ObjectIdEntity_GenerateNewID
+  name: GenerateNewID
+  nameWithType: ObjectIdEntity.GenerateNewID
+  fullName: MongoDB.Entities.ObjectIdEntity.GenerateNewID
+- uid: MongoDB.Entities.IEntity.GenerateNewID
+  commentId: M:MongoDB.Entities.IEntity.GenerateNewID
+  parent: MongoDB.Entities.IEntity
+  href: MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_GenerateNewID
+  name: GenerateNewID()
+  nameWithType: IEntity.GenerateNewID()
+  fullName: MongoDB.Entities.IEntity.GenerateNewID()
+  spec.csharp:
+  - uid: MongoDB.Entities.IEntity.GenerateNewID
+    name: GenerateNewID
+    href: MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_GenerateNewID
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: MongoDB.Entities.IEntity.GenerateNewID
+    name: GenerateNewID
+    href: MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_GenerateNewID
+  - name: (
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity.HasDefaultID*
+  commentId: Overload:MongoDB.Entities.ObjectIdEntity.HasDefaultID
+  href: MongoDB.Entities.ObjectIdEntity.html#MongoDB_Entities_ObjectIdEntity_HasDefaultID
+  name: HasDefaultID
+  nameWithType: ObjectIdEntity.HasDefaultID
+  fullName: MongoDB.Entities.ObjectIdEntity.HasDefaultID
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

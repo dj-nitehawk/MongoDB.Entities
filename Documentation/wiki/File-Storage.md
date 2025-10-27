@@ -52,7 +52,7 @@ the `MD5` property comes from the base `FileEntity`. if a value has been set bef
 
 ### Download data
 ```csharp
-var picture = await DB.Find<Picture>()
+var picture = await DB.Instance().Find<Picture>()
                       .Match(p => p.Title == "NiceKitty.jpg")
                       .ExecuteSingleAsync();
 
@@ -65,7 +65,7 @@ first retrieve the file entity you want to work with and then call the `.Data.Do
 
 alternatively, if the ID of the file entity is known, you can avoid fetching the file entity from the database and access the data directly like so:
 ```csharp
-await DB.File<Picture>("FileID").DownloadAsync(stream);
+await DB.Instance().File<Picture>("FileID").DownloadAsync(stream);
 ```
 
 ### Transaction support

@@ -1,128 +1,175 @@
 ### YamlMime:TableOfContent
+items:
 - uid: MongoDB.Entities
   name: MongoDB.Entities
+  type: Namespace
   items:
+  - uid: MongoDB.Entities.AsBsonIdAttribute
+    name: AsBsonIdAttribute
+    type: Class
   - uid: MongoDB.Entities.AsObjectIdAttribute
     name: AsObjectIdAttribute
-  - uid: MongoDB.Entities.AsyncEventHandler`1
-    name: AsyncEventHandler<TEventArgs>
-    name.vb: AsyncEventHandler(Of TEventArgs)
+    type: Class
   - uid: MongoDB.Entities.AsyncEventHandlerExtensions
     name: AsyncEventHandlerExtensions
+    type: Class
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler<TEventArgs>
+    type: Delegate
   - uid: MongoDB.Entities.CollectionAttribute
     name: CollectionAttribute
+    type: Class
   - uid: MongoDB.Entities.Coordinates2D
     name: Coordinates2D
-  - uid: MongoDB.Entities.DataStreamer
-    name: DataStreamer
-  - uid: MongoDB.Entities.Date
-    name: Date
+    type: Class
   - uid: MongoDB.Entities.DB
     name: DB
+    type: Class
   - uid: MongoDB.Entities.DBContext
     name: DBContext
+    type: Class
+  - uid: MongoDB.Entities.DataStreamer`1
+    name: DataStreamer<T>
+    type: Class
+  - uid: MongoDB.Entities.Date
+    name: Date
+    type: Class
   - uid: MongoDB.Entities.Distinct`2
     name: Distinct<T, TProperty>
-    name.vb: Distinct(Of T, TProperty)
+    type: Class
   - uid: MongoDB.Entities.DontPreserveAttribute
     name: DontPreserveAttribute
+    type: Class
   - uid: MongoDB.Entities.Entity
     name: Entity
+    type: Class
   - uid: MongoDB.Entities.EventType
     name: EventType
+    type: Enum
   - uid: MongoDB.Entities.Extensions
     name: Extensions
+    type: Class
   - uid: MongoDB.Entities.FieldAttribute
     name: FieldAttribute
-  - uid: MongoDB.Entities.FileEntity
-    name: FileEntity
-  - uid: MongoDB.Entities.Find`2
-    name: Find<T, TProjection>
-    name.vb: Find(Of T, TProjection)
+    type: Class
+  - uid: MongoDB.Entities.FileEntity`1
+    name: FileEntity<T>
+    type: Class
   - uid: MongoDB.Entities.Find`1
     name: Find<T>
-    name.vb: Find(Of T)
+    type: Class
+  - uid: MongoDB.Entities.Find`2
+    name: Find<T, TProjection>
+    type: Class
   - uid: MongoDB.Entities.FuzzyString
     name: FuzzyString
+    type: Class
   - uid: MongoDB.Entities.GeoNear`1
     name: GeoNear<T>
-    name.vb: GeoNear(Of T)
+    type: Class
   - uid: MongoDB.Entities.ICreatedOn
     name: ICreatedOn
+    type: Interface
   - uid: MongoDB.Entities.IEntity
     name: IEntity
-  - uid: MongoDB.Entities.IgnoreAttribute
-    name: IgnoreAttribute
-  - uid: MongoDB.Entities.IgnoreDefaultAttribute
-    name: IgnoreDefaultAttribute
+    type: Interface
   - uid: MongoDB.Entities.IMigration
     name: IMigration
+    type: Interface
   - uid: MongoDB.Entities.IModifiedOn
     name: IModifiedOn
+    type: Interface
+  - uid: MongoDB.Entities.IgnoreAttribute
+    name: IgnoreAttribute
+    type: Class
+  - uid: MongoDB.Entities.IgnoreDefaultAttribute
+    name: IgnoreDefaultAttribute
+    type: Class
   - uid: MongoDB.Entities.Index`1
     name: Index<T>
-    name.vb: Index(Of T)
+    type: Class
   - uid: MongoDB.Entities.InverseSideAttribute
     name: InverseSideAttribute
+    type: Class
   - uid: MongoDB.Entities.JoinRecord
     name: JoinRecord
+    type: Class
   - uid: MongoDB.Entities.KeyType
     name: KeyType
-  - uid: MongoDB.Entities.Many`1
-    name: Many<TChild>
-    name.vb: Many(Of TChild)
+    type: Enum
   - uid: MongoDB.Entities.ManyBase
     name: ManyBase
+    type: Class
+  - uid: MongoDB.Entities.Many`2
+    name: Many<TChild, TParent>
+    type: Class
   - uid: MongoDB.Entities.Migration
     name: Migration
+    type: Class
   - uid: MongoDB.Entities.ModifiedBy
     name: ModifiedBy
+    type: Class
   - uid: MongoDB.Entities.ObjectIdAttribute
     name: ObjectIdAttribute
+    type: Class
+  - uid: MongoDB.Entities.ObjectIdEntity
+    name: ObjectIdEntity
+    type: Class
   - uid: MongoDB.Entities.One`1
-    name: One<T>
-    name.vb: One(Of T)
+    name: One<TEntity>
+    type: Class
+  - uid: MongoDB.Entities.One`2
+    name: One<TEntity, TIdentity>
+    type: Class
   - uid: MongoDB.Entities.Order
     name: Order
+    type: Enum
   - uid: MongoDB.Entities.OwnerSideAttribute
     name: OwnerSideAttribute
-  - uid: MongoDB.Entities.PagedSearch`2
-    name: PagedSearch<T, TProjection>
-    name.vb: PagedSearch(Of T, TProjection)
+    type: Class
   - uid: MongoDB.Entities.PagedSearch`1
     name: PagedSearch<T>
-    name.vb: PagedSearch(Of T)
+    type: Class
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch<T, TProjection>
+    type: Class
   - uid: MongoDB.Entities.PreserveAttribute
     name: PreserveAttribute
+    type: Class
   - uid: MongoDB.Entities.Prop
     name: Prop
+    type: Class
   - uid: MongoDB.Entities.Replace`1
     name: Replace<T>
-    name.vb: Replace(Of T)
+    type: Class
   - uid: MongoDB.Entities.Search
     name: Search
+    type: Enum
   - uid: MongoDB.Entities.Template
     name: Template
+    type: Class
   - uid: MongoDB.Entities.Template`1
     name: Template<T>
-    name.vb: Template(Of T)
+    type: Class
   - uid: MongoDB.Entities.Template`2
     name: Template<TInput, TResult>
-    name.vb: Template(Of TInput, TResult)
+    type: Class
   - uid: MongoDB.Entities.Transaction
     name: Transaction
-  - uid: MongoDB.Entities.Update`1
-    name: Update<T>
-    name.vb: Update(Of T)
-  - uid: MongoDB.Entities.UpdateAndGet`2
-    name: UpdateAndGet<T, TProjection>
-    name.vb: UpdateAndGet(Of T, TProjection)
+    type: Class
   - uid: MongoDB.Entities.UpdateAndGet`1
     name: UpdateAndGet<T>
-    name.vb: UpdateAndGet(Of T)
+    type: Class
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet<T, TProjection>
+    type: Class
   - uid: MongoDB.Entities.UpdateBase`1
     name: UpdateBase<T>
-    name.vb: UpdateBase(Of T)
+    type: Class
+  - uid: MongoDB.Entities.Update`1
+    name: Update<T>
+    type: Class
   - uid: MongoDB.Entities.Watcher`1
     name: Watcher<T>
-    name.vb: Watcher(Of T)
+    type: Class
+memberLayout: SamePage

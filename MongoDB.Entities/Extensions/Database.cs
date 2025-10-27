@@ -19,7 +19,7 @@ public static partial class Extensions
     /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
     /// </summary>
     public static string DatabaseName<T>(this T _, DB? db = null) where T : IEntity
-        => DB.InstanceOrDefault(db).DatabaseName<T>();
+        => DB.InstanceOrDefault(db).DatabaseName();
 
     /// <summary>
     /// Pings the mongodb server to check if it's still connectable

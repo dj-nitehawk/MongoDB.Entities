@@ -14,22 +14,12 @@ items:
   nameWithType: Search
   fullName: MongoDB.Entities.Search
   type: Enum
-  source:
-    id: Search
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 453
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
     content: public enum Search
     content.vb: Public Enum Search
-  modifiers.csharp:
-  - public
-  - enum
-  modifiers.vb:
-  - Public
-  - Enum
 - uid: MongoDB.Entities.Search.Fuzzy
   commentId: F:MongoDB.Entities.Search.Fuzzy
   id: Fuzzy
@@ -41,10 +31,6 @@ items:
   nameWithType: Search.Fuzzy
   fullName: MongoDB.Entities.Search.Fuzzy
   type: Field
-  source:
-    id: Fuzzy
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 455
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -52,12 +38,6 @@ items:
     content: Fuzzy = 0
     return:
       type: MongoDB.Entities.Search
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.Search.Full
   commentId: F:MongoDB.Entities.Search.Full
   id: Full
@@ -69,10 +49,6 @@ items:
   nameWithType: Search.Full
   fullName: MongoDB.Entities.Search.Full
   type: Field
-  source:
-    id: Full
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 456
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -80,21 +56,33 @@ items:
     content: Full = 1
     return:
       type: MongoDB.Entities.Search
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.Search
   commentId: T:MongoDB.Entities.Search
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Search.html
   name: Search
   nameWithType: Search
   fullName: MongoDB.Entities.Search

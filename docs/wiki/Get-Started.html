@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Install | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Install | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Install | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Install | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -101,17 +86,25 @@
 <p>first import the package with <code>using MongoDB.Entities;</code></p>
 <p>then initialize the database connection like so:</p>
 <h2 id="basic-initialization">Basic initialization</h2>
-<pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;, &quot;HostAddress&quot;, PortNumber);
+<pre><code class="lang-csharp">var defaultDB = await DB.InitAsync(&quot;DatabaseName&quot;, &quot;HostAddress&quot;, PortNumber);
 </code></pre>
-<h2 id="advanced-initialization">Advanced initialization</h2>
+<p>The first call to <code>DB.InitAsync</code> will set the default database and can be accessed with the returned instance or <code>DB.Instance()</code>.</p>
+<p>Subsequent calls to <code>DB.InitAsync</code> can be accessed with the returned instance or <code>DB.Instance(&quot;DatabaseName&quot;)</code></p>
+<p>If you have multiple MongoClients with the same database name, you can access that instance by supplying both the database name and the client settings, i.e. <code>DB.Instance(&quot;DatabaseName&quot;, clientSettings)</code>.</p>
+<h2 id="advanced-initializationdbinitasync">Advanced initialization<code>DB.InitAsync</code></h2>
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;, new MongoClientSettings()
-{
-    Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
-    Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
-});
+    {
+        Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
+        Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
+    },
+    new MongoDatabaseSettings()
+        {
+            ReadConcern = ReadConcern.Majority,
+            WriteConcern = WriteConcern.WMajority
+        });
 </code></pre>
 <blockquote>
-<p>this will only work for mongodb v4.0 or newer databases as it will use the <code>SCRAM-SHA-256</code> authentication method. if your db version is older than that and uses <code>SCRAM-SHA-1</code> authentication method, please <a href="https://gist.github.com/dj-nitehawk/a0b1484dbba90085305520c156502608">click here</a> to see how to connect or you may use a connection string to connect as shown below.</p>
+<p>these MongoClientSettings will only work for mongodb v4.0 or newer databases as it will use the <code>SCRAM-SHA-256</code> authentication method. if your db version is older than that and uses <code>SCRAM-SHA-1</code> authentication method, please <a href="https://gist.github.com/dj-nitehawk/a0b1484dbba90085305520c156502608">click here</a> to see how to connect or you may use a connection string to connect as shown below.</p>
 </blockquote>
 <h2 id="using-a-connection-string">Using a connection string</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;,

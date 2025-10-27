@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Paged search | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Paged search | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Paged search | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Paged search | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -96,7 +81,7 @@
 
 <p>paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. it can also be done via a <code>$facet</code> aggregation query, which is cumbersome to do using the driver. this library provides a convenient method for this exact use case via the <code>PagedSearch</code> builder.</p>
 <h2 id="example">Example</h2>
-<pre><code class="lang-csharp">var res = await DB.PagedSearch&lt;Book&gt;()
+<pre><code class="lang-csharp">var res = await DB.Instance().PagedSearch&lt;Book&gt;()
                   .Match(b =&gt; b.AuthorName == &quot;Eckhart Tolle&quot;)
                   .Sort(b =&gt; b.Title, Order.Ascending)
                   .PageSize(10)
@@ -115,7 +100,7 @@ int totalPageCount = res.PageCount;
 </div>
 <h2 id="project-results-to-a-different-type">Project results to a different type</h2>
 <p>if you'd like to change the shape of the returned entity list, use the <code>PagedSearch&lt;T, TProjection&gt;</code> generic overload and add a <code>.Project()</code> method to the chain like so:</p>
-<pre><code class="lang-csharp">var res = await DB.PagedSearch&lt;Book, BookListing&gt;()
+<pre><code class="lang-csharp">var res = await DB.Instance().PagedSearch&lt;Book, BookListing&gt;()
                   .Sort(b =&gt; b.Title, Order.Ascending)
                   .Project(b =&gt; new BookListing
                   {
@@ -140,11 +125,11 @@ int totalPageCount = res.PageCount;
 </code></pre>
 <h2 id="paging-support-for-any-fluent-pipeline">Paging support for any fluent pipeline</h2>
 <p>you can add paged search to any <a href="Queries-Pipelines.html">fluent pipeline</a>. the difference is, instead of specifying the search criteria with <code>.Match()</code>, you start off by using the <code>.WithFluent()</code> method like so:</p>
-<pre><code class="lang-csharp">var pipeline = DB.Fluent&lt;Author&gt;()
+<pre><code class="lang-csharp">var pipeline = DB.Instance().Fluent&lt;Author&gt;()
                  .Match(a =&gt; a.Name == &quot;Author&quot;)
                  .SortBy(a =&gt; a.Name);
 
-var res = await DB.PagedSearch&lt;Author&gt;()
+var res = await DB.Instance().PagedSearch&lt;Author&gt;()
                   .WithFluent(pipeline)
                   .Sort(a =&gt; a.Name, Order.Descending)
                   .PageNumber(1)
@@ -159,7 +144,7 @@ var res = await DB.PagedSearch&lt;Author&gt;()
                         .ExecuteAsync();
 </code></pre>
 <p>it's specially useful when you need to page children of a relationship like so:</p>
-<pre><code class="lang-csharp">var res = await DB.Entity&lt;Author&gt;(&quot;AuthorID&quot;)
+<pre><code class="lang-csharp">var res = await DB.Instance().Entity&lt;Author&gt;(&quot;AuthorID&quot;)
                   .Books
                   .ChildrenFluent()
                   .Match(b =&gt; b.Title.Contains(&quot;The&quot;))

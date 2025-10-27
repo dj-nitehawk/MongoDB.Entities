@@ -13,24 +13,14 @@ items:
   nameWithType: ICreatedOn
   fullName: MongoDB.Entities.ICreatedOn
   type: Interface
-  source:
-    id: ICreatedOn
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\ICreatedOn.cs
-    startLine: 7
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nImplement this interface on entities you want the library to automatically store the creation date with\n"
+  summary: Implement this interface on entities you want the library to automatically store the creation date with
   example: []
   syntax:
     content: public interface ICreatedOn
     content.vb: Public Interface ICreatedOn
-  modifiers.csharp:
-  - public
-  - interface
-  modifiers.vb:
-  - Public
-  - Interface
 - uid: MongoDB.Entities.ICreatedOn.CreatedOn
   commentId: P:MongoDB.Entities.ICreatedOn.CreatedOn
   id: CreatedOn
@@ -42,14 +32,13 @@ items:
   nameWithType: ICreatedOn.CreatedOn
   fullName: MongoDB.Entities.ICreatedOn.CreatedOn
   type: Property
-  source:
-    id: CreatedOn
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\ICreatedOn.cs
-    startLine: 13
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nThis property will be automatically set by the library when an entity is created.\n<p>TIP: This property is useful when sorting by creation date.</p>\n"
+  summary: >-
+    This property will be automatically set by the library when an entity is created.
+
+    <p>TIP: This property is useful when sorting by creation date.</p>
   example: []
   syntax:
     content: DateTime CreatedOn { get; set; }
@@ -58,17 +47,32 @@ items:
       type: System.DateTime
     content.vb: Property CreatedOn As Date
   overload: MongoDB.Entities.ICreatedOn.CreatedOn*
-  modifiers.csharp:
-  - get
-  - set
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.ICreatedOn.CreatedOn*
   commentId: Overload:MongoDB.Entities.ICreatedOn.CreatedOn
+  href: MongoDB.Entities.ICreatedOn.html#MongoDB_Entities_ICreatedOn_CreatedOn
   name: CreatedOn
   nameWithType: ICreatedOn.CreatedOn
   fullName: MongoDB.Entities.ICreatedOn.CreatedOn
@@ -76,12 +80,17 @@ references:
   commentId: T:System.DateTime
   parent: System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
   name: DateTime
   nameWithType: DateTime
   fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System

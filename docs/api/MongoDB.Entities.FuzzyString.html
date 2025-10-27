@@ -1,41 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class FuzzyString
- | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class FuzzyString
- | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class FuzzyString | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class FuzzyString | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <meta name="description" content="Use this type to store strings if you need fuzzy text searching with MongoDB  TIP: There&#39;s a default limit of 250 characters for ensuring best performance. If you exceed the default limit, an exception will be thrown. You can increase the limit by sacrificing performance/resource utilization by setting the static property FuzzyString.CharacterLimit = 500 at startup.">
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -80,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -97,49 +80,44 @@
 
 
 
-  <h1 id="MongoDB_Entities_FuzzyString" data-uid="MongoDB.Entities.FuzzyString" class="text-break">Class FuzzyString
-</h1>
+  <h1 id="MongoDB_Entities_FuzzyString" data-uid="MongoDB.Entities.FuzzyString" class="text-break">Class FuzzyString</h1>
   <div class="markdown level0 summary"><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
-<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance.
+<p>
+TIP: There's a default limit of 250 characters for ensuring best performance.
 If you exceed the default limit, an exception will be thrown.
 You can increase the limit by sacrificing performance/resource utilization by setting the static property
-<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>
+<code>FuzzyString.CharacterLimit = 500</code> at startup.
+</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
     <div class="level1"><span class="xref">FuzzyString</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">Object.Equals(Object)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object, Object)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
-      <span class="xref">Object.GetHashCode()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
     <div>
-      <span class="xref">Object.GetType()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
     <div>
-      <span class="xref">Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
-    </div>
-    <div>
-      <span class="xref">Object.ToString()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.html">MongoDB</a>.<a class="xref" href="MongoDB.Entities.html">Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
   <h5 id="MongoDB_Entities_FuzzyString_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class FuzzyString</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class FuzzyString</code></pre>
   </div>
   <h3 id="constructors">Constructors
 </h3>
@@ -156,7 +134,7 @@ You can increase the limit by sacrificing performance/resource utilization by se
 
 
   <a id="MongoDB_Entities_FuzzyString__ctor_" data-uid="MongoDB.Entities.FuzzyString.#ctor*"></a>
-  <h4 id="MongoDB_Entities_FuzzyString__ctor_System_String_" data-uid="MongoDB.Entities.FuzzyString.#ctor(System.String)">FuzzyString(String)</h4>
+  <h4 id="MongoDB_Entities_FuzzyString__ctor_System_String_" data-uid="MongoDB.Entities.FuzzyString.#ctor(System.String)">FuzzyString(string)</h4>
   <div class="markdown level1 summary"><p>instantiate a FuzzyString object with a given string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -175,7 +153,7 @@ You can increase the limit by sacrificing performance/resource utilization by se
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">value</span></td>
         <td><p>the string value to create the FuzzyString with</p>
 </td>
@@ -204,7 +182,7 @@ You can increase the limit by sacrificing performance/resource utilization by se
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Int32</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -229,11 +207,42 @@ You can increase the limit by sacrificing performance/resource utilization by se
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+</h3>
+
+
+  <a id="MongoDB_Entities_FuzzyString_ToString_" data-uid="MongoDB.Entities.FuzzyString.ToString*"></a>
+  <h4 id="MongoDB_Entities_FuzzyString_ToString" data-uid="MongoDB.Entities.FuzzyString.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>A string that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
 
 </article>
           </div>

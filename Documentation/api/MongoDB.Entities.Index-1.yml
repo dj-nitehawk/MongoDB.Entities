@@ -5,6 +5,7 @@ items:
   id: Index`1
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.Index`1.#ctor(MongoDB.Entities.DB)
   - MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
@@ -17,20 +18,16 @@ items:
   nameWithType: Index<T>
   fullName: MongoDB.Entities.Index<T>
   type: Class
-  source:
-    id: Index
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 14
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRepresents an index creation command\n<p>TIP: Define the keys first with .Key() method and finally call the .Create() method.</p>\n"
+  summary: >-
+    Represents an index creation command
+
+    <p>TIP: Define the keys first with .Key() method and finally call the .InitAsync() method.</p>
   example: []
   syntax:
-    content: >-
-      public class Index<T>
-
-          where T : IEntity
+    content: 'public class Index<T> where T : IEntity'
     typeParameters:
     - id: T
       description: Any class that implements IEntity
@@ -46,14 +43,32 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   nameWithType.vb: Index(Of T)
-  modifiers.csharp:
-  - public
-  - class
-  modifiers.vb:
-  - Public
-  - Class
   fullName.vb: MongoDB.Entities.Index(Of T)
   name.vb: Index(Of T)
+- uid: MongoDB.Entities.Index`1.#ctor(MongoDB.Entities.DB)
+  commentId: M:MongoDB.Entities.Index`1.#ctor(MongoDB.Entities.DB)
+  id: '#ctor(MongoDB.Entities.DB)'
+  parent: MongoDB.Entities.Index`1
+  langs:
+  - csharp
+  - vb
+  name: Index(DB)
+  nameWithType: Index<T>.Index(DB)
+  fullName: MongoDB.Entities.Index<T>.Index(MongoDB.Entities.DB)
+  type: Constructor
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public Index(DB db)
+    parameters:
+    - id: db
+      type: MongoDB.Entities.DB
+    content.vb: Public Sub New(db As DB)
+  overload: MongoDB.Entities.Index`1.#ctor*
+  nameWithType.vb: Index(Of T).New(DB)
+  fullName.vb: MongoDB.Entities.Index(Of T).New(MongoDB.Entities.DB)
+  name.vb: New(DB)
 - uid: MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)
   id: CreateAsync(System.Threading.CancellationToken)
@@ -65,17 +80,13 @@ items:
   nameWithType: Index<T>.CreateAsync(CancellationToken)
   fullName: MongoDB.Entities.Index<T>.CreateAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: CreateAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 24
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nCall this method to finalize defining the index after setting the index keys and options.\n"
+  summary: Call this method to finalize defining the index after setting the index keys and options.
   example: []
   syntax:
-    content: public async Task<string> CreateAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<string> CreateAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -86,11 +97,6 @@ items:
     content.vb: Public Function CreateAsync(cancellation As CancellationToken = Nothing) As Task(Of String)
   overload: MongoDB.Entities.Index`1.CreateAsync*
   nameWithType.vb: Index(Of T).CreateAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Index(Of T).CreateAsync(System.Threading.CancellationToken)
 - uid: MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})
   commentId: M:MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})
@@ -103,30 +109,25 @@ items:
   nameWithType: Index<T>.Option(Action<CreateIndexOptions<T>>)
   fullName: MongoDB.Entities.Index<T>.Option(System.Action<MongoDB.Driver.CreateIndexOptions<T>>)
   type: Method
-  source:
-    id: Option
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSet the options for this index definition\n<p>TIP: Setting options is not required.</p>\n"
+  summary: >-
+    Set the options for this index definition
+
+    <p>TIP: Setting options is not required.</p>
   example: []
   syntax:
     content: public Index<T> Option(Action<CreateIndexOptions<T>> option)
     parameters:
     - id: option
       type: System.Action{MongoDB.Driver.CreateIndexOptions{{T}}}
-      description: x => x.OptionName = OptionValue
+      description: x =&gt; x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Index{{T}}
-    content.vb: Public Function Option(option As Action(Of CreateIndexOptions(Of T))) As Index(Of T)
+      type: MongoDB.Entities.Index`1
+    content.vb: Public Function [Option]([option] As Action(Of CreateIndexOptions(Of T))) As Index(Of T)
   overload: MongoDB.Entities.Index`1.Option*
   nameWithType.vb: Index(Of T).Option(Action(Of CreateIndexOptions(Of T)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Index(Of T).Option(System.Action(Of MongoDB.Driver.CreateIndexOptions(Of T)))
   name.vb: Option(Action(Of CreateIndexOptions(Of T)))
 - uid: MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)
@@ -136,38 +137,33 @@ items:
   langs:
   - csharp
   - vb
-  name: Key(Expression<Func<T, Object>>, KeyType)
-  nameWithType: Index<T>.Key(Expression<Func<T, Object>>, KeyType)
-  fullName: MongoDB.Entities.Index<T>.Key(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.KeyType)
+  name: Key(Expression<Func<T, object?>>, KeyType)
+  nameWithType: Index<T>.Key(Expression<Func<T, object?>>, KeyType)
+  fullName: MongoDB.Entities.Index<T>.Key(System.Linq.Expressions.Expression<System.Func<T, object?>>, MongoDB.Entities.KeyType)
   type: Method
-  source:
-    id: Key
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 109
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nAdds a key definition to the index\n<p>TIP: At least one key definition is required</p>\n"
+  summary: >-
+    Adds a key definition to the index
+
+    <p>TIP: At least one key definition is required</p>
   example: []
   syntax:
-    content: public Index<T> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
+    content: public Index<T> Key(Expression<Func<T, object?>> propertyToIndex, KeyType type)
     parameters:
     - id: propertyToIndex
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.PropertyName
+      description: x =&gt; x.PropertyName
     - id: type
       type: MongoDB.Entities.KeyType
       description: The type of the key
     return:
-      type: MongoDB.Entities.Index{{T}}
+      type: MongoDB.Entities.Index`1
     content.vb: Public Function Key(propertyToIndex As Expression(Of Func(Of T, Object)), type As KeyType) As Index(Of T)
   overload: MongoDB.Entities.Index`1.Key*
   nameWithType.vb: Index(Of T).Key(Expression(Of Func(Of T, Object)), KeyType)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Index(Of T).Key(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.KeyType)
+  fullName.vb: MongoDB.Entities.Index(Of T).Key(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.KeyType)
   name.vb: Key(Expression(Of Func(Of T, Object)), KeyType)
 - uid: MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
@@ -176,21 +172,17 @@ items:
   langs:
   - csharp
   - vb
-  name: DropAsync(String, CancellationToken)
-  nameWithType: Index<T>.DropAsync(String, CancellationToken)
-  fullName: MongoDB.Entities.Index<T>.DropAsync(System.String, System.Threading.CancellationToken)
+  name: DropAsync(string, CancellationToken)
+  nameWithType: Index<T>.DropAsync(string, CancellationToken)
+  fullName: MongoDB.Entities.Index<T>.DropAsync(string, System.Threading.CancellationToken)
   type: Method
-  source:
-    id: DropAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 120
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nDrops an index by name for this entity type\n"
+  summary: Drops an index by name for this entity type
   example: []
   syntax:
-    content: public async Task DropAsync(string name, CancellationToken cancellation = default(CancellationToken))
+    content: public Task DropAsync(string name, CancellationToken cancellation = default)
     parameters:
     - id: name
       type: System.String
@@ -203,12 +195,8 @@ items:
     content.vb: Public Function DropAsync(name As String, cancellation As CancellationToken = Nothing) As Task
   overload: MongoDB.Entities.Index`1.DropAsync*
   nameWithType.vb: Index(Of T).DropAsync(String, CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Index(Of T).DropAsync(System.String, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAsync(String, System.Threading.CancellationToken)
+  name.vb: DropAsync(String, CancellationToken)
 - uid: MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
   id: DropAllAsync(System.Threading.CancellationToken)
@@ -220,17 +208,13 @@ items:
   nameWithType: Index<T>.DropAllAsync(CancellationToken)
   fullName: MongoDB.Entities.Index<T>.DropAllAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: DropAllAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 129
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nDrops all indexes for this entity type\n"
+  summary: Drops all indexes for this entity type
   example: []
   syntax:
-    content: public async Task DropAllAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task DropAllAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -240,312 +224,286 @@ items:
     content.vb: Public Function DropAllAsync(cancellation As CancellationToken = Nothing) As Task
   overload: MongoDB.Entities.Index`1.DropAllAsync*
   nameWithType.vb: Index(Of T).DropAllAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Index(Of T).DropAllAsync(System.Threading.CancellationToken)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
+- uid: MongoDB.Entities.Index`1.#ctor*
+  commentId: Overload:MongoDB.Entities.Index`1.#ctor
+  href: MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1__ctor_MongoDB_Entities_DB_
+  name: Index
+  nameWithType: Index<T>.Index
+  fullName: MongoDB.Entities.Index<T>.Index
+  nameWithType.vb: Index(Of T).New
+  fullName.vb: MongoDB.Entities.Index(Of T).New
+  name.vb: New
+- uid: MongoDB.Entities.DB
+  commentId: T:MongoDB.Entities.DB
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.DB.html
+  name: DB
+  nameWithType: DB
+  fullName: MongoDB.Entities.DB
 - uid: MongoDB.Entities.Index`1.CreateAsync*
   commentId: Overload:MongoDB.Entities.Index`1.CreateAsync
+  href: MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_CreateAsync_System_Threading_CancellationToken_
   name: CreateAsync
   nameWithType: Index<T>.CreateAsync
   fullName: MongoDB.Entities.Index<T>.CreateAsync
@@ -555,6 +513,7 @@ references:
   commentId: T:System.Threading.CancellationToken
   parent: System.Threading
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
   name: CancellationToken
   nameWithType: CancellationToken
   fullName: System.Threading.CancellationToken
@@ -562,55 +521,68 @@ references:
   commentId: T:System.Threading.Tasks.Task{System.String}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
-  name: Task<String>
-  nameWithType: Task<String>
-  fullName: System.Threading.Tasks.Task<System.String>
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<string>
+  nameWithType: Task<string>
+  fullName: System.Threading.Tasks.Task<string>
   nameWithType.vb: Task(Of String)
-  fullName.vb: System.Threading.Tasks.Task(Of System.String)
+  fullName.vb: System.Threading.Tasks.Task(Of String)
   name.vb: Task(Of String)
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+    name: string
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.String
     name: String
-    nameWithType: String
-    fullName: System.String
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading
   commentId: N:System.Threading
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading
   nameWithType: System.Threading
   fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<TResult>
   nameWithType: Task<TResult>
   fullName: System.Threading.Tasks.Task<TResult>
@@ -620,41 +592,61 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
 - uid: MongoDB.Entities.Index`1.Option*
   commentId: Overload:MongoDB.Entities.Index`1.Option
+  href: MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_Option_System_Action_MongoDB_Driver_CreateIndexOptions__0___
   name: Option
   nameWithType: Index<T>.Option
   fullName: MongoDB.Entities.Index<T>.Option
@@ -664,6 +656,7 @@ references:
   commentId: T:System.Action{MongoDB.Driver.CreateIndexOptions{`0}}
   parent: System
   definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
   name: Action<CreateIndexOptions<T>>
   nameWithType: Action<CreateIndexOptions<T>>
   fullName: System.Action<MongoDB.Driver.CreateIndexOptions<T>>
@@ -673,59 +666,37 @@ references:
   spec.csharp:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.CreateIndexOptions`1
     name: CreateIndexOptions
-    nameWithType: CreateIndexOptions
-    fullName: MongoDB.Driver.CreateIndexOptions
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.CreateIndexOptions`1
     name: CreateIndexOptions
-    nameWithType: CreateIndexOptions
-    fullName: MongoDB.Driver.CreateIndexOptions
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Index{{T}}
-  commentId: T:MongoDB.Entities.Index{`0}
+- uid: MongoDB.Entities.Index`1
+  commentId: T:MongoDB.Entities.Index`1
   parent: MongoDB.Entities
-  definition: MongoDB.Entities.Index`1
+  href: MongoDB.Entities.Index-1.html
   name: Index<T>
   nameWithType: Index<T>
   fullName: MongoDB.Entities.Index<T>
@@ -735,34 +706,23 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Index`1
     name: Index
-    nameWithType: Index
-    fullName: MongoDB.Entities.Index
+    href: MongoDB.Entities.Index-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Index`1
     name: Index
-    nameWithType: Index
-    fullName: MongoDB.Entities.Index
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Index-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Action`1
   commentId: T:System.Action`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
   name: Action<T>
   nameWithType: Action<T>
   fullName: System.Action<T>
@@ -772,71 +732,24 @@ references:
   spec.csharp:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Index`1
-  commentId: T:MongoDB.Entities.Index`1
-  name: Index<T>
-  nameWithType: Index<T>
-  fullName: MongoDB.Entities.Index<T>
-  nameWithType.vb: Index(Of T)
-  fullName.vb: MongoDB.Entities.Index(Of T)
-  name.vb: Index(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.Index`1
-    name: Index
-    nameWithType: Index
-    fullName: MongoDB.Entities.Index
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.Index`1
-    name: Index
-    nameWithType: Index
-    fullName: MongoDB.Entities.Index
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Index`1.Key*
   commentId: Overload:MongoDB.Entities.Index`1.Key
+  href: MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_Key_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_KeyType_
   name: Key
   nameWithType: Index<T>.Key
   fullName: MongoDB.Entities.Index<T>.Key
@@ -846,89 +759,68 @@ references:
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Object>>
-  nameWithType: Expression<Func<T, Object>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<T, object>>
+  nameWithType: Expression<Func<T, object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, object>>
   nameWithType.vb: Expression(Of Func(Of T, Object))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, Object))
   name.vb: Expression(Of Func(Of T, Object))
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.KeyType
   commentId: T:MongoDB.Entities.KeyType
   parent: MongoDB.Entities
+  href: MongoDB.Entities.KeyType.html
   name: KeyType
   nameWithType: KeyType
   fullName: MongoDB.Entities.KeyType
 - uid: System.Linq.Expressions.Expression`1
   commentId: T:System.Linq.Expressions.Expression`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   name: Expression<TDelegate>
   nameWithType: Expression<TDelegate>
   fullName: System.Linq.Expressions.Expression<TDelegate>
@@ -938,41 +830,61 @@ references:
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions
   commentId: N:System.Linq.Expressions
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
 - uid: MongoDB.Entities.Index`1.DropAsync*
   commentId: Overload:MongoDB.Entities.Index`1.DropAsync
+  href: MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_DropAsync_System_String_System_Threading_CancellationToken_
   name: DropAsync
   nameWithType: Index<T>.DropAsync
   fullName: MongoDB.Entities.Index<T>.DropAsync
@@ -982,18 +894,24 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: System.Threading.Tasks.Task
   commentId: T:System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
   name: Task
   nameWithType: Task
   fullName: System.Threading.Tasks.Task
 - uid: MongoDB.Entities.Index`1.DropAllAsync*
   commentId: Overload:MongoDB.Entities.Index`1.DropAllAsync
+  href: MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_DropAllAsync_System_Threading_CancellationToken_
   name: DropAllAsync
   nameWithType: Index<T>.DropAllAsync
   fullName: MongoDB.Entities.Index<T>.DropAllAsync

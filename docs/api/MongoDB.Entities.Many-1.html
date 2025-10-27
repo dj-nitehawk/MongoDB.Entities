@@ -1,41 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Many&lt;TChild&gt;
- | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Many&lt;TChild&gt;
- | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class Many&lt;TChild&gt; | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class Many&lt;TChild&gt; | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <meta name="description" content="Represents a one-to-many/many-to-many relationship between two Entities. WARNING: You have to initialize all instances of this class before accessing any of it&amp;apos;s members. Initialize from the constructor of the parent entity as follows: this.InitOneToMany(() =&gt; Property); this.InitManyToMany(() =&gt; Property, x =&gt; x.OtherProperty);">
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -80,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -97,8 +80,7 @@
 
 
 
-  <h1 id="MongoDB_Entities_Many_1" data-uid="MongoDB.Entities.Many`1" class="text-break">Class Many&lt;TChild&gt;
-</h1>
+  <h1 id="MongoDB_Entities_Many_1" data-uid="MongoDB.Entities.Many`1" class="text-break">Class Many&lt;TChild&gt;</h1>
   <div class="markdown level0 summary"><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
 <p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
 <p>Initialize from the constructor of the parent entity as follows:</p>
@@ -108,37 +90,37 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="MongoDB.Entities.ManyBase.html">ManyBase</a></div>
     <div class="level2"><span class="xref">Many&lt;TChild&gt;</span></div>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><span class="xref">IEnumerable</span>&lt;TChild&gt;</div>
-    <div><span class="xref">IEnumerable</span></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TChild&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">Object.Equals(Object)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object, Object)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <span class="xref">Object.GetHashCode()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">Object.GetHashCode()</a>
     </div>
     <div>
-      <span class="xref">Object.GetType()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">Object.GetType()</a>
     </div>
     <div>
-      <span class="xref">Object.MemberwiseClone()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">Object.MemberwiseClone()</a>
     </div>
     <div>
-      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <span class="xref">Object.ToString()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">Object.ToString()</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -243,7 +225,7 @@ This is only needed in VB.Net</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -260,7 +242,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -288,7 +270,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;TChild&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TChild&gt;</td>
         <td><span class="parametername">children</span></td>
         <td><p>The child Entities to add</p>
 </td>
@@ -300,7 +282,7 @@ This is only needed in VB.Net</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -317,7 +299,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -345,7 +327,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>The IDs of the child Entities to add.</p>
 </td>
@@ -357,7 +339,7 @@ This is only needed in VB.Net</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -374,7 +356,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -402,7 +384,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">childID</span></td>
         <td><p>The ID of the child Entity to add.</p>
 </td>
@@ -414,7 +396,7 @@ This is only needed in VB.Net</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -431,7 +413,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -470,7 +452,7 @@ This is only needed in VB.Net</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -487,7 +469,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -612,7 +594,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerator</span>&lt;TChild&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;TChild&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -801,7 +783,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>An IEnumerable of child IDs</p>
 </td>
@@ -874,7 +856,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">childID</span></td>
         <td><p>An child ID</p>
 </td>
@@ -1021,7 +1003,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>An IEnumerable of child IDs</p>
 </td>
@@ -1094,7 +1076,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">childID</span></td>
         <td><p>A child ID</p>
 </td>
@@ -1178,7 +1160,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1195,7 +1177,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -1222,7 +1204,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;TChild&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TChild&gt;</td>
         <td><span class="parametername">children</span></td>
         <td><p>The child Entities to remove the references of.</p>
 </td>
@@ -1234,7 +1216,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1251,7 +1233,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -1278,7 +1260,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>The IDs of the child Entities to remove the references of</p>
 </td>
@@ -1290,7 +1272,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1307,7 +1289,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -1334,7 +1316,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">childID</span></td>
         <td><p>The ID of the child Entity to remove the reference of.</p>
 </td>
@@ -1346,7 +1328,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1363,7 +1345,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -1397,19 +1379,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TParent, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TParent, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><span class="parametername">propertyParent</span></td>
         <td><p>Function(x) x.ParentProp</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TChild, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TChild, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><span class="parametername">propertyChild</span></td>
         <td><p>Function(x) x.ChildProp</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
         <td><span class="parametername">isInverse</span></td>
         <td><p>Specify if this is the inverse side of the relationship or not</p>
 </td>
@@ -1461,7 +1443,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TParent, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TParent, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</td>
         <td><span class="parametername">property</span></td>
         <td><p>Function(x) x.PropName</p>
 </td>
@@ -1513,41 +1495,41 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>
   </div>
   <div>
-      <span class="xref">System.Collections.IEnumerable</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a>
   </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAllAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.DeleteAllAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.DeleteAllAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.InsertAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.InsertAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.SaveAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_System_String__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveExceptAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IEnumerable&lt;String&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.SaveExceptAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;System.String&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveExceptAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.SaveExceptAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, System.Linq.Expressions.Expression&lt;System.Func&lt;T, System.Object&gt;&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_System_String__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveOnlyAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IEnumerable&lt;String&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.SaveOnlyAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;System.String&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveOnlyAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, IClientSessionHandle, CancellationToken)</a>
+      <span class="xref">MongoDB.Entities.Extensions.SaveOnlyAsync&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;, System.Linq.Expressions.Expression&lt;System.Func&lt;T, System.Object&gt;&gt;, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)</span>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SortByRelevance__1_System_Collections_Generic_IEnumerable___0__System_String_System_Func___0_System_String__System_Nullable_System_Int32__">Extensions.SortByRelevance&lt;T&gt;(IEnumerable&lt;T&gt;, String, Func&lt;T, String&gt;, Nullable&lt;Int32&gt;)</a>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SortByRelevance__1_System_Collections_Generic_IEnumerable___0__System_String_System_Func___0_System_String__System_Nullable_System_Int32__">Extensions.SortByRelevance&lt;T&gt;(IEnumerable&lt;T&gt;, string, Func&lt;T, string&gt;, int?)</a>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToBatches__1_System_Collections_Generic_IEnumerable___0__System_Int32_">Extensions.ToBatches&lt;T&gt;(IEnumerable&lt;T&gt;, Int32)</a>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToBatches__1_System_Collections_Generic_IEnumerable___0__System_Int32_">Extensions.ToBatches&lt;T&gt;(IEnumerable&lt;T&gt;, int)</a>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocuments__1_System_Collections_Generic_IEnumerable___0__">Extensions.ToDocuments&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+      <span class="xref">MongoDB.Entities.Extensions.ToDocuments&lt;T&gt;(System.Collections.Generic.IEnumerable&lt;T&gt;)</span>
   </div>
 
 </article>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class One&lt;TEntity, TIdentity&gt; | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class One&lt;TEntity, TIdentity&gt; | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <meta name="description" content="Represents a one-to-one relationship with an IEntity.">
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/icon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.One`2">
+
+
+
+  <h1 id="MongoDB_Entities_One_2" data-uid="MongoDB.Entities.One`2" class="text-break">Class One&lt;TEntity, TIdentity&gt;</h1>
+  <div class="markdown level0 summary"><p>Represents a one-to-one relationship with an IEntity.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">One&lt;TEntity, TIdentity&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.html">MongoDB</a>.<a class="xref" href="MongoDB.Entities.html">Entities</a></h6>
+  <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
+  <h5 id="MongoDB_Entities_One_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class One&lt;TEntity, TIdentity&gt; where TEntity : IEntity where TIdentity : notnull</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TEntity</span></td>
+        <td><p>Any type that implements IEntity</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TIdentity</span></td>
+        <td><p>The type of the <a class="xref" href="MongoDB.Entities.One-2.html#MongoDB_Entities_One_2_ID">ID</a> property</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+</h3>
+
+
+  <a id="MongoDB_Entities_One_2__ctor_" data-uid="MongoDB.Entities.One`2.#ctor*"></a>
+  <h4 id="MongoDB_Entities_One_2__ctor" data-uid="MongoDB.Entities.One`2.#ctor">One()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public One()</code></pre>
+  </div>
+
+
+  <a id="MongoDB_Entities_One_2__ctor_" data-uid="MongoDB.Entities.One`2.#ctor*"></a>
+  <h4 id="MongoDB_Entities_One_2__ctor__0_" data-uid="MongoDB.Entities.One`2.#ctor(`0)">One(TEntity)</h4>
+  <div class="markdown level1 summary"><p>Initializes a reference to an entity in MongoDB.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public One(TEntity entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The actual entity this reference represents.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_One_2__ctor_" data-uid="MongoDB.Entities.One`2.#ctor*"></a>
+  <h4 id="MongoDB_Entities_One_2__ctor__1_" data-uid="MongoDB.Entities.One`2.#ctor(`1)">One(TIdentity)</h4>
+  <div class="markdown level1 summary"><p>Initializes a reference to an entity in MongoDB.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public One(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>the ID of the referenced entity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+
+
+  <a id="MongoDB_Entities_One_2_ID_" data-uid="MongoDB.Entities.One`2.ID*"></a>
+  <h4 id="MongoDB_Entities_One_2_ID" data-uid="MongoDB.Entities.One`2.ID">ID</h4>
+  <div class="markdown level1 summary"><p>The Id of the entity referenced by this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TIdentity ID { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+
+
+  <a id="MongoDB_Entities_One_2_FromObject_" data-uid="MongoDB.Entities.One`2.FromObject*"></a>
+  <h4 id="MongoDB_Entities_One_2_FromObject__1_" data-uid="MongoDB.Entities.One`2.FromObject(`1)">FromObject(TIdentity)</h4>
+  <div class="markdown level1 summary"><p>Operator for returning a new One&lt;T&gt; object from a object ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static One&lt;TEntity, TIdentity&gt; FromObject(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The ID to create a new One&lt;T&gt; with</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.One-2.html">One</a>&lt;TEntity, TIdentity&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_One_2_ToEntityAsync_" data-uid="MongoDB.Entities.One`2.ToEntityAsync*"></a>
+  <h4 id="MongoDB_Entities_One_2_ToEntityAsync_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.One`2.ToEntityAsync(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">ToEntityAsync(DB?, IClientSessionHandle?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Fetches the actual entity this reference represents from the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TEntity&gt; ToEntityAsync(DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.DB.html">DB</a></td>
+        <td><span class="parametername">db</span></td>
+        <td><p>The DB instance where these operations will be performed</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TEntity&gt;</td>
+        <td><p>A Task containing the actual entity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_One_2_ToEntityAsync_" data-uid="MongoDB.Entities.One`2.ToEntityAsync*"></a>
+  <h4 id="MongoDB_Entities_One_2_ToEntityAsync_System_Func_MongoDB_Driver_ProjectionDefinitionBuilder__0__MongoDB_Driver_ProjectionDefinition__0__0___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.One`2.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">ToEntityAsync(Func&lt;ProjectionDefinitionBuilder&lt;TEntity&gt;, ProjectionDefinition&lt;TEntity, TEntity&gt;&gt;, DB?, IClientSessionHandle?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Fetches the actual entity this reference represents from the database with a projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TEntity&gt; ToEntityAsync(Func&lt;ProjectionDefinitionBuilder&lt;TEntity&gt;, ProjectionDefinition&lt;TEntity, TEntity&gt;&gt; projection, DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<span class="xref">ProjectionDefinitionBuilder</span>&lt;TEntity&gt;, <span class="xref">ProjectionDefinition</span>&lt;TEntity, TEntity&gt;&gt;</td>
+        <td><span class="parametername">projection</span></td>
+        <td><p>p=&gt; p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.DB.html">DB</a></td>
+        <td><span class="parametername">db</span></td>
+        <td><p>The DB instance where these operations will be performed</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TEntity&gt;</td>
+        <td><p>A Task containing the actual projected entity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>thrown if the entity cannot be found in the database or more than one
+entity matching the ID is found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_One_2_ToEntityAsync_" data-uid="MongoDB.Entities.One`2.ToEntityAsync*"></a>
+  <h4 id="MongoDB_Entities_One_2_ToEntityAsync_System_Linq_Expressions_Expression_System_Func__0__0___MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.One`2.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">ToEntityAsync(Expression&lt;Func&lt;TEntity, TEntity&gt;&gt;, DB?, IClientSessionHandle?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Fetches the actual entity this reference represents from the database with a projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TEntity&gt; ToEntityAsync(Expression&lt;Func&lt;TEntity, TEntity&gt;&gt; projection, DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TEntity, TEntity&gt;&gt;</td>
+        <td><span class="parametername">projection</span></td>
+        <td><p>x =&gt; new Test { PropName = x.Prop }</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.DB.html">DB</a></td>
+        <td><span class="parametername">db</span></td>
+        <td><p>The DB instance where these operations will be performed</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TEntity&gt;</td>
+        <td><p>A Task containing the actual projected entity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>thrown if the entity cannot be found in the database or more than one
+entity matching the ID is found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

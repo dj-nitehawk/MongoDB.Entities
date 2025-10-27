@@ -21,12 +21,12 @@ items:
   - MongoDB.Entities.Find`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
   - MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
   - MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
-  - MongoDB.Entities.Find`2.Match(System.String)
+  - MongoDB.Entities.Find`2.Match(System.Object)
   - MongoDB.Entities.Find`2.MatchExpression(MongoDB.Entities.Template)
   - MongoDB.Entities.Find`2.MatchExpression(System.String)
-  - MongoDB.Entities.Find`2.MatchID(System.String)
+  - MongoDB.Entities.Find`2.MatchID(System.Object)
   - MongoDB.Entities.Find`2.MatchString(System.String)
-  - MongoDB.Entities.Find`2.OneAsync(System.String,System.Threading.CancellationToken)
+  - MongoDB.Entities.Find`2.OneAsync(System.Object,System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})
   - MongoDB.Entities.Find`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
   - MongoDB.Entities.Find`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
@@ -43,25 +43,21 @@ items:
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>
   type: Class
-  source:
-    id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 32
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRepresents a MongoDB Find command with the ability to project to a different result type.\n<p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>\n"
+  summary: >-
+    Represents a MongoDB Find command with the ability to project to a different result type.
+
+    <p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
   example: []
   syntax:
-    content: >-
-      public class Find<T, TProjection>
-
-          where T : IEntity
+    content: 'public class Find<T, TProjection> where T : IEntity'
     typeParameters:
     - id: T
       description: Any class that implements IEntity
     - id: TProjection
-      description: The type you&apos;d like to project the results to.
+      description: The type you'd like to project the results to.
     content.vb: Public Class Find(Of T As IEntity, TProjection)
   inheritance:
   - System.Object
@@ -76,39 +72,29 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   nameWithType.vb: Find(Of T, TProjection)
-  modifiers.csharp:
-  - public
-  - class
-  modifiers.vb:
-  - Public
-  - Class
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection)
   name.vb: Find(Of T, TProjection)
-- uid: MongoDB.Entities.Find`2.OneAsync(System.String,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Find`2.OneAsync(System.String,System.Threading.CancellationToken)
-  id: OneAsync(System.String,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Find`2.OneAsync(System.Object,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Find`2.OneAsync(System.Object,System.Threading.CancellationToken)
+  id: OneAsync(System.Object,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Find`2
   langs:
   - csharp
   - vb
-  name: OneAsync(String, CancellationToken)
-  nameWithType: Find<T, TProjection>.OneAsync(String, CancellationToken)
-  fullName: MongoDB.Entities.Find<T, TProjection>.OneAsync(System.String, System.Threading.CancellationToken)
+  name: OneAsync(object, CancellationToken)
+  nameWithType: Find<T, TProjection>.OneAsync(object, CancellationToken)
+  fullName: MongoDB.Entities.Find<T, TProjection>.OneAsync(object, System.Threading.CancellationToken)
   type: Method
-  source:
-    id: OneAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 55
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nFind a single IEntity by ID\n"
+  summary: Find a single IEntity by ID
   example: []
   syntax:
-    content: public Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default(CancellationToken))
+    content: public Task<TProjection?> OneAsync(object ID, CancellationToken cancellation = default)
     parameters:
     - id: ID
-      type: System.String
+      type: System.Object
       description: The unique ID of an IEntity
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -116,14 +102,11 @@ items:
     return:
       type: System.Threading.Tasks.Task{{TProjection}}
       description: A single entity or null if not found
-    content.vb: Public Function OneAsync(ID As String, cancellation As CancellationToken = Nothing) As Task(Of TProjection)
+    content.vb: Public Function OneAsync(ID As Object, cancellation As CancellationToken = Nothing) As Task(Of TProjection)
   overload: MongoDB.Entities.Find`2.OneAsync*
-  nameWithType.vb: Find(Of T, TProjection).OneAsync(String, CancellationToken)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).OneAsync(System.String, System.Threading.CancellationToken)
+  nameWithType.vb: Find(Of T, TProjection).OneAsync(Object, CancellationToken)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).OneAsync(Object, System.Threading.CancellationToken)
+  name.vb: OneAsync(Object, CancellationToken)
 - uid: MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)
   id: ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)
@@ -131,25 +114,21 @@ items:
   langs:
   - csharp
   - vb
-  name: ManyAsync(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType: Find<T, TProjection>.ManyAsync(Expression<Func<T, Boolean>>, CancellationToken)
-  fullName: MongoDB.Entities.Find<T, TProjection>.ManyAsync(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
+  name: ManyAsync(Expression<Func<T, bool>>, CancellationToken)
+  nameWithType: Find<T, TProjection>.ManyAsync(Expression<Func<T, bool>>, CancellationToken)
+  fullName: MongoDB.Entities.Find<T, TProjection>.ManyAsync(System.Linq.Expressions.Expression<System.Func<T, bool>>, System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ManyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 67
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nFind entities by supplying a lambda expression\n"
+  summary: Find entities by supplying a lambda expression
   example: []
   syntax:
-    content: public Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken))
+    content: public Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellation = default)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
-      description: x => x.Property == Value
+      description: x =&gt; x.Property == Value
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
@@ -159,11 +138,7 @@ items:
     content.vb: Public Function ManyAsync(expression As Expression(Of Func(Of T, Boolean)), cancellation As CancellationToken = Nothing) As Task(Of List(Of TProjection))
   overload: MongoDB.Entities.Find`2.ManyAsync*
   nameWithType.vb: Find(Of T, TProjection).ManyAsync(Expression(Of Func(Of T, Boolean)), CancellationToken)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ManyAsync(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ManyAsync(System.Linq.Expressions.Expression(Of System.Func(Of T, Boolean)), System.Threading.CancellationToken)
   name.vb: ManyAsync(Expression(Of Func(Of T, Boolean)), CancellationToken)
 - uid: MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)
@@ -176,21 +151,17 @@ items:
   nameWithType: Find<T, TProjection>.ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
   fullName: MongoDB.Entities.Find<T, TProjection>.ManyAsync(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ManyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 79
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nFind entities by supplying a filter expression\n"
+  summary: Find entities by supplying a filter expression
   example: []
   syntax:
-    content: public Task<List<TProjection>> ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default(CancellationToken))
+    content: public Task<List<TProjection>> ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default)
     parameters:
     - id: filter
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
-      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+      description: f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
@@ -200,84 +171,66 @@ items:
     content.vb: Public Function ManyAsync(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), cancellation As CancellationToken = Nothing) As Task(Of List(Of TProjection))
   overload: MongoDB.Entities.Find`2.ManyAsync*
   nameWithType.vb: Find(Of T, TProjection).ManyAsync(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ManyAsync(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken)
   name.vb: ManyAsync(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-- uid: MongoDB.Entities.Find`2.MatchID(System.String)
-  commentId: M:MongoDB.Entities.Find`2.MatchID(System.String)
-  id: MatchID(System.String)
+- uid: MongoDB.Entities.Find`2.MatchID(System.Object)
+  commentId: M:MongoDB.Entities.Find`2.MatchID(System.Object)
+  id: MatchID(System.Object)
   parent: MongoDB.Entities.Find`2
   langs:
   - csharp
   - vb
-  name: MatchID(String)
-  nameWithType: Find<T, TProjection>.MatchID(String)
-  fullName: MongoDB.Entities.Find<T, TProjection>.MatchID(System.String)
+  name: MatchID(object)
+  nameWithType: Find<T, TProjection>.MatchID(object)
+  fullName: MongoDB.Entities.Find<T, TProjection>.MatchID(object)
   type: Method
-  source:
-    id: MatchID
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 89
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify an IEntity ID as the matching criteria\n"
+  summary: Specify an IEntity ID as the matching criteria
   example: []
   syntax:
-    content: public Find<T, TProjection> MatchID(string ID)
+    content: public Find<T, TProjection> MatchID(object ID)
     parameters:
     - id: ID
-      type: System.String
+      type: System.Object
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
-    content.vb: Public Function MatchID(ID As String) As Find(Of T, TProjection)
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function MatchID(ID As Object) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchID*
-  nameWithType.vb: Find(Of T, TProjection).MatchID(String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchID(System.String)
-- uid: MongoDB.Entities.Find`2.Match(System.String)
-  commentId: M:MongoDB.Entities.Find`2.Match(System.String)
-  id: Match(System.String)
+  nameWithType.vb: Find(Of T, TProjection).MatchID(Object)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchID(Object)
+  name.vb: MatchID(Object)
+- uid: MongoDB.Entities.Find`2.Match(System.Object)
+  commentId: M:MongoDB.Entities.Find`2.Match(System.Object)
+  id: Match(System.Object)
   parent: MongoDB.Entities.Find`2
   langs:
   - csharp
   - vb
-  name: Match(String)
-  nameWithType: Find<T, TProjection>.Match(String)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Match(System.String)
+  name: Match(object)
+  nameWithType: Find<T, TProjection>.Match(object)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Match(object)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify an IEntity ID as the matching criteria\n"
+  summary: Specify an IEntity ID as the matching criteria
   example: []
   syntax:
-    content: public Find<T, TProjection> Match(string ID)
+    content: public Find<T, TProjection> Match(object ID)
     parameters:
     - id: ID
-      type: System.String
+      type: System.Object
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
-    content.vb: Public Function Match(ID As String) As Find(Of T, TProjection)
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function Match(ID As Object) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
-  nameWithType.vb: Find(Of T, TProjection).Match(String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.String)
+  nameWithType.vb: Find(Of T, TProjection).Match(Object)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(Object)
+  name.vb: Match(Object)
 - uid: MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
   commentId: M:MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
   id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
@@ -285,35 +238,27 @@ items:
   langs:
   - csharp
   - vb
-  name: Match(Expression<Func<T, Boolean>>)
-  nameWithType: Find<T, TProjection>.Match(Expression<Func<T, Boolean>>)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  name: Match(Expression<Func<T, bool>>)
+  nameWithType: Find<T, TProjection>.Match(Expression<Func<T, bool>>)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, bool>>)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 107
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a lambda expression\n"
+  summary: Specify the matching criteria with a lambda expression
   example: []
   syntax:
     content: public Find<T, TProjection> Match(Expression<Func<T, bool>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
-      description: x => x.Property == Value
+      description: x =&gt; x.Property == Value
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, Boolean)))
   name.vb: Match(Expression(Of Func(Of T, Boolean)))
 - uid: MongoDB.Entities.Find`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
   commentId: M:MongoDB.Entities.Find`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -326,30 +271,22 @@ items:
   nameWithType: Find<T, TProjection>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   fullName: MongoDB.Entities.Find<T, TProjection>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 116
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a filter expression\n"
+  summary: Specify the matching criteria with a filter expression
   example: []
   syntax:
     content: public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     parameters:
     - id: filter
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
-      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+      description: f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
 - uid: MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})
@@ -363,14 +300,10 @@ items:
   nameWithType: Find<T, TProjection>.Match(FilterDefinition<T>)
   fullName: MongoDB.Entities.Find<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 126
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a filter definition\n"
+  summary: Specify the matching criteria with a filter definition
   example: []
   syntax:
     content: public Find<T, TProjection> Match(FilterDefinition<T> filterDefinition)
@@ -379,14 +312,10 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(FilterDefinition(Of T))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
   name.vb: Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.Find`2.Match(MongoDB.Entities.Template)
@@ -400,14 +329,10 @@ items:
   nameWithType: Find<T, TProjection>.Match(Template)
   fullName: MongoDB.Entities.Find<T, TProjection>.Match(MongoDB.Entities.Template)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 136
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a template\n"
+  summary: Specify the matching criteria with a template
   example: []
   syntax:
     content: public Find<T, TProjection> Match(Template template)
@@ -416,14 +341,10 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Match(template As Template) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Template)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(MongoDB.Entities.Template)
 - uid: MongoDB.Entities.Find`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   commentId: M:MongoDB.Entities.Find`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
@@ -432,21 +353,20 @@ items:
   langs:
   - csharp
   - vb
-  name: Match(Search, String, Boolean, Boolean, String)
-  nameWithType: Find<T, TProjection>.Match(Search, String, Boolean, Boolean, String)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  name: Match(Search, string, bool, bool, string?)
+  nameWithType: Find<T, TProjection>.Match(Search, string, bool, bool, string?)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Match(MongoDB.Entities.Search, string, bool, bool, string?)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 151
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify a search term to find results from the text index of this particular collection.\n<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>\n"
+  summary: >-
+    Specify a search term to find results from the text index of this particular collection.
+
+    <p>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</p>
   example: []
   syntax:
-    content: public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    content: public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     parameters:
     - id: searchType
       type: MongoDB.Entities.Search
@@ -464,15 +384,12 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(MongoDB.Entities.Search, String, Boolean, Boolean, String)
+  name.vb: Match(Search, String, Boolean, Boolean, String)
 - uid: MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   commentId: M:MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
@@ -480,21 +397,22 @@ items:
   langs:
   - csharp
   - vb
-  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  nameWithType: Find<T, TProjection>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  name: Match(Expression<Func<T, object?>>, Coordinates2D, double?, double?)
+  nameWithType: Find<T, TProjection>.Match(Expression<Func<T, object?>>, Coordinates2D, double?, double?)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, object?>>, MongoDB.Entities.Coordinates2D, double?, double?)
   type: Method
-  source:
-    id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 181
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
+  summary: >-
+    Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
+
+    <p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</p>
+
+    <p>Note: DB.FluentGeoNear() supports more advanced options</p>
   example: []
   syntax:
-    content: public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    content: public Find<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     parameters:
     - id: coordinatesProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
@@ -509,16 +427,12 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
-  nameWithType.vb: Find(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
-  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  nameWithType.vb: Find(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Double?, Double?)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.Coordinates2D, Double?, Double?)
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Double?, Double?)
 - uid: MongoDB.Entities.Find`2.MatchString(System.String)
   commentId: M:MongoDB.Entities.Find`2.MatchString(System.String)
   id: MatchString(System.String)
@@ -526,35 +440,28 @@ items:
   langs:
   - csharp
   - vb
-  name: MatchString(String)
-  nameWithType: Find<T, TProjection>.MatchString(String)
-  fullName: MongoDB.Entities.Find<T, TProjection>.MatchString(System.String)
+  name: MatchString(string)
+  nameWithType: Find<T, TProjection>.MatchString(string)
+  fullName: MongoDB.Entities.Find<T, TProjection>.MatchString(string)
   type: Method
-  source:
-    id: MatchString
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 190
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a JSON string\n"
+  summary: Specify the matching criteria with a JSON string
   example: []
   syntax:
     content: public Find<T, TProjection> MatchString(string jsonString)
     parameters:
     - id: jsonString
       type: System.String
-      description: '{ Title : &apos;The Power Of Now&apos; }'
+      description: "{ Title : 'The Power Of Now' }"
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function MatchString(jsonString As String) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchString*
   nameWithType.vb: Find(Of T, TProjection).MatchString(String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchString(System.String)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchString(String)
+  name.vb: MatchString(String)
 - uid: MongoDB.Entities.Find`2.MatchExpression(System.String)
   commentId: M:MongoDB.Entities.Find`2.MatchExpression(System.String)
   id: MatchExpression(System.String)
@@ -562,35 +469,28 @@ items:
   langs:
   - csharp
   - vb
-  name: MatchExpression(String)
-  nameWithType: Find<T, TProjection>.MatchExpression(String)
-  fullName: MongoDB.Entities.Find<T, TProjection>.MatchExpression(System.String)
+  name: MatchExpression(string)
+  nameWithType: Find<T, TProjection>.MatchExpression(string)
+  fullName: MongoDB.Entities.Find<T, TProjection>.MatchExpression(string)
   type: Method
-  source:
-    id: MatchExpression
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 200
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with an aggregation expression (i.e. $expr)\n"
+  summary: Specify the matching criteria with an aggregation expression (i.e. $expr)
   example: []
   syntax:
     content: public Find<T, TProjection> MatchExpression(string expression)
     parameters:
     - id: expression
       type: System.String
-      description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
+      description: "{ $gt: ['$Property1', '$Property2'] }"
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function MatchExpression(expression As String) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchExpression*
   nameWithType.vb: Find(Of T, TProjection).MatchExpression(String)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchExpression(System.String)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchExpression(String)
+  name.vb: MatchExpression(String)
 - uid: MongoDB.Entities.Find`2.MatchExpression(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.Find`2.MatchExpression(MongoDB.Entities.Template)
   id: MatchExpression(MongoDB.Entities.Template)
@@ -602,14 +502,10 @@ items:
   nameWithType: Find<T, TProjection>.MatchExpression(Template)
   fullName: MongoDB.Entities.Find<T, TProjection>.MatchExpression(MongoDB.Entities.Template)
   type: Method
-  source:
-    id: MatchExpression
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 210
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the matching criteria with a Template\n"
+  summary: Specify the matching criteria with a Template
   example: []
   syntax:
     content: public Find<T, TProjection> MatchExpression(Template template)
@@ -618,14 +514,10 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function MatchExpression(template As Template) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchExpression*
   nameWithType.vb: Find(Of T, TProjection).MatchExpression(Template)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchExpression(MongoDB.Entities.Template)
 - uid: MongoDB.Entities.Find`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)
   commentId: M:MongoDB.Entities.Find`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)
@@ -634,38 +526,30 @@ items:
   langs:
   - csharp
   - vb
-  name: Sort(Expression<Func<T, Object>>, Order)
-  nameWithType: Find<T, TProjection>.Sort(Expression<Func<T, Object>>, Order)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Sort(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Order)
+  name: Sort(Expression<Func<T, object?>>, Order)
+  nameWithType: Find<T, TProjection>.Sort(Expression<Func<T, object?>>, Order)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Sort(System.Linq.Expressions.Expression<System.Func<T, object?>>, MongoDB.Entities.Order)
   type: Method
-  source:
-    id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 221
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify which property and order to use for sorting (use multiple times if needed)\n"
+  summary: Specify which property and order to use for sorting (use multiple times if needed)
   example: []
   syntax:
-    content: public Find<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
+    content: public Find<T, TProjection> Sort(Expression<Func<T, object?>> propertyToSortBy, Order sortOrder)
     parameters:
     - id: propertyToSortBy
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.Prop
+      description: x =&gt; x.Prop
     - id: sortOrder
       type: MongoDB.Entities.Order
       description: The sort order
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Sort(propertyToSortBy As Expression(Of Func(Of T, Object)), sortOrder As Order) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Sort*
   nameWithType.vb: Find(Of T, TProjection).Sort(Expression(Of Func(Of T, Object)), Order)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Sort(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Order)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Sort(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)), MongoDB.Entities.Order)
   name.vb: Sort(Expression(Of Func(Of T, Object)), Order)
 - uid: MongoDB.Entities.Find`2.SortByTextScore
   commentId: M:MongoDB.Entities.Find`2.SortByTextScore
@@ -678,26 +562,21 @@ items:
   nameWithType: Find<T, TProjection>.SortByTextScore()
   fullName: MongoDB.Entities.Find<T, TProjection>.SortByTextScore()
   type: Method
-  source:
-    id: SortByTextScore
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 235
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSort the results of a text search by the MetaTextScore\n<p>TIP: Use this method after .Project() if you need to do a projection also</p>\n"
+  summary: >-
+    Sort the results of a text search by the MetaTextScore
+
+    <p>TIP: Use this method after .Project() if you need to do a projection also</p>
   example: []
   syntax:
     content: public Find<T, TProjection> SortByTextScore()
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
-    content.vb: Public Function SortByTextScore As Find(Of T, TProjection)
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function SortByTextScore() As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.SortByTextScore*
   nameWithType.vb: Find(Of T, TProjection).SortByTextScore()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).SortByTextScore()
 - uid: MongoDB.Entities.Find`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   commentId: M:MongoDB.Entities.Find`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
@@ -706,35 +585,30 @@ items:
   langs:
   - csharp
   - vb
-  name: SortByTextScore(Expression<Func<T, Object>>)
-  nameWithType: Find<T, TProjection>.SortByTextScore(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Find<T, TProjection>.SortByTextScore(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: SortByTextScore(Expression<Func<T, object?>>?)
+  nameWithType: Find<T, TProjection>.SortByTextScore(Expression<Func<T, object?>>?)
+  fullName: MongoDB.Entities.Find<T, TProjection>.SortByTextScore(System.Linq.Expressions.Expression<System.Func<T, object?>>?)
   type: Method
-  source:
-    id: SortByTextScore
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 245
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSort the results of a text search by the MetaTextScore and get back the score as well\n<p>TIP: Use this method after .Project() if you need to do a projection also</p>\n"
+  summary: >-
+    Sort the results of a text search by the MetaTextScore and get back the score as well
+
+    <p>TIP: Use this method after .Project() if you need to do a projection also</p>
   example: []
   syntax:
-    content: public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>> scoreProperty)
+    content: public Find<T, TProjection> SortByTextScore(Expression<Func<T, object?>>? scoreProperty)
     parameters:
     - id: scoreProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.TextScoreProp
+      description: x =&gt; x.TextScoreProp
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function SortByTextScore(scoreProperty As Expression(Of Func(Of T, Object))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.SortByTextScore*
   nameWithType.vb: Find(Of T, TProjection).SortByTextScore(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).SortByTextScore(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).SortByTextScore(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: SortByTextScore(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Find`2.Sort(System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}})
   commentId: M:MongoDB.Entities.Find`2.Sort(System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}})
@@ -747,31 +621,23 @@ items:
   nameWithType: Find<T, TProjection>.Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>>)
   fullName: MongoDB.Entities.Find<T, TProjection>.Sort(System.Func<MongoDB.Driver.SortDefinitionBuilder<T>, MongoDB.Driver.SortDefinition<T>>)
   type: Method
-  source:
-    id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 264
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to sort using a sort expression\n"
+  summary: Specify how to sort using a sort expression
   example: []
   syntax:
     content: public Find<T, TProjection> Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>> sortFunction)
     parameters:
     - id: sortFunction
       type: System.Func{MongoDB.Driver.SortDefinitionBuilder{{T}},MongoDB.Driver.SortDefinition{{T}}}
-      description: s => s.Ascending(&quot;Prop1&quot;).MetaTextScore(&quot;Prop2&quot;)
+      description: s =&gt; s.Ascending("Prop1").MetaTextScore("Prop2")
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
       description: ''
     content.vb: Public Function Sort(sortFunction As Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Sort*
   nameWithType.vb: Find(Of T, TProjection).Sort(Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Sort(System.Func(Of MongoDB.Driver.SortDefinitionBuilder(Of T), MongoDB.Driver.SortDefinition(Of T)))
   name.vb: Sort(Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T)))
 - uid: MongoDB.Entities.Find`2.Skip(System.Int32)
@@ -781,18 +647,14 @@ items:
   langs:
   - csharp
   - vb
-  name: Skip(Int32)
-  nameWithType: Find<T, TProjection>.Skip(Int32)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Skip(System.Int32)
+  name: Skip(int)
+  nameWithType: Find<T, TProjection>.Skip(int)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Skip(int)
   type: Method
-  source:
-    id: Skip
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 274
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how many entities to skip\n"
+  summary: Specify how many entities to skip
   example: []
   syntax:
     content: public Find<T, TProjection> Skip(int skipCount)
@@ -801,15 +663,12 @@ items:
       type: System.Int32
       description: The number to skip
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Skip(skipCount As Integer) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Skip*
-  nameWithType.vb: Find(Of T, TProjection).Skip(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Skip(System.Int32)
+  nameWithType.vb: Find(Of T, TProjection).Skip(Integer)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Skip(Integer)
+  name.vb: Skip(Integer)
 - uid: MongoDB.Entities.Find`2.Limit(System.Int32)
   commentId: M:MongoDB.Entities.Find`2.Limit(System.Int32)
   id: Limit(System.Int32)
@@ -817,18 +676,14 @@ items:
   langs:
   - csharp
   - vb
-  name: Limit(Int32)
-  nameWithType: Find<T, TProjection>.Limit(Int32)
-  fullName: MongoDB.Entities.Find<T, TProjection>.Limit(System.Int32)
+  name: Limit(int)
+  nameWithType: Find<T, TProjection>.Limit(int)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Limit(int)
   type: Method
-  source:
-    id: Limit
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 284
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how many entities to Take/Limit\n"
+  summary: Specify how many entities to Take/Limit
   example: []
   syntax:
     content: public Find<T, TProjection> Limit(int takeCount)
@@ -837,15 +692,12 @@ items:
       type: System.Int32
       description: The number to limit/take
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Limit(takeCount As Integer) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Limit*
-  nameWithType.vb: Find(Of T, TProjection).Limit(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Limit(System.Int32)
+  nameWithType.vb: Find(Of T, TProjection).Limit(Integer)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Limit(Integer)
+  name.vb: Limit(Integer)
 - uid: MongoDB.Entities.Find`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
   commentId: M:MongoDB.Entities.Find`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
   id: Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
@@ -857,30 +709,22 @@ items:
   nameWithType: Find<T, TProjection>.Project(Expression<Func<T, TProjection>>)
   fullName: MongoDB.Entities.Find<T, TProjection>.Project(System.Linq.Expressions.Expression<System.Func<T, TProjection>>)
   type: Method
-  source:
-    id: Project
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 294
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to project the results using a lambda expression\n"
+  summary: Specify how to project the results using a lambda expression
   example: []
   syntax:
     content: public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
-      description: x => new Test { PropName = x.Prop }
+      description: x =&gt; new Test { PropName = x.Prop }
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Project(expression As Expression(Of Func(Of T, TProjection))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Project*
   nameWithType.vb: Find(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Project(System.Linq.Expressions.Expression(Of System.Func(Of T, TProjection)))
   name.vb: Project(Expression(Of Func(Of T, TProjection)))
 - uid: MongoDB.Entities.Find`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
@@ -894,30 +738,22 @@ items:
   nameWithType: Find<T, TProjection>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
   fullName: MongoDB.Entities.Find<T, TProjection>.Project(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>)
   type: Method
-  source:
-    id: Project
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 303
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to project the results using a projection expression\n"
+  summary: Specify how to project the results using a projection expression
   example: []
   syntax:
     content: public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     parameters:
     - id: projection
       type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
-      description: p => p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
+      description: p =&gt; p.Include("Prop1").Exclude("Prop2")
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function Project(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Project*
   nameWithType.vb: Find(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection)))
   name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
 - uid: MongoDB.Entities.Find`2.ProjectExcluding(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
@@ -927,35 +763,27 @@ items:
   langs:
   - csharp
   - vb
-  name: ProjectExcluding(Expression<Func<T, Object>>)
-  nameWithType: Find<T, TProjection>.ProjectExcluding(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Find<T, TProjection>.ProjectExcluding(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: ProjectExcluding(Expression<Func<T, object>>)
+  nameWithType: Find<T, TProjection>.ProjectExcluding(Expression<Func<T, object>>)
+  fullName: MongoDB.Entities.Find<T, TProjection>.ProjectExcluding(System.Linq.Expressions.Expression<System.Func<T, object>>)
   type: Method
-  source:
-    id: ProjectExcluding
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 313
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify how to project the results using an exclusion projection expression.\n"
+  summary: Specify how to project the results using an exclusion projection expression.
   example: []
   syntax:
     content: public Find<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
     parameters:
     - id: exclusion
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => new { x.PropToExclude, x.AnotherPropToExclude }
+      description: x =&gt; new { x.PropToExclude, x.AnotherPropToExclude }
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
+      type: MongoDB.Entities.Find`2
     content.vb: Public Function ProjectExcluding(exclusion As Expression(Of Func(Of T, Object))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.ProjectExcluding*
   nameWithType.vb: Find(Of T, TProjection).ProjectExcluding(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ProjectExcluding(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ProjectExcluding(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: ProjectExcluding(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Find`2.IncludeRequiredProps
   commentId: M:MongoDB.Entities.Find`2.IncludeRequiredProps
@@ -968,26 +796,21 @@ items:
   nameWithType: Find<T, TProjection>.IncludeRequiredProps()
   fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps()
   type: Method
-  source:
-    id: IncludeRequiredProps
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 337
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.\n<p>HINT: this method should only be called after the .Project() method.</p>\n"
+  summary: >-
+    Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.
+
+    <p>HINT: this method should only be called after the .Project() method.</p>
   example: []
   syntax:
     content: public Find<T, TProjection> IncludeRequiredProps()
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
-    content.vb: Public Function IncludeRequiredProps As Find(Of T, TProjection)
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function IncludeRequiredProps() As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.IncludeRequiredProps*
   nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps()
 - uid: MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})
   commentId: M:MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})
@@ -1000,30 +823,22 @@ items:
   nameWithType: Find<T, TProjection>.Option(Action<FindOptions<T, TProjection>>)
   fullName: MongoDB.Entities.Find<T, TProjection>.Option(System.Action<MongoDB.Driver.FindOptions<T, TProjection>>)
   type: Method
-  source:
-    id: Option
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 350
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify an option for this find command (use multiple times if needed)\n"
+  summary: Specify an option for this find command (use multiple times if needed)
   example: []
   syntax:
     content: public Find<T, TProjection> Option(Action<FindOptions<T, TProjection>> option)
     parameters:
     - id: option
       type: System.Action{MongoDB.Driver.FindOptions{{T},{TProjection}}}
-      description: x => x.OptionName = OptionValue
+      description: x =&gt; x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
-    content.vb: Public Function Option(option As Action(Of FindOptions(Of T, TProjection))) As Find(Of T, TProjection)
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function [Option]([option] As Action(Of FindOptions(Of T, TProjection))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Option*
   nameWithType.vb: Find(Of T, TProjection).Option(Action(Of FindOptions(Of T, TProjection)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Option(System.Action(Of MongoDB.Driver.FindOptions(Of T, TProjection)))
   name.vb: Option(Action(Of FindOptions(Of T, TProjection)))
 - uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
@@ -1037,26 +852,18 @@ items:
   nameWithType: Find<T, TProjection>.IgnoreGlobalFilters()
   fullName: MongoDB.Entities.Find<T, TProjection>.IgnoreGlobalFilters()
   type: Method
-  source:
-    id: IgnoreGlobalFilters
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 359
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify that this operation should ignore any global filters\n"
+  summary: Specify that this operation should ignore any global filters
   example: []
   syntax:
     content: public Find<T, TProjection> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.Find{{T},{TProjection}}
-    content.vb: Public Function IgnoreGlobalFilters As Find(Of T, TProjection)
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function IgnoreGlobalFilters() As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.IgnoreGlobalFilters*
   nameWithType.vb: Find(Of T, TProjection).IgnoreGlobalFilters()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters()
 - uid: MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)
@@ -1069,17 +876,13 @@ items:
   nameWithType: Find<T, TProjection>.ExecuteAsync(CancellationToken)
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ExecuteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 369
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the Find command in MongoDB server and get a list of results\n"
+  summary: Run the Find command in MongoDB server and get a list of results
   example: []
   syntax:
-    content: public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -1089,11 +892,6 @@ items:
     content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of List(Of TProjection))
   overload: MongoDB.Entities.Find`2.ExecuteAsync*
   nameWithType.vb: Find(Of T, TProjection).ExecuteAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAsync(System.Threading.CancellationToken)
 - uid: MongoDB.Entities.Find`2.ExecuteSingleAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteSingleAsync(System.Threading.CancellationToken)
@@ -1106,17 +904,16 @@ items:
   nameWithType: Find<T, TProjection>.ExecuteSingleAsync(CancellationToken)
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteSingleAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ExecuteSingleAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 387
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the Find command in MongoDB server and get a single result or the default value if not found.\nIf more than one entity is found, it will throw an exception.\n"
+  summary: >-
+    Run the Find command in MongoDB server and get a single result or the default value if not found.
+
+    If more than one entity is found, it will throw an exception.
   example: []
   syntax:
-    content: public async Task<TProjection> ExecuteSingleAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<TProjection?> ExecuteSingleAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -1126,11 +923,6 @@ items:
     content.vb: Public Function ExecuteSingleAsync(cancellation As CancellationToken = Nothing) As Task(Of TProjection)
   overload: MongoDB.Entities.Find`2.ExecuteSingleAsync*
   nameWithType.vb: Find(Of T, TProjection).ExecuteSingleAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteSingleAsync(System.Threading.CancellationToken)
 - uid: MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)
@@ -1143,17 +935,13 @@ items:
   nameWithType: Find<T, TProjection>.ExecuteFirstAsync(CancellationToken)
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteFirstAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ExecuteFirstAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 399
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the Find command in MongoDB server and get the first result or the default value if not found\n"
+  summary: Run the Find command in MongoDB server and get the first result or the default value if not found
   example: []
   syntax:
-    content: public async Task<TProjection> ExecuteFirstAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<TProjection?> ExecuteFirstAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -1163,11 +951,6 @@ items:
     content.vb: Public Function ExecuteFirstAsync(cancellation As CancellationToken = Nothing) As Task(Of TProjection)
   overload: MongoDB.Entities.Find`2.ExecuteFirstAsync*
   nameWithType.vb: Find(Of T, TProjection).ExecuteFirstAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteFirstAsync(System.Threading.CancellationToken)
 - uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
@@ -1180,17 +963,13 @@ items:
   nameWithType: Find<T, TProjection>.ExecuteAnyAsync(CancellationToken)
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ExecuteAnyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 411
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the Find command and get back a bool indicating whether any entities matched the query\n"
+  summary: Run the Find command and get back a bool indicating whether any entities matched the query
   example: []
   syntax:
-    content: public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -1200,11 +979,6 @@ items:
     content.vb: Public Function ExecuteAnyAsync(cancellation As CancellationToken = Nothing) As Task(Of Boolean)
   overload: MongoDB.Entities.Find`2.ExecuteAnyAsync*
   nameWithType.vb: Find(Of T, TProjection).ExecuteAnyAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  - async
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync(System.Threading.CancellationToken)
 - uid: MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)
@@ -1217,17 +991,13 @@ items:
   nameWithType: Find<T, TProjection>.ExecuteCursorAsync(CancellationToken)
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteCursorAsync(System.Threading.CancellationToken)
   type: Method
-  source:
-    id: ExecuteCursorAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 424
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the Find command in MongoDB server and get a cursor instead of materialized results\n"
+  summary: Run the Find command in MongoDB server and get a cursor instead of materialized results
   example: []
   syntax:
-    content: public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default)
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -1237,327 +1007,280 @@ items:
     content.vb: Public Function ExecuteCursorAsync(cancellation As CancellationToken = Nothing) As Task(Of IAsyncCursor(Of TProjection))
   overload: MongoDB.Entities.Find`2.ExecuteCursorAsync*
   nameWithType.vb: Find(Of T, TProjection).ExecuteCursorAsync(CancellationToken)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteCursorAsync(System.Threading.CancellationToken)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: MongoDB.Entities.Find`2.OneAsync*
   commentId: Overload:MongoDB.Entities.Find`2.OneAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_OneAsync_System_Object_System_Threading_CancellationToken_
   name: OneAsync
   nameWithType: Find<T, TProjection>.OneAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.OneAsync
   nameWithType.vb: Find(Of T, TProjection).OneAsync
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).OneAsync
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
 - uid: System.Threading.CancellationToken
   commentId: T:System.Threading.CancellationToken
   parent: System.Threading
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
   name: CancellationToken
   nameWithType: CancellationToken
   fullName: System.Threading.CancellationToken
@@ -1565,6 +1288,7 @@ references:
   commentId: T:System.Threading.Tasks.Task{`1}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<TProjection>
   nameWithType: Task<TProjection>
   fullName: System.Threading.Tasks.Task<TProjection>
@@ -1574,42 +1298,52 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading
   commentId: N:System.Threading
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading
   nameWithType: System.Threading
   fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<TResult>
   nameWithType: Task<TResult>
   fullName: System.Threading.Tasks.Task<TResult>
@@ -1619,41 +1353,61 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
 - uid: MongoDB.Entities.Find`2.ManyAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ManyAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ManyAsync_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___System_Threading_CancellationToken_
   name: ManyAsync
   nameWithType: Find<T, TProjection>.ManyAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.ManyAsync
@@ -1663,84 +1417,62 @@ references:
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Boolean>>
-  nameWithType: Expression<Func<T, Boolean>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<T, bool>>
+  nameWithType: Expression<Func<T, bool>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, bool>>
   nameWithType.vb: Expression(Of Func(Of T, Boolean))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, Boolean))
   name.vb: Expression(Of Func(Of T, Boolean))
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
+    name: bool
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Boolean
     name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Threading.Tasks.Task{System.Collections.Generic.List{{TProjection}}}
   commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.List{`1}}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<List<TProjection>>
   nameWithType: Task<List<TProjection>>
   fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<TProjection>>
@@ -1750,58 +1482,39 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Collections.Generic.List`1
     name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Collections.Generic.List`1
     name: List
-    nameWithType: List
-    fullName: System.Collections.Generic.List
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions.Expression`1
   commentId: T:System.Linq.Expressions.Expression`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   name: Expression<TDelegate>
   nameWithType: Expression<TDelegate>
   fullName: System.Linq.Expressions.Expression<TDelegate>
@@ -1811,43 +1524,63 @@ references:
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions
   commentId: N:System.Linq.Expressions
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
 - uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
   commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}}
   parent: System
   definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
   nameWithType: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
   fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>
@@ -1857,92 +1590,55 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
-    nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
-    nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Func`2
   commentId: T:System.Func`2
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<T, TResult>
   nameWithType: Func<T, TResult>
   fullName: System.Func<T, TResult>
@@ -1952,104 +1648,39 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.MatchID*
   commentId: Overload:MongoDB.Entities.Find`2.MatchID
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_MatchID_System_Object_
   name: MatchID
   nameWithType: Find<T, TProjection>.MatchID
   fullName: MongoDB.Entities.Find<T, TProjection>.MatchID
   nameWithType.vb: Find(Of T, TProjection).MatchID
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchID
-- uid: MongoDB.Entities.Find{{T},{TProjection}}
-  commentId: T:MongoDB.Entities.Find{`0,`1}
-  parent: MongoDB.Entities
-  definition: MongoDB.Entities.Find`2
-  name: Find<T, TProjection>
-  nameWithType: Find<T, TProjection>
-  fullName: MongoDB.Entities.Find<T, TProjection>
-  nameWithType.vb: Find(Of T, TProjection)
-  fullName.vb: MongoDB.Entities.Find(Of T, TProjection)
-  name.vb: Find(Of T, TProjection)
-  spec.csharp:
-  - uid: MongoDB.Entities.Find`2
-    name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.Find`2
-    name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2
   commentId: T:MongoDB.Entities.Find`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Find-2.html
   name: Find<T, TProjection>
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>
@@ -2059,45 +1690,28 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Find`2
     name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
+    href: MongoDB.Entities.Find-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Find`2
     name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Find-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.Match*
   commentId: Overload:MongoDB.Entities.Find`2.Match
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Match_System_Object_
   name: Match
   nameWithType: Find<T, TProjection>.Match
   fullName: MongoDB.Entities.Find<T, TProjection>.Match
@@ -2116,33 +1730,19 @@ references:
   spec.csharp:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Driver.FilterDefinition`1
   commentId: T:MongoDB.Driver.FilterDefinition`1
   isExternal: true
@@ -2155,139 +1755,136 @@ references:
   spec.csharp:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TDocument
-    nameWithType: TDocument
-    fullName: TDocument
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
-    nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: TDocument
-    nameWithType: TDocument
-    fullName: TDocument
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Driver
   commentId: N:MongoDB.Driver
   isExternal: true
   name: MongoDB.Driver
   nameWithType: MongoDB.Driver
   fullName: MongoDB.Driver
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Driver
+    name: Driver
+    isExternal: true
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Driver
+    name: Driver
+    isExternal: true
 - uid: MongoDB.Entities.Template
   commentId: T:MongoDB.Entities.Template
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Template.html
   name: Template
   nameWithType: Template
   fullName: MongoDB.Entities.Template
 - uid: MongoDB.Entities.Search
   commentId: T:MongoDB.Entities.Search
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Search.html
   name: Search
   nameWithType: Search
   fullName: MongoDB.Entities.Search
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
   isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Object>>
-  nameWithType: Expression<Func<T, Object>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<T, object>>
+  nameWithType: Expression<Func<T, object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, object>>
   nameWithType.vb: Expression(Of Func(Of T, Object))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, Object))
   name.vb: Expression(Of Func(Of T, Object))
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Coordinates2D
   commentId: T:MongoDB.Entities.Coordinates2D
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Coordinates2D.html
   name: Coordinates2D
   nameWithType: Coordinates2D
   fullName: MongoDB.Entities.Coordinates2D
@@ -2295,49 +1892,29 @@ references:
   commentId: T:System.Nullable{System.Double}
   parent: System
   definition: System.Nullable`1
-  name: Nullable<Double>
-  nameWithType: Nullable<Double>
-  fullName: System.Nullable<System.Double>
-  nameWithType.vb: Nullable(Of Double)
-  fullName.vb: System.Nullable(Of System.Double)
-  name.vb: Nullable(Of Double)
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double?
+  nameWithType: double?
+  fullName: double?
+  nameWithType.vb: Double?
+  fullName.vb: Double?
+  name.vb: Double?
   spec.csharp:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Double
-    name: Double
-    nameWithType: Double
-    fullName: System.Double
+    name: double
     isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
   spec.vb:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
   - uid: System.Double
     name: Double
-    nameWithType: Double
-    fullName: System.Double
     isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
 - uid: System.Nullable`1
   commentId: T:System.Nullable`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
   name: Nullable<T>
   nameWithType: Nullable<T>
   fullName: System.Nullable<T>
@@ -2347,35 +1924,24 @@ references:
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Nullable`1
     name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.MatchString*
   commentId: Overload:MongoDB.Entities.Find`2.MatchString
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_MatchString_System_String_
   name: MatchString
   nameWithType: Find<T, TProjection>.MatchString
   fullName: MongoDB.Entities.Find<T, TProjection>.MatchString
@@ -2383,6 +1949,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchString
 - uid: MongoDB.Entities.Find`2.MatchExpression*
   commentId: Overload:MongoDB.Entities.Find`2.MatchExpression
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_MatchExpression_System_String_
   name: MatchExpression
   nameWithType: Find<T, TProjection>.MatchExpression
   fullName: MongoDB.Entities.Find<T, TProjection>.MatchExpression
@@ -2390,6 +1957,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchExpression
 - uid: MongoDB.Entities.Find`2.Sort*
   commentId: Overload:MongoDB.Entities.Find`2.Sort
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Sort_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Order_
   name: Sort
   nameWithType: Find<T, TProjection>.Sort
   fullName: MongoDB.Entities.Find<T, TProjection>.Sort
@@ -2398,11 +1966,13 @@ references:
 - uid: MongoDB.Entities.Order
   commentId: T:MongoDB.Entities.Order
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Order.html
   name: Order
   nameWithType: Order
   fullName: MongoDB.Entities.Order
 - uid: MongoDB.Entities.Find`2.SortByTextScore*
   commentId: Overload:MongoDB.Entities.Find`2.SortByTextScore
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_SortByTextScore
   name: SortByTextScore
   nameWithType: Find<T, TProjection>.SortByTextScore
   fullName: MongoDB.Entities.Find<T, TProjection>.SortByTextScore
@@ -2412,6 +1982,7 @@ references:
   commentId: T:System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}}
   parent: System
   definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<SortDefinitionBuilder<T>, SortDefinition<T>>
   nameWithType: Func<SortDefinitionBuilder<T>, SortDefinition<T>>
   fullName: System.Func<MongoDB.Driver.SortDefinitionBuilder<T>, MongoDB.Driver.SortDefinition<T>>
@@ -2421,91 +1992,54 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.SortDefinitionBuilder`1
     name: SortDefinitionBuilder
-    nameWithType: SortDefinitionBuilder
-    fullName: MongoDB.Driver.SortDefinitionBuilder
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.SortDefinition`1
     name: SortDefinition
-    nameWithType: SortDefinition
-    fullName: MongoDB.Driver.SortDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.SortDefinitionBuilder`1
     name: SortDefinitionBuilder
-    nameWithType: SortDefinitionBuilder
-    fullName: MongoDB.Driver.SortDefinitionBuilder
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.SortDefinition`1
     name: SortDefinition
-    nameWithType: SortDefinition
-    fullName: MongoDB.Driver.SortDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.Skip*
   commentId: Overload:MongoDB.Entities.Find`2.Skip
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Skip_System_Int32_
   name: Skip
   nameWithType: Find<T, TProjection>.Skip
   fullName: MongoDB.Entities.Find<T, TProjection>.Skip
@@ -2515,11 +2049,16 @@ references:
   commentId: T:System.Int32
   parent: System
   isExternal: true
-  name: Int32
-  nameWithType: Int32
-  fullName: System.Int32
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: MongoDB.Entities.Find`2.Limit*
   commentId: Overload:MongoDB.Entities.Find`2.Limit
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Limit_System_Int32_
   name: Limit
   nameWithType: Find<T, TProjection>.Limit
   fullName: MongoDB.Entities.Find<T, TProjection>.Limit
@@ -2527,6 +2066,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Limit
 - uid: MongoDB.Entities.Find`2.Project*
   commentId: Overload:MongoDB.Entities.Find`2.Project
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___
   name: Project
   nameWithType: Find<T, TProjection>.Project
   fullName: MongoDB.Entities.Find<T, TProjection>.Project
@@ -2536,6 +2076,7 @@ references:
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,`1}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   name: Expression<Func<T, TProjection>>
   nameWithType: Expression<Func<T, TProjection>>
   fullName: System.Linq.Expressions.Expression<System.Func<T, TProjection>>
@@ -2545,71 +2086,46 @@ references:
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
   commentId: T:System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}}
   parent: System
   definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
   name: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>
   nameWithType: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>
   fullName: System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>
@@ -2619,103 +2135,60 @@ references:
   spec.csharp:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
-    nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.ProjectionDefinition`2
     name: ProjectionDefinition
-    nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
-    nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: MongoDB.Driver.ProjectionDefinition`2
     name: ProjectionDefinition
-    nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.ProjectExcluding*
   commentId: Overload:MongoDB.Entities.Find`2.ProjectExcluding
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ProjectExcluding_System_Linq_Expressions_Expression_System_Func__0_System_Object___
   name: ProjectExcluding
   nameWithType: Find<T, TProjection>.ProjectExcluding
   fullName: MongoDB.Entities.Find<T, TProjection>.ProjectExcluding
@@ -2723,6 +2196,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ProjectExcluding
 - uid: MongoDB.Entities.Find`2.IncludeRequiredProps*
   commentId: Overload:MongoDB.Entities.Find`2.IncludeRequiredProps
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_IncludeRequiredProps
   name: IncludeRequiredProps
   nameWithType: Find<T, TProjection>.IncludeRequiredProps
   fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps
@@ -2730,6 +2204,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps
 - uid: MongoDB.Entities.Find`2.Option*
   commentId: Overload:MongoDB.Entities.Find`2.Option
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Option_System_Action_MongoDB_Driver_FindOptions__0__1___
   name: Option
   nameWithType: Find<T, TProjection>.Option
   fullName: MongoDB.Entities.Find<T, TProjection>.Option
@@ -2739,6 +2214,7 @@ references:
   commentId: T:System.Action{MongoDB.Driver.FindOptions{`0,`1}}
   parent: System
   definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
   name: Action<FindOptions<T, TProjection>>
   nameWithType: Action<FindOptions<T, TProjection>>
   fullName: System.Action<MongoDB.Driver.FindOptions<T, TProjection>>
@@ -2748,70 +2224,43 @@ references:
   spec.csharp:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.FindOptions`2
     name: FindOptions
-    nameWithType: FindOptions
-    fullName: MongoDB.Driver.FindOptions
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.FindOptions`2
     name: FindOptions
-    nameWithType: FindOptions
-    fullName: MongoDB.Driver.FindOptions
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Action`1
   commentId: T:System.Action`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
   name: Action<T>
   nameWithType: Action<T>
   fullName: System.Action<T>
@@ -2821,35 +2270,24 @@ references:
   spec.csharp:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Action`1
     name: Action
-    nameWithType: Action
-    fullName: System.Action
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters*
   commentId: Overload:MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_IgnoreGlobalFilters
   name: IgnoreGlobalFilters
   nameWithType: Find<T, TProjection>.IgnoreGlobalFilters
   fullName: MongoDB.Entities.Find<T, TProjection>.IgnoreGlobalFilters
@@ -2857,6 +2295,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters
 - uid: MongoDB.Entities.Find`2.ExecuteAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteAsync_System_Threading_CancellationToken_
   name: ExecuteAsync
   nameWithType: Find<T, TProjection>.ExecuteAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAsync
@@ -2864,6 +2303,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAsync
 - uid: MongoDB.Entities.Find`2.ExecuteSingleAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteSingleAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteSingleAsync_System_Threading_CancellationToken_
   name: ExecuteSingleAsync
   nameWithType: Find<T, TProjection>.ExecuteSingleAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteSingleAsync
@@ -2871,6 +2311,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteSingleAsync
 - uid: MongoDB.Entities.Find`2.ExecuteFirstAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteFirstAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteFirstAsync_System_Threading_CancellationToken_
   name: ExecuteFirstAsync
   nameWithType: Find<T, TProjection>.ExecuteFirstAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteFirstAsync
@@ -2878,6 +2319,7 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteFirstAsync
 - uid: MongoDB.Entities.Find`2.ExecuteAnyAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteAnyAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteAnyAsync_System_Threading_CancellationToken_
   name: ExecuteAnyAsync
   nameWithType: Find<T, TProjection>.ExecuteAnyAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync
@@ -2887,48 +2329,40 @@ references:
   commentId: T:System.Threading.Tasks.Task{System.Boolean}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
-  name: Task<Boolean>
-  nameWithType: Task<Boolean>
-  fullName: System.Threading.Tasks.Task<System.Boolean>
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<bool>
+  nameWithType: Task<bool>
+  fullName: System.Threading.Tasks.Task<bool>
   nameWithType.vb: Task(Of Boolean)
-  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of Boolean)
   name.vb: Task(Of Boolean)
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
+    name: bool
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Boolean
     name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2.ExecuteCursorAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteCursorAsync
+  href: MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteCursorAsync_System_Threading_CancellationToken_
   name: ExecuteCursorAsync
   nameWithType: Find<T, TProjection>.ExecuteCursorAsync
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteCursorAsync
@@ -2938,6 +2372,7 @@ references:
   commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.IAsyncCursor{`1}}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   name: Task<IAsyncCursor<TProjection>>
   nameWithType: Task<IAsyncCursor<TProjection>>
   fullName: System.Threading.Tasks.Task<MongoDB.Driver.IAsyncCursor<TProjection>>
@@ -2947,52 +2382,30 @@ references:
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: MongoDB.Driver.IAsyncCursor`1
     name: IAsyncCursor
-    nameWithType: IAsyncCursor
-    fullName: MongoDB.Driver.IAsyncCursor
     isExternal: true
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Threading.Tasks.Task`1
     name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: MongoDB.Driver.IAsyncCursor`1
     name: IAsyncCursor
-    nameWithType: IAsyncCursor
-    fullName: MongoDB.Driver.IAsyncCursor
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+  - name: (
+  - name: Of
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )

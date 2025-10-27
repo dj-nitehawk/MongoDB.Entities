@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Fuzzy Text Search | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Fuzzy Text Search | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Fuzzy Text Search | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Fuzzy Text Search | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -104,7 +89,7 @@
 }
 </code></pre>
 <h2 id="2-create-text-index">2. Create text index</h2>
-<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;()
+<pre><code class="lang-csharp">await DB.Instance().Index&lt;Book&gt;()
         .Key(b =&gt; b.AuthorName, KeyType.Text)
         .CreateAsync();
 </code></pre>
@@ -112,13 +97,13 @@
 <pre><code class="lang-csharp">await new Book { AuthorName = &quot;Eckhart Tolle&quot; }.SaveAsync();
 </code></pre>
 <h2 id="4-do-a-fuzzy-search-on-the-index">4. Do a fuzzy search on the index</h2>
-<pre><code class="lang-csharp">var results = await DB.Find&lt;Book&gt;()
+<pre><code class="lang-csharp">var results = await DB.Instance().Find&lt;Book&gt;()
                       .Match(Search.Fuzzy, &quot;ekard tole&quot;)
                       .ExecuteAsync();
 </code></pre>
 <p>that's all there's to it...</p>
 <p>in case you need to start a flunt aggregation pipeline with fuzzy text matching, you can do it like so:</p>
-<pre><code class="lang-csharp">DB.FluentTextSearch&lt;Book&gt;(Search.Fuzzy, &quot;ekard tole&quot;)
+<pre><code class="lang-csharp">DB.Instance().FluentTextSearch&lt;Book&gt;(Search.Fuzzy, &quot;ekard tole&quot;)
 </code></pre>
 <h1 id="how-it-works">How it works</h1>
 <p>when you store text using <code>FuzzyString</code> class, the resulting mongodb document will look like this:</p>

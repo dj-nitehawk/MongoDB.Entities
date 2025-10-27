@@ -1,0 +1,1042 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.One`2
+  commentId: T:MongoDB.Entities.One`2
+  id: One`2
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.One`2.#ctor
+  - MongoDB.Entities.One`2.#ctor(`0)
+  - MongoDB.Entities.One`2.#ctor(`1)
+  - MongoDB.Entities.One`2.FromObject(`1)
+  - MongoDB.Entities.One`2.ID
+  - MongoDB.Entities.One`2.ToEntityAsync(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.One`2.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.One`2.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: One<TEntity, TIdentity>
+  nameWithType: One<TEntity, TIdentity>
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>
+  type: Class
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Represents a one-to-one relationship with an IEntity.
+  example: []
+  syntax:
+    content: 'public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : notnull'
+    typeParameters:
+    - id: TEntity
+      description: Any type that implements IEntity
+    - id: TIdentity
+      description: The type of the <xref href="MongoDB.Entities.One%602.ID" data-throw-if-not-resolved="false"></xref> property
+    content.vb: Public Class One(Of TEntity As IEntity, TIdentity)
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  nameWithType.vb: One(Of TEntity, TIdentity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity)
+  name.vb: One(Of TEntity, TIdentity)
+- uid: MongoDB.Entities.One`2.ID
+  commentId: P:MongoDB.Entities.One`2.ID
+  id: ID
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: ID
+  nameWithType: One<TEntity, TIdentity>.ID
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ID
+  type: Property
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: The Id of the entity referenced by this instance.
+  example: []
+  syntax:
+    content: public TIdentity ID { get; set; }
+    parameters: []
+    return:
+      type: '{TIdentity}'
+    content.vb: Public Property ID As TIdentity
+  overload: MongoDB.Entities.One`2.ID*
+  nameWithType.vb: One(Of TEntity, TIdentity).ID
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ID
+- uid: MongoDB.Entities.One`2.#ctor
+  commentId: M:MongoDB.Entities.One`2.#ctor
+  id: '#ctor'
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: One()
+  nameWithType: One<TEntity, TIdentity>.One()
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.One()
+  type: Constructor
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public One()
+    content.vb: Public Sub New()
+  overload: MongoDB.Entities.One`2.#ctor*
+  nameWithType.vb: One(Of TEntity, TIdentity).New()
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).New()
+  name.vb: New()
+- uid: MongoDB.Entities.One`2.#ctor(`0)
+  commentId: M:MongoDB.Entities.One`2.#ctor(`0)
+  id: '#ctor(`0)'
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: One(TEntity)
+  nameWithType: One<TEntity, TIdentity>.One(TEntity)
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.One(TEntity)
+  type: Constructor
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Initializes a reference to an entity in MongoDB.
+  example: []
+  syntax:
+    content: public One(TEntity entity)
+    parameters:
+    - id: entity
+      type: '{TEntity}'
+      description: The actual entity this reference represents.
+    content.vb: Public Sub New(entity As TEntity)
+  overload: MongoDB.Entities.One`2.#ctor*
+  nameWithType.vb: One(Of TEntity, TIdentity).New(TEntity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).New(TEntity)
+  name.vb: New(TEntity)
+- uid: MongoDB.Entities.One`2.#ctor(`1)
+  commentId: M:MongoDB.Entities.One`2.#ctor(`1)
+  id: '#ctor(`1)'
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: One(TIdentity)
+  nameWithType: One<TEntity, TIdentity>.One(TIdentity)
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.One(TIdentity)
+  type: Constructor
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Initializes a reference to an entity in MongoDB.
+  example: []
+  syntax:
+    content: public One(TIdentity id)
+    parameters:
+    - id: id
+      type: '{TIdentity}'
+      description: the ID of the referenced entity
+    content.vb: Public Sub New(id As TIdentity)
+  overload: MongoDB.Entities.One`2.#ctor*
+  nameWithType.vb: One(Of TEntity, TIdentity).New(TIdentity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).New(TIdentity)
+  name.vb: New(TIdentity)
+- uid: MongoDB.Entities.One`2.FromObject(`1)
+  commentId: M:MongoDB.Entities.One`2.FromObject(`1)
+  id: FromObject(`1)
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: FromObject(TIdentity)
+  nameWithType: One<TEntity, TIdentity>.FromObject(TIdentity)
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.FromObject(TIdentity)
+  type: Method
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Operator for returning a new One&lt;T&gt; object from a object ID
+  example: []
+  syntax:
+    content: public static One<TEntity, TIdentity> FromObject(TIdentity id)
+    parameters:
+    - id: id
+      type: '{TIdentity}'
+      description: The ID to create a new One&lt;T&gt; with
+    return:
+      type: MongoDB.Entities.One`2
+    content.vb: Public Shared Function FromObject(id As TIdentity) As One(Of TEntity, TIdentity)
+  overload: MongoDB.Entities.One`2.FromObject*
+  nameWithType.vb: One(Of TEntity, TIdentity).FromObject(TIdentity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).FromObject(TIdentity)
+- uid: MongoDB.Entities.One`2.ToEntityAsync(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.One`2.ToEntityAsync(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: ToEntityAsync(MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: ToEntityAsync(DB?, IClientSessionHandle?, CancellationToken)
+  nameWithType: One<TEntity, TIdentity>.ToEntityAsync(DB?, IClientSessionHandle?, CancellationToken)
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ToEntityAsync(MongoDB.Entities.DB?, MongoDB.Driver.IClientSessionHandle?, System.Threading.CancellationToken)
+  type: Method
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Fetches the actual entity this reference represents from the database.
+  example: []
+  syntax:
+    content: public Task<TEntity> ToEntityAsync(DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    parameters:
+    - id: db
+      type: MongoDB.Entities.DB
+      description: The DB instance where these operations will be performed
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{{TEntity}}
+      description: A Task containing the actual entity
+    content.vb: Public Function ToEntityAsync(db As DB = Nothing, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TEntity)
+  overload: MongoDB.Entities.One`2.ToEntityAsync*
+  nameWithType.vb: One(Of TEntity, TIdentity).ToEntityAsync(DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ToEntityAsync(MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: ToEntityAsync(DB, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.One`2.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.One`2.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: ToEntityAsync(Expression<Func<TEntity, TEntity>>, DB?, IClientSessionHandle?, CancellationToken)
+  nameWithType: One<TEntity, TIdentity>.ToEntityAsync(Expression<Func<TEntity, TEntity>>, DB?, IClientSessionHandle?, CancellationToken)
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ToEntityAsync(System.Linq.Expressions.Expression<System.Func<TEntity, TEntity>>, MongoDB.Entities.DB?, MongoDB.Driver.IClientSessionHandle?, System.Threading.CancellationToken)
+  type: Method
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Fetches the actual entity this reference represents from the database with a projection.
+  example: []
+  syntax:
+    content: public Task<TEntity> ToEntityAsync(Expression<Func<TEntity, TEntity>> projection, DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    parameters:
+    - id: projection
+      type: System.Linq.Expressions.Expression{System.Func{{TEntity},{TEntity}}}
+      description: x =&gt; new Test { PropName = x.Prop }
+    - id: db
+      type: MongoDB.Entities.DB
+      description: The DB instance where these operations will be performed
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{{TEntity}}
+      description: A Task containing the actual projected entity
+    content.vb: Public Function ToEntityAsync(projection As Expression(Of Func(Of TEntity, TEntity)), db As DB = Nothing, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TEntity)
+  overload: MongoDB.Entities.One`2.ToEntityAsync*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      thrown if the entity cannot be found in the database or more than one
+
+      entity matching the ID is found.
+  nameWithType.vb: One(Of TEntity, TIdentity).ToEntityAsync(Expression(Of Func(Of TEntity, TEntity)), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ToEntityAsync(System.Linq.Expressions.Expression(Of System.Func(Of TEntity, TEntity)), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: ToEntityAsync(Expression(Of Func(Of TEntity, TEntity)), DB, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.One`2.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.One`2.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Entities.DB,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.One`2
+  langs:
+  - csharp
+  - vb
+  name: ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>>, DB?, IClientSessionHandle?, CancellationToken)
+  nameWithType: One<TEntity, TIdentity>.ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>>, DB?, IClientSessionHandle?, CancellationToken)
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ToEntityAsync(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<TEntity>, MongoDB.Driver.ProjectionDefinition<TEntity, TEntity>>, MongoDB.Entities.DB?, MongoDB.Driver.IClientSessionHandle?, System.Threading.CancellationToken)
+  type: Method
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: Fetches the actual entity this reference represents from the database with a projection.
+  example: []
+  syntax:
+    content: public Task<TEntity> ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>> projection, DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    parameters:
+    - id: projection
+      type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{TEntity}},MongoDB.Driver.ProjectionDefinition{{TEntity},{TEntity}}}
+      description: p=&gt; p.Include("Prop1").Exclude("Prop2")
+    - id: db
+      type: MongoDB.Entities.DB
+      description: The DB instance where these operations will be performed
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{{TEntity}}
+      description: A Task containing the actual projected entity
+    content.vb: Public Function ToEntityAsync(projection As Func(Of ProjectionDefinitionBuilder(Of TEntity), ProjectionDefinition(Of TEntity, TEntity)), db As DB = Nothing, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TEntity)
+  overload: MongoDB.Entities.One`2.ToEntityAsync*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      thrown if the entity cannot be found in the database or more than one
+
+      entity matching the ID is found.
+  nameWithType.vb: One(Of TEntity, TIdentity).ToEntityAsync(Func(Of ProjectionDefinitionBuilder(Of TEntity), ProjectionDefinition(Of TEntity, TEntity)), DB, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ToEntityAsync(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of TEntity), MongoDB.Driver.ProjectionDefinition(Of TEntity, TEntity)), MongoDB.Entities.DB, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: ToEntityAsync(Func(Of ProjectionDefinitionBuilder(Of TEntity), ProjectionDefinition(Of TEntity, TEntity)), DB, IClientSessionHandle, CancellationToken)
+references:
+- uid: MongoDB.Entities.One`2.ID
+  commentId: P:MongoDB.Entities.One`2.ID
+  href: MongoDB.Entities.One-2.html#MongoDB_Entities_One_2_ID
+  name: ID
+  nameWithType: One<TEntity, TIdentity>.ID
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ID
+  nameWithType.vb: One(Of TEntity, TIdentity).ID
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ID
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  href: MongoDB.html
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.One`2.ID*
+  commentId: Overload:MongoDB.Entities.One`2.ID
+  href: MongoDB.Entities.One-2.html#MongoDB_Entities_One_2_ID
+  name: ID
+  nameWithType: One<TEntity, TIdentity>.ID
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ID
+  nameWithType.vb: One(Of TEntity, TIdentity).ID
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ID
+- uid: '{TIdentity}'
+  commentId: '!:TIdentity'
+  definition: TIdentity
+  name: TIdentity
+  nameWithType: TIdentity
+  fullName: TIdentity
+- uid: TIdentity
+  name: TIdentity
+  nameWithType: TIdentity
+  fullName: TIdentity
+- uid: MongoDB.Entities.One`2.#ctor*
+  commentId: Overload:MongoDB.Entities.One`2.#ctor
+  href: MongoDB.Entities.One-2.html#MongoDB_Entities_One_2__ctor
+  name: One
+  nameWithType: One<TEntity, TIdentity>.One
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.One
+  nameWithType.vb: One(Of TEntity, TIdentity).New
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).New
+  name.vb: New
+- uid: '{TEntity}'
+  commentId: '!:TEntity'
+  definition: TEntity
+  name: TEntity
+  nameWithType: TEntity
+  fullName: TEntity
+- uid: TEntity
+  name: TEntity
+  nameWithType: TEntity
+  fullName: TEntity
+- uid: MongoDB.Entities.One`2.FromObject*
+  commentId: Overload:MongoDB.Entities.One`2.FromObject
+  href: MongoDB.Entities.One-2.html#MongoDB_Entities_One_2_FromObject__1_
+  name: FromObject
+  nameWithType: One<TEntity, TIdentity>.FromObject
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.FromObject
+  nameWithType.vb: One(Of TEntity, TIdentity).FromObject
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).FromObject
+- uid: MongoDB.Entities.One`2
+  commentId: T:MongoDB.Entities.One`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.One-2.html
+  name: One<TEntity, TIdentity>
+  nameWithType: One<TEntity, TIdentity>
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>
+  nameWithType.vb: One(Of TEntity, TIdentity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity)
+  name.vb: One(Of TEntity, TIdentity)
+  spec.csharp:
+  - uid: MongoDB.Entities.One`2
+    name: One
+    href: MongoDB.Entities.One-2.html
+  - name: <
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TIdentity
+  - name: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.One`2
+    name: One
+    href: MongoDB.Entities.One-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TIdentity
+  - name: )
+- uid: MongoDB.Entities.One`2.ToEntityAsync*
+  commentId: Overload:MongoDB.Entities.One`2.ToEntityAsync
+  href: MongoDB.Entities.One-2.html#MongoDB_Entities_One_2_ToEntityAsync_MongoDB_Entities_DB_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  name: ToEntityAsync
+  nameWithType: One<TEntity, TIdentity>.ToEntityAsync
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>.ToEntityAsync
+  nameWithType.vb: One(Of TEntity, TIdentity).ToEntityAsync
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity).ToEntityAsync
+- uid: MongoDB.Entities.DB
+  commentId: T:MongoDB.Entities.DB
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.DB.html
+  name: DB
+  nameWithType: DB
+  fullName: MongoDB.Entities.DB
+- uid: MongoDB.Driver.IClientSessionHandle
+  commentId: T:MongoDB.Driver.IClientSessionHandle
+  parent: MongoDB.Driver
+  isExternal: true
+  name: IClientSessionHandle
+  nameWithType: IClientSessionHandle
+  fullName: MongoDB.Driver.IClientSessionHandle
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{{TEntity}}
+  commentId: T:System.Threading.Tasks.Task{`0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TEntity>
+  nameWithType: Task<TEntity>
+  fullName: System.Threading.Tasks.Task<TEntity>
+  nameWithType.vb: Task(Of TEntity)
+  fullName.vb: System.Threading.Tasks.Task(Of TEntity)
+  name.vb: Task(Of TEntity)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TEntity
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
+  - name: )
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Driver
+    name: Driver
+    isExternal: true
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    isExternal: true
+  - name: .
+  - uid: MongoDB.Driver
+    name: Driver
+    isExternal: true
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: System.InvalidOperationException
+  commentId: T:System.InvalidOperationException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.invalidoperationexception
+  name: InvalidOperationException
+  nameWithType: InvalidOperationException
+  fullName: System.InvalidOperationException
+- uid: System.Linq.Expressions.Expression{System.Func{{TEntity},{TEntity}}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,`0}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<TEntity, TEntity>>
+  nameWithType: Expression<Func<TEntity, TEntity>>
+  fullName: System.Linq.Expressions.Expression<System.Func<TEntity, TEntity>>
+  nameWithType.vb: Expression(Of Func(Of TEntity, TEntity))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of TEntity, TEntity))
+  name.vb: Expression(Of Func(Of TEntity, TEntity))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TEntity
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TEntity
+  - name: )
+  - name: )
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: <
+  - name: TDelegate
+  - name: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TDelegate
+  - name: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
+- uid: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{TEntity}},MongoDB.Driver.ProjectionDefinition{{TEntity},{TEntity}}}
+  commentId: T:System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>>
+  nameWithType: Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>>
+  fullName: System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<TEntity>, MongoDB.Driver.ProjectionDefinition<TEntity, TEntity>>
+  nameWithType.vb: Func(Of ProjectionDefinitionBuilder(Of TEntity), ProjectionDefinition(Of TEntity, TEntity))
+  fullName.vb: System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of TEntity), MongoDB.Driver.ProjectionDefinition(Of TEntity, TEntity))
+  name.vb: Func(Of ProjectionDefinitionBuilder(Of TEntity), ProjectionDefinition(Of TEntity, TEntity))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+    name: ProjectionDefinitionBuilder
+    isExternal: true
+  - name: <
+  - name: TEntity
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.ProjectionDefinition`2
+    name: ProjectionDefinition
+    isExternal: true
+  - name: <
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TEntity
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+    name: ProjectionDefinitionBuilder
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: MongoDB.Driver.ProjectionDefinition`2
+    name: ProjectionDefinition
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TEntity
+  - name: )
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )

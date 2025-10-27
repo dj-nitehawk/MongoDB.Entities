@@ -43,11 +43,11 @@ public class DefaultDatabaseChangingEntity
         await  DB.InitAsync("test1");
 
         var defaultDb = DB.Instance().Database();
-        var defaultDbName = DB.Instance().DatabaseName<AuthorEntity>();
+        var defaultDbName = DB.Instance().DatabaseName();
 
          DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Instance().Database<BookEntity>();
+        var bookDb = DB.Instance().Database();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

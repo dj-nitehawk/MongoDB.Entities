@@ -4,42 +4,45 @@ items:
   commentId: N:MongoDB.Entities
   id: MongoDB.Entities
   children:
+  - MongoDB.Entities.AsBsonIdAttribute
   - MongoDB.Entities.AsObjectIdAttribute
-  - MongoDB.Entities.AsyncEventHandler`1
   - MongoDB.Entities.AsyncEventHandlerExtensions
+  - MongoDB.Entities.AsyncEventHandler`1
   - MongoDB.Entities.CollectionAttribute
   - MongoDB.Entities.Coordinates2D
-  - MongoDB.Entities.DataStreamer
-  - MongoDB.Entities.Date
   - MongoDB.Entities.DB
   - MongoDB.Entities.DBContext
+  - MongoDB.Entities.DataStreamer`1
+  - MongoDB.Entities.Date
   - MongoDB.Entities.Distinct`2
   - MongoDB.Entities.DontPreserveAttribute
   - MongoDB.Entities.Entity
   - MongoDB.Entities.EventType
   - MongoDB.Entities.Extensions
   - MongoDB.Entities.FieldAttribute
-  - MongoDB.Entities.FileEntity
+  - MongoDB.Entities.FileEntity`1
   - MongoDB.Entities.Find`1
   - MongoDB.Entities.Find`2
   - MongoDB.Entities.FuzzyString
   - MongoDB.Entities.GeoNear`1
   - MongoDB.Entities.ICreatedOn
   - MongoDB.Entities.IEntity
-  - MongoDB.Entities.IgnoreAttribute
-  - MongoDB.Entities.IgnoreDefaultAttribute
   - MongoDB.Entities.IMigration
   - MongoDB.Entities.IModifiedOn
+  - MongoDB.Entities.IgnoreAttribute
+  - MongoDB.Entities.IgnoreDefaultAttribute
   - MongoDB.Entities.Index`1
   - MongoDB.Entities.InverseSideAttribute
   - MongoDB.Entities.JoinRecord
   - MongoDB.Entities.KeyType
-  - MongoDB.Entities.Many`1
   - MongoDB.Entities.ManyBase
+  - MongoDB.Entities.Many`2
   - MongoDB.Entities.Migration
   - MongoDB.Entities.ModifiedBy
   - MongoDB.Entities.ObjectIdAttribute
+  - MongoDB.Entities.ObjectIdEntity
   - MongoDB.Entities.One`1
+  - MongoDB.Entities.One`2
   - MongoDB.Entities.Order
   - MongoDB.Entities.OwnerSideAttribute
   - MongoDB.Entities.PagedSearch`1
@@ -52,10 +55,10 @@ items:
   - MongoDB.Entities.Template`1
   - MongoDB.Entities.Template`2
   - MongoDB.Entities.Transaction
-  - MongoDB.Entities.Update`1
   - MongoDB.Entities.UpdateAndGet`1
   - MongoDB.Entities.UpdateAndGet`2
   - MongoDB.Entities.UpdateBase`1
+  - MongoDB.Entities.Update`1
   - MongoDB.Entities.Watcher`1
   langs:
   - csharp
@@ -69,6 +72,8 @@ items:
 references:
 - uid: MongoDB.Entities.Distinct`2
   commentId: T:MongoDB.Entities.Distinct`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Distinct-2.html
   name: Distinct<T, TProperty>
   nameWithType: Distinct<T, TProperty>
   fullName: MongoDB.Entities.Distinct<T, TProperty>
@@ -78,45 +83,28 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Distinct`2
     name: Distinct
-    nameWithType: Distinct
-    fullName: MongoDB.Entities.Distinct
+    href: MongoDB.Entities.Distinct-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProperty
-    nameWithType: TProperty
-    fullName: TProperty
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Distinct`2
     name: Distinct
-    nameWithType: Distinct
-    fullName: MongoDB.Entities.Distinct
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Distinct-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProperty
-    nameWithType: TProperty
-    fullName: TProperty
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`1
   commentId: T:MongoDB.Entities.Find`1
+  href: MongoDB.Entities.Find-1.html
   name: Find<T>
   nameWithType: Find<T>
   fullName: MongoDB.Entities.Find<T>
@@ -126,33 +114,23 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Find`1
     name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
+    href: MongoDB.Entities.Find-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Find`1
     name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Find-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Find`2
   commentId: T:MongoDB.Entities.Find`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Find-2.html
   name: Find<T, TProjection>
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>
@@ -162,57 +140,43 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Find`2
     name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
+    href: MongoDB.Entities.Find-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Find`2
     name: Find
-    nameWithType: Find
-    fullName: MongoDB.Entities.Find
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Find-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Order
   commentId: T:MongoDB.Entities.Order
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Order.html
   name: Order
   nameWithType: Order
   fullName: MongoDB.Entities.Order
 - uid: MongoDB.Entities.Search
   commentId: T:MongoDB.Entities.Search
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Search.html
   name: Search
   nameWithType: Search
   fullName: MongoDB.Entities.Search
 - uid: MongoDB.Entities.Index`1
   commentId: T:MongoDB.Entities.Index`1
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Index-1.html
   name: Index<T>
   nameWithType: Index<T>
   fullName: MongoDB.Entities.Index<T>
@@ -222,39 +186,29 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Index`1
     name: Index
-    nameWithType: Index
-    fullName: MongoDB.Entities.Index
+    href: MongoDB.Entities.Index-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Index`1
     name: Index
-    nameWithType: Index
-    fullName: MongoDB.Entities.Index
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Index-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.KeyType
   commentId: T:MongoDB.Entities.KeyType
   parent: MongoDB.Entities
+  href: MongoDB.Entities.KeyType.html
   name: KeyType
   nameWithType: KeyType
   fullName: MongoDB.Entities.KeyType
 - uid: MongoDB.Entities.PagedSearch`1
   commentId: T:MongoDB.Entities.PagedSearch`1
+  href: MongoDB.Entities.PagedSearch-1.html
   name: PagedSearch<T>
   nameWithType: PagedSearch<T>
   fullName: MongoDB.Entities.PagedSearch<T>
@@ -264,33 +218,23 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.PagedSearch`1
     name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
+    href: MongoDB.Entities.PagedSearch-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.PagedSearch`1
     name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.PagedSearch-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2
   commentId: T:MongoDB.Entities.PagedSearch`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.PagedSearch-2.html
   name: PagedSearch<T, TProjection>
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>
@@ -300,45 +244,29 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.PagedSearch`2
     name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
+    href: MongoDB.Entities.PagedSearch-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.PagedSearch`2
     name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.PagedSearch-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Replace`1
   commentId: T:MongoDB.Entities.Replace`1
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Replace-1.html
   name: Replace<T>
   nameWithType: Replace<T>
   fullName: MongoDB.Entities.Replace<T>
@@ -348,33 +276,22 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Replace`1
     name: Replace
-    nameWithType: Replace
-    fullName: MongoDB.Entities.Replace
+    href: MongoDB.Entities.Replace-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Replace`1
     name: Replace
-    nameWithType: Replace
-    fullName: MongoDB.Entities.Replace
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Replace-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.UpdateBase`1
   commentId: T:MongoDB.Entities.UpdateBase`1
+  href: MongoDB.Entities.UpdateBase-1.html
   name: UpdateBase<T>
   nameWithType: UpdateBase<T>
   fullName: MongoDB.Entities.UpdateBase<T>
@@ -384,33 +301,23 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.UpdateBase`1
     name: UpdateBase
-    nameWithType: UpdateBase
-    fullName: MongoDB.Entities.UpdateBase
+    href: MongoDB.Entities.UpdateBase-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.UpdateBase`1
     name: UpdateBase
-    nameWithType: UpdateBase
-    fullName: MongoDB.Entities.UpdateBase
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.UpdateBase-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Update`1
   commentId: T:MongoDB.Entities.Update`1
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Update-1.html
   name: Update<T>
   nameWithType: Update<T>
   fullName: MongoDB.Entities.Update<T>
@@ -420,33 +327,22 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Update`1
     name: Update
-    nameWithType: Update
-    fullName: MongoDB.Entities.Update
+    href: MongoDB.Entities.Update-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Update`1
     name: Update
-    nameWithType: Update
-    fullName: MongoDB.Entities.Update
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Update-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`1
   commentId: T:MongoDB.Entities.UpdateAndGet`1
+  href: MongoDB.Entities.UpdateAndGet-1.html
   name: UpdateAndGet<T>
   nameWithType: UpdateAndGet<T>
   fullName: MongoDB.Entities.UpdateAndGet<T>
@@ -456,33 +352,23 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.UpdateAndGet`1
     name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
+    href: MongoDB.Entities.UpdateAndGet-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.UpdateAndGet`1
     name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.UpdateAndGet-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`2
   commentId: T:MongoDB.Entities.UpdateAndGet`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.UpdateAndGet-2.html
   name: UpdateAndGet<T, TProjection>
   nameWithType: UpdateAndGet<T, TProjection>
   fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
@@ -492,132 +378,167 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.UpdateAndGet`2
     name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
+    href: MongoDB.Entities.UpdateAndGet-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.UpdateAndGet`2
     name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.UpdateAndGet-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
-    nameWithType: )
-    fullName: )
+- uid: MongoDB.Entities.FieldAttribute
+  commentId: T:MongoDB.Entities.FieldAttribute
+  href: MongoDB.Entities.FieldAttribute.html
+  name: FieldAttribute
+  nameWithType: FieldAttribute
+  fullName: MongoDB.Entities.FieldAttribute
+- uid: MongoDB.Entities.CollectionAttribute
+  commentId: T:MongoDB.Entities.CollectionAttribute
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.CollectionAttribute.html
+  name: CollectionAttribute
+  nameWithType: CollectionAttribute
+  fullName: MongoDB.Entities.CollectionAttribute
 - uid: MongoDB.Entities.IgnoreAttribute
   commentId: T:MongoDB.Entities.IgnoreAttribute
+  href: MongoDB.Entities.IgnoreAttribute.html
   name: IgnoreAttribute
   nameWithType: IgnoreAttribute
   fullName: MongoDB.Entities.IgnoreAttribute
 - uid: MongoDB.Entities.IgnoreDefaultAttribute
   commentId: T:MongoDB.Entities.IgnoreDefaultAttribute
+  href: MongoDB.Entities.IgnoreDefaultAttribute.html
   name: IgnoreDefaultAttribute
   nameWithType: IgnoreDefaultAttribute
   fullName: MongoDB.Entities.IgnoreDefaultAttribute
-- uid: MongoDB.Entities.FieldAttribute
-  commentId: T:MongoDB.Entities.FieldAttribute
-  name: FieldAttribute
-  nameWithType: FieldAttribute
-  fullName: MongoDB.Entities.FieldAttribute
-- uid: MongoDB.Entities.OwnerSideAttribute
-  commentId: T:MongoDB.Entities.OwnerSideAttribute
-  name: OwnerSideAttribute
-  nameWithType: OwnerSideAttribute
-  fullName: MongoDB.Entities.OwnerSideAttribute
-- uid: MongoDB.Entities.InverseSideAttribute
-  commentId: T:MongoDB.Entities.InverseSideAttribute
-  name: InverseSideAttribute
-  nameWithType: InverseSideAttribute
-  fullName: MongoDB.Entities.InverseSideAttribute
-- uid: MongoDB.Entities.CollectionAttribute
-  commentId: T:MongoDB.Entities.CollectionAttribute
-  parent: MongoDB.Entities
-  name: CollectionAttribute
-  nameWithType: CollectionAttribute
-  fullName: MongoDB.Entities.CollectionAttribute
-- uid: MongoDB.Entities.PreserveAttribute
-  commentId: T:MongoDB.Entities.PreserveAttribute
-  name: PreserveAttribute
-  nameWithType: PreserveAttribute
-  fullName: MongoDB.Entities.PreserveAttribute
-- uid: MongoDB.Entities.DontPreserveAttribute
-  commentId: T:MongoDB.Entities.DontPreserveAttribute
-  name: DontPreserveAttribute
-  nameWithType: DontPreserveAttribute
-  fullName: MongoDB.Entities.DontPreserveAttribute
 - uid: MongoDB.Entities.ObjectIdAttribute
   commentId: T:MongoDB.Entities.ObjectIdAttribute
+  href: MongoDB.Entities.ObjectIdAttribute.html
   name: ObjectIdAttribute
   nameWithType: ObjectIdAttribute
   fullName: MongoDB.Entities.ObjectIdAttribute
 - uid: MongoDB.Entities.AsObjectIdAttribute
   commentId: T:MongoDB.Entities.AsObjectIdAttribute
   parent: MongoDB.Entities
+  href: MongoDB.Entities.AsObjectIdAttribute.html
   name: AsObjectIdAttribute
   nameWithType: AsObjectIdAttribute
   fullName: MongoDB.Entities.AsObjectIdAttribute
-- uid: MongoDB.Entities.Date
-  commentId: T:MongoDB.Entities.Date
+- uid: MongoDB.Entities.AsBsonIdAttribute
+  commentId: T:MongoDB.Entities.AsBsonIdAttribute
   parent: MongoDB.Entities
-  name: Date
-  nameWithType: Date
-  fullName: MongoDB.Entities.Date
+  href: MongoDB.Entities.AsBsonIdAttribute.html
+  name: AsBsonIdAttribute
+  nameWithType: AsBsonIdAttribute
+  fullName: MongoDB.Entities.AsBsonIdAttribute
+- uid: MongoDB.Entities.PreserveAttribute
+  commentId: T:MongoDB.Entities.PreserveAttribute
+  href: MongoDB.Entities.PreserveAttribute.html
+  name: PreserveAttribute
+  nameWithType: PreserveAttribute
+  fullName: MongoDB.Entities.PreserveAttribute
+- uid: MongoDB.Entities.DontPreserveAttribute
+  commentId: T:MongoDB.Entities.DontPreserveAttribute
+  href: MongoDB.Entities.DontPreserveAttribute.html
+  name: DontPreserveAttribute
+  nameWithType: DontPreserveAttribute
+  fullName: MongoDB.Entities.DontPreserveAttribute
+- uid: MongoDB.Entities.OwnerSideAttribute
+  commentId: T:MongoDB.Entities.OwnerSideAttribute
+  href: MongoDB.Entities.OwnerSideAttribute.html
+  name: OwnerSideAttribute
+  nameWithType: OwnerSideAttribute
+  fullName: MongoDB.Entities.OwnerSideAttribute
+- uid: MongoDB.Entities.InverseSideAttribute
+  commentId: T:MongoDB.Entities.InverseSideAttribute
+  href: MongoDB.Entities.InverseSideAttribute.html
+  name: InverseSideAttribute
+  nameWithType: InverseSideAttribute
+  fullName: MongoDB.Entities.InverseSideAttribute
 - uid: MongoDB.Entities.Entity
   commentId: T:MongoDB.Entities.Entity
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Entity.html
   name: Entity
   nameWithType: Entity
   fullName: MongoDB.Entities.Entity
-- uid: MongoDB.Entities.FileEntity
-  commentId: T:MongoDB.Entities.FileEntity
-  name: FileEntity
-  nameWithType: FileEntity
-  fullName: MongoDB.Entities.FileEntity
-- uid: MongoDB.Entities.DataStreamer
-  commentId: T:MongoDB.Entities.DataStreamer
-  parent: MongoDB.Entities
-  name: DataStreamer
-  nameWithType: DataStreamer
-  fullName: MongoDB.Entities.DataStreamer
-- uid: MongoDB.Entities.FuzzyString
-  commentId: T:MongoDB.Entities.FuzzyString
-  parent: MongoDB.Entities
-  name: FuzzyString
-  nameWithType: FuzzyString
-  fullName: MongoDB.Entities.FuzzyString
+- uid: MongoDB.Entities.FileEntity`1
+  commentId: T:MongoDB.Entities.FileEntity`1
+  href: MongoDB.Entities.FileEntity-1.html
+  name: FileEntity<T>
+  nameWithType: FileEntity<T>
+  fullName: MongoDB.Entities.FileEntity<T>
+  nameWithType.vb: FileEntity(Of T)
+  fullName.vb: MongoDB.Entities.FileEntity(Of T)
+  name.vb: FileEntity(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.FileEntity`1
+    name: FileEntity
+    href: MongoDB.Entities.FileEntity-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.FileEntity`1
+    name: FileEntity
+    href: MongoDB.Entities.FileEntity-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: MongoDB.Entities.DataStreamer`1
+  commentId: T:MongoDB.Entities.DataStreamer`1
+  href: MongoDB.Entities.DataStreamer-1.html
+  name: DataStreamer<T>
+  nameWithType: DataStreamer<T>
+  fullName: MongoDB.Entities.DataStreamer<T>
+  nameWithType.vb: DataStreamer(Of T)
+  fullName.vb: MongoDB.Entities.DataStreamer(Of T)
+  name.vb: DataStreamer(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.DataStreamer`1
+    name: DataStreamer
+    href: MongoDB.Entities.DataStreamer-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.DataStreamer`1
+    name: DataStreamer
+    href: MongoDB.Entities.DataStreamer-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: MongoDB.Entities.ObjectIdEntity
+  commentId: T:MongoDB.Entities.ObjectIdEntity
+  href: MongoDB.Entities.ObjectIdEntity.html
+  name: ObjectIdEntity
+  nameWithType: ObjectIdEntity
+  fullName: MongoDB.Entities.ObjectIdEntity
 - uid: MongoDB.Entities.Coordinates2D
   commentId: T:MongoDB.Entities.Coordinates2D
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Coordinates2D.html
   name: Coordinates2D
   nameWithType: Coordinates2D
   fullName: MongoDB.Entities.Coordinates2D
 - uid: MongoDB.Entities.GeoNear`1
   commentId: T:MongoDB.Entities.GeoNear`1
+  href: MongoDB.Entities.GeoNear-1.html
   name: GeoNear<T>
   nameWithType: GeoNear<T>
   fullName: MongoDB.Entities.GeoNear<T>
@@ -627,60 +548,62 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.GeoNear`1
     name: GeoNear
-    nameWithType: GeoNear
-    fullName: MongoDB.Entities.GeoNear
+    href: MongoDB.Entities.GeoNear-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.GeoNear`1
     name: GeoNear
-    nameWithType: GeoNear
-    fullName: MongoDB.Entities.GeoNear
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.GeoNear-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.ICreatedOn
   commentId: T:MongoDB.Entities.ICreatedOn
+  href: MongoDB.Entities.ICreatedOn.html
   name: ICreatedOn
   nameWithType: ICreatedOn
   fullName: MongoDB.Entities.ICreatedOn
 - uid: MongoDB.Entities.IEntity
   commentId: T:MongoDB.Entities.IEntity
   parent: MongoDB.Entities
+  href: MongoDB.Entities.IEntity.html
   name: IEntity
   nameWithType: IEntity
   fullName: MongoDB.Entities.IEntity
 - uid: MongoDB.Entities.IModifiedOn
   commentId: T:MongoDB.Entities.IModifiedOn
+  href: MongoDB.Entities.IModifiedOn.html
   name: IModifiedOn
   nameWithType: IModifiedOn
   fullName: MongoDB.Entities.IModifiedOn
 - uid: MongoDB.Entities.ModifiedBy
   commentId: T:MongoDB.Entities.ModifiedBy
   parent: MongoDB.Entities
+  href: MongoDB.Entities.ModifiedBy.html
   name: ModifiedBy
   nameWithType: ModifiedBy
   fullName: MongoDB.Entities.ModifiedBy
-- uid: MongoDB.Entities.Prop
-  commentId: T:MongoDB.Entities.Prop
-  name: Prop
-  nameWithType: Prop
-  fullName: MongoDB.Entities.Prop
+- uid: MongoDB.Entities.Date
+  commentId: T:MongoDB.Entities.Date
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Date.html
+  name: Date
+  nameWithType: Date
+  fullName: MongoDB.Entities.Date
+- uid: MongoDB.Entities.FuzzyString
+  commentId: T:MongoDB.Entities.FuzzyString
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.FuzzyString.html
+  name: FuzzyString
+  nameWithType: FuzzyString
+  fullName: MongoDB.Entities.FuzzyString
 - uid: MongoDB.Entities.Template`1
   commentId: T:MongoDB.Entities.Template`1
+  href: MongoDB.Entities.Template-1.html
   name: Template<T>
   nameWithType: Template<T>
   fullName: MongoDB.Entities.Template<T>
@@ -690,33 +613,23 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Template`1
     name: Template
-    nameWithType: Template
-    fullName: MongoDB.Entities.Template
+    href: MongoDB.Entities.Template-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Template`1
     name: Template
-    nameWithType: Template
-    fullName: MongoDB.Entities.Template
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Template-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Template`2
   commentId: T:MongoDB.Entities.Template`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.Template-2.html
   name: Template<TInput, TResult>
   nameWithType: Template<TInput, TResult>
   fullName: MongoDB.Entities.Template<TInput, TResult>
@@ -726,57 +639,48 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Template`2
     name: Template
-    nameWithType: Template
-    fullName: MongoDB.Entities.Template
+    href: MongoDB.Entities.Template-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TInput
-    nameWithType: TInput
-    fullName: TInput
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Template`2
     name: Template
-    nameWithType: Template
-    fullName: MongoDB.Entities.Template
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Template-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: TInput
-    nameWithType: TInput
-    fullName: TInput
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - name: TResult
-    nameWithType: TResult
-    fullName: TResult
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Template
   commentId: T:MongoDB.Entities.Template
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Template.html
   name: Template
   nameWithType: Template
   fullName: MongoDB.Entities.Template
 - uid: MongoDB.Entities.Transaction
   commentId: T:MongoDB.Entities.Transaction
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Transaction.html
   name: Transaction
   nameWithType: Transaction
   fullName: MongoDB.Entities.Transaction
+- uid: MongoDB.Entities.Prop
+  commentId: T:MongoDB.Entities.Prop
+  href: MongoDB.Entities.Prop.html
+  name: Prop
+  nameWithType: Prop
+  fullName: MongoDB.Entities.Prop
 - uid: MongoDB.Entities.AsyncEventHandler`1
   commentId: T:MongoDB.Entities.AsyncEventHandler`1
+  href: MongoDB.Entities.AsyncEventHandler-1.html
   name: AsyncEventHandler<TEventArgs>
   nameWithType: AsyncEventHandler<TEventArgs>
   fullName: MongoDB.Entities.AsyncEventHandler<TEventArgs>
@@ -786,39 +690,29 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.AsyncEventHandler`1
     name: AsyncEventHandler
-    nameWithType: AsyncEventHandler
-    fullName: MongoDB.Entities.AsyncEventHandler
+    href: MongoDB.Entities.AsyncEventHandler-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.AsyncEventHandler`1
     name: AsyncEventHandler
-    nameWithType: AsyncEventHandler
-    fullName: MongoDB.Entities.AsyncEventHandler
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.AsyncEventHandler-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: TEventArgs
-    nameWithType: TEventArgs
-    fullName: TEventArgs
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.AsyncEventHandlerExtensions
   commentId: T:MongoDB.Entities.AsyncEventHandlerExtensions
   parent: MongoDB.Entities
+  href: MongoDB.Entities.AsyncEventHandlerExtensions.html
   name: AsyncEventHandlerExtensions
   nameWithType: AsyncEventHandlerExtensions
   fullName: MongoDB.Entities.AsyncEventHandlerExtensions
 - uid: MongoDB.Entities.Watcher`1
   commentId: T:MongoDB.Entities.Watcher`1
+  href: MongoDB.Entities.Watcher-1.html
   name: Watcher<T>
   nameWithType: Watcher<T>
   fullName: MongoDB.Entities.Watcher<T>
@@ -828,149 +722,179 @@ references:
   spec.csharp:
   - uid: MongoDB.Entities.Watcher`1
     name: Watcher
-    nameWithType: Watcher
-    fullName: MongoDB.Entities.Watcher
+    href: MongoDB.Entities.Watcher-1.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.Watcher`1
     name: Watcher
-    nameWithType: Watcher
-    fullName: MongoDB.Entities.Watcher
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Watcher-1.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.EventType
   commentId: T:MongoDB.Entities.EventType
   parent: MongoDB.Entities
+  href: MongoDB.Entities.EventType.html
   name: EventType
   nameWithType: EventType
   fullName: MongoDB.Entities.EventType
-- uid: MongoDB.Entities.DBContext
-  commentId: T:MongoDB.Entities.DBContext
-  parent: MongoDB.Entities
-  name: DBContext
-  nameWithType: DBContext
-  fullName: MongoDB.Entities.DBContext
 - uid: MongoDB.Entities.DB
   commentId: T:MongoDB.Entities.DB
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.DB.html
   name: DB
   nameWithType: DB
   fullName: MongoDB.Entities.DB
+- uid: MongoDB.Entities.DBContext
+  commentId: T:MongoDB.Entities.DBContext
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.DBContext.html
+  name: DBContext
+  nameWithType: DBContext
+  fullName: MongoDB.Entities.DBContext
 - uid: MongoDB.Entities.Extensions
   commentId: T:MongoDB.Entities.Extensions
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Extensions.html
   name: Extensions
   nameWithType: Extensions
   fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.IMigration
   commentId: T:MongoDB.Entities.IMigration
+  href: MongoDB.Entities.IMigration.html
   name: IMigration
   nameWithType: IMigration
   fullName: MongoDB.Entities.IMigration
 - uid: MongoDB.Entities.Migration
   commentId: T:MongoDB.Entities.Migration
+  href: MongoDB.Entities.Migration.html
   name: Migration
   nameWithType: Migration
   fullName: MongoDB.Entities.Migration
 - uid: MongoDB.Entities.JoinRecord
   commentId: T:MongoDB.Entities.JoinRecord
+  href: MongoDB.Entities.JoinRecord.html
   name: JoinRecord
   nameWithType: JoinRecord
   fullName: MongoDB.Entities.JoinRecord
-- uid: MongoDB.Entities.Many`1
-  commentId: T:MongoDB.Entities.Many`1
-  name: Many<TChild>
-  nameWithType: Many<TChild>
-  fullName: MongoDB.Entities.Many<TChild>
-  nameWithType.vb: Many(Of TChild)
-  fullName.vb: MongoDB.Entities.Many(Of TChild)
-  name.vb: Many(Of TChild)
+- uid: MongoDB.Entities.Many`2
+  commentId: T:MongoDB.Entities.Many`2
+  href: MongoDB.Entities.Many-2.html
+  name: Many<TChild, TParent>
+  nameWithType: Many<TChild, TParent>
+  fullName: MongoDB.Entities.Many<TChild, TParent>
+  nameWithType.vb: Many(Of TChild, TParent)
+  fullName.vb: MongoDB.Entities.Many(Of TChild, TParent)
+  name.vb: Many(Of TChild, TParent)
   spec.csharp:
-  - uid: MongoDB.Entities.Many`1
+  - uid: MongoDB.Entities.Many`2
     name: Many
-    nameWithType: Many
-    fullName: MongoDB.Entities.Many
+    href: MongoDB.Entities.Many-2.html
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TChild
-    nameWithType: TChild
-    fullName: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
-  - uid: MongoDB.Entities.Many`1
+  - uid: MongoDB.Entities.Many`2
     name: Many
-    nameWithType: Many
-    fullName: MongoDB.Entities.Many
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: MongoDB.Entities.Many-2.html
+  - name: (
+  - name: Of
+  - name: " "
   - name: TChild
-    nameWithType: TChild
-    fullName: TChild
+  - name: ','
+  - name: " "
+  - name: TParent
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.ManyBase
   commentId: T:MongoDB.Entities.ManyBase
   parent: MongoDB.Entities
+  href: MongoDB.Entities.ManyBase.html
   name: ManyBase
   nameWithType: ManyBase
   fullName: MongoDB.Entities.ManyBase
 - uid: MongoDB.Entities.One`1
   commentId: T:MongoDB.Entities.One`1
-  name: One<T>
-  nameWithType: One<T>
-  fullName: MongoDB.Entities.One<T>
-  nameWithType.vb: One(Of T)
-  fullName.vb: MongoDB.Entities.One(Of T)
-  name.vb: One(Of T)
+  href: MongoDB.Entities.One-1.html
+  name: One<TEntity>
+  nameWithType: One<TEntity>
+  fullName: MongoDB.Entities.One<TEntity>
+  nameWithType.vb: One(Of TEntity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity)
+  name.vb: One(Of TEntity)
   spec.csharp:
   - uid: MongoDB.Entities.One`1
     name: One
-    nameWithType: One
-    fullName: MongoDB.Entities.One
+    href: MongoDB.Entities.One-1.html
   - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: TEntity
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: MongoDB.Entities.One`1
     name: One
-    nameWithType: One
-    fullName: MongoDB.Entities.One
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+    href: MongoDB.Entities.One-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
   - name: )
-    nameWithType: )
-    fullName: )
+- uid: MongoDB.Entities.One`2
+  commentId: T:MongoDB.Entities.One`2
+  parent: MongoDB.Entities
+  href: MongoDB.Entities.One-2.html
+  name: One<TEntity, TIdentity>
+  nameWithType: One<TEntity, TIdentity>
+  fullName: MongoDB.Entities.One<TEntity, TIdentity>
+  nameWithType.vb: One(Of TEntity, TIdentity)
+  fullName.vb: MongoDB.Entities.One(Of TEntity, TIdentity)
+  name.vb: One(Of TEntity, TIdentity)
+  spec.csharp:
+  - uid: MongoDB.Entities.One`2
+    name: One
+    href: MongoDB.Entities.One-2.html
+  - name: <
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TIdentity
+  - name: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.One`2
+    name: One
+    href: MongoDB.Entities.One-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEntity
+  - name: ','
+  - name: " "
+  - name: TIdentity
+  - name: )
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html

@@ -14,22 +14,12 @@ items:
   nameWithType: Order
   fullName: MongoDB.Entities.Order
   type: Enum
-  source:
-    id: Order
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 447
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
     content: public enum Order
     content.vb: Public Enum Order
-  modifiers.csharp:
-  - public
-  - enum
-  modifiers.vb:
-  - Public
-  - Enum
 - uid: MongoDB.Entities.Order.Ascending
   commentId: F:MongoDB.Entities.Order.Ascending
   id: Ascending
@@ -41,10 +31,6 @@ items:
   nameWithType: Order.Ascending
   fullName: MongoDB.Entities.Order.Ascending
   type: Field
-  source:
-    id: Ascending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 449
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -52,12 +38,6 @@ items:
     content: Ascending = 0
     return:
       type: MongoDB.Entities.Order
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 - uid: MongoDB.Entities.Order.Descending
   commentId: F:MongoDB.Entities.Order.Descending
   id: Descending
@@ -69,10 +49,6 @@ items:
   nameWithType: Order.Descending
   fullName: MongoDB.Entities.Order.Descending
   type: Field
-  source:
-    id: Descending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 450
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -80,21 +56,33 @@ items:
     content: Descending = 1
     return:
       type: MongoDB.Entities.Order
-  modifiers.csharp:
-  - public
-  - const
-  modifiers.vb:
-  - Public
-  - Const
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.Order
   commentId: T:MongoDB.Entities.Order
   parent: MongoDB.Entities
+  href: MongoDB.Entities.Order.html
   name: Order
   nameWithType: Order
   fullName: MongoDB.Entities.Order

@@ -20,14 +20,10 @@ items:
   nameWithType: Prop
   fullName: MongoDB.Entities.Prop
   type: Class
-  source:
-    id: Prop
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 9
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nThis class provides methods to generate property path strings from lambda expression. \n"
+  summary: This class provides methods to generate property path strings from lambda expression.
   example: []
   syntax:
     content: public static class Prop
@@ -42,13 +38,6 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  modifiers.csharp:
-  - public
-  - static
-  - class
-  modifiers.vb:
-  - Public
-  - Module
 - uid: MongoDB.Entities.Prop.Collection``1
   commentId: M:MongoDB.Entities.Prop.Collection``1
   id: Collection``1
@@ -60,34 +49,21 @@ items:
   nameWithType: Prop.Collection<T>()
   fullName: MongoDB.Entities.Prop.Collection<T>()
   type: Method
-  source:
-    id: Collection
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 65
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns the collection/entity name of a given entity type\n"
+  summary: Returns the collection/entity name of a given entity type
   example: []
   syntax:
-    content: >-
-      public static string Collection<T>()
-
-          where T : IEntity
+    content: 'public static string Collection<T>() where T : IEntity'
     typeParameters:
     - id: T
       description: The type of the entity to get the collection name of
     return:
       type: System.String
-    content.vb: Public Shared Function Collection(Of T As IEntity) As String
+    content.vb: Public Shared Function Collection(Of T As IEntity)() As String
   overload: MongoDB.Entities.Prop.Collection*
   nameWithType.vb: Prop.Collection(Of T)()
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
   fullName.vb: MongoDB.Entities.Prop.Collection(Of T)()
   name.vb: Collection(Of T)()
 - uid: MongoDB.Entities.Prop.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -97,39 +73,32 @@ items:
   langs:
   - csharp
   - vb
-  name: Property<T>(Expression<Func<T, Object>>)
-  nameWithType: Prop.Property<T>(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.Property<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: Property<T>(Expression<Func<T, object?>>)
+  nameWithType: Prop.Property<T>(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.Property<T>(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: Property
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 75
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns the name of the property for a given expression.\n<p>EX: Authors[0].Books[0].Title > Title</p>\n"
+  summary: >-
+    Returns the name of the property for a given expression.
+
+    <p>EX: Authors[0].Books[0].Title &gt; Title</p>
   example: []
   syntax:
-    content: public static string Property<T>(Expression<Func<T, object>> expression)
+    content: public static string Property<T>(Expression<Func<T, object?>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeList[0].SomeProp
+      description: x =&gt; x.SomeList[0].SomeProp
     typeParameters:
     - id: T
     return:
       type: System.String
-    content.vb: Public Shared Function Property(Of T)(expression As Expression(Of Func(Of T, Object))) As String
+    content.vb: Public Shared Function [Property](Of T)(expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.Property*
   nameWithType.vb: Prop.Property(Of T)(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.Property(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Prop.Property(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: Property(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Prop.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Prop.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -138,25 +107,24 @@ items:
   langs:
   - csharp
   - vb
-  name: Path<T>(Expression<Func<T, Object>>)
-  nameWithType: Prop.Path<T>(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.Path<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: Path<T>(Expression<Func<T, object?>>)
+  nameWithType: Prop.Path<T>(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.Path<T>(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: Path
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 86
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns the full dotted path for a given expression.\n<p>EX: Authors[0].Books[0].Title > Authors.Books.Title</p>\n"
+  summary: >-
+    Returns the full dotted path for a given expression.
+
+    <p>EX: Authors[0].Books[0].Title &gt; Authors.Books.Title</p>
   example: []
   syntax:
-    content: public static string Path<T>(Expression<Func<T, object>> expression)
+    content: public static string Path<T>(Expression<Func<T, object?>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeList[0].SomeProp
+      description: x =&gt; x.SomeList[0].SomeProp
     typeParameters:
     - id: T
     return:
@@ -164,13 +132,7 @@ items:
     content.vb: Public Shared Function Path(Of T)(expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.Path*
   nameWithType.vb: Prop.Path(Of T)(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.Path(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Prop.Path(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: Path(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Prop.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Prop.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -179,25 +141,30 @@ items:
   langs:
   - csharp
   - vb
-  name: PosFiltered<T>(Expression<Func<T, Object>>)
-  nameWithType: Prop.PosFiltered<T>(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.PosFiltered<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: PosFiltered<T>(Expression<Func<T, object?>>)
+  nameWithType: Prop.PosFiltered<T>(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.PosFiltered<T>(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: PosFiltered
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 99
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns a path with filtered positional identifiers $[x] for a given expression.\n<p>EX: Authors[0].Name > Authors.$[a].Name</p>\n<p>EX: Authors[1].Age > Authors.$[b].Age</p>\n<p>EX: Authors[2].Books[3].Title > Authors.$[c].Books.$[d].Title</p>\n<p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>\n"
+  summary: >-
+    Returns a path with filtered positional identifiers $[x] for a given expression.
+
+    <p>EX: Authors[0].Name &gt; Authors.$[a].Name</p>
+
+    <p>EX: Authors[1].Age &gt; Authors.$[b].Age</p>
+
+    <p>EX: Authors[2].Books[3].Title &gt; Authors.$[c].Books.$[d].Title</p>
+
+    <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
   example: []
   syntax:
-    content: public static string PosFiltered<T>(Expression<Func<T, object>> expression)
+    content: public static string PosFiltered<T>(Expression<Func<T, object?>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeList[0].SomeProp
+      description: x =&gt; x.SomeList[0].SomeProp
     typeParameters:
     - id: T
     return:
@@ -205,13 +172,7 @@ items:
     content.vb: Public Shared Function PosFiltered(Of T)(expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.PosFiltered*
   nameWithType.vb: Prop.PosFiltered(Of T)(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.PosFiltered(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Prop.PosFiltered(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: PosFiltered(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Prop.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Prop.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -220,25 +181,24 @@ items:
   langs:
   - csharp
   - vb
-  name: PosAll<T>(Expression<Func<T, Object>>)
-  nameWithType: Prop.PosAll<T>(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.PosAll<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: PosAll<T>(Expression<Func<T, object?>>)
+  nameWithType: Prop.PosAll<T>(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.PosAll<T>(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: PosAll
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 111
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns a path with the all positional operator $[] for a given expression.\n<p>EX: Authors[0].Name > Authors.$[].Name</p>\n"
+  summary: >-
+    Returns a path with the all positional operator $[] for a given expression.
+
+    <p>EX: Authors[0].Name &gt; Authors.$[].Name</p>
   example: []
   syntax:
-    content: public static string PosAll<T>(Expression<Func<T, object>> expression)
+    content: public static string PosAll<T>(Expression<Func<T, object?>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeList[0].SomeProp
+      description: x =&gt; x.SomeList[0].SomeProp
     typeParameters:
     - id: T
     return:
@@ -246,13 +206,7 @@ items:
     content.vb: Public Shared Function PosAll(Of T)(expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.PosAll*
   nameWithType.vb: Prop.PosAll(Of T)(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.PosAll(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Prop.PosAll(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: PosAll(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Prop.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Prop.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -261,25 +215,24 @@ items:
   langs:
   - csharp
   - vb
-  name: PosFirst<T>(Expression<Func<T, Object>>)
-  nameWithType: Prop.PosFirst<T>(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.PosFirst<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: PosFirst<T>(Expression<Func<T, object?>>)
+  nameWithType: Prop.PosFirst<T>(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.PosFirst<T>(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: PosFirst
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 121
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns a path with the first positional operator $ for a given expression.\n<p>EX: Authors[0].Name > Authors.$.Name</p>\n"
+  summary: >-
+    Returns a path with the first positional operator $ for a given expression.
+
+    <p>EX: Authors[0].Name &gt; Authors.$.Name</p>
   example: []
   syntax:
-    content: public static string PosFirst<T>(Expression<Func<T, object>> expression)
+    content: public static string PosFirst<T>(Expression<Func<T, object?>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeList[0].SomeProp
+      description: x =&gt; x.SomeList[0].SomeProp
     typeParameters:
     - id: T
     return:
@@ -287,13 +240,7 @@ items:
     content.vb: Public Shared Function PosFirst(Of T)(expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.PosFirst*
   nameWithType.vb: Prop.PosFirst(Of T)(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.PosFirst(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Prop.PosFirst(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: PosFirst(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Prop.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Prop.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -302,25 +249,24 @@ items:
   langs:
   - csharp
   - vb
-  name: Elements<T>(Expression<Func<T, Object>>)
-  nameWithType: Prop.Elements<T>(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.Elements<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: Elements<T>(Expression<Func<T, object?>>)
+  nameWithType: Prop.Elements<T>(Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.Elements<T>(System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: Elements
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 131
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns a path without any filtered positional identifier prepended to it.\n<p>EX: b => b.Tags > Tags</p>\n"
+  summary: >-
+    Returns a path without any filtered positional identifier prepended to it.
+
+    <p>EX: b =&gt; b.Tags &gt; Tags</p>
   example: []
   syntax:
-    content: public static string Elements<T>(Expression<Func<T, object>> expression)
+    content: public static string Elements<T>(Expression<Func<T, object?>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeProp
+      description: x =&gt; x.SomeProp
     typeParameters:
     - id: T
     return:
@@ -328,13 +274,7 @@ items:
     content.vb: Public Shared Function Elements(Of T)(expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.Elements*
   nameWithType.vb: Prop.Elements(Of T)(Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.Elements(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Prop.Elements(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
   name.vb: Elements(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Prop.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Prop.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -343,343 +283,303 @@ items:
   langs:
   - csharp
   - vb
-  name: Elements<T>(Int32, Expression<Func<T, Object>>)
-  nameWithType: Prop.Elements<T>(Int32, Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Prop.Elements<T>(System.Int32, System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  name: Elements<T>(int, Expression<Func<T, object?>>)
+  nameWithType: Prop.Elements<T>(int, Expression<Func<T, object?>>)
+  fullName: MongoDB.Entities.Prop.Elements<T>(int, System.Linq.Expressions.Expression<System.Func<T, object?>>)
   type: Method
-  source:
-    id: Elements
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 144
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns a path with the filtered positional identifier prepended to the property path.\n<p>EX: 0, x => x.Rating > a.Rating</p>\n<p>EX: 1, x => x.Rating > b.Rating</p>\n<p>TIP: Index positions start from &apos;0&apos; which is converted to &apos;a&apos; and so on.</p>\n"
+  summary: >-
+    Returns a path with the filtered positional identifier prepended to the property path.
+
+    <p>EX: 0, x =&gt; x.Rating &gt; a.Rating</p>
+
+    <p>EX: 1, x =&gt; x.Rating &gt; b.Rating</p>
+
+    <p>TIP: Index positions start from '0' which is converted to 'a' and so on.</p>
   example: []
   syntax:
-    content: public static string Elements<T>(int index, Expression<Func<T, object>> expression)
+    content: public static string Elements<T>(int index, Expression<Func<T, object?>> expression)
     parameters:
     - id: index
       type: System.Int32
       description: 0=a 1=b 2=c 3=d and so on...
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-      description: x => x.SomeProp
+      description: x =&gt; x.SomeProp
     typeParameters:
     - id: T
     return:
       type: System.String
     content.vb: Public Shared Function Elements(Of T)(index As Integer, expression As Expression(Of Func(Of T, Object))) As String
   overload: MongoDB.Entities.Prop.Elements*
-  nameWithType.vb: Prop.Elements(Of T)(Int32, Expression(Of Func(Of T, Object)))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Prop.Elements(Of T)(System.Int32, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
-  name.vb: Elements(Of T)(Int32, Expression(Of Func(Of T, Object)))
+  nameWithType.vb: Prop.Elements(Of T)(Integer, Expression(Of Func(Of T, Object)))
+  fullName.vb: MongoDB.Entities.Prop.Elements(Of T)(Integer, System.Linq.Expressions.Expression(Of System.Func(Of T, Object)))
+  name.vb: Elements(Of T)(Integer, Expression(Of Func(Of T, Object)))
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: System.Object
   commentId: T:System.Object
   parent: System
   isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
   spec.csharp:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.Equals(System.Object,System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
   spec.csharp:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetHashCode
     name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
   spec.csharp:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.GetType
     name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
   spec.csharp:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.MemberwiseClone
     name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
   spec.csharp:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ReferenceEquals(System.Object,System.Object)
     name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
   - name: (
-    nameWithType: (
-    fullName: (
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   parent: System.Object
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
   spec.csharp:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
   spec.vb:
   - uid: System.Object.ToString
     name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
-    nameWithType: (
-    fullName: (
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System
 - uid: MongoDB.Entities.Prop.Collection*
   commentId: Overload:MongoDB.Entities.Prop.Collection
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_Collection__1
   name: Collection
   nameWithType: Prop.Collection
   fullName: MongoDB.Entities.Prop.Collection
@@ -687,11 +587,16 @@ references:
   commentId: T:System.String
   parent: System
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
 - uid: MongoDB.Entities.Prop.Property*
   commentId: Overload:MongoDB.Entities.Prop.Property
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
   name: Property
   nameWithType: Prop.Property
   fullName: MongoDB.Entities.Prop.Property
@@ -699,83 +604,61 @@ references:
   commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
   parent: System.Linq.Expressions
   definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Object>>
-  nameWithType: Expression<Func<T, Object>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  name: Expression<Func<T, object>>
+  nameWithType: Expression<Func<T, object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, object>>
   nameWithType.vb: Expression(Of Func(Of T, Object))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, Object))
   name.vb: Expression(Of Func(Of T, Object))
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
   - name: <
-    nameWithType: <
-    fullName: <
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
+    name: object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - uid: System.Func`2
     name: Func
-    nameWithType: Func
-    fullName: System.Func
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
   - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
+  - name: ','
+  - name: " "
   - uid: System.Object
     name: Object
-    nameWithType: Object
-    fullName: System.Object
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-    nameWithType: )
-    fullName: )
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions.Expression`1
   commentId: T:System.Linq.Expressions.Expression`1
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   name: Expression<TDelegate>
   nameWithType: Expression<TDelegate>
   fullName: System.Linq.Expressions.Expression<TDelegate>
@@ -785,61 +668,85 @@ references:
   spec.csharp:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
   - name: <
-    nameWithType: <
-    fullName: <
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: '>'
-    nameWithType: '>'
-    fullName: '>'
   spec.vb:
   - uid: System.Linq.Expressions.Expression`1
     name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
     isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1
+  - name: (
+  - name: Of
+  - name: " "
   - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
   - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Linq.Expressions
   commentId: N:System.Linq.Expressions
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Linq
+    name: Linq
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq
+  - name: .
+  - uid: System.Linq.Expressions
+    name: Expressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions
 - uid: MongoDB.Entities.Prop.Path*
   commentId: Overload:MongoDB.Entities.Prop.Path
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
   name: Path
   nameWithType: Prop.Path
   fullName: MongoDB.Entities.Prop.Path
 - uid: MongoDB.Entities.Prop.PosFiltered*
   commentId: Overload:MongoDB.Entities.Prop.PosFiltered
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
   name: PosFiltered
   nameWithType: Prop.PosFiltered
   fullName: MongoDB.Entities.Prop.PosFiltered
 - uid: MongoDB.Entities.Prop.PosAll*
   commentId: Overload:MongoDB.Entities.Prop.PosAll
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
   name: PosAll
   nameWithType: Prop.PosAll
   fullName: MongoDB.Entities.Prop.PosAll
 - uid: MongoDB.Entities.Prop.PosFirst*
   commentId: Overload:MongoDB.Entities.Prop.PosFirst
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
   name: PosFirst
   nameWithType: Prop.PosFirst
   fullName: MongoDB.Entities.Prop.PosFirst
 - uid: MongoDB.Entities.Prop.Elements*
   commentId: Overload:MongoDB.Entities.Prop.Elements
+  href: MongoDB.Entities.Prop.html#MongoDB_Entities_Prop_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
   name: Elements
   nameWithType: Prop.Elements
   fullName: MongoDB.Entities.Prop.Elements
@@ -847,6 +754,10 @@ references:
   commentId: T:System.Int32
   parent: System
   isExternal: true
-  name: Int32
-  nameWithType: Int32
-  fullName: System.Int32
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

@@ -25,7 +25,7 @@ var db = new DBContext(modifiedBy: currentUser);
 ```
 
 ## Perform entity operations
-in order for the auto audit fields to work, you must use the db context to perform the operations instead of the `DB` static methods like you'd typically use.
+in order for the auto audit fields to work, you must use the db context to perform the operations instead of the `DB` instances methods like you'd typically use.
 ```csharp
 var book = new Book { Title = "test book" };
 
@@ -77,7 +77,7 @@ using (db.Transaction())
 
 or it can be performed with a `Transaction` instance like so:
 ```csharp
-using (var TN = DB.Transaction(modifiedBy: currentUser))
+using (var TN = DB.Instance().Transaction(modifiedBy: currentUser))
 {
     await TN.SaveAsync(book);
     await TN.CommitAsync();

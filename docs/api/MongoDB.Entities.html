@@ -1,41 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace MongoDB.Entities
- | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace MongoDB.Entities
- | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace MongoDB.Entities | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace MongoDB.Entities | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -80,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -95,14 +78,18 @@
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities">
 
-  <h1 id="MongoDB_Entities" data-uid="MongoDB.Entities" class="text-break">Namespace MongoDB.Entities
-</h1>
+  <h1 id="MongoDB_Entities" data-uid="MongoDB.Entities" class="text-break">Namespace MongoDB.Entities</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">
 Classes
 </h3>
+      <h4><a class="xref" href="MongoDB.Entities.AsBsonIdAttribute.html">AsBsonIdAttribute</a></h4>
+      <section><p>Use this attribute to mark an object property to store the value in MongoDB as ObjectID if it is a valid ObjectId string.
+If it is not a valid ObjectId string, it will be stored as string. This is needed for the join record so that the queryables
+query based on the stored type of the field</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.AsObjectIdAttribute.html">AsObjectIdAttribute</a></h4>
       <section><p>Use this attribute to mark a string property to store the value in MongoDB as ObjectID if it is a valid ObjectId string.
 If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.</p>
@@ -115,17 +102,17 @@ If it is not a valid ObjectId string, it will be stored as string. This is usefu
       <h4><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></h4>
       <section><p>Represents a 2D geographical coordinate consisting of longitude and latitude</p>
 </section>
-      <h4><a class="xref" href="MongoDB.Entities.DataStreamer.html">DataStreamer</a></h4>
-      <section><p>Provides the interface for uploading and downloading data chunks for file entities.</p>
-</section>
-      <h4><a class="xref" href="MongoDB.Entities.Date.html">Date</a></h4>
-      <section><p>A custom date/time type for precision datetime handling</p>
-</section>
       <h4><a class="xref" href="MongoDB.Entities.DB.html">DB</a></h4>
       <section><p>The main entrypoint for all data access methods of the library</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.DBContext.html">DBContext</a></h4>
       <section><p>This db context class can be used as an alternative entry point instead of the DB static class.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.DataStreamer-1.html">DataStreamer&lt;T&gt;</a></h4>
+      <section><p>Provides the interface for uploading and downloading data chunks for file entities.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Date.html">Date</a></h4>
+      <section><p>A custom date/time type for precision datetime handling</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct&lt;T, TProperty&gt;</a></h4>
       <section><p>Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.</p>
@@ -143,7 +130,7 @@ TIP: These attribute decorations are only effective if you do not specify a pres
       <h4><a class="xref" href="MongoDB.Entities.FieldAttribute.html">FieldAttribute</a></h4>
       <section><p>Specifies the field name and/or the order of the persisted document.</p>
 </section>
-      <h4><a class="xref" href="MongoDB.Entities.FileEntity.html">FileEntity</a></h4>
+      <h4><a class="xref" href="MongoDB.Entities.FileEntity-1.html">FileEntity&lt;T&gt;</a></h4>
       <section><p>Inherit this base class in order to create your own File Entities</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Find-1.html">Find&lt;T&gt;</a></h4>
@@ -157,10 +144,12 @@ TIP: These attribute decorations are only effective if you do not specify a pres
 </section>
       <h4><a class="xref" href="MongoDB.Entities.FuzzyString.html">FuzzyString</a></h4>
       <section><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
-<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance.
+<p>
+TIP: There's a default limit of 250 characters for ensuring best performance.
 If you exceed the default limit, an exception will be thrown.
 You can increase the limit by sacrificing performance/resource utilization by setting the static property
-<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>
+<code>FuzzyString.CharacterLimit = 500</code> at startup.
+</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.GeoNear-1.html">GeoNear&lt;T&gt;</a></h4>
       <section><p>Fluent aggregation pipeline builder for GeoNear</p>
@@ -173,24 +162,28 @@ You can increase the limit by sacrificing performance/resource utilization by se
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Index-1.html">Index&lt;T&gt;</a></h4>
       <section><p>Represents an index creation command</p>
-<p>TIP: Define the keys first with .Key() method and finally call the .Create() method.</p>
+<p>TIP: Define the keys first with .Key() method and finally call the .InitAsync() method.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.InverseSideAttribute.html">InverseSideAttribute</a></h4>
       <section><p>Indicates that this property is the inverse side of a many-to-many relationship</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a></h4>
       <section><p>Represents a parent-child relationship between two entities.</p>
-<p>TIP: The ParentID and ChildID switches around for many-to-many relationships depending on the side of the relationship you&apos;re accessing.</p>
-</section>
-      <h4><a class="xref" href="MongoDB.Entities.Many-1.html">Many&lt;TChild&gt;</a></h4>
-      <section><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
-<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
-<p>Initialize from the constructor of the parent entity as follows:</p>
-<p><code>this.InitOneToMany(() => Property);</code></p>
-<p><code>this.InitManyToMany(() => Property, x => x.OtherProperty);</code></p>
+<p>TIP: The ParentID and ChildID switches around for many-to-many relationships depending on the side of the relationship you're accessing.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.ManyBase.html">ManyBase</a></h4>
-      <section><p>Base class providing shared state for Many'1 classes</p>
+      <section><p>Base class providing shared state for Many classes</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Many-2.html">Many&lt;TChild, TParent&gt;</a></h4>
+      <section><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
+<p>WARNING: You have to initialize all instances of this class before accessing any of its members.</p>
+<p>Initialize from the constructor of the parent entity as follows:</p>
+<p>
+    <code>this.InitOneToMany(() =&gt; Property);</code>
+</p>
+<p>
+    <code>this.InitManyToMany(() =&gt; Property, x =&gt; x.OtherProperty);</code>
+</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Migration.html">Migration</a></h4>
       <section><p>Represents a migration history item in the database</p>
@@ -200,7 +193,13 @@ You can increase the limit by sacrificing performance/resource utilization by se
       <h4><a class="xref" href="MongoDB.Entities.ObjectIdAttribute.html">ObjectIdAttribute</a></h4>
       <section><p>Use this attribute to mark a property in order to save it in MongoDB server as ObjectId</p>
 </section>
-      <h4><a class="xref" href="MongoDB.Entities.One-1.html">One&lt;T&gt;</a></h4>
+      <h4><a class="xref" href="MongoDB.Entities.ObjectIdEntity.html">ObjectIdEntity</a></h4>
+      <section><p>Inherit this class for all entities you want to store in their own collection.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.One-1.html">One&lt;TEntity&gt;</a></h4>
+      <section><p>Represents a one-to-one relationship with an IEntity.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.One-2.html">One&lt;TEntity, TIdentity&gt;</a></h4>
       <section><p>Represents a one-to-one relationship with an IEntity.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.OwnerSideAttribute.html">OwnerSideAttribute</a></h4>
@@ -234,12 +233,8 @@ TIP: These attribute decorations are only effective if you do not specify a pres
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Transaction.html">Transaction</a></h4>
       <section><p>Represents a transaction used to carry out inter-related write operations.</p>
-<p>TIP: Remember to always call .Dispose() after use or enclose in a &apos;Using&apos; statement.</p>
+<p>TIP: Remember to always call .Dispose() after use or enclose in a 'Using' statement.</p>
 <p>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</p>
-</section>
-      <h4><a class="xref" href="MongoDB.Entities.Update-1.html">Update&lt;T&gt;</a></h4>
-      <section><p>Represents an update command</p>
-<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.UpdateAndGet-1.html">UpdateAndGet&lt;T&gt;</a></h4>
       <section><p>Update and retrieve the first document that was updated.</p>
@@ -251,6 +246,10 @@ TIP: These attribute decorations are only effective if you do not specify a pres
 </section>
       <h4><a class="xref" href="MongoDB.Entities.UpdateBase-1.html">UpdateBase&lt;T&gt;</a></h4>
       <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.Update-1.html">Update&lt;T&gt;</a></h4>
+      <section><p>Represents an update command</p>
+<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.Watcher-1.html">Watcher&lt;T&gt;</a></h4>
       <section><p>Watcher for subscribing to mongodb change streams.</p>
 </section>

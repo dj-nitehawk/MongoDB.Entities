@@ -17,7 +17,7 @@
 ```
 ### Update entity properties
 ```csharp
-  await DB.Update<Book>()
+  await DB.Instance().Update<Book>()
           .Match(b => b.Title == "The Power Of Now")
           .Modify(b => b.Publisher, "New World Order")
           .Modify(b => b.ISBN, "SOMEISBNNUMBER")
@@ -45,11 +45,11 @@
 ```        
 ### Queries
 ```csharp
-  var author = await DB.Find<Author>().OneAsync("ID");
+  var author = await DB.Instance().Find<Author>().OneAsync("ID");
 
-  var authors = await DB.Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
+  var authors = await DB.Instance().Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
 
-  var eckhart = await DB.Queryable<Author>()
+  var eckhart = await DB.Instance().Queryable<Author>()
                         .Where(a => a.Name.Contains("Eckhart"))
                         .SingleOrDefaultAsync();
 
@@ -67,8 +67,8 @@
   await book.MainAuthor.DeleteAsync();
   await book.AllAuthors.DeleteAllAsync();
   await book.DeleteAsync();
-  await DB.DeleteAsync<Genre>("ID");
-  await DB.DeleteAsync<Book>(b => b.Title == "The Power Of Now");
+  await DB.Instance().DeleteAsync<Genre>("ID");
+  await DB.Instance().DeleteAsync<Book>(b => b.Title == "The Power Of Now");
 ```
 ---
 

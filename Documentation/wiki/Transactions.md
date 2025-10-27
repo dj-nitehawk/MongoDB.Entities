@@ -6,9 +6,9 @@ multi-document transactions are performed like the following:
 var book1 = new Book { Title = "book one" };
 var book2 = new Book { Title = "book two" };
 
-await DB.SaveAsync(new[] { book1, book2 });
+await DB.Instance().SaveAsync(new[] { book1, book2 });
 
-using (var TN = DB.Transaction())
+using (var TN = DB.Instance().Transaction())
 {
       var author1 = new Author { Name = "one" };
       var author2 = new Author { Name = "two" };
@@ -22,7 +22,7 @@ using (var TN = DB.Transaction())
 ```
 in the above code, book1 and book2 are saved before the transaction begins. author1 and author2 are created within the transaction and book1 and book2 are deleted within the transaction.
 
-a transaction is started when you instantiate a `Transaction` object either via the factory method `DB.Transaction()` or `new Transaction()`. you then perform all transaction logic using the methods supplied by that class such as `.SaveAsync()`, `.DeleteAsync()`, `.Update()`, `.Find()` instead of the methods supplied by the `DB` static class like you'd normally do.
+a transaction is started when you instantiate a `Transaction` object either via the factory method `DB.Instance().Transaction()` or `new Transaction()`. you then perform all transaction logic using the methods supplied by that class such as `.SaveAsync()`, `.DeleteAsync()`, `.Update()`, `.Find()` instead of the methods supplied by the `DB` class instance like you'd normally do.
 
 the methods of the `DB` class also supports transactions but you would have to supply a `session` to each method call, which would be less convenient than using the `Transaction` class.
 
@@ -37,7 +37,7 @@ you can also call `.AbortAsync()` to abort a transaction prematurely if needed a
 ## Relationship Manipulation
 [relationships](Relationships-Referenced.md) within a transaction requires passing down the session to the `.Add()` and `.Remove()` methods as shown below.
 ```csharp
-using (var TN = DB.Transaction())
+using (var TN = DB.Instance().Transaction())
 {
     var author = new Author { Name = "author one" };
     await TN.SaveAsync(author);
@@ -55,7 +55,7 @@ using (var TN = DB.Transaction())
 ## File Storage
 [file storage](File-Storage.md) within a transaction also requires passing down the session like so:
 ```csharp
-using (var TN = DB.Transaction())
+using (var TN = DB.Instance().Transaction())
 {
     var picture = new Picture { Title = "my picture" };
     await TN.SaveAsync(picture);
@@ -76,8 +76,8 @@ using (var TN = DB.Transaction())
 
 a transaction is always tied to a single database. you can specify which database to use for a transaction in a couple of ways.
 ```csharp
-var TN = DB.Transaction("DatabaseName") // manually specify the database name
-var TN = DB.Transaction<Book>() // gets the database from the entity type
+var TN = DB.Instance().Transaction("DatabaseName") // manually specify the database name
+var TN = DB.Instance().Transaction<Book>() // gets the database from the entity type
 ```
 
 if you try to perform an operation on an entity type that is not connected to the same database as the transaction, mongodb server will throw an exception.

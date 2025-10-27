@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Multiple database support | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Multiple database support | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Multiple database support | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Multiple database support | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -95,51 +80,49 @@
 <h1 id="multiple-database-support">Multiple database support</h1>
 
 <p>you can store and retrieve Entities in multiple databases on either a single server or multiple servers. the only requirement is to have unique names for each database. the following example demonstrates how to use multiple databases.</p>
-<h3 id="usage-example">Usage example:</h3>
-<p>use the <code>DB.DatabaseFor&lt;T&gt;()</code> method to specify which database you want the Entities of a given type to be stored in. it is only neccessary to do that for the entities you want to store in a non-default database. the default database is the very first database your application initializes. all entities by default are stored in the default database unless specified otherwise using <code>DatabaseFor</code>.</p>
-<p>as such, the <code>Book</code> entities will be stored in the &quot;BookShop&quot; database and the <code>Picture</code> entities are stored in the &quot;BookShopFILES&quot; database considering the following code.</p>
-<pre><code class="lang-csharp">await DB.InitAsync(&quot;BookShop&quot;);
-await DB.InitAsync(&quot;BookShopFILES&quot;);
+<h3 id="test-case-usage-example-1-customer-per-database">Test Case Usage example, 1 customer per database</h3>
+<p>It save the same Entity (Auto) to two different databases.</p>
+<pre><code class="lang-csharp">var _db1 = await DB.InitAsync(&quot;Customer1&quot;);
+var _db2 = await DB.InitAsync(&quot;Customer1&quot;);
 
-DB.DatabaseFor&lt;Picture&gt;(&quot;BookShopFILES&quot;);
+    var auto1 = new Auto
+    {
+        Make = &quot;Toyota&quot;,
+        Model = &quot;Corolla&quot;,
+        Year = 2020
+    };
+    await auto1.SaveAsync(_db1);
+    
+    var auto2 = new Auto
+    {
+        Make = &quot;Honda&quot;,
+        Model = &quot;Civic&quot;,
+        Year = 2021
+    };
+    await auto2.SaveAsync(_db2);
+    
+    var res1 = await _db1.Find&lt;Auto&gt;().MatchID(auto1.ID).ExecuteSingleAsync();
+    Assert.IsNotNull(res1);
+    Assert.AreEqual(auto1.Make, res1.Make);
+    Assert.AreEqual(auto1.Model, res1.Model);
+    Assert.AreEqual(auto1.Year, res1.Year);
 
-var book = new Book { Title = &quot;Power Of Now&quot; };
-await book.SaveAsync();
-//alternative:
-//// await DB.SaveAsync(book);
+    var res2 = await _db2.Find&lt;Auto&gt;().MatchID(auto2.ID).ExecuteSingleAsync();
+    Assert.IsNotNull(res2);
+    Assert.AreEqual(auto2.Make, res2.Make);
+    Assert.AreEqual(auto2.Model, res2.Model);
+    Assert.AreEqual(auto2.Year, res2.Year);
 
-var pic = new Picture
-{
-    BookID = book.ID,
-    Name = &quot;Power Of Now Cover Photo&quot;
-};
-
-await pic.SaveAsync();
-//alternative:
-//// await DB.SaveAsync(pic);
-
-await DB.Update&lt;Picture&gt;()
-        .Match(p =&gt; p.ID == pic.ID)
-        .Modify(p =&gt; p.Name, &quot;Updated Cover Photo&quot;)
-        .ExecuteAsync();
-
-var result = await DB.Find&lt;Picture&gt;().OneAsync(pic.ID);                    
-</code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>an entity type is tied to a specific database by calling the <strong>DatabaseFor</strong> method with the database name on startup. that entity type will always be stored in and retrieved from that specific database only. it is not possible to save a single entity type in multiple databases.</p>
-</div>
-<p>if you prefer to keep your database specifications inside the entity classes themselves, you could even call <code>DatabaseFor</code> in the static constructor like so:</p>
-<pre><code class="lang-csharp">public class Picture : Entity
-{
-    static Picture() =&gt; DB.DatabaseFor&lt;Picture&gt;(&quot;BookShopFILES&quot;);
-}
+    res1 = await _db1.Find&lt;Auto&gt;().MatchID(auto2.ID).ExecuteSingleAsync();
+    res2 = await _db2.Find&lt;Auto&gt;().MatchID(auto1.ID).ExecuteSingleAsync();
+    
+    Assert.IsNull(res1);
+    Assert.IsNull(res2);
 </code></pre>
 <h3 id="limitations">Limitations</h3>
 <ul>
 <li>cross-database relationships with <code>Many&lt;T&gt;</code> is not supported.</li>
 <li>no cross-database joins/ look-ups as the driver doesn't support it.</li>
-<li>storing a single entity type in multiple datbases is not supported.</li>
 </ul>
 
 </article>

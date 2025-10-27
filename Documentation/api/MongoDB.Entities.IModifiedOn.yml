@@ -13,24 +13,14 @@ items:
   nameWithType: IModifiedOn
   fullName: MongoDB.Entities.IModifiedOn
   type: Interface
-  source:
-    id: IModifiedOn
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\IModifiedOn.cs
-    startLine: 7
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nImplement this interface on entities you want the library to automatically store the modified date with\n"
+  summary: Implement this interface on entities you want the library to automatically store the modified date with
   example: []
   syntax:
     content: public interface IModifiedOn
     content.vb: Public Interface IModifiedOn
-  modifiers.csharp:
-  - public
-  - interface
-  modifiers.vb:
-  - Public
-  - Interface
 - uid: MongoDB.Entities.IModifiedOn.ModifiedOn
   commentId: P:MongoDB.Entities.IModifiedOn.ModifiedOn
   id: ModifiedOn
@@ -42,14 +32,13 @@ items:
   nameWithType: IModifiedOn.ModifiedOn
   fullName: MongoDB.Entities.IModifiedOn.ModifiedOn
   type: Property
-  source:
-    id: ModifiedOn
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\IModifiedOn.cs
-    startLine: 13
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nThis property will be automatically set by the library when an entity is updated.\n<p>TIP: This property is useful when sorting by update date.</p>\n"
+  summary: >-
+    This property will be automatically set by the library when an entity is updated.
+
+    <p>TIP: This property is useful when sorting by update date.</p>
   example: []
   syntax:
     content: DateTime ModifiedOn { get; set; }
@@ -58,17 +47,32 @@ items:
       type: System.DateTime
     content.vb: Property ModifiedOn As Date
   overload: MongoDB.Entities.IModifiedOn.ModifiedOn*
-  modifiers.csharp:
-  - get
-  - set
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.IModifiedOn.ModifiedOn*
   commentId: Overload:MongoDB.Entities.IModifiedOn.ModifiedOn
+  href: MongoDB.Entities.IModifiedOn.html#MongoDB_Entities_IModifiedOn_ModifiedOn
   name: ModifiedOn
   nameWithType: IModifiedOn.ModifiedOn
   fullName: MongoDB.Entities.IModifiedOn.ModifiedOn
@@ -76,12 +80,17 @@ references:
   commentId: T:System.DateTime
   parent: System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
   name: DateTime
   nameWithType: DateTime
   fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
 - uid: System
   commentId: N:System
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System
   nameWithType: System
   fullName: System

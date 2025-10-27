@@ -19,17 +19,17 @@ person.Save();
 ```
 the value of `CustomID` would be `PID-0000001-X`. the next Person entities you create/save would have `PID-0000002-X`, `PID-0000003-X`, `PID-0000004-X` and so on.
 
-#### Alternative static method
-if you don't have an instance of an Entity you can simply call the static method on the `DB` class like so:
+#### Alternative instance method
+if you don't have an instance of an Entity you can simply call the instance method on the `DB` class like so:
 
 ```csharp
-var number = await DB.NextSequentialNumberAsync<Person>();
+var number = await DB.Instance().NextSequentialNumberAsync<Person>();
 ```
 
 #### Generation for any sequence name
 there's also an overload for generating sequential numbers for any given sequence name like so:
 ```csharp
-var number = await DB.NextSequentialNumberAsync("SequenceName");
+var number = await DB.Instance().NextSequentialNumberAsync("SequenceName");
 ```
 
 #### Considerations

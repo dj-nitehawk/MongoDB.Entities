@@ -100,7 +100,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
     public IClientSessionHandle Transaction<T>(ClientSessionOptions? options = null) where T : IEntity
-        => Transaction(_db.DatabaseName<T>(), options);
+        => Transaction(_db.DatabaseName(), options);
 
     /// <summary>
     /// Commits a transaction to MongoDB

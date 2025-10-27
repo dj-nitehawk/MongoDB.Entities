@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Count entities | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Count entities | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Count entities | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Count entities | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -96,25 +81,25 @@
 
 <p>there are a couple of ways to get the count of entities stored in a collection.</p>
 <h3 id="count-estimated-total">Count estimated total</h3>
-<pre><code class="lang-csharp">var count = await DB.CountEstimatedAsync&lt;Author&gt;();
+<pre><code class="lang-csharp">var count = await DB.Instance().CountEstimatedAsync&lt;Author&gt;();
 </code></pre>
 <p>you can get a fast estimate of total entities for a given entity type at the expense of accuracy.
 the above will give you a rough estimate of the total entities using collection meta-data.</p>
 <h3 id="count-total-entities">Count total entities</h3>
-<pre><code class="lang-csharp">var count = await DB.CountAsync&lt;Author&gt;();
+<pre><code class="lang-csharp">var count = await DB.Instance().CountAsync&lt;Author&gt;();
 </code></pre>
 <p>the above will give you an accurate count of total entities by running an aggregation query.</p>
 <h3 id="count-matches-with-an-expression">Count matches with an expression</h3>
-<pre><code class="lang-csharp">var count = await DB.CountAsync&lt;Author&gt;(a =&gt; a.Title == &quot;The Power Of Now&quot;);
+<pre><code class="lang-csharp">var count = await DB.Instance().CountAsync&lt;Author&gt;(a =&gt; a.Title == &quot;The Power Of Now&quot;);
 </code></pre>
 <h3 id="count-matches-with-a-filter-builder-function">Count matches with a filter builder function</h3>
-<pre><code class="lang-csharp">var count = await DB.CountAsync&lt;Author&gt;(b =&gt; b.Eq(a =&gt; a.Name, &quot;Eckhart Tolle&quot;));
+<pre><code class="lang-csharp">var count = await DB.Instance().CountAsync&lt;Author&gt;(b =&gt; b.Eq(a =&gt; a.Name, &quot;Eckhart Tolle&quot;));
 </code></pre>
 <h3 id="count-matches-with-a-filter-definition">Count matches with a filter definition</h3>
-<pre><code class="lang-csharp">var filter = DB.Filter&lt;Author&gt;()
+<pre><code class="lang-csharp">var filter = DB.Instance().Filter&lt;Author&gt;()
                .Eq(a =&gt; a.Name, &quot;Eckhart Tolle&quot;);
 
-var count = await DB.CountAsync(filter);
+var count = await DB.Instance().CountAsync(filter);
 </code></pre>
 <h3 id="counting-children-of-a-relationship">Counting children of a relationship</h3>
 <p>you can get how many entities are there in the opposite side of any relationship as shown below:</p>

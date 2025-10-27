@@ -201,8 +201,7 @@ public partial class DB
     /// <summary>
     /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public string DatabaseName<T>() where T : IEntity
+    public string DatabaseName()
         => _mongoDatabase.DatabaseNamespace.DatabaseName;
 
     /// <summary>

@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Sequential number generation | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Sequential number generation | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Sequential number generation | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Sequential number generation | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -109,13 +94,13 @@ person.CustomID = $&quot;PID-{number:00000000}-X&quot;;
 person.Save();
 </code></pre>
 <p>the value of <code>CustomID</code> would be <code>PID-0000001-X</code>. the next Person entities you create/save would have <code>PID-0000002-X</code>, <code>PID-0000003-X</code>, <code>PID-0000004-X</code> and so on.</p>
-<h4 id="alternative-static-method">Alternative static method</h4>
-<p>if you don't have an instance of an Entity you can simply call the static method on the <code>DB</code> class like so:</p>
-<pre><code class="lang-csharp">var number = await DB.NextSequentialNumberAsync&lt;Person&gt;();
+<h4 id="alternative-instance-method">Alternative instance method</h4>
+<p>if you don't have an instance of an Entity you can simply call the instance method on the <code>DB</code> class like so:</p>
+<pre><code class="lang-csharp">var number = await DB.Instance().NextSequentialNumberAsync&lt;Person&gt;();
 </code></pre>
 <h4 id="generation-for-any-sequence-name">Generation for any sequence name</h4>
 <p>there's also an overload for generating sequential numbers for any given sequence name like so:</p>
-<pre><code class="lang-csharp">var number = await DB.NextSequentialNumberAsync(&quot;SequenceName&quot;);
+<pre><code class="lang-csharp">var number = await DB.Instance().NextSequentialNumberAsync(&quot;SequenceName&quot;);
 </code></pre>
 <h4 id="considerations">Considerations</h4>
 <p>keep in mind that there will be a separate sequence of numbers for each Entity type.</p>

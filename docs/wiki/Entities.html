@@ -1,39 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Define entities | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Define entities | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Define entities | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Define entities | MongoDB.Entities ">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -78,7 +63,7 @@
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -148,13 +133,10 @@ public class Author : Entity
 
     public object GenerateNewID()
         =&gt; ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        =&gt; string.IsNullOrEmpty(ID);
 }
 </code></pre>
 <h1 id="customizing-the-id-format">Customizing the ID format</h1>
-<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the type/format of the ID, simply override the <code>GenerateNewID</code> and <code>HasDefaultID</code> methods of the <code>Entity</code> base class or implement the <code>IEntity</code> interface. if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute to indicate that it's the primary key.</p>
+<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the type/format of the ID, simply override the <code>GenerateNewID</code> method of the <code>Entity</code> base class or implement the <code>IEntity</code> interface. if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute to indicate that it's the primary key.</p>
 <pre><code class="lang-csharp">public class Book : IEntity
 {
     [BsonId]
@@ -162,9 +144,6 @@ public class Author : Entity
 
     public object GenerateNewID()
         =&gt; Guid.NewGuid();
-
-    public bool HasDefaultID()
-        =&gt; Id == Guid.Empty;
 }
 </code></pre>
 <div class="NOTE">
@@ -185,7 +164,7 @@ public class Author : Entity
 <p>so you're better off sticking with <code>ObjectId</code> because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.</p>
 </div>
 <h1 id="create-a-collection-explicitly">Create a collection explicitly</h1>
-<pre><code class="lang-csharp">await DB.CreateCollectionAsync&lt;Book&gt;(o =&gt;
+<pre><code class="lang-csharp">await DB.Instance().CreateCollectionAsync&lt;Book&gt;(o =&gt;
 {
     o.Collation = new Collation(&quot;es&quot;);
     o.Capped = true;
@@ -199,7 +178,7 @@ however, you'd have to create the collection like above if you need to use a cus
 <p>if a collection already exists for the specified entity type, an exception will be thrown.</p>
 </div>
 <h1 id="drop-a-collection">Drop a collection</h1>
-<pre><code class="lang-csharp">await DB.DropCollectionAsync&lt;Book&gt;();
+<pre><code class="lang-csharp">await DB.Instance().DropCollectionAsync&lt;Book&gt;();
 </code></pre>
 
 </article>

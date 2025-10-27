@@ -13,24 +13,14 @@ items:
   nameWithType: IMigration
   fullName: MongoDB.Entities.IMigration
   type: Interface
-  source:
-    id: IMigration
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Migrations\IMigration.cs
-    startLine: 7
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nThe contract for writing user data migration classes\n"
+  summary: The contract for writing user data migration classes
   example: []
   syntax:
     content: public interface IMigration
     content.vb: Public Interface IMigration
-  modifiers.csharp:
-  - public
-  - interface
-  modifiers.vb:
-  - Public
-  - Interface
 - uid: MongoDB.Entities.IMigration.UpgradeAsync
   commentId: M:MongoDB.Entities.IMigration.UpgradeAsync
   id: UpgradeAsync
@@ -42,10 +32,6 @@ items:
   nameWithType: IMigration.UpgradeAsync()
   fullName: MongoDB.Entities.IMigration.UpgradeAsync()
   type: Method
-  source:
-    id: UpgradeAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Migrations\IMigration.cs
-    startLine: 9
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -53,16 +39,34 @@ items:
     content: Task UpgradeAsync()
     return:
       type: System.Threading.Tasks.Task
-    content.vb: Function UpgradeAsync As Task
+    content.vb: Function UpgradeAsync() As Task
   overload: MongoDB.Entities.IMigration.UpgradeAsync*
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
+  href: MongoDB.html
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+  spec.csharp:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
+  spec.vb:
+  - uid: MongoDB
+    name: MongoDB
+    href: MongoDB.html
+  - name: .
+  - uid: MongoDB.Entities
+    name: Entities
+    href: MongoDB.Entities.html
 - uid: MongoDB.Entities.IMigration.UpgradeAsync*
   commentId: Overload:MongoDB.Entities.IMigration.UpgradeAsync
+  href: MongoDB.Entities.IMigration.html#MongoDB_Entities_IMigration_UpgradeAsync
   name: UpgradeAsync
   nameWithType: IMigration.UpgradeAsync
   fullName: MongoDB.Entities.IMigration.UpgradeAsync
@@ -70,12 +74,44 @@ references:
   commentId: T:System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
   name: Task
   nameWithType: Task
   fullName: System.Threading.Tasks.Task
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

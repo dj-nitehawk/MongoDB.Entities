@@ -21,5 +21,5 @@ public partial class DB
     /// <param name="options">Client session options (not required)</param>
     /// <param name="modifiedBy"></param>
     public Transaction Transaction<T>(ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null) where T : IEntity
-        => new(DatabaseName<T>(), options, modifiedBy);
+        => new(DatabaseName(), options, modifiedBy);
 }
