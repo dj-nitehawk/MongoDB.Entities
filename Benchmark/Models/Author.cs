@@ -11,8 +11,8 @@ public class Author : Entity
     public int Age { get; set; }
     public Many<Book, Author> Books { get; set; } = null!;
 
-    public Author()
+    public Author(DB? db=null)
     {
-        this.InitOneToMany(() => Books);
+        this.InitOneToMany(() => Books, db);
     }
 }

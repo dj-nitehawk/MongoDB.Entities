@@ -84,9 +84,11 @@ public class Watcher<T> where T : IEntity
     ChangeStreamOptions? _options;
     bool _resume;
     CancellationToken _cancelToken;
+    readonly DB _db;
 
-    internal Watcher(string name)
+    internal Watcher(DB db, string name)
     {
+        _db = db;
         Name = name;
     }
 
@@ -391,7 +393,7 @@ public class Watcher<T> where T : IEntity
         {
             try
             {
-                using var cursor = await DB.Collection<T>().WatchAsync(_pipeline, _options, _cancelToken).ConfigureAwait(false);
+                using var cursor = await _db.Collection<T>().WatchAsync(_pipeline, _options, _cancelToken).ConfigureAwait(false);
 
                 while (!_cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(_cancelToken).ConfigureAwait(false))
                 {

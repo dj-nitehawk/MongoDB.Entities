@@ -12,44 +12,49 @@ namespace MongoDB.Entities;
 
 static class Cache<T> where T : IEntity
 {
-    internal static string DbName { get; private set; } = null!;
-    internal static IMongoDatabase Database { get; private set; } = null!;
-    internal static IMongoCollection<T> Collection { get; private set; } = null!;
+    internal static BsonClassMap BsonClassMap { get; private set; } = null!;
     internal static string CollectionName { get; private set; } = null!;
-    internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
+    internal static ConcurrentDictionary<DB, ConcurrentDictionary<string, Watcher<T>>> Watchers { get; private set; } = null!;
     internal static bool HasCreatedOn { get; private set; }
     internal static bool HasModifiedOn { get; private set; }
     internal static string ModifiedOnPropName { get; private set; } = null!;
     internal static PropertyInfo? ModifiedByProp { get; private set; }
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
     internal static string IdPropName { get; private set; } = null!;
+    internal static string IdBsonName { get; private set; } = null!;
     internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
     internal static Func<T, object?> IdSelector { get; private set; } = null!;
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
+    internal static object IdDefaultValue { get; private set; } = null!;
 
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
+    internal static ConcurrentDictionary<string, IMongoCollection<JoinRecord>> ReferenceCollections { get; private set; } = new();
+
     static Cache()
     {
         Initialize();
-        DB.DefaultDbChanged += Initialize;
     }
 
     static void Initialize()
     {
         var type = typeof(T);
 
-        var propertyInfo = type.GetIdPropertyInfo();
-
-        if (propertyInfo != null)
+        BsonClassMap = MapBsonClass(type);
+            
+        var idMap = BsonClassMap.IdMemberMap;
+        
+        if (idMap != null)
         {
-            IdPropName = propertyInfo.Name;
-            IdExpression = SelectIdExpression(propertyInfo);
+            IdPropName = idMap.MemberName;
+            IdBsonName = idMap.ElementName;
+            IdExpression = SelectIdExpression(idMap.MemberInfo);
             IdSelector = IdExpression.Compile();
-            IdGetter = type.GetterForProp(IdPropName);
-            IdSetter = type.SetterForProp(IdPropName);
+            IdGetter = idMap.Getter;
+            IdSetter = idMap.Setter;
+            IdDefaultValue = idMap.DefaultValue;
         }
         else
         {
@@ -57,19 +62,13 @@ static class Cache<T> where T : IEntity
                 $"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
         }
 
-        Database = TypeMap.GetDatabase(type);
-        DbName = Database.DatabaseNamespace.DatabaseName;
-
         var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
         CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
         if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
             throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
-
-        Collection = Database.GetCollection<T>(CollectionName);
-        TypeMap.AddCollectionMapping(type, CollectionName);
-
+        
         Watchers = new();
 
         var interfaces = type.GetInterfaces();
@@ -142,12 +141,35 @@ static class Cache<T> where T : IEntity
         return Builders<T>.Projection.Combine(_requiredPropsProjection, userProj);
     }
 
-    static Expression<Func<T, object?>> SelectIdExpression(PropertyInfo idProp)
+    static Expression<Func<T, object?>> SelectIdExpression(MemberInfo idProp)
     {
         var parameter = Expression.Parameter(typeof(T), "t");
-        var property = Expression.Property(parameter, idProp);
+        var property = Expression.Property(parameter, idProp.Name);
         Expression conversion = Expression.Convert(property, typeof(object));
 
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
     }
+
+    static BsonClassMap MapBsonClass(Type type)
+    {
+        if (type.BaseType != typeof(Object) && !BsonClassMap<T>.IsClassMapRegistered(type.BaseType!))
+        {
+            MapBsonClass(type.BaseType!);
+        }
+
+        if (!BsonClassMap<T>.IsClassMapRegistered(type))
+        {
+            var cm = new BsonClassMap(type);
+            cm.AutoMap();
+            cm.SetIgnoreExtraElements(true);
+        
+            BsonClassMap<T>.RegisterClassMap(cm);
+        }
+
+        return BsonClassMap<T>.LookupClassMap(type);
+    }
+    
+    internal static bool AddReferenceCollection(string name, IMongoCollection<JoinRecord> collection)
+        => ReferenceCollections.TryAdd(name, collection);
+    
 }

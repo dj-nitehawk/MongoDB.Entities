@@ -3,7 +3,7 @@
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Gets a transaction context/scope for a given database or the default database if not specified.
@@ -11,7 +11,7 @@ public static partial class DB
     /// <param name="database">The name of the database which this transaction is for (not required)</param>
     /// <param name="options">Client session options (not required)</param>
     /// <param name="modifiedBy"></param>
-    public static Transaction Transaction(string? database = default, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
+    public Transaction Transaction(string? database = null, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
         => new(database, options, modifiedBy);
 
     /// <summary>
@@ -20,6 +20,6 @@ public static partial class DB
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
     /// <param name="modifiedBy"></param>
-    public static Transaction Transaction<T>(ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null) where T : IEntity
+    public Transaction Transaction<T>(ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null) where T : IEntity
         => new(DatabaseName<T>(), options, modifiedBy);
 }

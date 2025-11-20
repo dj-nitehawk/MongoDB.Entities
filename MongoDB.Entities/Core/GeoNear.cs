@@ -38,7 +38,7 @@ public class Coordinates2D
         => GeoJson.Point(GeoJson.Geographic(Coordinates[0], Coordinates[1]));
 
     /// <summary>
-    /// Create a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
+    /// InitAsync a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
     /// </summary>
     public static GeoJsonPoint<GeoJson2DGeographicCoordinates> GeoJsonPoint(double longitude, double latitude)
         => GeoJson.Point(GeoJson.Geographic(longitude, latitude));
@@ -76,12 +76,12 @@ public class GeoNear<T> where T : IEntity
     [BsonIgnoreIfNull]
     public string? key { get; set; }
 
-    internal IAggregateFluent<T> ToFluent(AggregateOptions? options = null, IClientSessionHandle? session = null)
+    internal IAggregateFluent<T> ToFluent(DB db, AggregateOptions? options = null, IClientSessionHandle? session = null)
     {
         var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
         return session == null
-                   ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
-                   : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
+                   ? db.Collection<T>().Aggregate(options).AppendStage<T>(stage)
+                   : db.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
     }
 }

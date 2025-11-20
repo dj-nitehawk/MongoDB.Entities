@@ -26,7 +26,7 @@ public class FileStorageRead : BenchBase
         memStream.Position = 0;
         var file = new File { Name = "file name here" };
         await file.SaveAsync();
-        await file.Data.UploadAsync(memStream, 1024 * 4);
+        await file.Data().UploadAsync(memStream, 1024 * 4);
         return file.ID;
     }
 
@@ -45,7 +45,7 @@ public class FileStorageRead : BenchBase
     public override Task MongoDB_Entities()
     {
         memStream.Position = 0;
-        return DB.File<File>(fEntityID).DownloadAsync(memStream);
+        return DB.Instance().File<File>(fEntityID).DownloadAsync(memStream);
     }
 
     [Benchmark(Baseline = true)]

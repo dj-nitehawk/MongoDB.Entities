@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities.Tests;
 
@@ -32,7 +32,7 @@ public class TransactionsEntity
             //TN.CommitAsync();
         }
 
-        var res = await DB.Find<AuthorEntity>().OneAsync(author1.ID);
+        var res = await DB.Instance().Find<AuthorEntity>().OneAsync(author1.ID);
 
         Assert.AreEqual(author1.Name, res!.Name);
     }
@@ -56,7 +56,7 @@ public class TransactionsEntity
             await TN.CommitAsync();
         }
 
-        var res = await DB.Find<AuthorEntity>().OneAsync(author1.ID);
+        var res = await DB.Instance().Find<AuthorEntity>().OneAsync(author1.ID);
 
         Assert.AreEqual(guid, res!.Name);
     }
@@ -82,7 +82,7 @@ public class TransactionsEntity
             await db.CommitAsync();
         }
 
-        var res = await DB.Find<AuthorEntity>().OneAsync(author1.ID);
+        var res = await DB.Instance().Find<AuthorEntity>().OneAsync(author1.ID);
 
         Assert.AreEqual(guid, res!.Name);
     }
@@ -102,7 +102,7 @@ public class TransactionsEntity
             await TN.SaveAsync(book2);
 
             _ = await TN.Find<BookEntity>().OneAsync(book1.ID);
-            res = book1.Fluent(TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
+            res = book1.Fluent(null, TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
             _ = TN.Fluent<BookEntity>().FirstOrDefault();
             _ = TN.Fluent<BookEntity>().Match(b => b.ID == book2.ID).SingleOrDefault();
             fnt = TN.Fluent<BookEntity>().Match(f => f.Eq(b => b.ID, book2.ID)).SingleOrDefault();
@@ -127,13 +127,13 @@ public class TransactionsEntity
             await TN.CommitAsync();
         }
 
-        Assert.AreEqual(null, await DB.Find<BookEntity>().OneAsync(book1.ID));
+        Assert.AreEqual(null, await DB.Instance().Find<BookEntity>().OneAsync(book1.ID));
     }
 
     [TestMethod]
     public async Task full_text_search_transaction_returns_correct_results()
     {
-        await DB.Index<AuthorEntity>()
+        await DB.Instance().Index<AuthorEntity>()
           .Option(o => o.Background = false)
           .Key(a => a.Name, KeyType.Text)
           .Key(a => a.Surname, KeyType.Text)
@@ -141,8 +141,8 @@ public class TransactionsEntity
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await DB.SaveAsync(author1);
-        await DB.SaveAsync(author2);
+        await DB.Instance().SaveAsync(author1);
+        await DB.Instance().SaveAsync(author2);
 
         using var TN = new Transaction();
         var tres = TN.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToList();
@@ -169,7 +169,7 @@ public class TransactionsEntity
             await TN.CommitAsync();
         }
 
-        var res = await DB.Find<BookEntity>().ManyAsync(b => b.Title.Contains(guid));
+        var res = await DB.Instance().Find<BookEntity>().ManyAsync(b => b.Title.Contains(guid));
         Assert.AreEqual(entities.Length, res.Count);
 
         foreach (var ent in res)
@@ -178,7 +178,7 @@ public class TransactionsEntity
         }
         await res.SaveAsync();
 
-        res = await DB.Find<BookEntity>().ManyAsync(b => b.Title.Contains(guid));
+        res = await DB.Instance().Find<BookEntity>().ManyAsync(b => b.Title.Contains(guid));
         Assert.AreEqual(3, res.Count);
         Assert.AreEqual("updated " + guid, res[0].Title);
     }

@@ -16,8 +16,8 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class PagedSearch<T> : PagedSearch<T, T> where T : IEntity
 {
-    internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
-        : base(session, globalFilters) { }
+    internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)
+        : base(session, globalFilters, db) { }
 }
 
 /// <summary>
@@ -34,12 +34,14 @@ public class PagedSearch<T, TProjection> where T : IEntity
     PipelineStageDefinition<T, TProjection>? _projectionStage;
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    readonly DB _db;
+    
     bool _ignoreGlobalFilters;
 
     int _pageNumber = 1,
         _pageSize = 100;
 
-    internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
+    internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)
     {
         var type = typeof(TProjection);
 
@@ -48,6 +50,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
 
         _session = session;
         _globalFilters = globalFilters;
+        _db = db;
     }
 
     /// <summary>
@@ -386,9 +389,9 @@ public class PagedSearch<T, TProjection> where T : IEntity
 
             facetResult =
                 _session == null
-                    ? await DB.Collection<T>().Aggregate(_options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
+                    ? await _db.Collection<T>().Aggregate(_options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
                               .ConfigureAwait(false)
-                    : await DB.Collection<T>().Aggregate(_session, _options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
+                    : await _db.Collection<T>().Aggregate(_session, _options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
                               .ConfigureAwait(false);
         }
         else //.WithFluent() used

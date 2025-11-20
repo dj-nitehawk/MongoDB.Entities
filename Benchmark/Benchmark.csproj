@@ -14,10 +14,12 @@
 
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.14.0"/>
+        <PackageReference Include="Testcontainers.MongoDb" Version="4.7.0"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\MongoDB.Entities\MongoDB.Entities.csproj"/>
+        <ProjectReference Include="..\Tests\Tests.csproj" />
     </ItemGroup>
 
 </Project>

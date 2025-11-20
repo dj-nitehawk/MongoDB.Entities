@@ -15,16 +15,16 @@ public class UpdateOne : BenchBase
 
     public UpdateOne()
     {
-        DB.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
+        DB.Instance().SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Update<Author>()
-                 .MatchID(id)
-                 .Modify(a => a.FirstName, "updated")
-                 .ExecuteAsync();
+        return DB.Instance().Update<Author>()
+                         .MatchID(id)
+                         .Modify(a => a.FirstName, "updated")
+                         .ExecuteAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -44,12 +44,12 @@ public class Update100 : BenchBase
 
     public Update100()
     {
-        DB.Index<Author>()
-          .Key(a => a.FirstName!, KeyType.Ascending)
-          .Option(o => o.Background = false)
-          .CreateAsync()
-          .GetAwaiter()
-          .GetResult();
+        DB.Instance().Index<Author>()
+                  .Key(a => a.FirstName!, KeyType.Ascending)
+                  .Option(o => o.Background = false)
+                  .CreateAsync()
+                  .GetAwaiter()
+                  .GetResult();
 
         for (var i = 1; i <= 1000; i++)
         {
@@ -64,11 +64,11 @@ public class Update100 : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB
-            .Update<Author>()
-            .Match(x => x.FirstName == guid)
-            .Modify(x => x.FirstName, "updated")
-            .ExecuteAsync();
+        return DB.Instance()
+                         .Update<Author>()
+                         .Match(x => x.FirstName == guid)
+                         .Modify(x => x.FirstName, "updated")
+                         .ExecuteAsync();
     }
 
     [Benchmark(Baseline = true)]

@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -12,7 +12,7 @@ public class WatcherEntity
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Watcher<FlowerEntity>("test");
+        var watcher = DB.Instance().Watcher<FlowerEntity>("test");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -43,7 +43,8 @@ public class WatcherEntity
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var watcher = DB.Watcher<FlowerEntity>("test-with-projection");
+        var db = DB.Instance();
+        var watcher = db.Watcher<FlowerEntity>("test-with-projection");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -63,12 +64,12 @@ public class WatcherEntity
             new FlowerEntity { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
             new FlowerEntity { Name = "test", Color = "red" },
             new FlowerEntity { Name = "test", Color = "red" }
-        }.SaveAsync();
+        }.SaveAsync(db);
 
         var flower = new FlowerEntity { Name = "test" };
-        await flower.SaveAsync();
+        await flower.SaveAsync(db);
 
-        await flower.DeleteAsync();
+        await flower.DeleteAsync(db);
 
         await Task.Delay(500);
 
@@ -84,7 +85,7 @@ public class WatcherEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerEntity>("test-with-filter-builders");
+        var watcher = DB.Instance().Watcher<FlowerEntity>("test-with-filter-builders");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -117,7 +118,7 @@ public class WatcherEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerEntity>("test-with-filter-builders-csd");
+        var watcher = DB.Instance().Watcher<FlowerEntity>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(

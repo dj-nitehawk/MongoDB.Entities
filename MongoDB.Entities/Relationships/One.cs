@@ -43,16 +43,18 @@ public class One<TEntity> where TEntity : IEntity
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.
     /// </summary>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
-    public Task<TEntity> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        => new Find<TEntity>(session, null).OneAsync(ID, cancellation)!;
+    public Task<TEntity> ToEntityAsync(DB? db=null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        => new Find<TEntity>(session, null, DB.InstanceOrDefault(db)).OneAsync(ID, cancellation)!;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">x => new Test { PropName = x.Prop }</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -60,9 +62,10 @@ public class One<TEntity> where TEntity : IEntity
     /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
     public async Task<TEntity> ToEntityAsync(Expression<Func<TEntity, TEntity>> projection,
+                                             DB? db=null,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, DB.InstanceOrDefault(db))
                   .MatchID(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation)
@@ -72,6 +75,7 @@ public class One<TEntity> where TEntity : IEntity
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -79,9 +83,10 @@ public class One<TEntity> where TEntity : IEntity
     /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
     public async Task<TEntity> ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>> projection,
+                                             DB? db=null,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, DB.InstanceOrDefault(db))
                   .MatchID(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation).ConfigureAwait(false)).Single();
@@ -130,16 +135,18 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.
     /// </summary>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
-    public Task<TEntity> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        => new Find<TEntity>(session, null).OneAsync(ID, cancellation)!;
+    public Task<TEntity> ToEntityAsync(DB? db=null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        => new Find<TEntity>(session, null, DB.InstanceOrDefault(db)).OneAsync(ID, cancellation)!;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">x => new Test { PropName = x.Prop }</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -148,9 +155,10 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
     public async Task<TEntity> ToEntityAsync(Expression<Func<TEntity, TEntity>> projection,
+                                             DB? db=null,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, DB.InstanceOrDefault(db))
                   .Match(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation)
@@ -160,6 +168,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -168,9 +177,10 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
     public async Task<TEntity> ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>> projection,
+                                             DB? db=null,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, DB.InstanceOrDefault(db))
                   .Match(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation).ConfigureAwait(false)).Single();

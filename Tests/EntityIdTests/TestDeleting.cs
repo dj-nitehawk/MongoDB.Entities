@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
-using MongoDB.Driver.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 
 namespace MongoDB.Entities.Tests;
 
@@ -88,10 +88,12 @@ public class DeletingEntity
         var author1 = new AuthorEntity { Name = "xxx" }; await author1.SaveAsync();
         var author2 = new AuthorEntity { Name = "xxx" }; await author2.SaveAsync();
 
-        await DB.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
+        var db = DB.Instance();
+        
+        await db.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
 
-        var count = await DB.Queryable<AuthorEntity>()
-                      .CountAsync(a => a.Name == "xxx");
+        var count = await db.Queryable<AuthorEntity>()
+                                    .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
     }
@@ -106,15 +108,17 @@ public class DeletingEntity
             IDs.Add(ObjectId.GenerateNewId().ToString()!);
         }
 
-        await DB.DeleteAsync<Blank>(IDs);
+        await DB.Instance().DeleteAsync<Blank>(IDs);
     }
 
     [TestCategory("SkipWhenLiveUnitTesting")]
     [TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
+        var db = DB.Instance();
+        
         //start with clean collection
-        await DB.DropCollectionAsync<Blank>();
+        await db.DropCollectionAsync<Blank>();
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
@@ -123,21 +127,21 @@ public class DeletingEntity
         }
         await list.SaveAsync();
 
-        Assert.AreEqual(100100, DB.Queryable<Blank>().Count());
+        Assert.AreEqual(100100, db.Queryable<Blank>().Count());
 
-        await DB.DeleteAsync<Blank>(_ => true);
+        await db.DeleteAsync<Blank>(_ => true);
 
-        Assert.AreEqual(0, await DB.CountAsync<Blank>());
+        Assert.AreEqual(0, await db.CountAsync<Blank>());
 
         //reclaim disk space
-        await DB.DropCollectionAsync<Blank>();
-        await DB.SaveAsync(new Blank());
+        await db.DropCollectionAsync<Blank>();
+        await db.SaveAsync(new Blank());
     }
 
     [TestMethod]
     public async Task delete_by_ids_with_global_filter()
     {
-        var db = new MyDBEntity();
+        var dbEntity = new MyDBEntity();
 
         var a1 = new AuthorEntity { Age = 10 };
         var a2 = new AuthorEntity { Age = 111 };
@@ -147,11 +151,14 @@ public class DeletingEntity
 
         var IDs = new[] { a1.ID, a2.ID, a3.ID };
 
-        var res = await db.DeleteAsync<AuthorEntity>(IDs);
-        var notDeletedIDs = await DB.Find<AuthorEntity, string>()
-                                    .Match(a => IDs.Contains(a.ID))
-                                    .Project(a => a.ID)
-                                    .ExecuteAsync();
+        var res = await dbEntity.DeleteAsync<AuthorEntity>(IDs);
+        
+        var db = DB.Instance();
+        
+        var notDeletedIDs = await db.Find<AuthorEntity, string>()
+                                            .Match(a => IDs.Contains(a.ID))
+                                            .Project(a => a.ID)
+                                            .ExecuteAsync();
 
         Assert.AreEqual(2, res.DeletedCount);
         Assert.IsTrue(notDeletedIDs.Single() == a1.ID);

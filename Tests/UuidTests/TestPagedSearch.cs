@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities.Tests;
 
@@ -14,7 +14,7 @@ public class PagedSearchUuid
     {
         var guid = Guid.Empty.ToString();
 
-        var (Results, _, PageCount) = await DB
+        var (Results, _, PageCount) =  await DB.Instance()
                                             .PagedSearch<BookUuid>()
                                             .Match(b => b.ID == guid)
                                             .Sort(b => b.ID, Order.Ascending)
@@ -43,13 +43,13 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB
-                                            .PagedSearch<BookUuid>()
-                                            .Match(b => b.Title == guid)
-                                            .Sort(b => b.ID, Order.Ascending)
-                                            .PageNumber(2)
-                                            .PageSize(5)
-                                            .ExecuteAsync();
+        var (Results, _, PageCount) = await DB.Instance()
+                                                      .PagedSearch<BookUuid>()
+                                                      .Match(b => b.Title == guid)
+                                                      .Sort(b => b.ID, Order.Ascending)
+                                                      .PageNumber(2)
+                                                      .PageSize(5)
+                                                      .ExecuteAsync();
 
         Assert.AreEqual(2, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -62,13 +62,13 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB
-                                            .PagedSearch<BookUuid>()
-                                            .Match(b => b.Title == guid)
-                                            .Sort(b => b.ID, Order.Ascending)
-                                            .PageNumber(1)
-                                            .PageSize(3)
-                                            .ExecuteAsync();
+        var (Results, _, PageCount) = await DB.Instance()
+                                                      .PagedSearch<BookUuid>()
+                                                      .Match(b => b.Title == guid)
+                                                      .Sort(b => b.ID, Order.Ascending)
+                                                      .PageNumber(1)
+                                                      .PageSize(3)
+                                                      .ExecuteAsync();
 
         Assert.AreEqual(4, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -81,16 +81,16 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        var pipeline = DB.Fluent<BookUuid>()
+        var pipeline = DB.Instance().Fluent<BookUuid>()
                          .Match(b => b.Title == guid);
 
-        var (Results, _, PageCount) = await DB
-                                            .PagedSearch<BookUuid>()
-                                            .WithFluent(pipeline)
-                                            .Sort(b => b.ID, Order.Ascending)
-                                            .PageNumber(2)
-                                            .PageSize(5)
-                                            .ExecuteAsync();
+        var (Results, _, PageCount) = await DB.Instance()
+                                                      .PagedSearch<BookUuid>()
+                                                      .WithFluent(pipeline)
+                                                      .Sort(b => b.ID, Order.Ascending)
+                                                      .PageNumber(2)
+                                                      .PageSize(5)
+                                                      .ExecuteAsync();
 
         Assert.AreEqual(2, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -109,22 +109,22 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        await DB
-              .PagedSearch<BookUuid, BookResult>()
-              .Match(b => b.Title == guid)
-              .Sort(b => b.ID, Order.Ascending)
-              .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
-              .PageNumber(1)
-              .PageSize(5)
-              .ExecuteAsync();
+        await DB.Instance()
+                        .PagedSearch<BookUuid, BookResult>()
+                        .Match(b => b.Title == guid)
+                        .Sort(b => b.ID, Order.Ascending)
+                        .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
+                        .PageNumber(1)
+                        .PageSize(5)
+                        .ExecuteAsync();
     }
 
     [TestMethod]
     public async Task sort_by_meta_text_score_with_projection()
     {
-        await DB.DropCollectionAsync<GenreUuid>();
+        await DB.Instance().DropCollectionAsync<GenreUuid>();
 
-        await DB.Index<GenreUuid>()
+        await DB.Instance().Index<GenreUuid>()
                 .Key(g => g.Name, KeyType.Text)
                 .Option(o => o.Background = false)
                 .CreateAsync();
@@ -142,12 +142,12 @@ public class PagedSearchUuid
 
         await list.SaveAsync();
 
-        var (Results, _, _) = await DB
-                                    .PagedSearch<GenreUuid>()
-                                    .Match(Search.Full, "one eight nine")
-                                    .Project(p => new() { Name = p.Name, Position = p.Position })
-                                    .SortByTextScore()
-                                    .ExecuteAsync();
+        var (Results, _, _) = await DB.Instance()
+                                              .PagedSearch<GenreUuid>()
+                                              .Match(Search.Full, "one eight nine")
+                                              .Project(p => new() { Name = p.Name, Position = p.Position })
+                                              .SortByTextScore()
+                                              .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);
@@ -157,9 +157,9 @@ public class PagedSearchUuid
     [TestMethod]
     public async Task sort_by_meta_text_score_no_projection()
     {
-        await DB.DropCollectionAsync<GenreUuid>();
+        await DB.Instance().DropCollectionAsync<GenreUuid>();
 
-        await DB.Index<GenreUuid>()
+        await DB.Instance().Index<GenreUuid>()
                 .Key(g => g.Name, KeyType.Text)
                 .Option(o => o.Background = false)
                 .CreateAsync();
@@ -177,11 +177,11 @@ public class PagedSearchUuid
 
         await list.SaveAsync();
 
-        var (Results, _, _) = await DB
-                                    .PagedSearch<GenreUuid>()
-                                    .Match(Search.Full, "one eight nine")
-                                    .SortByTextScore()
-                                    .ExecuteAsync();
+        var (Results, _, _) = await DB.Instance()
+                                              .PagedSearch<GenreUuid>()
+                                              .Match(Search.Full, "one eight nine")
+                                              .SortByTextScore()
+                                              .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);
@@ -200,7 +200,7 @@ public class PagedSearchUuid
         };
         await author.SaveAsync();
 
-        var (res, _, _) = await DB.PagedSearch<AuthorUuid>()
+        var (res, _, _) = await DB.Instance().PagedSearch<AuthorUuid>()
                                   .Match(a => a.ID == author.ID)
                                   .Sort(a => a.ID, Order.Ascending)
                                   .ProjectExcluding(a => new { a.Age, a.Name })

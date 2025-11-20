@@ -18,7 +18,7 @@ public class FileStorageWrite : BenchBase
 
         var file = new File { Name = "file name here" };
         await file.SaveAsync();
-        await file.Data.UploadAsync(memStream, 1024 * 4);
+        await file.Data().UploadAsync(memStream, 1024 * 4);
     }
 
     [Benchmark(Baseline = true)]

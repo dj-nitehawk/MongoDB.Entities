@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities.Tests;
 
@@ -178,7 +178,7 @@ public class TemplatesObjectId
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorObjectId { Name = guid, Age = 54 };
         var author2 = new AuthorObjectId { Name = guid, Age = 53 };
-        await DB.SaveAsync(new[] { author1, author2 });
+        await DB.Instance().SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorObjectId>(@"
             [
@@ -193,15 +193,15 @@ public class TemplatesObjectId
           .Tag("author_name", guid)
           .Path(a => a.Age);
 
-        var results = await DB.PipelineAsync(pipeline);
+        var results = await DB.Instance().PipelineAsync(pipeline);
 
         Assert.AreEqual(2, results.Count);
         Assert.IsTrue(results[0].Name == guid);
         Assert.IsTrue(results.Last().Age == 54);
 
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.PipelineSingleAsync(pipeline));
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.Instance().PipelineSingleAsync(pipeline));
 
-        var first = await DB.PipelineFirstAsync(pipeline);
+        var first = await DB.Instance().PipelineFirstAsync(pipeline);
 
         Assert.IsNotNull(first);
     }
@@ -214,7 +214,7 @@ public class TemplatesObjectId
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorObjectId { Name = guid, Age = 111 };
         var author2 = new AuthorObjectId { Name = guid, Age = 53 };
-        await DB.SaveAsync(new[] { author1, author2 });
+        await DB.Instance().SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorObjectId>(@"
             [
@@ -244,7 +244,7 @@ public class TemplatesObjectId
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorObjectId { Name = guid, Age = 111 };
         var author2 = new AuthorObjectId { Name = guid, Age = 53 };
-        await DB.SaveAsync(new[] { author1, author2 });
+        await DB.Instance().SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorObjectId>(@"
             [
@@ -274,7 +274,7 @@ public class TemplatesObjectId
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorObjectId { Name = guid, Age = 111 };
         var author2 = new AuthorObjectId { Name = guid, Age = 53 };
-        await DB.SaveAsync(new[] { author1, author2 });
+        await DB.Instance().SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorObjectId>(@"
             [
@@ -304,7 +304,7 @@ public class TemplatesObjectId
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorObjectId { Name = guid, Age = 111 };
         var author2 = new AuthorObjectId { Name = guid, Age = 53 };
-        await DB.SaveAsync(new[] { author1, author2 });
+        await DB.Instance().SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorObjectId>(@"
             [
@@ -363,12 +363,12 @@ public class TemplatesObjectId
                     }
                 ]"
         ).Tag("book_id", $"ObjectId('{book.ID}')")
-         .Tag("author_collection", DB.Entity<AuthorObjectId>().CollectionName())
+         .Tag("author_collection", DB.Instance().CollectionName<AuthorObjectId>())
          .Path(b => b.MainAuthor.ID)
          .PathOfResult(a => a.Surname)
          .PathOfResult(a => a.Name);
 
-        var result = (await (await DB.PipelineCursorAsync(pipeline))
+        var result = (await (await DB.Instance().PipelineCursorAsync(pipeline))
                        .ToListAsync())
                        .Single();
 

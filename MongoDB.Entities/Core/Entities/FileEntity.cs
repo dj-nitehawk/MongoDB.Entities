@@ -16,9 +16,9 @@ namespace MongoDB.Entities;
 /// <summary>
 /// Inherit this base class in order to create your own File Entities
 /// </summary>
-public abstract class FileEntity : Entity
+public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
 {
-    DataStreamer? _streamer;
+    DataStreamer<T>? _streamer;
 
     /// <summary>
     /// The total amount of data in bytes that has been uploaded so far
@@ -48,7 +48,7 @@ public abstract class FileEntity : Entity
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
-    public DataStreamer Data => _streamer ??= new(this);
+    public DataStreamer<T> Data(DB? db=null) => _streamer ??= new(this, DB.InstanceOrDefault(db));
 }
 
 [Collection("[BINARY_CHUNKS]")]
@@ -72,25 +72,26 @@ class FileChunk : IEntity
 /// <summary>
 /// Provides the interface for uploading and downloading data chunks for file entities.
 /// </summary>
-public class DataStreamer
+public class DataStreamer<T> where T : FileEntity<T>, new()
 {
     static readonly HashSet<string> _indexedDBs = [];
 
-    readonly FileEntity _parent;
-    readonly Type _parentType;
-    readonly IMongoDatabase _db;
+    readonly FileEntity<T> _parent;
+    readonly IMongoDatabase _mongoDatabase;
+    readonly DB _db;
     readonly IMongoCollection<FileChunk> _chunkCollection;
 
-    internal DataStreamer(FileEntity parent)
+    internal DataStreamer(FileEntity<T> parent, DB db)
     {
         _parent = parent;
-        _parentType = parent.GetType();
 
-        _db = TypeMap.GetDatabase(_parentType);
+        _db = db;
 
-        _chunkCollection = _db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
+        _mongoDatabase = _db.Database();
 
-        var dbName = _db.DatabaseNamespace.DatabaseName;
+        _chunkCollection = _db.Collection<FileChunk>();
+
+        var dbName = _mongoDatabase.DatabaseNamespace.DatabaseName;
 
         if (_indexedDBs.Add(dbName))
         {
@@ -284,9 +285,9 @@ public class DataStreamer
 
     Task UpdateMetaDataAsync(IClientSessionHandle? session)
     {
-        var collection = _db.GetCollection<FileEntity>(TypeMap.GetCollectionName(_parentType));
-        var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, _parent.ID);
-        var update = Builders<FileEntity>.Update
+        var collection = _mongoDatabase.GetCollection<FileEntity<T>>(_db.CollectionName<T>());
+        var filter = Builders<FileEntity<T>>.Filter.Eq(e => e.ID, _parent.ID);
+        var update = Builders<FileEntity<T>>.Update
                                          .Set(e => e.FileSize, _parent.FileSize)
                                          .Set(e => e.ChunkCount, _parent.ChunkCount)
                                          .Set(e => e.UploadSuccessful, _parent.UploadSuccessful);

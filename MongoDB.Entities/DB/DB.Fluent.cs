@@ -3,7 +3,7 @@
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Exposes the MongoDB collection for the given IEntity as an IAggregateFluent in order to facilitate Fluent queries.
@@ -11,7 +11,7 @@ public static partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
+    public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
         => session == null
                ? Collection<T>().Aggregate(options)
                : Collection<T>().Aggregate(session, options);
@@ -27,7 +27,7 @@ public static partial class DB
     /// <param name="language">The language for the search (optional)</param>
     /// <param name="options">Options for finding documents (not required)</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType,
+    public IAggregateFluent<T> FluentTextSearch<T>(Search searchType,
                                                           string searchTerm,
                                                           bool caseSensitive = false,
                                                           bool diacriticSensitive = false,

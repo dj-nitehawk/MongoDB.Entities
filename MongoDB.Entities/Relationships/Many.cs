@@ -9,7 +9,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 /// <summary>
-/// Base class providing shared state for Many'1 classes
+/// Base class providing shared state for Many classes
 /// </summary>
 public abstract class ManyBase
 {
@@ -20,7 +20,7 @@ public abstract class ManyBase
 
 /// <summary>
 /// Represents a one-to-many/many-to-many relationship between two Entities.
-/// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
+/// <para>WARNING: You have to initialize all instances of this class before accessing any of its members.</para>
 /// <para>Initialize from the constructor of the parent entity as follows:</para>
 /// <para>
 ///     <c>this.InitOneToMany(() => Property);</c>
@@ -36,6 +36,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     static readonly BulkWriteOptions _unOrdBlkOpts = new() { IsOrdered = false };
     bool _isInverse;
     TParent _parent = default!;
+    readonly DB _db;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -66,24 +67,24 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// Creates an instance of Many&lt;TChild&gt;
     /// This is only needed in VB.Net
     /// </summary>
-    public Many() { }
+    public Many() { _db = DB.Instance(); }
 
 #region one-to-many-initializers
 
-    internal Many(object parent, string property)
+    internal Many(object parent, string property, DB? db=null)
     {
+        _db = DB.InstanceOrDefault(db);
         Init((TParent)parent, property);
     }
 
     void Init(TParent parent, string property)
     {
-        if (DB.DatabaseName<TParent>() != DB.DatabaseName<TChild>())
-            throw new NotSupportedException("Cross database relationships are not supported!");
-
         _parent = parent;
         _isInverse = false;
-        JoinCollection = DB.GetRefCollection<TParent>($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
+        var collectionName = $"[{_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({property})]";
+        JoinCollection = _db.GetRefCollection<TParent>(collectionName);
         CreateIndexesAsync(JoinCollection);
+        Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
     }
 
     /// <summary>
@@ -98,8 +99,9 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
 #region many-to-many initializers
 
-    internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
+    internal Many(object parent, string propertyParent, string propertyChild, bool isInverse, DB? db = null)
     {
+        _db = DB.InstanceOrDefault(db);
         Init((TParent)parent, propertyParent, propertyChild, isInverse);
     }
 
@@ -107,14 +109,15 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     {
         _parent = parent;
         _isInverse = isInverse;
+        
+        var collectionName = isInverse
+                                 ? $"[({propertyParent}){_db.CollectionName<TChild>()}~{_db.CollectionName<TParent>()}({propertyChild})]"
+                                 : $"[({propertyChild}){_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({propertyParent})]";
 
-        JoinCollection = isInverse
-                             ? DB.GetRefCollection<TParent>(
-                                 $"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
-                             : DB.GetRefCollection<TParent>(
-                                 $"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
+        JoinCollection = _db.GetRefCollection<TParent>(collectionName);
 
         CreateIndexesAsync(JoinCollection);
+        Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
     }
 
     /// <summary>

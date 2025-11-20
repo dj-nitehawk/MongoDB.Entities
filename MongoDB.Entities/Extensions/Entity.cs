@@ -78,13 +78,16 @@ public static partial class Extensions
     /// <summary>
     /// An IQueryable collection of sibling Entities.
     /// </summary>
-    public static IQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
-        => DB.Queryable<T>(options);
+    /// <param name="_"></param>
+    /// <param name="db">The DB instance to use for this operation</param>
+    /// <param name="options"></param>
+    public static IQueryable<T> Queryable<T>(this T _, DB? db = null, AggregateOptions? options = null) where T : IEntity
+        => DB.InstanceOrDefault(db).Queryable<T>(options);
 
     /// <summary>
     /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
     /// </summary>
-    public static T ToDocument<T>(this T entity) where T : IEntity
+    public static T ToDocument<T>(this T entity, DB? dbInstance=null) where T : IEntity
     {
         var res = entity.Duplicate();
         res.SetId(res.GenerateNewID());
@@ -95,7 +98,7 @@ public static partial class Extensions
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
-    public static T[] ToDocuments<T>(this T[] entities) where T : IEntity
+    public static T[] ToDocuments<T>(this T[] entities, DB? dbInstance=null) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
@@ -107,7 +110,7 @@ public static partial class Extensions
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
-    public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : IEntity
+    public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities, DB? dbInstance=null) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
@@ -173,7 +176,8 @@ public static partial class Extensions
     /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
     /// </summary>
     /// <param name="_"></param>
+    /// <param name="db">The DB instance to use for this operation</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
-        => DB.NextSequentialNumberAsync<T>(cancellation);
+    public static Task<ulong> NextSequentialNumberAsync<T>(this T _, DB? db = null, CancellationToken cancellation = default) where T : IEntity
+        => DB.InstanceOrDefault(db).NextSequentialNumberAsync<T>(cancellation);
 }

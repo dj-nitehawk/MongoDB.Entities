@@ -15,6 +15,8 @@ namespace MongoDB.Entities;
 /// </summary>
 public partial class DBContext
 {
+    readonly DB _db;
+    
     /// <summary>
     /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
     /// </summary>
@@ -28,31 +30,6 @@ public partial class DBContext
     /// <para>TIP: network connection is deferred until the first actual operation.</para>
     /// </summary>
     /// <param name="database">Name of the database</param>
-    /// <param name="host">Address of the MongoDB server</param>
-    /// <param name="port">Port number of the server</param>
-    /// <param name="modifiedBy">
-    /// An optional ModifiedBy instance.
-    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy.
-    /// You can even inherit from the ModifiedBy class and add your own properties to it.
-    /// Only one ModifiedBy property is allowed on a single entity type.
-    /// </param>
-    public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
-    {
-        DB.Initialize(
-              new() { Server = new(host, port) },
-              database,
-              true)
-          .GetAwaiter()
-          .GetResult();
-
-        ModifiedBy = modifiedBy;
-    }
-
-    /// <summary>
-    /// Initializes a DBContext instance with the given connection parameters.
-    /// <para>TIP: network connection is deferred until the first actual operation.</para>
-    /// </summary>
-    /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
     /// <param name="modifiedBy">
     /// An optional ModifiedBy instance.
@@ -60,11 +37,9 @@ public partial class DBContext
     /// You can even inherit from the ModifiedBy class and add your own properties to it.
     /// Only one ModifiedBy property is allowed on a single entity type.
     /// </param>
-    public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
+    public DBContext(string database, MongoClientSettings? settings=null, ModifiedBy? modifiedBy = null)
     {
-        DB.Initialize(settings, database, true)
-          .GetAwaiter()
-          .GetResult();
+        _db = DB.InitAsync(database, settings).GetAwaiter().GetResult();
 
         ModifiedBy = modifiedBy;
     }
@@ -81,6 +56,7 @@ public partial class DBContext
     /// </param>
     public DBContext(ModifiedBy? modifiedBy = null)
     {
+        _db = DB.Instance();
         ModifiedBy = modifiedBy;
     }
 
@@ -107,7 +83,7 @@ public partial class DBContext
                 "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
         }
 
-        Session = DB.Database(database).Client.StartSession(options);
+        Session = _db.Database().Client.StartSession(options);
         Session.StartTransaction();
 
         return Session;
@@ -124,7 +100,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
     public IClientSessionHandle Transaction<T>(ClientSessionOptions? options = null) where T : IEntity
-        => Transaction(DB.DatabaseName<T>(), options);
+        => Transaction(_db.DatabaseName<T>(), options);
 
     /// <summary>
     /// Commits a transaction to MongoDB
