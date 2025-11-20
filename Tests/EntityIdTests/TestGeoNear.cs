@@ -12,7 +12,7 @@ public class GeoNearEntityTest
     [TestMethod]
     public async Task find_match_geo_method()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.Index<PlaceEntity>()
           .Key(x => x.Location, KeyType.Geo2DSphere)
@@ -42,7 +42,7 @@ public class GeoNearEntityTest
     [TestMethod]
     public async Task geo_near_fluent_interface()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.Index<PlaceEntity>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
@@ -73,7 +73,7 @@ public class GeoNearEntityTest
     [TestMethod]
     public async Task geo_near_transaction_returns_correct_results()
     {
-        await DB.Instance().Index<PlaceEntity>()
+        await DB.Default.Index<PlaceEntity>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();

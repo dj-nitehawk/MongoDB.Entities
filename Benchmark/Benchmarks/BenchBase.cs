@@ -23,12 +23,10 @@ public abstract class BenchBase
             DB.InitAsync(DBName, clientSettings).GetAwaiter().GetResult();
         }
         else
-        {
             DB.InitAsync(DBName).GetAwaiter().GetResult();
-        }
 
-        var dbInstance = DB.Instance();
-        
+        var dbInstance = DB.Default;
+
         dbInstance.Database().Client.DropDatabase(DBName);
         Database = dbInstance.Database();
         AuthorCollection = dbInstance.Collection<Author>();

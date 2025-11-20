@@ -88,7 +88,7 @@ public class DeletingEntity
         var author1 = new AuthorEntity { Name = "xxx" }; await author1.SaveAsync();
         var author2 = new AuthorEntity { Name = "xxx" }; await author2.SaveAsync();
 
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
 
@@ -108,14 +108,14 @@ public class DeletingEntity
             IDs.Add(ObjectId.GenerateNewId().ToString()!);
         }
 
-        await DB.Instance().DeleteAsync<Blank>(IDs);
+        await DB.Default.DeleteAsync<Blank>(IDs);
     }
 
     [TestCategory("SkipWhenLiveUnitTesting")]
     [TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         //start with clean collection
         await db.DropCollectionAsync<Blank>();
@@ -153,7 +153,7 @@ public class DeletingEntity
 
         var res = await dbEntity.DeleteAsync<AuthorEntity>(IDs);
         
-        var db = DB.Instance();
+        var db = DB.Default;
         
         var notDeletedIDs = await db.Find<AuthorEntity, string>()
                                             .Match(a => IDs.Contains(a.ID))

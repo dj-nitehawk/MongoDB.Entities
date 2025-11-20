@@ -25,12 +25,12 @@ public class DefaultDatabaseChangingInt64
         await  DB.InitAsync("test1");
         await  DB.InitAsync("test2");
 
-        var defaultDb = DB.Instance().Database();
+        var defaultDb = DB.Default.Database();
         var database = DB.Instance("test2").Database();
 
          DB.ChangeDefaultDatabase("test2");
 
-        var bookDb = DB.Instance().Database<BookInt64>();
+        var bookDb = DB.Default.Database<BookInt64>();
 
         Assert.AreEqual(database.DatabaseNamespace.DatabaseName, bookDb.DatabaseNamespace.DatabaseName);
 
@@ -42,12 +42,12 @@ public class DefaultDatabaseChangingInt64
     {
         await  DB.InitAsync("test1");
 
-        var defaultDb = DB.Instance().Database();
-        var defaultDbName = DB.Instance().DatabaseName<AuthorInt64>();
+        var defaultDb = DB.Default.Database();
+        var defaultDbName = DB.Default.DatabaseName<AuthorInt64>();
 
          DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Instance().Database<BookInt64>();
+        var bookDb = DB.Default.Database<BookInt64>();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

@@ -56,7 +56,7 @@ public partial class DBContext
     /// </param>
     public DBContext(ModifiedBy? modifiedBy = null)
     {
-        _db = DB.Instance();
+        _db = DB.Default;
         ModifiedBy = modifiedBy;
     }
 

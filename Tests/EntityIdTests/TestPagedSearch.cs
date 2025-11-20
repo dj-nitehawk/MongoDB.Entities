@@ -14,7 +14,7 @@ public class PagedSearchEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var (Results, _, PageCount) = await DB.Instance()
+        var (Results, _, PageCount) = await DB.Default
             .PagedSearch<BookEntity>()
             .Match(b => b.ID == guid)
             .Sort(b => b.ID, Order.Ascending)
@@ -45,7 +45,7 @@ public class PagedSearchEntity
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB.Instance()
+        var (Results, _, PageCount) = await DB.Default
             .PagedSearch<BookEntity>()
             .Match(b => b.Title == guid)
             .Sort(b => b.ID, Order.Ascending)
@@ -64,7 +64,7 @@ public class PagedSearchEntity
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB.Instance()
+        var (Results, _, PageCount) = await DB.Default
             .PagedSearch<BookEntity>()
             .Match(b => b.Title == guid)
             .Sort(b => b.ID, Order.Ascending)
@@ -83,7 +83,7 @@ public class PagedSearchEntity
 
         await SeedData(guid);
         
-        var db = DB.Instance();
+        var db = DB.Default;
         
         var pipeline = db.Fluent<BookEntity>()
                                  .Match(b => b.Title == guid);
@@ -113,7 +113,7 @@ public class PagedSearchEntity
 
         await SeedData(guid);
 
-        _ = await DB.Instance()
+        _ = await DB.Default
                              .PagedSearch<BookEntity, BookResult>()
                              .Match(b => b.Title == guid)
                              .Sort(b => b.ID, Order.Ascending)
@@ -126,7 +126,7 @@ public class PagedSearchEntity
     [TestMethod]
     public async Task sort_by_meta_text_score_with_projection()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DropCollectionAsync<GenreEntity>();
 
@@ -162,7 +162,7 @@ public class PagedSearchEntity
     [TestMethod]
     public async Task sort_by_meta_text_score_no_projection()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DropCollectionAsync<GenreEntity>();
 
@@ -206,7 +206,7 @@ public class PagedSearchEntity
         };
         await author.SaveAsync();
 
-        var (res, _, _) = await DB.Instance().PagedSearch<AuthorEntity>()
+        var (res, _, _) = await DB.Default.PagedSearch<AuthorEntity>()
                     .Match(a => a.ID == author.ID)
                     .Sort(a => a.ID, Order.Ascending)
                     .ProjectExcluding(a => new { a.Age, a.Name })

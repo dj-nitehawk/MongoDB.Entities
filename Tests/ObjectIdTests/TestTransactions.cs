@@ -32,7 +32,7 @@ public class TransactionsObjectId
             //TN.CommitAsync();
         }
 
-        var res = await DB.Instance().Find<AuthorObjectId>().OneAsync(author1.ID);
+        var res = await DB.Default.Find<AuthorObjectId>().OneAsync(author1.ID);
 
         Assert.AreEqual(author1.Name, res!.Name);
     }
@@ -56,7 +56,7 @@ public class TransactionsObjectId
             await TN.CommitAsync();
         }
 
-        var res = await DB.Instance().Find<AuthorObjectId>().OneAsync(author1.ID);
+        var res = await DB.Default.Find<AuthorObjectId>().OneAsync(author1.ID);
 
         Assert.AreEqual(guid, res!.Name);
     }
@@ -82,7 +82,7 @@ public class TransactionsObjectId
             await db.CommitAsync();
         }
 
-        var res = await DB.Instance().Find<AuthorObjectId>().OneAsync(author1.ID);
+        var res = await DB.Default.Find<AuthorObjectId>().OneAsync(author1.ID);
 
         Assert.AreEqual(guid, res!.Name);
     }
@@ -127,13 +127,13 @@ public class TransactionsObjectId
             await TN.CommitAsync();
         }
 
-        Assert.AreEqual(null, await DB.Instance().Find<BookObjectId>().OneAsync(book1.ID));
+        Assert.AreEqual(null, await DB.Default.Find<BookObjectId>().OneAsync(book1.ID));
     }
 
     [TestMethod]
     public async Task full_text_search_transaction_returns_correct_results()
     {
-        await DB.Instance().Index<AuthorObjectId>()
+        await DB.Default.Index<AuthorObjectId>()
           .Option(o => o.Background = false)
           .Key(a => a.Name, KeyType.Text)
           .Key(a => a.Surname, KeyType.Text)
@@ -141,8 +141,8 @@ public class TransactionsObjectId
 
         var author1 = new AuthorObjectId { Name = "Name", Surname = Guid.NewGuid().ToString() };
         var author2 = new AuthorObjectId { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await DB.Instance().SaveAsync(author1);
-        await DB.Instance().SaveAsync(author2);
+        await DB.Default.SaveAsync(author1);
+        await DB.Default.SaveAsync(author2);
 
         using var TN = new Transaction();
         var tres = TN.FluentTextSearch<AuthorObjectId>(Search.Full, author1.Surname).ToList();
@@ -169,7 +169,7 @@ public class TransactionsObjectId
             await TN.CommitAsync();
         }
 
-        var res = await DB.Instance().Find<BookObjectId>().ManyAsync(b => b.Title.Contains(guid));
+        var res = await DB.Default.Find<BookObjectId>().ManyAsync(b => b.Title.Contains(guid));
         Assert.AreEqual(entities.Length, res.Count);
 
         foreach (var ent in res)
@@ -178,7 +178,7 @@ public class TransactionsObjectId
         }
         await res.SaveAsync();
 
-        res = await DB.Instance().Find<BookObjectId>().ManyAsync(b => b.Title.Contains(guid));
+        res = await DB.Default.Find<BookObjectId>().ManyAsync(b => b.Title.Contains(guid));
         Assert.AreEqual(3, res.Count);
         Assert.AreEqual("updated " + guid, res[0].Title);
     }

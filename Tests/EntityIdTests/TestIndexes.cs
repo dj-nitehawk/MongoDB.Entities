@@ -13,7 +13,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_index_returns_correct_result()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DropCollectionAsync<AuthorEntity>();
 
@@ -41,7 +41,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_wilcard_text_index_works()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.Index<AuthorEntity>()
                         .Option(o => o.Background = false)
@@ -62,7 +62,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task fuzzy_text_search_with_text_index_works()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.Index<BookEntity>()
                         .Option(o => o.Background = false)
@@ -96,7 +96,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task sort_by_meta_text_score_dont_retun_the_score()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DropCollectionAsync<GenreEntity>();
 
@@ -133,7 +133,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task sort_by_meta_text_score_retun_the_score()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DropCollectionAsync<GenreEntity>();
 
@@ -171,7 +171,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task creating_compound_index_works()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.Index<BookEntity>()
                         .Key(x => x.Genres, KeyType.Geo2D)
@@ -203,7 +203,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task dictionary_item_index_should_use_key_value()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.DropCollectionAsync<TestModel>();
 

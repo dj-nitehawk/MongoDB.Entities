@@ -15,16 +15,16 @@ public class UpdateOne : BenchBase
 
     public UpdateOne()
     {
-        DB.Instance().SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
+        DB.Default.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Instance().Update<Author>()
-                         .MatchID(id)
-                         .Modify(a => a.FirstName, "updated")
-                         .ExecuteAsync();
+        return DB.Default.Update<Author>()
+                 .MatchID(id)
+                 .Modify(a => a.FirstName, "updated")
+                 .ExecuteAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -32,6 +32,7 @@ public class UpdateOne : BenchBase
     {
         var filter = Builders<Author>.Filter.Where(a => a.ID == id);
         var update = Builders<Author>.Update.Set(a => a.FirstName, "updated");
+
         return AuthorCollection.UpdateOneAsync(filter, update);
     }
 }
@@ -44,19 +45,20 @@ public class Update100 : BenchBase
 
     public Update100()
     {
-        DB.Instance().Index<Author>()
-                  .Key(a => a.FirstName!, KeyType.Ascending)
-                  .Option(o => o.Background = false)
-                  .CreateAsync()
-                  .GetAwaiter()
-                  .GetResult();
+        DB.Default.Index<Author>()
+          .Key(a => a.FirstName!, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new()
-            {
-                FirstName = i is > 500 and <= 600 ? guid : "test",
-            });
+            list.Add(
+                new()
+                {
+                    FirstName = i is > 500 and <= 600 ? guid : "test"
+                });
         }
         list.SaveAsync().GetAwaiter().GetResult();
     }
@@ -64,11 +66,11 @@ public class Update100 : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Instance()
-                         .Update<Author>()
-                         .Match(x => x.FirstName == guid)
-                         .Modify(x => x.FirstName, "updated")
-                         .ExecuteAsync();
+        return DB.Default
+                 .Update<Author>()
+                 .Match(x => x.FirstName == guid)
+                 .Modify(x => x.FirstName, "updated")
+                 .ExecuteAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -76,6 +78,7 @@ public class Update100 : BenchBase
     {
         var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
         var update = Builders<Author>.Update.Set(a => a.FirstName, "updated");
+
         return AuthorCollection.UpdateManyAsync(filter, update);
     }
 }

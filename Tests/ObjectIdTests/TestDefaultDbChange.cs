@@ -25,12 +25,12 @@ public class DefaultDatabaseChangingObjectId
         await  DB.InitAsync("test1");
         await  DB.InitAsync("test2");
 
-        var defaultDb = DB.Instance().Database();
+        var defaultDb = DB.Default.Database();
         var database = DB.Instance("test2").Database();
 
          DB.ChangeDefaultDatabase("test2");
 
-        var bookDb = DB.Instance().Database<BookObjectId>();
+        var bookDb = DB.Default.Database<BookObjectId>();
 
         Assert.AreEqual(database.DatabaseNamespace.DatabaseName, bookDb.DatabaseNamespace.DatabaseName);
 
@@ -42,12 +42,12 @@ public class DefaultDatabaseChangingObjectId
     {
         await  DB.InitAsync("test1");
 
-        var defaultDb = DB.Instance().Database();
-        var defaultDbName = DB.Instance().DatabaseName<AuthorObjectId>();
+        var defaultDb = DB.Default.Database();
+        var defaultDbName = DB.Default.DatabaseName<AuthorObjectId>();
 
          DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Instance().Database<BookObjectId>();
+        var bookDb = DB.Default.Database<BookObjectId>();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

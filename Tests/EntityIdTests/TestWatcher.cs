@@ -12,7 +12,7 @@ public class WatcherEntity
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Instance().Watcher<FlowerEntity>("test");
+        var watcher = DB.Default.Watcher<FlowerEntity>("test");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -43,7 +43,7 @@ public class WatcherEntity
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var db = DB.Instance();
+        var db = DB.Default;
         var watcher = db.Watcher<FlowerEntity>("test-with-projection");
         var allFlowers = new List<FlowerEntity>();
 
@@ -85,7 +85,7 @@ public class WatcherEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Instance().Watcher<FlowerEntity>("test-with-filter-builders");
+        var watcher = DB.Default.Watcher<FlowerEntity>("test-with-filter-builders");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -118,7 +118,7 @@ public class WatcherEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Instance().Watcher<FlowerEntity>("test-with-filter-builders-csd");
+        var watcher = DB.Default.Watcher<FlowerEntity>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(

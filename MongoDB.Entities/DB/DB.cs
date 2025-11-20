@@ -39,15 +39,15 @@ public partial class DB
     /// The cached MongoClient instances
     /// </summary>
     static readonly ConcurrentDictionary<MongoClientSettings, MongoClient> _clients = new();
-    
+
     static readonly ConcurrentDictionary<MongoClient, ConcurrentDictionary<string, DB>> _clientInstances = new();
-    
+
     static MongoClientSettings _defaultClientSettings = null!; // to be set on first InitAsync call
-    
+
     static DB _defaultInstance = null!; // to be set on first InitAsync call
 
     readonly IMongoDatabase _mongoDatabase;
-    
+
     private DB(IMongoDatabase db)
     {
         _mongoDatabase = db;
@@ -72,41 +72,35 @@ public partial class DB
         if (clientSettings == null)
         {
             if (_clients.Count == 0)
-            {
                 clientSettings = new() { Server = new("127.0.0.1", 27017) };
-            }
             else
-            {
                 clientSettings = _defaultClientSettings;
-            }
         }
-        
+
         if (string.IsNullOrEmpty(dbName))
             throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
-        
-        if(!_clients.TryGetValue(clientSettings, out var client))
-        {
-            client = new (clientSettings);
-            _clients.TryAdd(clientSettings, client);
-            _clientInstances.TryAdd(client, new ());
 
-            if (_clients.Count==1)
+        if (!_clients.TryGetValue(clientSettings, out var client))
+        {
+            client = new(clientSettings);
+            _clients.TryAdd(clientSettings, client);
+            _clientInstances.TryAdd(client, new());
+
+            if (_clients.Count == 1)
                 _defaultClientSettings = clientSettings;
         }
 
         if (!_clientInstances.TryGetValue(client, out var instances))
-        {
             throw new InvalidOperationException("clientInstances is not initialized");
-        }
-        
+
         if (!instances.TryGetValue(dbName, out var db))
         {
             try
             {
                 var mongoDatabase = client.GetDatabase(dbName, databaseSettings);
                 db = new(mongoDatabase);
-                
-                if (clientSettings==_defaultClientSettings && instances.Count==0)
+
+                if (clientSettings == _defaultClientSettings && instances.Count == 0)
                     _defaultInstance = db;
 
                 if (instances.TryAdd(dbName, db) && !skipNetworkPing)
@@ -115,11 +109,11 @@ public partial class DB
             catch (Exception)
             {
                 instances.TryRemove(dbName, out _);
+
                 throw;
             }
         }
 
-        
         return db;
     }
 
@@ -150,34 +144,35 @@ public partial class DB
     /// You can also get the default database by passing 'default' or 'null' for the name parameter.
     /// </summary>
     public IMongoDatabase Database()
-    {
-        return _mongoDatabase;
-    }
+        => _mongoDatabase;
+
+    /// <summary>
+    /// Gets the default DB instance when previously initialized.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown when no databases have been initialized.</exception>
+    public static DB Default => Instance();
 
     /// <summary>
     /// Gets the DB instance for a given database name if it has been previously initialized.
     /// </summary>
     /// <param name="dbName">The name of the database to retrieve</param>
     /// <param name="settings">The host we want the instance from</param>
-    public static DB Instance(string? dbName=null, MongoClientSettings? settings=null)
+    public static DB Instance(string? dbName = null, MongoClientSettings? settings = null)
     {
         if (settings == null)
         {
             if (_clients.Count == 0)
                 throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
+
             settings = _defaultClientSettings;
         }
-        
+
         if (!_clients.TryGetValue(settings, out var client))
-        {
             throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
-        }
-        
+
         if (!_clientInstances.TryGetValue(client, out var instances))
-        {
             throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
-        }
-        
+
         if (string.IsNullOrEmpty(dbName))
         {
             if (instances.Count == 0)
@@ -185,7 +180,7 @@ public partial class DB
 
             return _defaultInstance;
         }
-        
+
         instances.TryGetValue(dbName, out var db);
 
         return db ?? throw new InvalidOperationException($"No DB instance with the dbName '{dbName}' has been initialized yet. Please call DB.InitAsync() first.");

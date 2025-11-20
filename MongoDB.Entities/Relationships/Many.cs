@@ -67,7 +67,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// Creates an instance of Many&lt;TChild&gt;
     /// This is only needed in VB.Net
     /// </summary>
-    public Many() { _db = DB.Instance(); }
+    public Many() { _db = DB.Default; }
 
 #region one-to-many-initializers
 

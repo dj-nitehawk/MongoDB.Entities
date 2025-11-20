@@ -14,7 +14,7 @@ public class ReplaceEntity
 
         book.Title = "updated title";
 
-        var db = DB.Instance();
+        var db = DB.Default;
         
         await db.Replace<BookEntity>()
                         .MatchID(book.ID)
@@ -35,7 +35,7 @@ public class ReplaceEntity
         var books = new[] { book1, book2 };
         await books.SaveAsync();
 
-        var db = DB.Instance();
+        var db = DB.Default;
         
         var cmd = db.Replace<BookEntity>();
 

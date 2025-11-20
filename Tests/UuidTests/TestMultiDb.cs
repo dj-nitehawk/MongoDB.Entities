@@ -31,7 +31,7 @@ public class MultiDbUuid
         Assert.AreEqual(cover.ID, res!.ID);
         Assert.AreEqual(cover.BookName, res.BookName);
         
-        res = await DB.Instance().Find<BookCover>().OneAsync(cover.ID);
+        res = await DB.Default.Find<BookCover>().OneAsync(cover.ID);
         Assert.IsNull(res);
     }
 

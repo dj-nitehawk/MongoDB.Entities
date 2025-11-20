@@ -178,7 +178,7 @@ public class TemplatesUuid
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 54 };
         var author2 = new AuthorUuid { Name = guid, Age = 53 };
-        await DB.Instance().SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorUuid>(@"
             [
@@ -193,15 +193,15 @@ public class TemplatesUuid
           .Tag("author_name", guid)
           .Path(a => a.Age);
 
-        var results = await DB.Instance().PipelineAsync(pipeline);
+        var results = await DB.Default.PipelineAsync(pipeline);
 
         Assert.AreEqual(2, results.Count);
         Assert.IsTrue(results[0].Name == guid);
         Assert.IsTrue(results.Last().Age == 54);
 
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.Instance().PipelineSingleAsync(pipeline));
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.Default.PipelineSingleAsync(pipeline));
 
-        var first = await DB.Instance().PipelineFirstAsync(pipeline);
+        var first = await DB.Default.PipelineFirstAsync(pipeline);
 
         Assert.IsNotNull(first);
     }
@@ -214,7 +214,7 @@ public class TemplatesUuid
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 111 };
         var author2 = new AuthorUuid { Name = guid, Age = 53 };
-        await DB.Instance().SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorUuid>(@"
             [
@@ -244,7 +244,7 @@ public class TemplatesUuid
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 111 };
         var author2 = new AuthorUuid { Name = guid, Age = 53 };
-        await DB.Instance().SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorUuid>(@"
             [
@@ -274,7 +274,7 @@ public class TemplatesUuid
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 111 };
         var author2 = new AuthorUuid { Name = guid, Age = 53 };
-        await DB.Instance().SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorUuid>(@"
             [
@@ -304,7 +304,7 @@ public class TemplatesUuid
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 111 };
         var author2 = new AuthorUuid { Name = guid, Age = 53 };
-        await DB.Instance().SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync(new[] { author1, author2 });
 
         var pipeline = new Template<AuthorUuid>(@"
             [
@@ -363,12 +363,12 @@ public class TemplatesUuid
                     }
                 ]"
         ).Tag("book_id", $"'{book.ID}'")
-         .Tag("author_collection", DB.Instance().CollectionName<AuthorUuid>())
+         .Tag("author_collection", DB.Default.CollectionName<AuthorUuid>())
          .Path(b => b.MainAuthor.ID)
          .PathOfResult(a => a.Surname)
          .PathOfResult(a => a.Name);
 
-        var result = (await (await DB.Instance().PipelineCursorAsync(pipeline))
+        var result = (await (await DB.Default.PipelineCursorAsync(pipeline))
                        .ToListAsync())
                        .Single();
 
