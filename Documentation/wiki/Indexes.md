@@ -8,7 +8,7 @@ use the `Index<T>()` method to define indexes as shown below. specify index keys
 
 ## Text indexes
 ```csharp
-await DB.Index<Author>()
+await DB.Instance().Index<Author>()
         .Key(a => a.Name, KeyType.Text)
         .Key(a => a.Surname, KeyType.Text)
         .CreateAsync();
@@ -24,13 +24,13 @@ in order to index all text properties of an entity, you can create a wildcard te
 ## Full-text search
 you can do full text searches after defining a text index as described above with the following:
 ```csharp
-await DB.Find<Book>()
+await DB.Instance().Find<Book>()
         .Match(Search.Full, "search term")
         .ExecuteAsync();
 ```
 you can also start a fluent aggregation pipeline with a $text stage as follows:
 ```csharp
-DB.FluentTextSearch<Book>(Search.Full, "search term")
+DB.Instance().FluentTextSearch<Book>(Search.Full, "search term")
 ```
 > [!tip]
 > [_click here_](https://docs.mongodb.com/manual/reference/operator/query/text/#search-field) to see more info on how to do text searches for phrases, negations, any words, etc.
@@ -38,7 +38,7 @@ DB.FluentTextSearch<Book>(Search.Full, "search term")
 ## Fuzzy-text search
 in order to run a fuzzy text match, simply change the first parameter to `Search.Fuzzy` as shown here:
 ```csharp
-await DB.Find<Book>()
+await DB.Instance().Find<Book>()
         .Match(Search.Fuzzy, "search term")
         .ExecuteAsync();
 ```
@@ -57,7 +57,7 @@ use the same `Index<T>()` method as above but with the type parameters of the ke
 ## Indexing options
 To specify options for index creation, specify an action using the `.Option()` method before calling the `.CreateAsync()` method.
 ```csharp
-await DB.Index<Book>()
+await DB.Instance().Index<Book>()
         .Key(x => x.Title, KeyType.Descending)
         .Option(o =>
         {
@@ -70,7 +70,7 @@ await DB.Index<Book>()
 ## Retrieve the name of created index
 The `.CreateAsync()` method returns the name of the index that was created.
 ```csharp
-var name = await DB.Index<Book>()
+var name = await DB.Instance().Index<Book>()
                    .Key(x => x.Title, KeyType.Ascending)
                    .Key(x=> x.Price, KeyType.Descending)
                    .CreateAsync();              
@@ -78,10 +78,10 @@ var name = await DB.Index<Book>()
 
 ## Delete an index by name
 ```csharp
-await DB.Index<Book>().DropAsync(name);
+await DB.Instance().Index<Book>().DropAsync(name);
 ```
 
 ## Delete all indexes for an entity type
 ```csharp
-await DB.Index<Book>().DropAllAsync();
+await DB.Instance().Index<Book>().DropAllAsync();
 ```

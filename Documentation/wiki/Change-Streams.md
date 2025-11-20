@@ -1,9 +1,9 @@
 ## Change-streams
-change-stream support is provided via the `DB.Watcher<T>` registry. you can use a watcher to receive notifications when a given entity type gets either created, updated or deleted. only monitoring at the collection level is supported.
+change-stream support is provided via the `DB.Instance().Watcher<T>` registry. you can use a watcher to receive notifications when a given entity type gets either created, updated or deleted. only monitoring at the collection level is supported.
 
 ### 1. Retrieve a watcher instance
 ```csharp
-var watcher = DB.Watcher<Author>("some-unique-name-for-the-watcher");
+var watcher = DB.Instance().Watcher<Author>("some-unique-name-for-the-watcher");
 ```
 pass a unique string to get a watcher instance. if a watcher by that name already exists in the registry, that instance will be returned. if no such watcher exists, a fresh watcher will be returned.
 
@@ -177,7 +177,7 @@ watcher.OnError += exception =>
 
 ## Access all watchers in the registry
 ```csharp
-var watchers = DB.Watchers<Author>();
+var watchers = DB.Instance().Watchers<Author>();
 
 foreach (var w in watchers)
 {

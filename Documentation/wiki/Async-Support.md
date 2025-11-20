@@ -30,7 +30,7 @@ Run.Sync(() => book.SaveAsync());
 
 var allBooks = Run.Sync(() =>
 
-    DB.Find<Book>()
+    DB.Instance().Find<Book>()
       .Match(_ => true)
       .ExecuteAsync()
 

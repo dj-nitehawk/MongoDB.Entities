@@ -1,52 +1,48 @@
 # Multiple database support
 you can store and retrieve Entities in multiple databases on either a single server or multiple servers. the only requirement is to have unique names for each database. the following example demonstrates how to use multiple databases.
 
-### Usage example:
-
-use the `DB.DatabaseFor<T>()` method to specify which database you want the Entities of a given type to be stored in. it is only neccessary to do that for the entities you want to store in a non-default database. the default database is the very first database your application initializes. all entities by default are stored in the default database unless specified otherwise using `DatabaseFor`.
-
-as such, the `Book` entities will be stored in the "BookShop" database and the `Picture` entities are stored in the "BookShopFILES" database considering the following code.
+### Test Case Usage example, 1 customer per database
+It save the same Entity (Auto) to two different databases.
 
 ```csharp
-await DB.InitAsync("BookShop");
-await DB.InitAsync("BookShopFILES");
+var _db1 = await DB.InitAsync("Customer1");
+var _db2 = await DB.InitAsync("Customer1");
 
-DB.DatabaseFor<Picture>("BookShopFILES");
+    var auto1 = new Auto
+    {
+        Make = "Toyota",
+        Model = "Corolla",
+        Year = 2020
+    };
+    await auto1.SaveAsync(_db1);
+    
+    var auto2 = new Auto
+    {
+        Make = "Honda",
+        Model = "Civic",
+        Year = 2021
+    };
+    await auto2.SaveAsync(_db2);
+    
+    var res1 = await _db1.Find<Auto>().MatchID(auto1.ID).ExecuteSingleAsync();
+    Assert.IsNotNull(res1);
+    Assert.AreEqual(auto1.Make, res1.Make);
+    Assert.AreEqual(auto1.Model, res1.Model);
+    Assert.AreEqual(auto1.Year, res1.Year);
 
-var book = new Book { Title = "Power Of Now" };
-await book.SaveAsync();
-//alternative:
-//// await DB.SaveAsync(book);
+    var res2 = await _db2.Find<Auto>().MatchID(auto2.ID).ExecuteSingleAsync();
+    Assert.IsNotNull(res2);
+    Assert.AreEqual(auto2.Make, res2.Make);
+    Assert.AreEqual(auto2.Model, res2.Model);
+    Assert.AreEqual(auto2.Year, res2.Year);
 
-var pic = new Picture
-{
-    BookID = book.ID,
-    Name = "Power Of Now Cover Photo"
-};
-
-await pic.SaveAsync();
-//alternative:
-//// await DB.SaveAsync(pic);
-
-await DB.Update<Picture>()
-        .Match(p => p.ID == pic.ID)
-        .Modify(p => p.Name, "Updated Cover Photo")
-        .ExecuteAsync();
-
-var result = await DB.Find<Picture>().OneAsync(pic.ID);                    
+    res1 = await _db1.Find<Auto>().MatchID(auto2.ID).ExecuteSingleAsync();
+    res2 = await _db2.Find<Auto>().MatchID(auto1.ID).ExecuteSingleAsync();
+    
+    Assert.IsNull(res1);
+    Assert.IsNull(res2);
 ```
 
-> [!note]
-> an entity type is tied to a specific database by calling the **DatabaseFor** method with the database name on startup. that entity type will always be stored in and retrieved from that specific database only. it is not possible to save a single entity type in multiple databases.
-
-if you prefer to keep your database specifications inside the entity classes themselves, you could even call `DatabaseFor` in the static constructor like so:
-```csharp
-public class Picture : Entity
-{
-    static Picture() => DB.DatabaseFor<Picture>("BookShopFILES");
-}
-```
 ### Limitations
 - cross-database relationships with `Many<T>` is not supported.
 - no cross-database joins/ look-ups as the driver doesn't support it.
-- storing a single entity type in multiple datbases is not supported.
