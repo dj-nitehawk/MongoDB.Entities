@@ -27,9 +27,9 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
     public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression,
-                                           IClientSessionHandle? session = null,
-                                           CancellationToken cancellation = default,
-                                           CountOptions? options = null) where T : IEntity
+                                    IClientSessionHandle? session = null,
+                                    CancellationToken cancellation = default,
+                                    CountOptions? options = null) where T : IEntity
         => session == null
                ? Collection<T>().CountDocumentsAsync(expression, options, cancellation)
                : Collection<T>().CountDocumentsAsync(session, expression, options, cancellation);
@@ -43,9 +43,9 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
     public Task<long> CountAsync<T>(FilterDefinition<T> filter,
-                                           IClientSessionHandle? session = null,
-                                           CancellationToken cancellation = default,
-                                           CountOptions? options = null) where T : IEntity
+                                    IClientSessionHandle? session = null,
+                                    CancellationToken cancellation = default,
+                                    CountOptions? options = null) where T : IEntity
         => session == null
                ? Collection<T>().CountDocumentsAsync(filter, options, cancellation)
                : Collection<T>().CountDocumentsAsync(session, filter, options, cancellation);
@@ -59,9 +59,9 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
     public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
-                                           IClientSessionHandle? session = null,
-                                           CancellationToken cancellation = default,
-                                           CountOptions? options = null) where T : IEntity
+                                    IClientSessionHandle? session = null,
+                                    CancellationToken cancellation = default,
+                                    CountOptions? options = null) where T : IEntity
         => session == null
                ? Collection<T>().CountDocumentsAsync(filter(Builders<T>.Filter), options, cancellation)
                : Collection<T>().CountDocumentsAsync(session, filter(Builders<T>.Filter), options, cancellation);
@@ -73,7 +73,5 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<long> CountAsync<T>(IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return CountAsync<T>(_ => true, session, cancellation);
-    }
+        => CountAsync<T>(_ => true, session, cancellation);
 }

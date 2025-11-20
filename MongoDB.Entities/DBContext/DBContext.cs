@@ -75,7 +75,7 @@ public partial class DBContext
     /// </summary>
     /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
     /// <param name="options">Client session options for this transaction</param>
-    public IClientSessionHandle Transaction(string? database = default, ClientSessionOptions? options = null)
+    public IClientSessionHandle Transaction(string? database = null, ClientSessionOptions? options = null)
     {
         if (Session is not null)
         {
@@ -251,9 +251,8 @@ public partial class DBContext
         return AppDomain.CurrentDomain
                         .GetAssemblies()
                         .Where(
-                            a =>
-                                !a.IsDynamic &&
-                                (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
+                            a => !a.IsDynamic &&
+                                 (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
                         .SelectMany(a => a.GetTypes())
                         .Where(t => typeof(IEntity).IsAssignableFrom(t))
                         .ToArray();

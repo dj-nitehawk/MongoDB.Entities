@@ -43,9 +43,7 @@ public partial class DB
     /// <param name="entities">The entities to persist</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities,
-                                                        IClientSessionHandle? session = null,
-                                                        CancellationToken cancellation = default)
+    public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default)
         where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
@@ -83,9 +81,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<UpdateResult> SaveOnlyAsync<T>(T entity,
-                                                      Expression<Func<T, object?>> members,
-                                                      IClientSessionHandle? session = null,
-                                                      CancellationToken cancellation = default) where T : IEntity
+                                               Expression<Func<T, object?>> members,
+                                               IClientSessionHandle? session = null,
+                                               CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation);
 
     /// <summary>
@@ -102,9 +100,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<UpdateResult> SaveOnlyAsync<T>(T entity,
-                                                      IEnumerable<string> propNames,
-                                                      IClientSessionHandle? session = null,
-                                                      CancellationToken cancellation = default) where T : IEntity
+                                               IEnumerable<string> propNames,
+                                               IClientSessionHandle? session = null,
+                                               CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entity, propNames, session, cancellation);
 
     /// <summary>
@@ -121,9 +119,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities,
-                                                            Expression<Func<T, object?>> members,
-                                                            IClientSessionHandle? session = null,
-                                                            CancellationToken cancellation = default) where T : IEntity
+                                                     Expression<Func<T, object?>> members,
+                                                     IClientSessionHandle? session = null,
+                                                     CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entities, Logic.GetPropNamesFromExpression(members), session, cancellation);
 
     /// <summary>
@@ -140,9 +138,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities,
-                                                            IEnumerable<string> propNames,
-                                                            IClientSessionHandle? session = null,
-                                                            CancellationToken cancellation = default) where T : IEntity
+                                                     IEnumerable<string> propNames,
+                                                     IClientSessionHandle? session = null,
+                                                     CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entities, propNames, session, cancellation);
 
     /// <summary>
@@ -159,9 +157,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<UpdateResult> SaveExceptAsync<T>(T entity,
-                                                        Expression<Func<T, object?>> members,
-                                                        IClientSessionHandle? session = null,
-                                                        CancellationToken cancellation = default) where T : IEntity
+                                                 Expression<Func<T, object?>> members,
+                                                 IClientSessionHandle? session = null,
+                                                 CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation, true);
 
     /// <summary>
@@ -178,9 +176,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<UpdateResult> SaveExceptAsync<T>(T entity,
-                                                        IEnumerable<string> propNames,
-                                                        IClientSessionHandle? session = null,
-                                                        CancellationToken cancellation = default) where T : IEntity
+                                                 IEnumerable<string> propNames,
+                                                 IClientSessionHandle? session = null,
+                                                 CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entity, propNames, session, cancellation, true);
 
     /// <summary>
@@ -197,9 +195,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities,
-                                                              Expression<Func<T, object?>> members,
-                                                              IClientSessionHandle? session = null,
-                                                              CancellationToken cancellation = default) where T : IEntity
+                                                       Expression<Func<T, object?>> members,
+                                                       IClientSessionHandle? session = null,
+                                                       CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entities, Logic.GetPropNamesFromExpression(members), session, cancellation, true);
 
     /// <summary>
@@ -216,9 +214,9 @@ public partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities,
-                                                              IEnumerable<string> propNames,
-                                                              IClientSessionHandle? session = null,
-                                                              CancellationToken cancellation = default) where T : IEntity
+                                                       IEnumerable<string> propNames,
+                                                       IClientSessionHandle? session = null,
+                                                       CancellationToken cancellation = default) where T : IEntity
         => SavePartial(entities, propNames, session, cancellation, true);
 
     /// <summary>
@@ -276,10 +274,10 @@ public partial class DB
     }
 
     Task<UpdateResult> SavePartial<T>(T entity,
-                                             IEnumerable<string> propNames,
-                                             IClientSessionHandle? session,
-                                             CancellationToken cancellation,
-                                             bool excludeMode = false) where T : IEntity
+                                      IEnumerable<string> propNames,
+                                      IClientSessionHandle? session,
+                                      CancellationToken cancellation,
+                                      bool excludeMode = false) where T : IEntity
     {
         PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
@@ -300,10 +298,10 @@ public partial class DB
     }
 
     Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities,
-                                                   IEnumerable<string> propNames,
-                                                   IClientSessionHandle? session,
-                                                   CancellationToken cancellation,
-                                                   bool excludeMode = false) where T : IEntity
+                                            IEnumerable<string> propNames,
+                                            IClientSessionHandle? session,
+                                            CancellationToken cancellation,
+                                            bool excludeMode = false) where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
 

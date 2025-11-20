@@ -41,19 +41,18 @@ public partial class DBContext
 
         return globalFilter != Builders<T>.Filter.Empty
                    ? _db.FluentGeoNear(
-                           NearCoordinates,
-                           DistanceField,
-                           Spherical,
-                           MaxDistance,
-                           MinDistance,
-                           Limit,
-                           Query,
-                           DistanceMultiplier,
-                           IncludeLocations,
-                           IndexKey,
-                           options,
-                           Session)
-                       .Match(globalFilter)
+                       NearCoordinates,
+                       DistanceField,
+                       Spherical,
+                       MaxDistance,
+                       MinDistance,
+                       Limit,
+                       Query,
+                       DistanceMultiplier,
+                       IncludeLocations,
+                       IndexKey,
+                       options,
+                       Session).Match(globalFilter)
                    : _db.FluentGeoNear(
                        NearCoordinates,
                        DistanceField,

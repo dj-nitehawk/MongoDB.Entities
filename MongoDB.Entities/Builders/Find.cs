@@ -18,8 +18,7 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Find<T> : Find<T, T> where T : IEntity
 {
-    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)
-        : base(session, globalFilters, db) { }
+    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db) : base(session, globalFilters, db) { }
 }
 
 /// <summary>
@@ -36,7 +35,7 @@ public class Find<T, TProjection> where T : IEntity
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly DB _db;
-    
+
     bool _ignoreGlobalFilters;
 
     internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)

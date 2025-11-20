@@ -31,7 +31,7 @@ static class Cache<T> where T : IEntity
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
-    internal static ConcurrentDictionary<string, IMongoCollection<JoinRecord>> ReferenceCollections { get; private set; } = new();
+    internal static ConcurrentDictionary<string, IMongoCollection<JoinRecord>> ReferenceCollections { get; } = new();
 
     static Cache()
     {
@@ -43,9 +43,9 @@ static class Cache<T> where T : IEntity
         var type = typeof(T);
 
         BsonClassMap = MapBsonClass(type);
-            
+
         var idMap = BsonClassMap.IdMemberMap;
-        
+
         if (idMap != null)
         {
             IdPropName = idMap.MemberName;
@@ -57,10 +57,7 @@ static class Cache<T> where T : IEntity
             IdDefaultValue = idMap.DefaultValue;
         }
         else
-        {
-            throw new InvalidOperationException(
-                $"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
-        }
+            throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
 
         var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
@@ -68,7 +65,7 @@ static class Cache<T> where T : IEntity
 
         if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
             throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
-        
+
         Watchers = new();
 
         var interfaces = type.GetInterfaces();
@@ -107,7 +104,7 @@ static class Cache<T> where T : IEntity
         return HasIgnoreIfDefaultProps
                    ? _updatableProps.Where(
                        p =>
-                           !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
+                           !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == null) &&
                            !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null))
                    : _updatableProps;
     }
@@ -135,8 +132,8 @@ static class Cache<T> where T : IEntity
             }
         }
 
-        ProjectionDefinition<T> userProj = userProjection.Render(
-            new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)).Document;
+        ProjectionDefinition<T> userProj =
+            userProjection.Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)).Document;
 
         return Builders<T>.Projection.Combine(_requiredPropsProjection, userProj);
     }
@@ -152,24 +149,21 @@ static class Cache<T> where T : IEntity
 
     static BsonClassMap MapBsonClass(Type type)
     {
-        if (type.BaseType != typeof(Object) && !BsonClassMap<T>.IsClassMapRegistered(type.BaseType!))
-        {
+        if (type.BaseType != typeof(object) && !BsonClassMap<T>.IsClassMapRegistered(type.BaseType!))
             MapBsonClass(type.BaseType!);
-        }
 
         if (!BsonClassMap<T>.IsClassMapRegistered(type))
         {
             var cm = new BsonClassMap(type);
             cm.AutoMap();
             cm.SetIgnoreExtraElements(true);
-        
+
             BsonClassMap<T>.RegisterClassMap(cm);
         }
 
         return BsonClassMap<T>.LookupClassMap(type);
     }
-    
+
     internal static bool AddReferenceCollection(string name, IMongoCollection<JoinRecord> collection)
         => ReferenceCollections.TryAdd(name, collection);
-    
 }

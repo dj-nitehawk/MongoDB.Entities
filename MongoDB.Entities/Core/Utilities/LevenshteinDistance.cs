@@ -1,6 +1,6 @@
 ﻿namespace MongoDB.Entities;
 
-class Levenshtein
+sealed class Levenshtein
 {
     readonly string _storedValue;
     readonly int[] _costs;

@@ -71,10 +71,9 @@ public partial class DB
     {
         if (clientSettings == null)
         {
-            if (_clients.Count == 0)
-                clientSettings = new() { Server = new("127.0.0.1", 27017) };
-            else
-                clientSettings = _defaultClientSettings;
+            clientSettings = _clients.Count == 0
+                                 ? new() { Server = new("127.0.0.1", 27017) }
+                                 : _defaultClientSettings;
         }
 
         if (string.IsNullOrEmpty(dbName))
@@ -167,18 +166,14 @@ public partial class DB
             settings = _defaultClientSettings;
         }
 
-        if (!_clients.TryGetValue(settings, out var client))
-            throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
-
-        if (!_clientInstances.TryGetValue(client, out var instances))
+        if (!_clients.TryGetValue(settings, out var client) || !_clientInstances.TryGetValue(client, out var instances))
             throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
 
         if (string.IsNullOrEmpty(dbName))
         {
-            if (instances.Count == 0)
-                throw new InvalidOperationException("No DB instance has been initialized yet. Please call DB.InitAsync() first.");
-
-            return _defaultInstance;
+            return instances.Count == 0
+                       ? throw new InvalidOperationException("No DB instance has been initialized yet. Please call DB.InitAsync() first.")
+                       : _defaultInstance;
         }
 
         instances.TryGetValue(dbName, out var db);

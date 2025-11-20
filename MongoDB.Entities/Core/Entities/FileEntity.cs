@@ -48,11 +48,12 @@ public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
-    public DataStreamer<T> Data(DB? db=null) => _streamer ??= new(this, DB.InstanceOrDefault(db));
+    public DataStreamer<T> Data(DB? db = null)
+        => _streamer ??= new(this, DB.InstanceOrDefault(db));
 }
 
 [Collection("[BINARY_CHUNKS]")]
-class FileChunk : IEntity
+sealed class FileChunk : IEntity
 {
     [BsonId, ObjectId]
     public string ID { get; set; } = null!;
@@ -246,7 +247,7 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     {
         _parent.ThrowIfUnsaved();
 
-        return cancellation != default && session == null
+        return cancellation != CancellationToken.None && session == null
                    ? throw new NotSupportedException("Cancellation is only supported within transactions for deleting binary chunks!")
                    : CleanUpAsync(session, cancellation);
     }
@@ -288,32 +289,22 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
         var collection = _mongoDatabase.GetCollection<FileEntity<T>>(_db.CollectionName<T>());
         var filter = Builders<FileEntity<T>>.Filter.Eq(e => e.ID, _parent.ID);
         var update = Builders<FileEntity<T>>.Update
-                                         .Set(e => e.FileSize, _parent.FileSize)
-                                         .Set(e => e.ChunkCount, _parent.ChunkCount)
-                                         .Set(e => e.UploadSuccessful, _parent.UploadSuccessful);
+                                            .Set(e => e.FileSize, _parent.FileSize)
+                                            .Set(e => e.ChunkCount, _parent.ChunkCount)
+                                            .Set(e => e.UploadSuccessful, _parent.UploadSuccessful);
 
         return session == null
                    ? collection.UpdateOneAsync(filter, update)
                    : collection.UpdateOneAsync(session, filter, update);
     }
 
-    struct StreamInfo
+    struct StreamInfo(FileChunk doc, int chunkSize, int readCount, byte[] buffer, List<byte> dataChunk, MD5? md5 = null)
     {
-        public FileChunk Doc { get; }
-        public int ChunkSize { get; }
-        public int ReadCount { get; set; }
-        public byte[] Buffer { get; }
-        public List<byte> DataChunk { get; }
-        public MD5? Md5 { get; set; }
-
-        public StreamInfo(FileChunk doc, int chunkSize, int readCount, byte[] buffer, List<byte> dataChunk, MD5? md5 = null)
-        {
-            Doc = doc;
-            ChunkSize = chunkSize;
-            ReadCount = readCount;
-            Buffer = buffer;
-            DataChunk = dataChunk;
-            Md5 = md5;
-        }
+        public FileChunk Doc { get; } = doc;
+        public int ChunkSize { get; } = chunkSize;
+        public int ReadCount { get; set; } = readCount;
+        public byte[] Buffer { get; } = buffer;
+        public List<byte> DataChunk { get; } = dataChunk;
+        public MD5? Md5 { get; set; } = md5;
     }
 }

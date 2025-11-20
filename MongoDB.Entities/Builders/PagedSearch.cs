@@ -35,7 +35,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly DB _db;
-    
+
     bool _ignoreGlobalFilters;
 
     int _pageNumber = 1,
@@ -71,9 +71,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// </summary>
     /// <param name="expression">x => x.Property == Value</param>
     public PagedSearch<T, TProjection> Match(Expression<Func<T, bool>> expression)
-    {
-        return Match(f => f.Where(expression));
-    }
+        => Match(f => f.Where(expression));
 
     /// <summary>
     /// Specify the matching criteria with a filter expression
@@ -165,9 +163,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
                                              Coordinates2D nearCoordinates,
                                              double? maxDistance = null,
                                              double? minDistance = null)
-    {
-        return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-    }
+        => Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
 
     /// <summary>
     /// Specify the matching criteria with a JSON string
@@ -390,9 +386,9 @@ public class PagedSearch<T, TProjection> where T : IEntity
             facetResult =
                 _session == null
                     ? await _db.Collection<T>().Aggregate(_options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
-                              .ConfigureAwait(false)
+                               .ConfigureAwait(false)
                     : await _db.Collection<T>().Aggregate(_session, _options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
-                              .ConfigureAwait(false);
+                               .ConfigureAwait(false);
         }
         else //.WithFluent() used
         {

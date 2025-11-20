@@ -214,7 +214,7 @@ public class PagedSearchEntity
 
         Assert.AreEqual(author.FullName, res[0].FullName);
         Assert.AreEqual(author.Surname, res[0].Surname);
-        Assert.IsTrue(res[0].Age == default);
-        Assert.IsTrue(res[0].Name == default);
+        Assert.IsTrue(res[0].Age == 0);
+        Assert.IsTrue(res[0].Name == null);
     }
 }

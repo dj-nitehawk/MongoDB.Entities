@@ -35,8 +35,8 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="session">An optional session if using within a transaction</param>
     public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options,
-                                                CancellationToken cancellation = default,
-                                                IClientSessionHandle? session = null) where T : IEntity
+                                         CancellationToken cancellation = default,
+                                         IClientSessionHandle? session = null) where T : IEntity
     {
         var opts = new CreateCollectionOptions<T>();
         options(opts);

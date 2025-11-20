@@ -16,8 +16,7 @@ public partial class DBContext
         var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-                   ? _db.Fluent<T>(options, Session)
-                       .Match(globalFilter)
+                   ? _db.Fluent<T>(options, Session).Match(globalFilter)
                    : _db.Fluent<T>(options, Session);
     }
 
@@ -43,8 +42,7 @@ public partial class DBContext
         var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-                   ? _db.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session)
-                       .Match(globalFilter)
+                   ? _db.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session).Match(globalFilter)
                    : _db.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session);
     }
 }

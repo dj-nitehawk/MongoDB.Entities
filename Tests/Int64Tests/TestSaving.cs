@@ -270,7 +270,7 @@ public class SavingInt64
 
         Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
-        Assert.AreEqual(default, book.DontSaveThis);
+        Assert.AreEqual(0, book.DontSaveThis);
     }
 
     [TestMethod]
@@ -288,7 +288,7 @@ public class SavingInt64
 
         Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
-        Assert.AreEqual(default, book.DontSaveThis);
+        Assert.AreEqual(0, book.DontSaveThis);
     }
 
     [TestMethod]
@@ -315,7 +315,7 @@ public class SavingInt64
         Assert.AreEqual(res!.Title, book.Title);
         Assert.AreEqual(res.Price, book.Price);
         Assert.AreEqual(res.PriceDbl, 666);
-        Assert.IsFalse(res.MainAuthor.ID == default);
+        Assert.IsFalse(res.MainAuthor.ID == 0);
     }
 
     [TestMethod]
@@ -343,7 +343,7 @@ public class SavingInt64
 
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
-        Assert.AreEqual(default, res.Age2);
+        Assert.AreEqual(0, res.Age2);
         Assert.AreNotEqual(DateTime.MinValue, res.Birthday.DateTime);
         Assert.AreEqual("initial fullname", res.FullName);
         Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
@@ -694,8 +694,8 @@ public class SavingInt64
 
         Assert.AreEqual(author.FullName, res.FullName);
         Assert.AreEqual(author.Surname, res.Surname);
-        Assert.IsTrue(res.Age == default);
-        Assert.IsTrue(res.Name == default);
+        Assert.IsTrue(res.Age == 0);
+        Assert.IsTrue(res.Name == null);
     }
 
     [TestMethod]

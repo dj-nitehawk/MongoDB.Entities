@@ -16,8 +16,8 @@ public partial class DB
 
     // ReSharper disable once InconsistentNaming
     async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object?> IDs,
-                                                            IClientSessionHandle? session = null,
-                                                            CancellationToken cancellation = default) where T : IEntity
+                                                     IClientSessionHandle? session = null,
+                                                     CancellationToken cancellation = default) where T : IEntity
     {
         // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
         //       and premature cancellation could cause data inconsistencies.
@@ -26,7 +26,7 @@ public partial class DB
 
         var db = Database<T>();
         var tasks = new List<Task>();
-        
+
         foreach (var refCollection in Cache<T>.ReferenceCollections.Values)
         {
             tasks.Add(
@@ -54,7 +54,7 @@ public partial class DB
 
         var baseType = typeof(T).BaseType;
 
-        if (baseType != null && baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
+        if (baseType is { IsGenericType: true } && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
         {
             tasks.Add(
                 session == null
@@ -96,8 +96,8 @@ public partial class DB
     /// <param name="session"> An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs,
-                                                          IClientSessionHandle? session = null,
-                                                          CancellationToken cancellation = default)
+                                                   IClientSessionHandle? session = null,
+                                                   CancellationToken cancellation = default)
         where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
@@ -131,9 +131,9 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression,
-                                                    IClientSessionHandle? session = null,
-                                                    CancellationToken cancellation = default,
-                                                    Collation? collation = null) where T : IEntity
+                                             IClientSessionHandle? session = null,
+                                             CancellationToken cancellation = default,
+                                             Collation? collation = null) where T : IEntity
         => DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation);
 
     /// <summary>
@@ -147,9 +147,9 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
-                                                    IClientSessionHandle? session = null,
-                                                    CancellationToken cancellation = default,
-                                                    Collation? collation = null) where T : IEntity
+                                             IClientSessionHandle? session = null,
+                                             CancellationToken cancellation = default,
+                                             Collation? collation = null) where T : IEntity
         => DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation);
 
     /// <summary>
@@ -163,9 +163,9 @@ public partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     public async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter,
-                                                          IClientSessionHandle? session = null,
-                                                          CancellationToken cancellation = default,
-                                                          Collation? collation = null) where T : IEntity
+                                                   IClientSessionHandle? session = null,
+                                                   CancellationToken cancellation = default,
+                                                   Collation? collation = null) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -222,7 +222,7 @@ public partial class DB
 
     void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        if (cancellation != default && session == null)
+        if (cancellation != CancellationToken.None && session == null)
             throw new NotSupportedException("Cancellation is only supported within transactions for delete operations!");
     }
 }

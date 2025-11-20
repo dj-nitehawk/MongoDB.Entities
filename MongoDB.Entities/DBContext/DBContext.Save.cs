@@ -234,9 +234,7 @@ public partial class DBContext
     void SetModifiedBySingle<T>(T entity) where T : IEntity
     {
         ThrowIfModifiedByIsEmpty<T>();
-        Cache<T>.ModifiedByProp?.SetValue(
-            entity,
-            BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+        Cache<T>.ModifiedByProp?.SetValue(entity, BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
 
         //note: we can't use an IModifiedBy interface because the above line needs a concrete type
         //      to be able to correctly deserialize a user supplied derived/sub class of ModifiedOn.

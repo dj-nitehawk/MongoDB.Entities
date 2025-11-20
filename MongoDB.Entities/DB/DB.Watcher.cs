@@ -22,11 +22,7 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">The entity type to get the watcher of</typeparam>
     public IEnumerable<Watcher<T>> Watchers<T>(DB db) where T : IEntity
-    {
-        if (Cache<T>.Watchers.TryGetValue(db, out var value))
-        {
-            return value.Values;
-        }
-        return [];
-    }
+        => Cache<T>.Watchers.TryGetValue(db, out var value)
+               ? value.Values
+               : [];
 }

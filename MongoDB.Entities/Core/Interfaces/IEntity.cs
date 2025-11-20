@@ -12,5 +12,4 @@ public interface IEntity
     /// <c>return ObjectId.GenerateNewId().ToString()</c>
     /// </summary>
     object GenerateNewID();
-    
 }
