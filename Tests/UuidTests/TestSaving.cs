@@ -915,8 +915,6 @@ public class SavingUuid
     {
         var one = new CustomIDDuplicate();
         var two = new CustomIDDuplicate();
-        await Assert.ThrowsExceptionAsync<MongoBulkWriteException<CustomIDDuplicate>>(
-            () =>
-                new[] { one, two }.SaveAsync());
+        await Assert.ThrowsExactlyAsync<MongoBulkWriteException<CustomIDDuplicate>>(() => new[] { one, two }.SaveAsync());
     }
 }

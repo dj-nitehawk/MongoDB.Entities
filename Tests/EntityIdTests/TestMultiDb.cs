@@ -15,7 +15,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task save_entity_works()
     {
-        DB db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(dbName);
 
         var cover = new BookCover
         {
@@ -23,7 +23,7 @@ public class MultiDbEntity
             BookName = "test book " + Guid.NewGuid()
         };
 
-        await cover.SaveAsync(db:db);
+        await cover.SaveAsync(db: db);
         Assert.IsNotNull(cover.ID);
 
         var res = await db.Find<BookCover>().OneAsync(cover.ID);
@@ -79,7 +79,7 @@ public class MultiDbEntity
     [TestMethod]
     public void uninitialized_get_instance_throws()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => DB.Instance("some-database").Database());
+        Assert.ThrowsExactly<InvalidOperationException>(() => DB.Instance("some-database").Database());
     }
 
     [TestMethod]
@@ -132,7 +132,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, null, modifiedBy: new());
+        var db = new DBContext(dbName, modifiedBy: new());
 
         var author = new AuthorEntity { Name = "test" };
         await db.SaveAsync(author);

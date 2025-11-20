@@ -34,7 +34,7 @@ public class UpdateEntity
     [TestMethod]
     public void update_without_filter_throws()
     {
-        Assert.ThrowsException<ArgumentException>(() => DB.Default.Update<AuthorEntity>().Modify(a => a.Age2, 22).ExecuteAsync().GetAwaiter().GetResult());
+        Assert.ThrowsExactly<ArgumentException>(() => DB.Default.Update<AuthorEntity>().Modify(a => a.Age2, 22).ExecuteAsync().GetAwaiter().GetResult());
     }
 
     [TestMethod]

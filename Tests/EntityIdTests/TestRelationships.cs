@@ -190,7 +190,7 @@ public class RelationshipsEntity
     public void accessing_coll_shortcut_on_unsaved_parent_throws()
     {
         var book = new BookEntity { Title = "acsoupt" };
-        Assert.ThrowsException<InvalidOperationException>(() => book.GoodAuthors.ChildrenQueryable().Count());
+        Assert.ThrowsExactly<InvalidOperationException>(() => book.GoodAuthors.ChildrenQueryable().Count());
     }
 
     [TestMethod]
@@ -233,7 +233,7 @@ public class RelationshipsEntity
         await book1.Genres.AddAsync(gen1);
         await book1.Genres.AddAsync(gen2);
         await book1.Genres.AddAsync(gen1);
-        Assert.AreEqual(2,DB.Default.Queryable<BookEntity>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
+        Assert.AreEqual(2, DB.Default.Queryable<BookEntity>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
         Assert.AreEqual(gen1.Name, book1.Genres.ChildrenQueryable().First().Name);
 
         await gen1.Books.AddAsync(book1);

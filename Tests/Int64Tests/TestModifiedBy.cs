@@ -12,8 +12,7 @@ public class ModifiedByInt64
     public async Task throw_if_mod_by_not_supplied()
     {
         var db = new DBContext();
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(
-            async () => await db.SaveAsync(new AuthorInt64()));
+        await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () => await db.SaveAsync(new AuthorInt64()));
     }
 
     [TestMethod]
@@ -85,10 +84,10 @@ public class ModifiedByInt64
         book.Title = "TEST().BOOK";
 
         await db
-            .Replace<BookInt64>()
-            .MatchID(book.ID)
-            .WithEntity(book)
-            .ExecuteAsync();
+              .Replace<BookInt64>()
+              .MatchID(book.ID)
+              .WithEntity(book)
+              .ExecuteAsync();
 
         var res = await db.Find<BookInt64>().OneAsync(book.ID);
 
@@ -120,10 +119,10 @@ public class ModifiedByInt64
             UserType = "TEST-UPDATED"
         };
         await db
-            .Update<BookInt64>()
-            .MatchID(book.ID)
-            .Modify(b => b.Title, "TEST().BOOK")
-            .ExecuteAsync();
+              .Update<BookInt64>()
+              .MatchID(book.ID)
+              .Modify(b => b.Title, "TEST().BOOK")
+              .ExecuteAsync();
 
         var res = await db.Find<BookInt64>().OneAsync(book.ID);
 
@@ -158,10 +157,10 @@ public class ModifiedByInt64
         book.Title = "TEST().BOOK";
 
         await db
-            .Update<BookInt64>()
-            .MatchID(book.ID)
-            .ModifyOnly(x => new { x.Title }, book)
-            .ExecuteAsync();
+              .Update<BookInt64>()
+              .MatchID(book.ID)
+              .ModifyOnly(x => new { x.Title }, book)
+              .ExecuteAsync();
 
         var res = await db.Find<BookInt64>().OneAsync(book.ID);
 

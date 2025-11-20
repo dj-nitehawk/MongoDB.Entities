@@ -12,7 +12,8 @@ public class TemplatesInt64
     [TestMethod]
     public void missing_tags_throws()
     {
-        var template = new Template(@"[
+        var template = new Template(
+                @"[
             {
               $lookup: {
                 from: 'users',
@@ -30,16 +31,17 @@ public class TemplatesInt64
                 $expr: { $gt: [ { <size>: '<user>' }, 0 ] }
               }
             }]").Tag("size", "$size")
-            .Tag("user", "$user")
-            .Tag("missing", "blah");
+                .Tag("user", "$user")
+                .Tag("missing", "blah");
 
-        Assert.ThrowsException<InvalidOperationException>(template.RenderToString);
+        Assert.ThrowsExactly<InvalidOperationException>(template.RenderToString);
     }
 
     [TestMethod]
     public void extra_tags_throws()
     {
-        var template = new Template(@"[
+        var template = new Template(
+                @"[
             {
               $lookup: {
                 from: 'users',
@@ -57,21 +59,21 @@ public class TemplatesInt64
                 $expr: { $gt: [ { <size>: '<user>' }, 0 ] }
               }
             }]").Tag("size", "$size")
-            .Tag("user", "$user");
+                .Tag("user", "$user");
 
-        Assert.ThrowsException<InvalidOperationException>(template.RenderToString);
+        Assert.ThrowsExactly<InvalidOperationException>(template.RenderToString);
     }
 
     [TestMethod]
     public void tag_replacement_works()
     {
-        var template = new Template(@"
+        var template = new Template(
+                           @"
             {
                $match: { '<OtherAuthors.Name>': /<search_term>/is }
             }")
-
-        .Path<BookInt64>(b => b.OtherAuthors[0].Name)
-        .Tag("search_term", "Eckhart Tolle");
+                       .Path<BookInt64>(b => b.OtherAuthors[0].Name)
+                       .Tag("search_term", "Eckhart Tolle");
 
         const string expectation = @"
             {
@@ -84,11 +86,12 @@ public class TemplatesInt64
     [TestMethod]
     public void tag_replacement_works_for_collection()
     {
-        var template = new Template<AuthorInt64>(@"
+        var template = new Template<AuthorInt64>(
+                @"
             {
                $match: { '<BookInt64>': /search_term/is }
             }")
-        .Collection<BookInt64>();
+            .Collection<BookInt64>();
 
         const string expectation = @"
             {
@@ -101,11 +104,12 @@ public class TemplatesInt64
     [TestMethod]
     public void tag_replacement_works_for_property()
     {
-        var template = new Template<BookInt64, AuthorInt64>(@"
+        var template = new Template<BookInt64, AuthorInt64>(
+                @"
             {
                $match: { '<Name>': /search_term/is }
             }")
-        .Property(b => b.OtherAuthors[0].Name);
+            .Property(b => b.OtherAuthors[0].Name);
 
         const string expectation = @"
             {
@@ -118,18 +122,20 @@ public class TemplatesInt64
     [TestMethod]
     public void tag_replacement_works_for_properties()
     {
-        var template = new Template<BookInt64, AuthorInt64>(@"
+        var template = new Template<BookInt64, AuthorInt64>(
+                @"
             {
                $match: { 
                     '<Name>': /search_term/is ,
                     '<Age>': /search_term/is 
                 }
             }")
-        .Properties(b => new
-        {
-            b.OtherAuthors[0].Name,
-            b.OtherAuthors[0].Age
-        });
+            .Properties(
+                b => new
+                {
+                    b.OtherAuthors[0].Name,
+                    b.OtherAuthors[0].Age
+                });
 
         const string expectation = @"
             {
@@ -145,7 +151,8 @@ public class TemplatesInt64
     [TestMethod]
     public void tag_replacement_with_new_expression()
     {
-        var template = new Template(@"
+        var template = new Template(
+                @"
             {
                $match: { 
                     '<OtherAuthors.Name>': /search_term/is,
@@ -153,12 +160,13 @@ public class TemplatesInt64
                     '<ReviewList.Books.Review>: null'
                 }
             }")
-        .Paths<BookInt64>(b => new
-        {
-            b.OtherAuthors[0].Name,
-            b.OtherAuthors[1].Age2,
-            b.ReviewList[1].Books[1].Review
-        });
+            .Paths<BookInt64>(
+                b => new
+                {
+                    b.OtherAuthors[0].Name,
+                    b.OtherAuthors[1].Age2,
+                    b.ReviewList[1].Books[1].Review
+                });
 
         const string expectation = @"
             {
@@ -180,7 +188,8 @@ public class TemplatesInt64
         var author2 = new AuthorInt64 { Name = guid, Age = 53 };
         await DB.Default.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorInt64>(@"
+        var pipeline = new Template<AuthorInt64>(
+                           @"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -189,9 +198,9 @@ public class TemplatesInt64
                   $sort: { <Age>: 1 }
                 }
             ]")
-          .Path(a => a.Name)
-          .Tag("author_name", guid)
-          .Path(a => a.Age);
+                       .Path(a => a.Name)
+                       .Tag("author_name", guid)
+                       .Path(a => a.Age);
 
         var results = await DB.Default.PipelineAsync(pipeline);
 
@@ -199,7 +208,7 @@ public class TemplatesInt64
         Assert.IsTrue(results[0].Name == guid);
         Assert.IsTrue(results.Last().Age == 54);
 
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.Default.PipelineSingleAsync(pipeline));
+        await Assert.ThrowsExactlyAsync<InvalidOperationException>(() => DB.Default.PipelineSingleAsync(pipeline));
 
         var first = await DB.Default.PipelineFirstAsync(pipeline);
 
@@ -216,7 +225,8 @@ public class TemplatesInt64
         var author2 = new AuthorInt64 { Name = guid, Age = 53 };
         await DB.Default.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorInt64>(@"
+        var pipeline = new Template<AuthorInt64>(
+                           @"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -225,9 +235,9 @@ public class TemplatesInt64
                   $sort: { <Age>: 1 }
                 }
             ]")
-            .Path(a => a.Name)
-            .Tag("author_name", guid)
-            .Path(a => a.Age);
+                       .Path(a => a.Name)
+                       .Tag("author_name", guid)
+                       .Path(a => a.Age);
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
@@ -246,7 +256,8 @@ public class TemplatesInt64
         var author2 = new AuthorInt64 { Name = guid, Age = 53 };
         await DB.Default.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorInt64>(@"
+        var pipeline = new Template<AuthorInt64>(
+                           @"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -255,9 +266,9 @@ public class TemplatesInt64
                   $sort: { <Age>: 1 }
                 }
             ]")
-            .Path(a => a.Name)
-            .Tag("author_name", guid)
-            .Path(a => a.Age);
+                       .Path(a => a.Name)
+                       .Tag("author_name", guid)
+                       .Path(a => a.Age);
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
@@ -276,7 +287,8 @@ public class TemplatesInt64
         var author2 = new AuthorInt64 { Name = guid, Age = 53 };
         await DB.Default.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorInt64>(@"
+        var pipeline = new Template<AuthorInt64>(
+                           @"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -285,9 +297,9 @@ public class TemplatesInt64
                   $sort: { <Age>: 1 }
                 }
             ]")
-            .Path(a => a.Name)
-            .Tag("author_name", guid)
-            .Path(a => a.Age);
+                       .Path(a => a.Name)
+                       .Tag("author_name", guid)
+                       .Path(a => a.Age);
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
@@ -306,7 +318,8 @@ public class TemplatesInt64
         var author2 = new AuthorInt64 { Name = guid, Age = 53 };
         await DB.Default.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorInt64>(@"
+        var pipeline = new Template<AuthorInt64>(
+                           @"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -315,9 +328,9 @@ public class TemplatesInt64
                   $sort: { <Age>: 1 }
                 }
             ]")
-            .Path(a => a.Name)
-            .Tag("author_name", guid)
-            .Path(a => a.Age);
+                       .Path(a => a.Name)
+                       .Tag("author_name", guid)
+                       .Path(a => a.Age);
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
@@ -341,7 +354,8 @@ public class TemplatesInt64
         };
         await book.SaveAsync();
 
-        var pipeline = new Template<BookInt64, AuthorInt64>(@"
+        var pipeline = new Template<BookInt64, AuthorInt64>(
+                @"
                 [
                     {
                         $match: { _id: <book_id> }
@@ -361,16 +375,15 @@ public class TemplatesInt64
                     {
                         $set: { <Surname> : '$<Name>' }
                     }
-                ]"
-        ).Tag("book_id", $"{book.ID}")
-         .Tag("author_collection", DB.Default.CollectionName<AuthorInt64>())
-         .Path(b => b.MainAuthor.ID)
-         .PathOfResult(a => a.Surname)
-         .PathOfResult(a => a.Name);
+                ]").Tag("book_id", $"{book.ID}")
+                   .Tag("author_collection", DB.Default.CollectionName<AuthorInt64>())
+                   .Path(b => b.MainAuthor.ID)
+                   .PathOfResult(a => a.Surname)
+                   .PathOfResult(a => a.Name);
 
         var result = (await (await DB.Default.PipelineCursorAsync(pipeline))
-                       .ToListAsync())
-                       .Single();
+                          .ToListAsync())
+            .Single();
 
         Assert.AreEqual(guid, result.Surname);
         Assert.AreEqual(guid, result.Name);
@@ -381,7 +394,7 @@ public class TemplatesInt64
     {
         var pipeline = new Template<BookInt64>("{$match:{<Title>:'test'}}");
 
-        Assert.ThrowsException<InvalidOperationException>(() => pipeline.AppendStage(""));
+        Assert.ThrowsExactly<InvalidOperationException>(() => pipeline.AppendStage(""));
     }
 
     [TestMethod]
@@ -389,7 +402,7 @@ public class TemplatesInt64
     {
         var pipeline = new Template<BookInt64>("[]");
 
-        Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
+        Assert.ThrowsExactly<ArgumentException>(() => pipeline.AppendStage("bleh"));
     }
 
     [TestMethod]

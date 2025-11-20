@@ -22,7 +22,7 @@ public class FileEntities
     //[TestMethod]
     public async Task uploading_data_from_http_stream()
     {
-        var db = await  DB.InitAsync(dbName);
+        var db = await DB.InitAsync(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
         await img.SaveAsync(db).ConfigureAwait(false);
@@ -44,7 +44,7 @@ public class FileEntities
     public async Task uploading_data_from_file_stream()
     {
         var db = await InitTest.InitTestDatabase(dbName);
-    
+
         var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
         await img.SaveAsync(db).ConfigureAwait(false);
 
@@ -69,9 +69,7 @@ public class FileEntities
 
         using var stream = File.OpenRead("Models/test.jpg");
 
-        await Assert.ThrowsExceptionAsync<InvalidDataException>(
-            async ()
-                => await img.Data(db).UploadAsync(stream).ConfigureAwait(false));
+        await Assert.ThrowsExactlyAsync<InvalidDataException>(async () => await img.Data(db).UploadAsync(stream).ConfigureAwait(false));
     }
 
     [TestMethod]
@@ -97,7 +95,7 @@ public class FileEntities
     public async Task file_smaller_than_chunk_size()
     {
         var db = await InitTest.InitTestDatabase(dbName);
-        
+
         var img = new Image { Height = 100, Width = 100, Name = "Test-small.Png" };
         await img.SaveAsync(db).ConfigureAwait(false);
 
@@ -220,7 +218,7 @@ public class FileEntities
     {
         var db = InitTest.InitTestDatabase(dbName).GetAwaiter().GetResult();
 
-        Assert.ThrowsException<InvalidOperationException>(
+        Assert.ThrowsExactly<InvalidOperationException>(
             () =>
             {
                 using var stream = File.OpenWrite("test.file");

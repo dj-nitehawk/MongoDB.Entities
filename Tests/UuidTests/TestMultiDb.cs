@@ -15,7 +15,7 @@ public class MultiDbUuid
     [TestMethod]
     public async Task save_Guid_works()
     {
-        var db = await  DB.InitAsync(dbName);
+        var db = await DB.InitAsync(dbName);
 
         var cover = new BookCover
         {
@@ -30,7 +30,7 @@ public class MultiDbUuid
 
         Assert.AreEqual(cover.ID, res!.ID);
         Assert.AreEqual(cover.BookName, res.BookName);
-        
+
         res = await DB.Default.Find<BookCover>().OneAsync(cover.ID);
         Assert.IsNull(res);
     }
@@ -38,7 +38,7 @@ public class MultiDbUuid
     [TestMethod]
     public async Task relationships_work()
     {
-        var db = await  DB.InitAsync(dbName);
+        var db = await DB.InitAsync(dbName);
 
         var cover = new BookCover(db)
         {
@@ -79,7 +79,7 @@ public class MultiDbUuid
     [TestMethod]
     public void uninitialized_get_instance_throws()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => DB.Instance("some-database").Database());
+        Assert.ThrowsExactly<InvalidOperationException>(() => DB.Instance("some-database").Database());
     }
 
     [TestMethod]
@@ -132,7 +132,7 @@ public class MultiDbUuid
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, null, modifiedBy: new());
+        var db = new DBContext(dbName, modifiedBy: new());
 
         var author = new AuthorUuid { Name = "test" };
         await db.SaveAsync(author);

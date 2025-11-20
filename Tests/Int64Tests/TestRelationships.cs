@@ -191,7 +191,7 @@ public class RelationshipsInt64
     public void accessing_coll_shortcut_on_unsaved_parent_throws()
     {
         var book = new BookInt64 { Title = "acsoupt" };
-        Assert.ThrowsException<InvalidOperationException>(() => book.GoodAuthors.ChildrenQueryable().Count());
+        Assert.ThrowsExactly<InvalidOperationException>(() => book.GoodAuthors.ChildrenQueryable().Count());
     }
 
     [TestMethod]

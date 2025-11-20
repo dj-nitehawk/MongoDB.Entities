@@ -15,7 +15,7 @@ public class MultiDbInt64
     [TestMethod]
     public async Task save_Int64_works()
     {
-        var db = await  DB.InitAsync(dbName);
+        var db = await DB.InitAsync(dbName);
 
         var cover = new BookCover
         {
@@ -38,7 +38,7 @@ public class MultiDbInt64
     [TestMethod]
     public async Task relationships_work()
     {
-        var db = await  DB.InitAsync(dbName);
+        var db = await DB.InitAsync(dbName);
 
         var cover = new BookCover(db)
         {
@@ -79,14 +79,14 @@ public class MultiDbInt64
     [TestMethod]
     public void uninitialized_get_instance_throws()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => DB.Instance("some-database").Database());
+        Assert.ThrowsExactly<InvalidOperationException>(() => DB.Instance("some-database").Database());
     }
 
     [TestMethod]
     public async Task multiple_initializations_should_not_throw()
     {
-        await  DB.InitAsync("multi-init");
-        await  DB.InitAsync("multi-init");
+        await DB.InitAsync("multi-init");
+        await DB.InitAsync("multi-init");
 
         var db = DB.Instance("multi-init").Database();
 
@@ -132,7 +132,7 @@ public class MultiDbInt64
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, null, modifiedBy: new());
+        var db = new DBContext(dbName, modifiedBy: new());
 
         var author = new AuthorInt64 { Name = "test" };
         await db.SaveAsync(author);

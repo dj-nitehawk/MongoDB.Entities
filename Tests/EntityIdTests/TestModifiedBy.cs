@@ -12,7 +12,7 @@ public class ModifiedByEntity
     public async Task throw_if_mod_by_not_supplied()
     {
         var db = new DBContext();
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(
+        await Assert.ThrowsExactlyAsync<InvalidOperationException>(
             async () => await db.SaveAsync(new AuthorEntity()));
     }
 
