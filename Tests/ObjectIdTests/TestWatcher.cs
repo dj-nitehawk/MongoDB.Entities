@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -12,7 +12,7 @@ public class WatcherObjectId
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Watcher<FlowerObjectId>("test");
+        var watcher = DB.Default.Watcher<FlowerObjectId>("test");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -24,7 +24,8 @@ public class WatcherObjectId
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerObjectId { Name = "test" },
             new FlowerObjectId { Name = "test" },
             new FlowerObjectId { Name = "test" }
@@ -43,7 +44,8 @@ public class WatcherObjectId
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var watcher = DB.Watcher<FlowerObjectId>("test-with-projection");
+        var db = DB.Default;
+        var watcher = db.Watcher<FlowerObjectId>("test-with-projection");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -54,21 +56,22 @@ public class WatcherObjectId
         await Task.Delay(500);
 
         watcher.OnChangesAsync += async flowers =>
-        {
-            allFlowers.AddRange(flowers);
-            await Task.CompletedTask;
-        };
+                                  {
+                                      allFlowers.AddRange(flowers);
+                                      await Task.CompletedTask;
+                                  };
 
-        await new[] {
-            new FlowerObjectId { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
+        await new[]
+        {
+            new FlowerObjectId { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
             new FlowerObjectId { Name = "test", Color = "red" },
             new FlowerObjectId { Name = "test", Color = "red" }
-        }.SaveAsync();
+        }.SaveAsync(db);
 
         var flower = new FlowerObjectId { Name = "test" };
-        await flower.SaveAsync();
+        await flower.SaveAsync(db);
 
-        await flower.DeleteAsync();
+        await flower.DeleteAsync(db);
 
         await Task.Delay(500);
 
@@ -84,7 +87,7 @@ public class WatcherObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerObjectId>("test-with-filter-builders");
+        var watcher = DB.Default.Watcher<FlowerObjectId>("test-with-filter-builders");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -96,7 +99,8 @@ public class WatcherObjectId
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerObjectId { Name = guid },
             new FlowerObjectId { Name = guid },
             new FlowerObjectId { Name = guid }
@@ -117,7 +121,7 @@ public class WatcherObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerObjectId>("test-with-filter-builders-csd");
+        var watcher = DB.Default.Watcher<FlowerObjectId>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -127,16 +131,17 @@ public class WatcherObjectId
         await Task.Delay(500);
 
         watcher.OnChangesCSDAsync += async csDocs =>
-        {
-            allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
-            await Task.CompletedTask;
-        };
+                                     {
+                                         allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+                                         await Task.CompletedTask;
+                                     };
 
-        await new[] {
+        await new[]
+        {
             new FlowerObjectId { Name = guid },
             new FlowerObjectId { Name = "exclude me" },
             new FlowerObjectId { Name = guid },
-            new FlowerObjectId { Name = guid },
+            new FlowerObjectId { Name = guid }
         }.SaveAsync();
 
         var flower = new FlowerObjectId { Name = guid };

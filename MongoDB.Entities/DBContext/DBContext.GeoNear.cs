@@ -40,21 +40,20 @@ public partial class DBContext
         var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-                   ? DB.FluentGeoNear(
-                           NearCoordinates,
-                           DistanceField,
-                           Spherical,
-                           MaxDistance,
-                           MinDistance,
-                           Limit,
-                           Query,
-                           DistanceMultiplier,
-                           IncludeLocations,
-                           IndexKey,
-                           options,
-                           Session)
-                       .Match(globalFilter)
-                   : DB.FluentGeoNear(
+                   ? _db.FluentGeoNear(
+                       NearCoordinates,
+                       DistanceField,
+                       Spherical,
+                       MaxDistance,
+                       MinDistance,
+                       Limit,
+                       Query,
+                       DistanceMultiplier,
+                       IncludeLocations,
+                       IndexKey,
+                       options,
+                       Session).Match(globalFilter)
+                   : _db.FluentGeoNear(
                        NearCoordinates,
                        DistanceField,
                        Spherical,

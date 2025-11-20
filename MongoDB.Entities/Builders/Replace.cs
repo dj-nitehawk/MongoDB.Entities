@@ -23,17 +23,20 @@ public class Replace<T> where T : IEntity
     readonly ModifiedBy? _modifiedBy;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<T>? _onSaveAction;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
     internal Replace(IClientSessionHandle? session,
                      ModifiedBy? modifiedBy,
                      Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                     Action<T>? onSaveAction)
+                     Action<T>? onSaveAction,
+                     DB db)
     {
         _session = session;
         _modifiedBy = modifiedBy;
         _globalFilters = globalFilters;
         _onSaveAction = onSaveAction;
+        _db = db;
     }
 
     T? Entity { get; set; }
@@ -43,18 +46,14 @@ public class Replace<T> where T : IEntity
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
     public Replace<T> MatchID(object ID)
-    {
-        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
-    }
+        => Match(f => f.Eq(Cache<T>.IdPropName, ID));
 
     /// <summary>
     /// Specify the matching criteria with a lambda expression
     /// </summary>
     /// <param name="expression">x => x.Property == Value</param>
     public Replace<T> Match(Expression<Func<T, bool>> expression)
-    {
-        return Match(f => f.Where(expression));
-    }
+        => Match(f => f.Where(expression));
 
     /// <summary>
     /// Specify the matching criteria with a filter expression
@@ -142,9 +141,7 @@ public class Replace<T> where T : IEntity
                             Coordinates2D nearCoordinates,
                             double? maxDistance = null,
                             double? minDistance = null)
-    {
-        return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-    }
+        => Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
 
     /// <summary>
     /// Specify the matching criteria with a JSON string
@@ -256,8 +253,8 @@ public class Replace<T> where T : IEntity
         {
             var bulkWriteResult = await (
                                             _session == null
-                                                ? DB.Collection<T>().BulkWriteAsync(_models, null, cancellation)
-                                                : DB.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
+                                                ? _db.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : _db.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
             _models.Clear();
@@ -277,8 +274,8 @@ public class Replace<T> where T : IEntity
         SetModOnAndByValues();
 
         return _session == null
-                   ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, _options, cancellation).ConfigureAwait(false)
-                   : await DB.Collection<T>().ReplaceOneAsync(_session, mergedFilter, Entity, _options, cancellation).ConfigureAwait(false);
+                   ? await _db.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, _options, cancellation).ConfigureAwait(false)
+                   : await _db.Collection<T>().ReplaceOneAsync(_session, mergedFilter, Entity, _options, cancellation).ConfigureAwait(false);
     }
 
     void SetModOnAndByValues()

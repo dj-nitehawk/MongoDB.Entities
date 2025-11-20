@@ -10,20 +10,15 @@ namespace MongoDB.Entities;
 /// Use this attribute to mark a property in order to save it in MongoDB server as ObjectId
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class ObjectIdAttribute : BsonRepresentationAttribute
-{
-    public ObjectIdAttribute() : base(BsonType.ObjectId) { }
-}
+public class ObjectIdAttribute() : BsonRepresentationAttribute(BsonType.ObjectId);
 
 /// <summary>
 /// Use this attribute to mark a string property to store the value in MongoDB as ObjectID if it is a valid ObjectId string.
 /// If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class AsObjectIdAttribute : BsonSerializerAttribute
+public class AsObjectIdAttribute() : BsonSerializerAttribute(typeof(ObjectIdSerializer))
 {
-    public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
-
     class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
@@ -79,10 +74,8 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 /// query based on the stored type of the field
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class AsBsonIdAttribute : BsonSerializerAttribute
+public class AsBsonIdAttribute() : BsonSerializerAttribute(typeof(ObjectIdSerializer))
 {
-    public AsBsonIdAttribute() : base(typeof(ObjectIdSerializer)) { }
-
     class ObjectIdSerializer : SerializerBase<object>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
@@ -114,8 +107,7 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
 
                     return;
                 default:
-                    throw new BsonSerializationException(
-                        $"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
+                    throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
             }
         }
 

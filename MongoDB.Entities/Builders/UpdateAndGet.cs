@@ -18,8 +18,8 @@ public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 {
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                          Action<UpdateBase<T>>? onUpdateAction)
-        : base(session, globalFilters, onUpdateAction) { }
+                          Action<UpdateBase<T>>? onUpdateAction,
+                          DB db) : base(session, globalFilters, onUpdateAction, db) { }
 }
 
 /// <summary>
@@ -36,15 +36,18 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                          Action<UpdateBase<T>>? onUpdateAction)
+                          Action<UpdateBase<T>>? onUpdateAction,
+                          DB db)
     {
         _session = session;
         _globalFilters = globalFilters;
         _onUpdateAction = onUpdateAction;
+        _db = db;
     }
 
     /// <summary>
@@ -52,18 +55,14 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
     public UpdateAndGet<T, TProjection> MatchID(object ID)
-    {
-        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
-    }
+        => Match(f => f.Eq(Cache<T>.IdPropName, ID));
 
     /// <summary>
     /// Specify the matching criteria with a lambda expression
     /// </summary>
     /// <param name="expression">x => x.Property == Value</param>
     public UpdateAndGet<T, TProjection> Match(Expression<Func<T, bool>> expression)
-    {
-        return Match(f => f.Where(expression));
-    }
+        => Match(f => f.Where(expression));
 
     /// <summary>
     /// Specify the matching criteria with a filter expression
@@ -155,9 +154,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                                               Coordinates2D nearCoordinates,
                                               double? maxDistance = null,
                                               double? minDistance = null)
-    {
-        return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-    }
+        => Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
 
     /// <summary>
     /// Specify the matching criteria with a JSON string
@@ -460,18 +457,17 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
         return
             Cache<T>.HasModifiedOn &&
             !Defs.Any(
-                d => d
-                     .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
-                     .ToString()
-                     .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
+                d => d.Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
+                      .ToString()
+                      .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    static Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter,
-                                               UpdateDefinition<T> definition,
-                                               FindOneAndUpdateOptions<T, TProjection> options,
-                                               IClientSessionHandle? session = null,
-                                               CancellationToken cancellation = default)
+    Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter,
+                                        UpdateDefinition<T> definition,
+                                        FindOneAndUpdateOptions<T, TProjection> options,
+                                        IClientSessionHandle? session = null,
+                                        CancellationToken cancellation = default)
         => session == null
-               ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
-               : DB.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
+               ? _db.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
+               : _db.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
 }

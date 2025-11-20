@@ -16,7 +16,7 @@ public class FuzzyStringTestObjectId
 
         await new BookObjectId { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
-        var res = await DB.Queryable<BookObjectId>()
+        var res = await DB.Default.Queryable<BookObjectId>()
                           .Where(b => b.Review.Fuzzy!.Value == guid)
                           .SingleAsync();
 
@@ -30,7 +30,7 @@ public class FuzzyStringTestObjectId
 
         await new BookObjectId { Title = guid, Review = new() { Fuzzy = null! } }.SaveAsync();
 
-        var res = await DB.Queryable<BookObjectId>()
+        var res = await DB.Default.Queryable<BookObjectId>()
                           .Where(b => b.Title == guid)
                           .SingleAsync();
 

@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -22,7 +22,7 @@ public class DistinctObjectId
             new AuthorObjectId{ Name = guid2 },
         }.SaveAsync();
 
-        var res = await DB.Distinct<AuthorObjectId, string>()
+        var res = await DB.Default.Distinct<AuthorObjectId, string>()
             .Match(a => guids.Contains(a.Name))
             .Property(a => a.Name)
             .ExecuteAsync();

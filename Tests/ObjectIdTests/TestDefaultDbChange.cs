@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -10,13 +10,13 @@ public class DefaultDatabaseChangingObjectId
     [TestMethod]
     public void throw_argument_null_exception()
     {
-        Assert.ThrowsException<ArgumentNullException>(() => DB.ChangeDefaultDatabase(""));
+        Assert.ThrowsExactly<ArgumentNullException>(() => DB.ChangeDefaultDatabase(""));
     }
 
     [TestMethod]
     public void throw_invalid_operation_exception()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => DB.ChangeDefaultDatabase("db3"));
+        Assert.ThrowsExactly<InvalidOperationException>(() => DB.ChangeDefaultDatabase("db3"));
     }
 
     [TestMethod]
@@ -25,12 +25,12 @@ public class DefaultDatabaseChangingObjectId
         await DB.InitAsync("test1");
         await DB.InitAsync("test2");
 
-        var defaultDb = DB.Database(default);
-        var database = DB.Database("test2");
+        var defaultDb = DB.Default.Database();
+        var database = DB.Instance("test2").Database();
 
         DB.ChangeDefaultDatabase("test2");
 
-        var bookDb = DB.Database<BookObjectId>();
+        var bookDb = DB.Default.Database<BookObjectId>();
 
         Assert.AreEqual(database.DatabaseNamespace.DatabaseName, bookDb.DatabaseNamespace.DatabaseName);
 
@@ -42,12 +42,12 @@ public class DefaultDatabaseChangingObjectId
     {
         await DB.InitAsync("test1");
 
-        var defaultDb = DB.Database(default);
-        var defaultDbName = DB.DatabaseName<AuthorObjectId>();
+        var defaultDb = DB.Default.Database();
+        var defaultDbName = DB.Default.DatabaseName<AuthorObjectId>();
 
         DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Database<BookObjectId>();
+        var bookDb = DB.Default.Database<BookObjectId>();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

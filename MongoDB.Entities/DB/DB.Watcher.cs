@@ -3,7 +3,7 @@
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Retrieves the 'change-stream' watcher instance for a given unique name.
@@ -12,13 +12,17 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">The entity type to get a watcher for</typeparam>
     /// <param name="name">A unique name for the watcher of this entity type. Names can be duplicate among different entity types.</param>
-    public static Watcher<T> Watcher<T>(string name) where T : IEntity
-        => Cache<T>.Watchers.GetOrAdd(name.ToLower().Trim(), newName => new(newName));
+    public Watcher<T> Watcher<T>(string name) where T : IEntity
+        => Cache<T>.Watchers.GetOrAdd(this, _ => new()).GetOrAdd(
+            name.ToLower().Trim(),
+            newName => new(this, newName));
 
     /// <summary>
     /// Returns all the watchers for a given entity type
     /// </summary>
     /// <typeparam name="T">The entity type to get the watcher of</typeparam>
-    public static IEnumerable<Watcher<T>> Watchers<T>() where T : IEntity
-        => Cache<T>.Watchers.Values;
+    public IEnumerable<Watcher<T>> Watchers<T>(DB db) where T : IEntity
+        => Cache<T>.Watchers.TryGetValue(db, out var value)
+               ? value.Values
+               : [];
 }

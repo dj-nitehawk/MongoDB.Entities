@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     //NOTE: transaction support will not be added due to unpredictability with concurrency.
 
@@ -13,7 +13,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default) where T : IEntity
+    public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default) where T : IEntity
         => NextSequentialNumberAsync(CollectionName<T>(), cancellation);
 
     /// <summary>
@@ -21,9 +21,9 @@ public static partial class DB
     /// </summary>
     /// <param name="sequenceName">The name of the sequence to get the next number for</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
+    public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
     {
-        return new UpdateAndGet<SequenceCounter, ulong>(null, null, null)
+        return new UpdateAndGet<SequenceCounter, ulong>(null, null, null, this)
                .Match(s => s.ID == sequenceName)
                .Modify(b => b.Inc(s => s.Count, 1ul))
                .Option(o => o.IsUpsert = true)

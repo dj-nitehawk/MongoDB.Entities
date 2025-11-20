@@ -1,6 +1,6 @@
-﻿using Medo;
+﻿using System.Collections.Generic;
+using Medo;
 using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.Generic;
 
 namespace MongoDB.Entities.Tests;
 

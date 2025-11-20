@@ -22,36 +22,28 @@ public abstract class UpdateBase<T> where T : IEntity
     /// <param name="property">x => x.Property</param>
     /// <param name="value">The value to set on the property</param>
     public void AddModification<TProp>(Expression<Func<T, TProp>> property, TProp value)
-    {
-        Defs.Add(Builders<T>.Update.Set(property, value));
-    }
+        => Defs.Add(Builders<T>.Update.Set(property, value));
 
     /// <summary>
     /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
     /// </summary>
     /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
     public void AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
-    {
-        Defs.Add(operation(Builders<T>.Update));
-    }
+        => Defs.Add(operation(Builders<T>.Update));
 
     /// <summary>
     /// Specify an update (json string) to modify the Entities (use multiple times if needed)
     /// </summary>
     /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
     public void AddModification(string update)
-    {
-        Defs.Add(update);
-    }
+        => Defs.Add(update);
 
     /// <summary>
     /// Specify an update with a Template to modify the Entities (use multiple times if needed)
     /// </summary>
     /// <param name="template">A Template with a single update</param>
     public void AddModification(Template template)
-    {
-        AddModification(template.RenderToString());
-    }
+        => AddModification(template.RenderToString());
 }
 
 /// <summary>
@@ -68,15 +60,18 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     readonly List<UpdateManyModel<T>> _models = [];
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
     internal Update(IClientSessionHandle? session,
                     Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                    Action<UpdateBase<T>>? onUpdateAction)
+                    Action<UpdateBase<T>>? onUpdateAction,
+                    DB db)
     {
         _session = session;
         _globalFilters = globalFilters;
         _onUpdateAction = onUpdateAction;
+        _db = db;
     }
 
     /// <summary>
@@ -84,18 +79,14 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
     public Update<T> MatchID(object ID)
-    {
-        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
-    }
+        => Match(f => f.Eq(Cache<T>.IdPropName, ID));
 
     /// <summary>
     /// Specify the matching criteria with a lambda expression
     /// </summary>
     /// <param name="expression">x => x.Property == Value</param>
     public Update<T> Match(Expression<Func<T, bool>> expression)
-    {
-        return Match(f => f.Where(expression));
-    }
+        => Match(f => f.Where(expression));
 
     /// <summary>
     /// Specify the matching criteria with a filter expression
@@ -183,9 +174,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                            Coordinates2D nearCoordinates,
                            double? maxDistance = null,
                            double? minDistance = null)
-    {
-        return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-    }
+        => Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
 
     /// <summary>
     /// Specify the matching criteria with a JSON string
@@ -445,8 +434,8 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         {
             var bulkWriteResult = await (
                                             _session == null
-                                                ? DB.Collection<T>().BulkWriteAsync(_models, null, cancellation)
-                                                : DB.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
+                                                ? _db.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : _db.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
             _models.Clear();
@@ -511,12 +500,12 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                      .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    static Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter,
-                                          UpdateDefinition<T> definition,
-                                          UpdateOptions options,
-                                          IClientSessionHandle? session = null,
-                                          CancellationToken cancellation = default)
+    Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter,
+                                   UpdateDefinition<T> definition,
+                                   UpdateOptions options,
+                                   IClientSessionHandle? session = null,
+                                   CancellationToken cancellation = default)
         => session == null
-               ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
-               : DB.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
+               ? _db.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
+               : _db.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
 }

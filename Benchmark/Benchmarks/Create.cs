@@ -13,7 +13,7 @@ public class CreateOne : BenchBase
 {
     [Benchmark]
     public override Task MongoDB_Entities()
-        => DB.SaveAsync(new Author
+        => DB.Default.SaveAsync(new Author
         {
             FirstName = "test",
             LastName = "test",
@@ -53,7 +53,7 @@ public class CreateBulk : BenchBase
     public override Task MongoDB_Entities()
     {
         foreach (var author in list) author.ID = null!;
-        return DB.SaveAsync(list);
+        return DB.Default.SaveAsync(list);
     }
 
     [Benchmark(Baseline = true)]

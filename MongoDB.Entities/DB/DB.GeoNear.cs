@@ -6,7 +6,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.
@@ -23,7 +23,7 @@ public static partial class DB
     /// <param name="IndexKey"></param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates,
+    public IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates,
                                                        Expression<Func<T, object?>>? DistanceField,
                                                        bool Spherical = true,
                                                        double? MaxDistance = null,
@@ -48,5 +48,5 @@ public static partial class DB
                 includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey
             }
-            .ToFluent(options, session);
+            .ToFluent(this, options, session);
 }

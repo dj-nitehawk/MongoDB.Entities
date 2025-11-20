@@ -1,30 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
 public class CountingEntity
 {
-    DBContext db;
+    DBContext _db;
 
     Task Init(string guid)
     {
-        db = new MyDBEntity();
+        _db = new MyDBEntity();
 
         var list = new List<AuthorEntity>();
 
         for (var i = 1; i <= 25; i++)
-        {
             list.Add(new() { Name = guid, Age = 111 });
-        }
 
         for (var i = 1; i <= 10; i++)
-        {
             list.Add(new() { Name = guid, Age = 222 });
-        }
 
         return list.SaveAsync();
     }
@@ -35,7 +31,7 @@ public class CountingEntity
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountEstimatedAsync<AuthorEntity>();
+        var count = await _db.CountEstimatedAsync<AuthorEntity>();
 
         Assert.IsTrue(count > 0);
     }
@@ -46,7 +42,7 @@ public class CountingEntity
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountAsync<AuthorEntity>(a => a.Name == guid);
+        var count = await _db.CountAsync<AuthorEntity>(a => a.Name == guid);
 
         Assert.AreEqual(25, count);
     }
@@ -57,7 +53,7 @@ public class CountingEntity
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountAsync<AuthorEntity>(a => a.Name == guid);
+        var count = await _db.CountAsync<AuthorEntity>(a => a.Name == guid);
 
         Assert.AreEqual(25, count);
     }
@@ -68,10 +64,10 @@ public class CountingEntity
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var filter = DB.Filter<AuthorEntity>()
-                        .Eq(a => a.Name, guid);
+        var filter = DB.Default.Filter<AuthorEntity>()
+                       .Eq(a => a.Name, guid);
 
-        var count = await db.CountAsync(filter);
+        var count = await _db.CountAsync(filter);
 
         Assert.AreEqual(25, count);
     }
@@ -82,7 +78,7 @@ public class CountingEntity
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountAsync<AuthorEntity>(b => b.Eq(a => a.Name, guid));
+        var count = await _db.CountAsync<AuthorEntity>(b => b.Eq(a => a.Name, guid));
 
         Assert.AreEqual(25, count);
     }

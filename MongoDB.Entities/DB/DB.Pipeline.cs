@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object and returns a cursor
@@ -18,7 +18,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template,
+    public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template,
                                                                               AggregateOptions? options = null,
                                                                               IClientSessionHandle? session = null,
                                                                               CancellationToken cancellation = default) where T : IEntity
@@ -35,7 +35,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template,
+    public async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template,
                                                                       AggregateOptions? options = null,
                                                                       IClientSessionHandle? session = null,
                                                                       CancellationToken cancellation = default) where T : IEntity
@@ -59,7 +59,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template,
+    public async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template,
                                                                       AggregateOptions? options = null,
                                                                       IClientSessionHandle? session = null,
                                                                       CancellationToken cancellation = default) where T : IEntity
@@ -82,7 +82,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template,
+    public async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template,
                                                                      AggregateOptions? options = null,
                                                                      IClientSessionHandle? session = null,
                                                                      CancellationToken cancellation = default) where T : IEntity

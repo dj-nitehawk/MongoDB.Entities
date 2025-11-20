@@ -17,14 +17,9 @@ namespace MongoDB.Entities;
 /// </summary>
 public static partial class Extensions
 {
-    class Holder<T>
+    class Holder<T>(T data)
     {
-        public T Data { get; }
-
-        public Holder(T data)
-        {
-            Data = data;
-        }
+        public T Data { get; } = data;
     }
 
     static T Duplicate<T>(this T source)
@@ -32,7 +27,7 @@ public static partial class Extensions
 
     internal static void ThrowIfUnsaved(this object? entityID)
     {
-        if (entityID == default)
+        if (entityID == null)
             throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
@@ -75,27 +70,40 @@ public static partial class Extensions
     public static string FullPath<T>(this Expression<Func<T, object?>> expression)
         => Prop.Path(expression);
 
-    /// <summary>
-    /// An IQueryable collection of sibling Entities.
-    /// </summary>
-    public static IQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
-        => DB.Queryable<T>(options);
-
-    /// <summary>
-    /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
-    /// </summary>
-    public static T ToDocument<T>(this T entity) where T : IEntity
+    extension<T>(T _) where T : IEntity
     {
-        var res = entity.Duplicate();
-        res.SetId(res.GenerateNewID());
+        /// <summary>
+        /// An IQueryable collection of sibling Entities.
+        /// </summary>
+        /// <param name="db">The DB instance to use for this operation</param>
+        /// <param name="options"></param>
+        public IQueryable<T> Queryable(DB? db = null, AggregateOptions? options = null)
+            => DB.InstanceOrDefault(db).Queryable<T>(options);
 
-        return res;
+        /// <summary>
+        /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
+        /// </summary>
+        public T ToDocument(DB? dbInstance = null)
+        {
+            var res = _.Duplicate();
+            res.SetId(res.GenerateNewID());
+
+            return res;
+        }
+
+        /// <summary>
+        /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
+        /// </summary>
+        /// <param name="db">The DB instance to use for this operation</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<ulong> NextSequentialNumberAsync(DB? db = null, CancellationToken cancellation = default)
+            => DB.InstanceOrDefault(db).NextSequentialNumberAsync<T>(cancellation);
     }
 
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
-    public static T[] ToDocuments<T>(this T[] entities) where T : IEntity
+    public static T[] ToDocuments<T>(this T[] entities, DB? dbInstance = null) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
@@ -107,7 +115,7 @@ public static partial class Extensions
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
-    public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : IEntity
+    public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities, DB? dbInstance = null) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
@@ -124,10 +132,7 @@ public static partial class Extensions
     /// <param name="searchTerm">The term to measure relevance to</param>
     /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched against the value of this property]</param>
     /// <param name="maxDistance">The maximum levenstein distance to qualify an item for inclusion in the returned list</param>
-    public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects,
-                                                    string searchTerm,
-                                                    Func<T, string> propertyToSortBy,
-                                                    int? maxDistance = null)
+    public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy, int? maxDistance = null)
     {
         var lev = new Levenshtein(searchTerm);
 
@@ -168,12 +173,4 @@ public static partial class Extensions
             return sb.ToString().Normalize(NormalizationForm.FormC);
         }
     }
-
-    /// <summary>
-    /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
-    /// </summary>
-    /// <param name="_"></param>
-    /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
-        => DB.NextSequentialNumberAsync<T>(cancellation);
 }

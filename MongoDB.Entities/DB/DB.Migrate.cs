@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Discover and run migrations from the same assembly as the specified type.
     /// </summary>
     /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
-    public static Task MigrateAsync<T>() where T : class
+    public Task MigrateAsync<T>() where T : class
         => Migrate(typeof(T));
 
     /// <summary>
@@ -25,17 +25,17 @@ public static partial class DB
     /// Call this method at the startup of the application in order to run the migrations.
     /// </para>
     /// </summary>
-    public static Task MigrateAsync()
+    public Task MigrateAsync()
         => Migrate(null);
 
     /// <summary>
     /// Executes the given collection of IMigrations in the correct order to transform the database.
     /// </summary>
     /// <param name="migrations">The collection of migrations to execute</param>
-    public static Task MigrationsAsync(IEnumerable<IMigration> migrations)
+    public Task MigrationsAsync(IEnumerable<IMigration> migrations)
         => Execute(migrations);
 
-    static Task Migrate(Type? targetType)
+    Task Migrate(Type? targetType)
     {
         IEnumerable<Assembly> assemblies;
 
@@ -79,7 +79,7 @@ public static partial class DB
                            }));
     }
 
-    static async Task Execute(IEnumerable<IMigration> migrations)
+    async Task Execute(IEnumerable<IMigration> migrations)
     {
         var lastMigNum = await Find<Migration, int>()
                                .Sort(m => m.Number, Order.Descending)

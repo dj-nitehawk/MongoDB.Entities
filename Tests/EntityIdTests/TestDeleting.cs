@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
-using MongoDB.Driver.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 
 namespace MongoDB.Entities.Tests;
 
@@ -22,12 +22,12 @@ public class DeletingEntity
         await author2.DeleteAsync();
 
         var a1 = await author1.Queryable()
-                         .Where(a => a.ID == author1.ID)
-                         .SingleOrDefaultAsync();
+                              .Where(a => a.ID == author1.ID)
+                              .SingleOrDefaultAsync();
 
         var a2 = await author2.Queryable()
-                          .Where(a => a.ID == author2.ID)
-                          .SingleOrDefaultAsync();
+                              .Where(a => a.ID == author2.ID)
+                              .SingleOrDefaultAsync();
 
         Assert.AreEqual(null, a2);
         Assert.AreEqual(author1.Name, a1.Name);
@@ -60,11 +60,14 @@ public class DeletingEntity
     [TestMethod]
     public async Task deleteall_removes_entity_and_refs_to_itselfAsync()
     {
-        var book = new BookEntity { Title = "Test" }; await book.SaveAsync();
-        var author1 = new AuthorEntity { Name = "ewtrcd1" }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "ewtrcd2" }; await author2.SaveAsync();
+        var book = new BookEntity { Title = "Test" };
+        await book.SaveAsync();
+        var author1 = new AuthorEntity { Name = "ewtrcd1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "ewtrcd2" };
+        await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new[] { author1, author2 });
+        book.OtherAuthors = new[] { author1, author2 };
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -74,8 +77,10 @@ public class DeletingEntity
     [TestMethod]
     public async Task deleting_a_one2many_ref_entity_makes_parent_nullAsync()
     {
-        var book = new BookEntity { Title = "Test" }; await book.SaveAsync();
-        var author = new AuthorEntity { Name = "ewtrcd1" }; await author.SaveAsync();
+        var book = new BookEntity { Title = "Test" };
+        await book.SaveAsync();
+        var author = new AuthorEntity { Name = "ewtrcd1" };
+        await author.SaveAsync();
         book.MainAuthor = author.ToReference();
         await book.SaveAsync();
         await author.DeleteAsync();
@@ -85,13 +90,17 @@ public class DeletingEntity
     [TestMethod]
     public async Task delete_by_expression_deletes_all_matchesAsync()
     {
-        var author1 = new AuthorEntity { Name = "xxx" }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "xxx" }; await author2.SaveAsync();
+        var author1 = new AuthorEntity { Name = "xxx" };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "xxx" };
+        await author2.SaveAsync();
 
-        await DB.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
+        var db = DB.Default;
 
-        var count = await DB.Queryable<AuthorEntity>()
-                      .CountAsync(a => a.Name == "xxx");
+        await db.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
+
+        var count = await db.Queryable<AuthorEntity>()
+                            .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
     }
@@ -102,42 +111,39 @@ public class DeletingEntity
         var IDs = new List<string>(100100);
 
         for (var i = 0; i < 100100; i++)
-        {
             IDs.Add(ObjectId.GenerateNewId().ToString()!);
-        }
 
-        await DB.DeleteAsync<Blank>(IDs);
+        await DB.Default.DeleteAsync<Blank>(IDs);
     }
 
-    [TestCategory("SkipWhenLiveUnitTesting")]
-    [TestMethod]
+    [TestCategory("SkipWhenLiveUnitTesting"), TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
+        var db = DB.Default;
+
         //start with clean collection
-        await DB.DropCollectionAsync<Blank>();
+        await db.DropCollectionAsync<Blank>();
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
-        {
             list.Add(new());
-        }
         await list.SaveAsync();
 
-        Assert.AreEqual(100100, DB.Queryable<Blank>().Count());
+        Assert.AreEqual(100100, db.Queryable<Blank>().Count());
 
-        await DB.DeleteAsync<Blank>(_ => true);
+        await db.DeleteAsync<Blank>(_ => true);
 
-        Assert.AreEqual(0, await DB.CountAsync<Blank>());
+        Assert.AreEqual(0, await db.CountAsync<Blank>());
 
         //reclaim disk space
-        await DB.DropCollectionAsync<Blank>();
-        await DB.SaveAsync(new Blank());
+        await db.DropCollectionAsync<Blank>();
+        await db.SaveAsync(new Blank());
     }
 
     [TestMethod]
     public async Task delete_by_ids_with_global_filter()
     {
-        var db = new MyDBEntity();
+        var dbEntity = new MyDBEntity();
 
         var a1 = new AuthorEntity { Age = 10 };
         var a2 = new AuthorEntity { Age = 111 };
@@ -147,8 +153,11 @@ public class DeletingEntity
 
         var IDs = new[] { a1.ID, a2.ID, a3.ID };
 
-        var res = await db.DeleteAsync<AuthorEntity>(IDs);
-        var notDeletedIDs = await DB.Find<AuthorEntity, string>()
+        var res = await dbEntity.DeleteAsync<AuthorEntity>(IDs);
+
+        var db = DB.Default;
+
+        var notDeletedIDs = await db.Find<AuthorEntity, string>()
                                     .Match(a => IDs.Contains(a.ID))
                                     .Project(a => a.ID)
                                     .ExecuteAsync();

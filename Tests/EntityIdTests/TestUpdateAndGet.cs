@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -19,7 +19,7 @@ public class UpdateAndGetEntity
         var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorEntity, string>()
+        var res = await DB.Default.UpdateAndGet<AuthorEntity, string>()
                           .Match(a => a.Surname == guid)
                           .Modify(a => a.Name, guid)
                           .Modify(a => a.Surname, author1.Name)
@@ -41,7 +41,7 @@ public class UpdateAndGetEntity
         var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid, Age = 1 };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorEntity>()
+        var res = await DB.Default.UpdateAndGet<AuthorEntity>()
                           .Match(a => a.Surname == guid)
                           .Modify(b => b.Inc(a => a.Age, 1))
                           .Modify(b => b.Set(a => a.Name, guid))
@@ -70,7 +70,7 @@ public class UpdateAndGetEntity
                        .Path(a => a.Surname)
                        .Path(a => a.Age);
 
-        var res = await DB.UpdateAndGet<AuthorEntity>()
+        var res = await DB.Default.UpdateAndGet<AuthorEntity>()
                           .Match(a => a.ID == author.ID)
                           .WithPipeline(pipeline)
                           .ExecutePipelineAsync();
@@ -92,7 +92,7 @@ public class UpdateAndGetEntity
                     .Path(a => a.Surname)
                     .RenderToString();
 
-        var res = await DB.UpdateAndGet<AuthorEntity>()
+        var res = await DB.Default.UpdateAndGet<AuthorEntity>()
                           .Match(a => a.ID == author.ID)
                           .WithPipelineStage(stage)
                           .ExecutePipelineAsync();
@@ -150,7 +150,7 @@ public class UpdateAndGetEntity
                      .Tag("age", "321")
                      .Tag("value", "updated");
 
-        var res = await DB.UpdateAndGet<BookEntity>()
+        var res = await DB.Default.UpdateAndGet<BookEntity>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilters(filters)
                           .Modify(update)
@@ -199,7 +199,7 @@ public class UpdateAndGetEntity
         var filt2 = Prop.Elements<AuthorEntity>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookEntity>(b => b.OtherAuthors[1].Name);
 
-        var res = await DB.UpdateAndGet<BookEntity>()
+        var res = await DB.Default.UpdateAndGet<BookEntity>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilter(arrFil)
                           .Modify(prop1)
@@ -217,7 +217,7 @@ public class UpdateAndGetEntity
 
         var lastNum = await book.NextSequentialNumberAsync();
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => await book.NextSequentialNumberAsync(ct));
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => await book.NextSequentialNumberAsync(null, ct));
 
         Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
@@ -235,7 +235,7 @@ public class UpdateAndGetEntity
             Enumerable.Range(0, 10),
             async (_, ct) =>
             {
-                await book.NextSequentialNumberAsync(ct);
+                await book.NextSequentialNumberAsync(null, ct);
             });
 
         Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);

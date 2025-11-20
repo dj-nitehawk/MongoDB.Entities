@@ -20,7 +20,7 @@ public abstract class Entity : IEntity
     public virtual object GenerateNewID()
         => ObjectId.GenerateNewId().ToString()!;
 
-    /// <inheritdoc />
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
     public virtual bool HasDefaultID()
         => string.IsNullOrEmpty(ID);
 }

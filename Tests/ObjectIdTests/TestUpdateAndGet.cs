@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -18,7 +18,7 @@ public class UpdateAndGetObjectId
         var author3 = new AuthorObjectId { Name = "bumcda3", Surname = guid };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorObjectId, string>()
+        var res = await DB.Default.UpdateAndGet<AuthorObjectId, string>()
                           .Match(a => a.Surname == guid)
                           .Modify(a => a.Name, guid)
                           .Modify(a => a.Surname, author1.Name)
@@ -40,7 +40,7 @@ public class UpdateAndGetObjectId
         var author3 = new AuthorObjectId { Name = "bumcda3", Surname = guid, Age = 1 };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorObjectId>()
+        var res = await DB.Default.UpdateAndGet<AuthorObjectId>()
                           .Match(a => a.Surname == guid)
                           .Modify(b => b.Inc(a => a.Age, 1))
                           .Modify(b => b.Set(a => a.Name, guid))
@@ -69,7 +69,7 @@ public class UpdateAndGetObjectId
                        .Path(a => a.Surname)
                        .Path(a => a.Age);
 
-        var res = await DB.UpdateAndGet<AuthorObjectId>()
+        var res = await DB.Default.UpdateAndGet<AuthorObjectId>()
                           .Match(a => a.ID == author.ID)
                           .WithPipeline(pipeline)
                           .ExecutePipelineAsync();
@@ -91,7 +91,7 @@ public class UpdateAndGetObjectId
                     .Path(a => a.Surname)
                     .RenderToString();
 
-        var res = await DB.UpdateAndGet<AuthorObjectId>()
+        var res = await DB.Default.UpdateAndGet<AuthorObjectId>()
                           .Match(a => a.ID == author.ID)
                           .WithPipelineStage(stage)
                           .ExecutePipelineAsync();
@@ -149,7 +149,7 @@ public class UpdateAndGetObjectId
                      .Tag("age", "321")
                      .Tag("value", "updated");
 
-        var res = await DB.UpdateAndGet<BookObjectId>()
+        var res = await DB.Default.UpdateAndGet<BookObjectId>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilters(filters)
                           .Modify(update)
@@ -198,7 +198,7 @@ public class UpdateAndGetObjectId
         var filt2 = Prop.Elements<AuthorObjectId>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookObjectId>(b => b.OtherAuthors[1].Name);
 
-        var res = await DB.UpdateAndGet<BookObjectId>()
+        var res = await DB.Default.UpdateAndGet<BookObjectId>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilter(arrFil)
                           .Modify(prop1)

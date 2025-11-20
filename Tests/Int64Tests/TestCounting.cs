@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -68,7 +68,7 @@ public class CountingInt64
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var filter = DB.Filter<AuthorInt64>()
+        var filter = DB.Default.Filter<AuthorInt64>()
                         .Eq(a => a.Name, guid);
 
         var count = await db.CountAsync(filter);

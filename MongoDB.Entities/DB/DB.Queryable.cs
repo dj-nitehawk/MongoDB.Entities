@@ -4,7 +4,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
@@ -12,7 +12,7 @@ public static partial class DB
     /// <param name="options">The aggregate options</param>
     /// <param name="session">An optional session if used within a transaction</param>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static IQueryable<T> Queryable<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
+    public IQueryable<T> Queryable<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
         => session == null
                ? Collection<T>().AsQueryable(options)
                : Collection<T>().AsQueryable(session, options);

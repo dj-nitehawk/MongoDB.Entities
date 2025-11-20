@@ -15,7 +15,7 @@ public class FindOne : BenchBase
 
     public FindOne()
     {
-        DB.Index<Author>()
+        DB.Default.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -24,10 +24,11 @@ public class FindOne : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new()
-            {
-                FirstName = i == 500 ? guid : "test",
-            });
+            list.Add(
+                new()
+                {
+                    FirstName = i == 500 ? guid : "test"
+                });
         }
         list.SaveAsync().GetAwaiter().GetResult();
     }
@@ -35,10 +36,9 @@ public class FindOne : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB
-            .Find<Author>()
-            .Match(x => x.FirstName == guid)
-            .ExecuteAsync();
+        return DB.Default.Find<Author>()
+                 .Match(x => x.FirstName == guid)
+                 .ExecuteAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -57,7 +57,7 @@ public class Find100 : BenchBase
 
     public Find100()
     {
-        DB.Index<Author>()
+        DB.Default.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -66,10 +66,11 @@ public class Find100 : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new()
-            {
-                FirstName = i is > 500 and <= 600 ? guid : "test",
-            });
+            list.Add(
+                new()
+                {
+                    FirstName = i is > 500 and <= 600 ? guid : "test"
+                });
         }
         list.SaveAsync().GetAwaiter().GetResult();
     }
@@ -77,10 +78,10 @@ public class Find100 : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB
-            .Find<Author>()
-            .Match(x => x.FirstName == guid)
-            .ExecuteAsync();
+        return DB.Default
+                 .Find<Author>()
+                 .Match(x => x.FirstName == guid)
+                 .ExecuteAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -99,7 +100,7 @@ public class FindFirst : BenchBase
 
     public FindFirst()
     {
-        DB.Index<Author>()
+        DB.Default.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -108,10 +109,11 @@ public class FindFirst : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new()
-            {
-                FirstName = i is > 500 and <= 600 ? guid : "test",
-            });
+            list.Add(
+                new()
+                {
+                    FirstName = i is > 500 and <= 600 ? guid : "test"
+                });
         }
         list.SaveAsync().GetAwaiter().GetResult();
     }
@@ -119,10 +121,10 @@ public class FindFirst : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB
-            .Find<Author>()
-            .Match(x => x.FirstName == guid)
-            .ExecuteFirstAsync();
+        return DB.Default
+                 .Find<Author>()
+                 .Match(x => x.FirstName == guid)
+                 .ExecuteFirstAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -141,7 +143,7 @@ public class FindAny : BenchBase
 
     public FindAny()
     {
-        DB.Index<Author>()
+        DB.Default.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -150,10 +152,11 @@ public class FindAny : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new()
-            {
-                FirstName = i is > 500 and <= 600 ? guid : "test",
-            });
+            list.Add(
+                new()
+                {
+                    FirstName = i is > 500 and <= 600 ? guid : "test"
+                });
         }
         list.SaveAsync().GetAwaiter().GetResult();
     }
@@ -161,10 +164,10 @@ public class FindAny : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB
-            .Find<Author>()
-            .Match(x => x.FirstName == guid)
-            .ExecuteAnyAsync();
+        return DB.Default
+                 .Find<Author>()
+                 .Match(x => x.FirstName == guid)
+                 .ExecuteAnyAsync();
     }
 
     [Benchmark(Baseline = true)]
@@ -183,7 +186,7 @@ public class FindSingle : BenchBase
 
     public FindSingle()
     {
-        DB.Index<Author>()
+        DB.Default.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -192,10 +195,11 @@ public class FindSingle : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new()
-            {
-                FirstName = i == 500 ? guid : "test",
-            });
+            list.Add(
+                new()
+                {
+                    FirstName = i == 500 ? guid : "test"
+                });
         }
         list.SaveAsync().GetAwaiter().GetResult();
     }
@@ -203,10 +207,10 @@ public class FindSingle : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB
-            .Find<Author>()
-            .Match(x => x.FirstName == guid)
-            .ExecuteSingleAsync();
+        return DB.Default
+                 .Find<Author>()
+                 .Match(x => x.FirstName == guid)
+                 .ExecuteSingleAsync();
     }
 
     [Benchmark(Baseline = true)]

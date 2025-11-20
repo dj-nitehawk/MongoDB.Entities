@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <AssemblyName>MongoDB.Entities.Tests</AssemblyName>
         <RootNamespace>MongoDB.Entities.Tests</RootNamespace>
@@ -10,11 +10,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Medo.Uuid7" Version="3.0.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
-        <PackageReference Include="MSTest.TestAdapter" Version="3.8.0"/>
-        <PackageReference Include="MSTest.TestFramework" Version="3.8.0"/>
-        <PackageReference Include="Testcontainers.MongoDb" Version="4.2.0"/>
+        <PackageReference Include="Medo.Uuid7" Version="3.1.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1"/>
+        <PackageReference Include="MSTest.TestAdapter" Version="4.0.2"/>
+        <PackageReference Include="MSTest.TestFramework" Version="4.0.2"/>
+        <PackageReference Include="Testcontainers.MongoDb" Version="4.8.1"/>
         <PackageReference Include="coverlet.collector" Version="6.0.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

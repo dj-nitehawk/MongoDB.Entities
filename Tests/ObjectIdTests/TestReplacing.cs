@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MongoDB.Entities.Tests;
 
@@ -14,13 +14,13 @@ public class ReplaceObjectId
 
         book.Title = "updated title";
 
-        await DB.Replace<BookObjectId>()
+        await DB.Default.Replace<BookObjectId>()
             .MatchID(book.ID)
             .Match(b => b.Title == "book title")
             .WithEntity(book)
             .ExecuteAsync();
 
-        var res = await DB.Find<BookObjectId>().OneAsync(book.ID);
+        var res = await DB.Default.Find<BookObjectId>().OneAsync(book.ID);
 
         Assert.AreEqual(book.Title, res!.Title);
     }
@@ -33,7 +33,7 @@ public class ReplaceObjectId
         var books = new[] { book1, book2 };
         await books.SaveAsync();
 
-        var cmd = DB.Replace<BookObjectId>();
+        var cmd = DB.Default.Replace<BookObjectId>();
 
         foreach (var book in books)
         {
@@ -45,8 +45,8 @@ public class ReplaceObjectId
 
         await cmd.ExecuteAsync();
 
-        var res1 = await DB.Find<BookObjectId>().OneAsync(book1.ID);
-        var res2 = await DB.Find<BookObjectId>().OneAsync(book2.ID);
+        var res1 = await DB.Default.Find<BookObjectId>().OneAsync(book1.ID);
+        var res2 = await DB.Default.Find<BookObjectId>().OneAsync(book2.ID);
 
         Assert.AreEqual(book1.ID.ToString(), res1!.Title);
         Assert.AreEqual(book2.ID.ToString(), res2!.Title);

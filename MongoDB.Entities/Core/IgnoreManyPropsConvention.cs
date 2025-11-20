@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Conventions;
 
 namespace MongoDB.Entities;
 
-class IgnoreManyPropsConvention : ConventionBase, IMemberMapConvention
+sealed class IgnoreManyPropsConvention : ConventionBase, IMemberMapConvention
 {
     public void Apply(BsonMemberMap mMap)
     {

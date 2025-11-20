@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using MongoDB.Entities.Tests.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
@@ -161,7 +161,7 @@ public class RelationshipsObjectId
         await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
         await book.GoodAuthors.AddAsync(author2);
-        var remAuthor = await DB.Queryable<AuthorObjectId>()
+        var remAuthor = await DB.Default.Queryable<AuthorObjectId>()
                                 .Where(a => a.ID == author2.ID)
                                 .SingleAsync();
         await book.GoodAuthors.RemoveAsync(remAuthor);
@@ -191,7 +191,7 @@ public class RelationshipsObjectId
     public void accessing_coll_shortcut_on_unsaved_parent_throws()
     {
         var book = new BookObjectId { Title = "acsoupt" };
-        Assert.ThrowsException<InvalidOperationException>(() => book.GoodAuthors.ChildrenQueryable().Count());
+        Assert.ThrowsExactly<InvalidOperationException>(() => book.GoodAuthors.ChildrenQueryable().Count());
     }
 
     [TestMethod]
@@ -234,7 +234,7 @@ public class RelationshipsObjectId
         await book1.Genres.AddAsync(gen1);
         await book1.Genres.AddAsync(gen2);
         await book1.Genres.AddAsync(gen1);
-        Assert.AreEqual(2, DB.Queryable<BookObjectId>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
+        Assert.AreEqual(2, DB.Default.Queryable<BookObjectId>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
         Assert.AreEqual(gen1.Name, book1.Genres.ChildrenQueryable().First().Name);
 
         await gen1.Books.AddAsync(book1);

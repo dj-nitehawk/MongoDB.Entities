@@ -39,7 +39,7 @@ public class Template : BenchBase
           .Path(b => b.Author.ID)
           .PathOfResult(a => a.Age);
 
-        return DB.PipelineAsync(pipeline);
+        return DB.Default.PipelineAsync(pipeline);
     }
 
     [Benchmark]
@@ -76,7 +76,7 @@ public class Template : BenchBase
             .Path(b => b.Author.ID)
             .PathOfResult(a => a.Age);
 
-        return DB.PipelineAsync(pipeline);
+        return DB.Default.PipelineAsync(pipeline);
     }
 
     [Benchmark(Baseline = true)]

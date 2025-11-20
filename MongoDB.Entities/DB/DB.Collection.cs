@@ -7,9 +7,9 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
-    internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
+    internal IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         => Database<T>().GetCollection<JoinRecord>(name);
 
     /// <summary>
@@ -17,14 +17,14 @@ public static partial class DB
     /// <para>TIP: Try never to use this unless really necessary.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static IMongoCollection<T> Collection<T>() where T : IEntity
-        => Cache<T>.Collection;
+    public IMongoCollection<T> Collection<T>() where T : IEntity
+        => _mongoDatabase.GetCollection<T>(Cache<T>.CollectionName);
 
     /// <summary>
     /// Gets the collection name for a given entity type
     /// </summary>
     /// <typeparam name="T">The type of entity to get the collection name for</typeparam>
-    public static string CollectionName<T>() where T : IEntity
+    public string CollectionName<T>() where T : IEntity
         => Cache<T>.CollectionName;
 
     /// <summary>
@@ -34,16 +34,16 @@ public static partial class DB
     /// <param name="options">The options to use for collection creation</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options,
-                                                CancellationToken cancellation = default,
-                                                IClientSessionHandle? session = null) where T : IEntity
+    public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options,
+                                         CancellationToken cancellation = default,
+                                         IClientSessionHandle? session = null) where T : IEntity
     {
         var opts = new CreateCollectionOptions<T>();
         options(opts);
 
         return session == null
-                   ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
-                   : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
+                   ? _mongoDatabase.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                   : _mongoDatabase.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">The entity type to drop the collection of</typeparam>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static async Task DropCollectionAsync<T>(IClientSessionHandle? session = null) where T : IEntity
+    public async Task DropCollectionAsync<T>(IClientSessionHandle? session = null) where T : IEntity
     {
         var tasks = new List<Task>();
         var db = Database<T>();

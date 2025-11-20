@@ -14,11 +14,23 @@ public abstract class BenchBase
 
     static BenchBase()
     {
-        DB.InitAsync(DBName).GetAwaiter().GetResult();
-        DB.Database(DBName).Client.DropDatabase(DBName);
-        Database = DB.Database(default);
-        AuthorCollection = DB.Collection<Author>();
-        BookCollection = DB.Collection<Book>();
+        var useTestContainers = Environment.GetEnvironmentVariable("MONGODB_ENTITIES_TESTCONTAINERS") != null;
+
+        if (useTestContainers)
+        {
+            var testContainer = TestDatabase.CreateDatabase().GetAwaiter().GetResult();
+            var clientSettings = MongoClientSettings.FromConnectionString(testContainer.GetConnectionString());
+            DB.InitAsync(DBName, clientSettings).GetAwaiter().GetResult();
+        }
+        else
+            DB.InitAsync(DBName).GetAwaiter().GetResult();
+
+        var dbInstance = DB.Default;
+
+        dbInstance.Database().Client.DropDatabase(DBName);
+        Database = dbInstance.Database();
+        AuthorCollection = dbInstance.Collection<Author>();
+        BookCollection = dbInstance.Collection<Book>();
 
         Console.WriteLine();
         Console.WriteLine("SEEDING DATA...");

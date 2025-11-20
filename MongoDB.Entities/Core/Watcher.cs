@@ -14,11 +14,14 @@ public delegate Task AsyncEventHandler<in TEventArgs>(TEventArgs args);
 
 public static class AsyncEventHandlerExtensions
 {
-    public static IEnumerable<AsyncEventHandler<TEventArgs>> GetHandlers<TEventArgs>(this AsyncEventHandler<TEventArgs> handler)
-        => handler.GetInvocationList().Cast<AsyncEventHandler<TEventArgs>>();
+    extension<TEventArgs>(AsyncEventHandler<TEventArgs> handler)
+    {
+        public IEnumerable<AsyncEventHandler<TEventArgs>> GetHandlers()
+            => handler.GetInvocationList().Cast<AsyncEventHandler<TEventArgs>>();
 
-    public static Task InvokeAllAsync<TEventArgs>(this AsyncEventHandler<TEventArgs> handler, TEventArgs args)
-        => Task.WhenAll(handler.GetHandlers().Select(h => h(args)));
+        public Task InvokeAllAsync(TEventArgs args)
+            => Task.WhenAll(handler.GetHandlers().Select(h => h(args)));
+    }
 }
 
 /// <summary>
@@ -84,9 +87,11 @@ public class Watcher<T> where T : IEntity
     ChangeStreamOptions? _options;
     bool _resume;
     CancellationToken _cancelToken;
+    readonly DB _db;
 
-    internal Watcher(string name)
+    internal Watcher(DB db, string name)
     {
+        _db = db;
         Name = name;
     }
 
@@ -379,11 +384,11 @@ public class Watcher<T> where T : IEntity
 
     void StartWatching()
     {
-        //note  : don't use Task.Factory.StartNew with long running option
+        //note  : don't use Task.Factory.StartNew with long-running option
         //reason: http://blog.i3arnon.com/2015/07/02/task-run-long-running/
         //        StartNew creates an unnecessary dedicated thread which gets released upon reaching first await.
         //        continuations will be run on different thread-pool threads upon re-entry.
-        //        i.e. long running thread creation is useless/wasteful for async delegates.
+        //        i.e. long-running thread creation is useless/wasteful for async delegates.
 
         _ = IterateCursorAsync();
 
@@ -391,7 +396,7 @@ public class Watcher<T> where T : IEntity
         {
             try
             {
-                using var cursor = await DB.Collection<T>().WatchAsync(_pipeline, _options, _cancelToken).ConfigureAwait(false);
+                using var cursor = await _db.Collection<T>().WatchAsync(_pipeline, _options, _cancelToken).ConfigureAwait(false);
 
                 while (!_cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(_cancelToken).ConfigureAwait(false))
                 {

@@ -9,10 +9,10 @@ namespace MongoDB.Entities;
 
 /// <summary>
 /// Represents an index creation command
-/// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
+/// <para>TIP: Define the keys first with .Key() method and finally call the .InitAsync() method.</para>
 /// </summary>
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
-public class Index<T> where T : IEntity
+public class Index<T>(DB db) where T : IEntity
 {
     internal List<Key<T>> Keys { get; set; } = [];
     readonly CreateIndexOptions<T> _options = new() { Background = true };
@@ -79,9 +79,7 @@ public class Index<T> where T : IEntity
         if (string.IsNullOrEmpty(_options.Name))
             _options.Name = isTextIndex ? "[TEXT]" : string.Join(" | ", propNames);
 
-        var model = new CreateIndexModel<T>(
-            Builders<T>.IndexKeys.Combine(keyDefs),
-            _options);
+        var model = new CreateIndexModel<T>(Builders<T>.IndexKeys.Combine(keyDefs), _options);
 
         try
         {
@@ -128,7 +126,7 @@ public class Index<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task DropAsync(string name, CancellationToken cancellation = default)
     {
-        await DB.Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
+        await db.Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -137,11 +135,11 @@ public class Index<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task DropAllAsync(CancellationToken cancellation = default)
     {
-        await DB.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
+        await db.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
     }
 
-    static Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
-        => DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
+    Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
+        => db.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
 }
 
 class Key<T> where T : IEntity

@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DB
 {
     /// <summary>
     /// Inserts a new entity into the collection.
@@ -16,7 +16,7 @@ public static partial class DB
     /// <param name="entity">The instance to persist</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public static Task InsertAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public Task InsertAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         PrepAndCheckIfInsert(entity);
 
@@ -32,7 +32,7 @@ public static partial class DB
     /// <param name="entities">The entities to persist</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities,
+    public Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities,
                                                           IClientSessionHandle? session = null,
                                                           CancellationToken cancellation = default) where T : IEntity
     {

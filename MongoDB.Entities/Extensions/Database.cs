@@ -8,58 +8,63 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-    /// <summary>
-    /// Gets the IMongoDatabase for the given entity type
-    /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
-    public static IMongoDatabase Database<T>(this T _) where T : IEntity
-        => DB.Database<T>();
-
-    /// <summary>
-    /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
-    /// </summary>
-    public static string DatabaseName<T>(this T _) where T : IEntity
-        => DB.DatabaseName<T>();
-
-    /// <summary>
-    /// Pings the mongodb server to check if it's still connectable
-    /// </summary>
-    /// <param name="db"></param>
-    /// <param name="timeoutSeconds">The number of seconds to keep trying</param>
-    public static async Task<bool> IsAccessibleAsync(this IMongoDatabase db, int timeoutSeconds = 5)
+    extension<T>(T _) where T : IEntity
     {
-        using var cts = new CancellationTokenSource(timeoutSeconds * 1000);
+        /// <summary>
+        /// Gets the IMongoDatabase for the given entity type
+        /// </summary>
+        public IMongoDatabase Database(DB? db = null)
+            => DB.InstanceOrDefault(db).Database<T>();
 
-        try
-        {
-            var res = await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}", null, cts.Token).ConfigureAwait(false);
-
-            return res["ok"] == 1;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
+        /// <summary>
+        /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
+        /// </summary>
+        public string DatabaseName(DB? db = null)
+            => DB.InstanceOrDefault(db).DatabaseName<T>();
     }
 
-    /// <summary>
-    /// Checks to see if the database already exists on the mongodb server
-    /// </summary>
     /// <param name="db"></param>
-    /// <param name="timeoutSeconds">The number of seconds to keep trying</param>
-    public static async Task<bool> ExistsAsync(this IMongoDatabase db, int timeoutSeconds = 5)
+    extension(IMongoDatabase db)
     {
-        using var cts = new CancellationTokenSource(timeoutSeconds * 1000);
-
-        try
+        /// <summary>
+        /// Pings the mongodb server to check if it's still connectable
+        /// </summary>
+        /// <param name="timeoutSeconds">The number of seconds to keep trying</param>
+        public async Task<bool> IsAccessibleAsync(int timeoutSeconds = 5)
         {
-            var dbs = await (await db.Client.ListDatabaseNamesAsync(cts.Token).ConfigureAwait(false)).ToListAsync(cts.Token).ConfigureAwait(false);
+            using var cts = new CancellationTokenSource(timeoutSeconds * 1000);
 
-            return dbs.Contains(db.DatabaseNamespace.DatabaseName);
+            try
+            {
+                var res = await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}", null, cts.Token).ConfigureAwait(false);
+
+                return res["ok"] == 1;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        catch (Exception)
+
+        /// <summary>
+        /// Checks to see if the database already exists on the mongodb server
+        /// </summary>
+        /// <param name="timeoutSeconds">The number of seconds to keep trying</param>
+        public async Task<bool> ExistsAsync(int timeoutSeconds = 5)
         {
-            return false;
+            using var cts = new CancellationTokenSource(timeoutSeconds * 1000);
+
+            try
+            {
+                var dbs = await (await db.Client.ListDatabaseNamesAsync(cts.Token).ConfigureAwait(false)).ToListAsync(cts.Token).ConfigureAwait(false);
+
+                return dbs.Contains(db.DatabaseNamespace.DatabaseName);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

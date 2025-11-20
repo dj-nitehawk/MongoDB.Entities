@@ -5,19 +5,24 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-    /// <summary>
-    /// Gets the IMongoCollection for a given IEntity type.
-    /// <para>TIP: Try never to use this unless really necessary.</para>
-    /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
-        => DB.Collection<T>();
+    extension<T>(T _) where T : IEntity
+    {
+        /// <summary>
+        /// Gets the IMongoCollection for a given IEntity type.
+        /// <para>TIP: Try never to use this unless really necessary.</para>
+        /// </summary>
+        /// <param name="db">The DB instance to use for this operation</param>
+        public IMongoCollection<T> Collection(DB? db = null)
+            => DB.InstanceOrDefault(db).Collection<T>();
 
-    /// <summary>
-    /// Gets the collection name for this entity
-    /// </summary>
-    public static string CollectionName<T>(this T _) where T : IEntity
-        => DB.CollectionName<T>();
+        /// <summary>
+        /// Gets the collection name for this entity
+        /// </summary>
+        /// <param name="db">The DB instance to use for this operation</param>
+        public string CollectionName(DB? db = null)
+            => DB.InstanceOrDefault(db).CollectionName<T>();
+    }
 
     /// <summary>
     /// Drops a join collection

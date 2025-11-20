@@ -14,7 +14,7 @@ namespace MongoDB.Entities;
 /// <summary>
 /// The main entrypoint for all data access methods of the library
 /// </summary>
-public static partial class DB
+public partial class DB
 {
     static DB()
     {
@@ -33,59 +33,87 @@ public static partial class DB
             _ => true);
     }
 
-    internal static IServiceProvider? ServiceProvider { get; private set; }
-    internal static event Action? DefaultDbChanged;
-
-    static readonly ConcurrentDictionary<string, IMongoDatabase> _dbs = new();
-    static IMongoDatabase? _defaultDb;
+    internal IServiceProvider? ServiceProvider { get; private set; }
 
     /// <summary>
-    /// Initializes a MongoDB connection with the given connection parameters.
-    /// <para>WARNING: will throw an error if server is not reachable!</para>
-    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
-    /// duplicated.
+    /// The cached MongoClient instances
     /// </summary>
-    /// <param name="database">Name of the database</param>
-    /// <param name="host">Address of the MongoDB server</param>
-    /// <param name="port">Port number of the server</param>
-    public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
-        => Initialize(new() { Server = new(host, port) }, database);
+    static readonly ConcurrentDictionary<MongoClientSettings, MongoClient> _clients = new();
 
-    /// <summary>
-    /// Initializes a MongoDB connection with the given connection parameters.
-    /// <para>WARNING: will throw an error if server is not reachable!</para>
-    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
-    /// duplicated.
-    /// </summary>
-    /// <param name="database">Name of the database</param>
-    /// <param name="settings">A MongoClientSettings object</param>
-    public static Task InitAsync(string database, MongoClientSettings settings)
-        => Initialize(settings, database);
+    static readonly ConcurrentDictionary<MongoClient, ConcurrentDictionary<string, DB>> _clientInstances = new();
 
-    internal static async Task Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)
+    static MongoClientSettings _defaultClientSettings = null!; // to be set on first InitAsync call
+
+    static DB _defaultInstance = null!; // to be set on first InitAsync call
+
+    readonly IMongoDatabase _mongoDatabase;
+
+    private DB(IMongoDatabase db)
     {
+        _mongoDatabase = db;
+    }
+
+    /// <summary>
+    /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.
+    /// <para>WARNING: will throw an error if server is not reachable!</para>
+    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
+    /// duplicated.
+    /// </summary>
+    /// <param name="dbName">Name of the database</param>
+    /// <param name="clientSettings">A MongoClientSettings object</param>
+    /// <param name="databaseSettings">The database settings to create the database with</param>
+    /// <param name="skipNetworkPing">Should we ping the database</param>
+    /// <returns>DB instance</returns>
+    public static async Task<DB> InitAsync(string dbName,
+                                           MongoClientSettings? clientSettings = null,
+                                           MongoDatabaseSettings? databaseSettings = null,
+                                           bool skipNetworkPing = false)
+    {
+        if (clientSettings == null)
+        {
+            clientSettings = _clients.Count == 0
+                                 ? new() { Server = new("127.0.0.1", 27017) }
+                                 : _defaultClientSettings;
+        }
+
         if (string.IsNullOrEmpty(dbName))
             throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
 
-        if (_dbs.ContainsKey(dbName))
-            return;
-
-        try
+        if (!_clients.TryGetValue(clientSettings, out var client))
         {
-            var db = new MongoClient(settings).GetDatabase(dbName);
+            client = new(clientSettings);
+            _clients.TryAdd(clientSettings, client);
+            _clientInstances.TryAdd(client, new());
 
-            if (_dbs.Count == 0)
-                _defaultDb = db;
-
-            if (_dbs.TryAdd(dbName, db) && !skipNetworkPing)
-                await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
+            if (_clients.Count == 1)
+                _defaultClientSettings = clientSettings;
         }
-        catch (Exception)
+
+        if (!_clientInstances.TryGetValue(client, out var instances))
+            throw new InvalidOperationException("clientInstances is not initialized");
+
+        if (!instances.TryGetValue(dbName, out var db))
         {
-            _dbs.TryRemove(dbName, out _);
+            try
+            {
+                var mongoDatabase = client.GetDatabase(dbName, databaseSettings);
+                db = new(mongoDatabase);
 
-            throw;
+                if (clientSettings == _defaultClientSettings && instances.Count == 0)
+                    _defaultInstance = db;
+
+                if (instances.TryAdd(dbName, db) && !skipNetworkPing)
+                    await mongoDatabase.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                instances.TryRemove(dbName, out _);
+
+                throw;
+            }
         }
+
+        return db;
     }
 
     /// <summary>
@@ -93,62 +121,79 @@ public static partial class DB
     /// </summary>
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
-    public static Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
+    public Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
         => AllDatabaseNamesAsync(new() { Server = new(host, port) });
 
     /// <summary>
     /// Gets a list of all database names from the server
     /// </summary>
     /// <param name="settings">A MongoClientSettings object</param>
-    public static async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
+    public async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
         => await (await new MongoClient(settings).ListDatabaseNamesAsync().ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
-
-    /// <summary>
-    /// Specifies the database that a given entity type should be stored in.
-    /// Only needed for entity types you want stored in a db other than the default db.
-    /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    /// <param name="database">The name of the database</param>
-    public static void DatabaseFor<T>(string database) where T : IEntity
-        => TypeMap.AddDatabaseMapping(typeof(T), Database(database));
 
     /// <summary>
     /// Gets the IMongoDatabase for the given entity type
     /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
-    public static IMongoDatabase Database<T>() where T : IEntity
-        => Cache<T>.Database;
+    public IMongoDatabase Database<T>() where T : IEntity
+        => _mongoDatabase;
 
     /// <summary>
     /// Gets the IMongoDatabase for a given database name if it has been previously initialized.
     /// You can also get the default database by passing 'default' or 'null' for the name parameter.
     /// </summary>
-    /// <param name="name">The name of the database to retrieve</param>
-    public static IMongoDatabase Database(string? name)
-    {
-        IMongoDatabase? db = null;
+    public IMongoDatabase Database()
+        => _mongoDatabase;
 
-        if (_dbs.Count == 0)
+    /// <summary>
+    /// Gets the default DB instance when previously initialized.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown when no databases have been initialized.</exception>
+    public static DB Default => Instance();
+
+    /// <summary>
+    /// Gets the DB instance for a given database name if it has been previously initialized.
+    /// </summary>
+    /// <param name="dbName">The name of the database to retrieve</param>
+    /// <param name="settings">The host we want the instance from</param>
+    public static DB Instance(string? dbName = null, MongoClientSettings? settings = null)
+    {
+        if (settings == null)
         {
-            return db ??
-                   throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+            if (_clients.Count == 0)
+                throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
+
+            settings = _defaultClientSettings;
         }
 
-        if (string.IsNullOrEmpty(name))
-            db = _defaultDb;
-        else
-            _dbs.TryGetValue(name, out db);
+        if (!_clients.TryGetValue(settings, out var client) || !_clientInstances.TryGetValue(client, out var instances))
+            throw new InvalidOperationException("No DB instance has been initialized yet with the given settings. Please call DB.InitAsync() first.");
 
-        return db ??
-               throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+        if (string.IsNullOrEmpty(dbName))
+        {
+            return instances.Count == 0
+                       ? throw new InvalidOperationException("No DB instance has been initialized yet. Please call DB.InitAsync() first.")
+                       : _defaultInstance;
+        }
+
+        instances.TryGetValue(dbName, out var db);
+
+        return db ?? throw new InvalidOperationException($"No DB instance with the dbName '{dbName}' has been initialized yet. Please call DB.InitAsync() first.");
     }
+
+    /// <summary>
+    /// returns the default DB instance if null, otherwise db
+    /// </summary>
+    /// <param name="db">The DB instance to check</param>
+    public static DB InstanceOrDefault(DB? db)
+        => db ?? _defaultInstance;
 
     /// <summary>
     /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static string DatabaseName<T>() where T : IEntity
-        => Cache<T>.DbName;
+    public string DatabaseName<T>() where T : IEntity
+        => _mongoDatabase.DatabaseNamespace.DatabaseName;
 
     /// <summary>
     /// Switches the default database at runtime
@@ -156,42 +201,41 @@ public static partial class DB
     /// <para>TIP: Make sure to cancel any watchers (change-streams) before switching the default database.</para>
     /// </summary>
     /// <param name="name">The name of the database to mark as the new default database</param>
-    public static void ChangeDefaultDatabase(string name)
+    /// <param name="settings">The MongoClient we want to get the database from</param>
+    public static void ChangeDefaultDatabase(string name, MongoClientSettings? settings = null)
     {
         if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
 
-        _defaultDb = Database(name);
-        TypeMap.Clear();
-        DefaultDbChanged?.Invoke();
+        _defaultInstance = Instance(name, settings);
     }
 
     /// <summary>
     /// Exposes the mongodb Filter Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static FilterDefinitionBuilder<T> Filter<T>() where T : IEntity
+    public FilterDefinitionBuilder<T> Filter<T>() where T : IEntity
         => Builders<T>.Filter;
 
     /// <summary>
     /// Exposes the mongodb Sort Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static SortDefinitionBuilder<T> Sort<T>() where T : IEntity
+    public SortDefinitionBuilder<T> Sort<T>() where T : IEntity
         => Builders<T>.Sort;
 
     /// <summary>
     /// Exposes the mongodb Projection Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
+    public ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
         => Builders<T>.Projection;
 
     /// <summary>
     /// Returns a new instance of the supplied IEntity type
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static T Entity<T>() where T : IEntity, new()
+    public T Entity<T>() where T : IEntity, new()
         => new();
 
     /// <summary>
@@ -199,7 +243,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The ID to set on the returned instance</param>
-    public static T Entity<T>(object ID) where T : IEntity, new()
+    public T Entity<T>(object ID) where T : IEntity, new()
     {
         var newT = new T();
         newT.SetId(ID);
@@ -212,6 +256,6 @@ public static partial class DB
     /// Call this during application startup.
     /// </summary>
     /// <param name="serviceProvider">The <see cref="IServiceProvider" /> instance</param>
-    public static void SetServiceProvider(IServiceProvider serviceProvider)
+    public void SetServiceProvider(IServiceProvider serviceProvider)
         => ServiceProvider = serviceProvider;
 }

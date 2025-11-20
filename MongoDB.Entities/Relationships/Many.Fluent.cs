@@ -35,7 +35,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                              j => j.Results)
                          .ReplaceRoot(j => j.Results[0])
                          .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                             DB.Collection<TParent>(),
+                             _db.Collection<TParent>(),
                              r => r.ChildID,
                              Cache<TParent>.IdExpression,
                              j => j.Results)
@@ -49,7 +49,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                              j => j.Results)
                          .ReplaceRoot(j => j.Results[0])
                          .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                             DB.Collection<TParent>(),
+                             _db.Collection<TParent>(),
                              r => r.ParentID,
                              Cache<TParent>.IdExpression,
                              j => j.Results)
@@ -60,7 +60,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -69,7 +69,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(ObjectId childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -78,7 +78,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(Guid childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -87,7 +87,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(long childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -107,7 +107,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                        ? JoinFluent(session, options)
                          .Match(f => f.In(j => j.ParentID, childIDs))
                          .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                             DB.Collection<TParent>(),
+                             _db.Collection<TParent>(),
                              j => j.ChildID,
                              Cache<TParent>.IdExpression,
                              j => j.Results)
@@ -116,7 +116,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                        : JoinFluent(session, options)
                          .Match(f => f.In(j => j.ChildID, childIDs))
                          .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                             DB.Collection<TParent>(),
+                             _db.Collection<TParent>(),
                              r => r.ParentID,
                              Cache<TParent>.IdExpression,
                              j => j.Results)
@@ -137,7 +137,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                    ? JoinFluent(session, options)
                      .Match(f => f.Eq(r => r.ChildID, _parent.GetId()))
                      .Lookup<JoinRecord, TChild, Joined<TChild>>(
-                         DB.Collection<TChild>(),
+                         _db.Collection<TChild>(),
                          r => r.ParentID,
                          Cache<TChild>.IdExpression,
                          j => j.Results)
@@ -145,7 +145,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                    : JoinFluent(session, options)
                      .Match(f => f.Eq(r => r.ParentID, _parent.GetId()))
                      .Lookup<JoinRecord, TChild, Joined<TChild>>(
-                         DB.Collection<TChild>(),
+                         _db.Collection<TChild>(),
                          r => r.ChildID,
                          Cache<TChild>.IdExpression,
                          j => j.Results)

@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 
 namespace MongoDB.Entities.Tests;
 
@@ -12,7 +12,7 @@ public class ModifiedByUuid
     public async Task throw_if_mod_by_not_supplied()
     {
         var db = new DBContext();
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () => await db.SaveAsync(new AuthorUuid()));
+        await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () => await db.SaveAsync(new AuthorUuid()));
     }
 
     [TestMethod]

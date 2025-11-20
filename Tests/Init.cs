@@ -1,5 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -10,30 +11,36 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public static class InitTest
 {
-    static MongoClientSettings ClientSettings { get; set; }
-    static bool _useTestContainers;
+    public static MongoClientSettings ClientSettings1 { get; set; }
+    public static MongoClientSettings ClientSettings2 { get; set; }
+    public static bool UseTestContainers;
 
     [AssemblyInitialize]
     public static async Task Init(TestContext _)
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
-        _useTestContainers = System.Environment.GetEnvironmentVariable("MONGODB_ENTITIES_TESTCONTAINERS") != null;
+        UseTestContainers = Environment.GetEnvironmentVariable("MONGODB_ENTITIES_TESTCONTAINERS") != null;
 
-        if (_useTestContainers)
+        if (UseTestContainers)
         {
-            var testContainer = await TestDatabase.CreateDatabase();
-            ClientSettings = MongoClientSettings.FromConnectionString(testContainer.GetConnectionString());
+            var testContainer1 = await TestDatabase.CreateDatabase();
+            ClientSettings1 = MongoClientSettings.FromConnectionString(testContainer1.GetConnectionString());
+            var testContainer2 = await TestDatabase.CreateDatabase();
+            ClientSettings2 = MongoClientSettings.FromConnectionString(testContainer2.GetConnectionString());
         }
 
         await InitTestDatabase("mongodb-entities-test");
     }
 
-    public static async Task InitTestDatabase(string databaseName)
+    public static async Task<DB> InitTestDatabase(string databaseName)
     {
-        if (_useTestContainers)
-            await DB.InitAsync(databaseName, ClientSettings);
-        else
-            await DB.InitAsync(databaseName);
+        if (UseTestContainers)
+        {
+            await DB.InitAsync(databaseName, ClientSettings2);
+            return await DB.InitAsync(databaseName, ClientSettings1);
+        }
+
+        return await DB.InitAsync(databaseName);
     }
 }
