@@ -13,16 +13,19 @@ public class UpdateInt64
     public async Task updating_modifies_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorInt64 { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorInt64 { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorInt64 { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorInt64 { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         await DB.Default.Update<AuthorInt64>()
-          .Match(a => a.Surname == guid)
-          .Modify(a => a.Name, guid)
-          .Modify(a => a.Surname, author1.Name)
-          .Option(o => o.BypassDocumentValidation = true)
-          .ExecuteAsync();
+                .Match(a => a.Surname == guid)
+                .Modify(a => a.Name, guid)
+                .Modify(a => a.Surname, author1.Name)
+                .Option(o => o.BypassDocumentValidation = true)
+                .ExecuteAsync();
 
         var count = author1.Queryable().Where(a => a.Name == guid && a.Surname == author1.Name).Count();
         Assert.AreEqual(2, count);
@@ -38,16 +41,19 @@ public class UpdateInt64
     public async Task updating_returns_correct_result()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorInt64 { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorInt64 { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorInt64 { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorInt64 { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         var res = await DB.Default.Update<AuthorInt64>()
-          .Match(a => a.Surname == guid)
-          .Modify(a => a.Name, guid)
-          .Modify(a => a.Surname, author1.Name)
-          .Option(o => o.BypassDocumentValidation = true)
-          .ExecuteAsync();
+                          .Match(a => a.Surname == guid)
+                          .Modify(a => a.Name, guid)
+                          .Modify(a => a.Surname, author1.Name)
+                          .Option(o => o.BypassDocumentValidation = true)
+                          .ExecuteAsync();
 
         Assert.AreEqual(2, res.MatchedCount);
         Assert.AreEqual(2, res.ModifiedCount);
@@ -57,16 +63,19 @@ public class UpdateInt64
     public async Task update_by_def_builder_mods_correct_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorInt64 { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorInt64 { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorInt64 { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorInt64 { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         await DB.Default.Update<AuthorInt64>()
-          .Match(a => a.Surname == guid)
-          .Modify(b => b.Inc(a => a.Age, 10))
-          .Modify(b => b.Set(a => a.Name, guid))
-          .Modify(b => b.CurrentDate(a => a.ModifiedOn))
-          .ExecuteAsync();
+                .Match(a => a.Surname == guid)
+                .Modify(b => b.Inc(a => a.Age, 10))
+                .Modify(b => b.Set(a => a.Name, guid))
+                .Modify(b => b.CurrentDate(a => a.ModifiedOn))
+                .ExecuteAsync();
 
         var res = await DB.Default.Find<AuthorInt64>().ManyAsync(a => a.Surname == guid && a.Age == 10);
 
@@ -87,9 +96,9 @@ public class UpdateInt64
         await book.SaveAsync();
 
         await DB.Default.Update<BookInt64>()
-            .Match(b => b.Review.Rating == 10.10)
-            .Modify(b => b.Review.Rating, 22.22)
-            .ExecuteAsync();
+                .Match(b => b.Review.Rating == 10.10)
+                .Modify(b => b.Review.Rating, 22.22)
+                .ExecuteAsync();
 
         var res = await DB.Default.Find<BookInt64>().OneAsync(book.ID);
 
@@ -99,13 +108,11 @@ public class UpdateInt64
     [TestMethod]
     public async Task bulk_update_modifies_correct_documents()
     {
-        var title = "bumcd " + Guid.NewGuid().ToString();
+        var title = "bumcd " + Guid.NewGuid();
         var books = new Collection<BookInt64>();
 
         for (var i = 1; i <= 5; i++)
-        {
             books.Add(new() { Title = title, Price = i });
-        }
         await books.SaveAsync();
 
         var bulk = DB.Default.Update<BookInt64>();
@@ -120,7 +127,7 @@ public class UpdateInt64
         await bulk.ExecuteAsync();
 
         var res = await DB.Default.Find<BookInt64>()
-                    .ManyAsync(b => b.Title == title);
+                          .ManyAsync(b => b.Title == title);
 
         Assert.AreEqual(5, res.Count);
         Assert.AreEqual(5, res.Count(b => b.Price == 100));
@@ -134,20 +141,21 @@ public class UpdateInt64
         var author = new AuthorInt64 { Name = "uwput", Surname = guid, Age = 666 };
         await author.SaveAsync();
 
-        var pipeline = new Template<AuthorInt64>(@"
+        var pipeline = new Template<AuthorInt64>(
+                           @"
             [
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
             ]")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .Path(a => a.Age);
+                       .Path(a => a.FullName!)
+                       .Path(a => a.Name)
+                       .Path(a => a.Surname)
+                       .Path(a => a.Age);
 
         await DB.Default.Update<AuthorInt64>()
-          .Match(a => a.ID == author.ID)
-          .WithPipeline(pipeline)
-          .ExecutePipelineAsync();
+                .Match(a => a.ID == author.ID)
+                .WithPipeline(pipeline)
+                .ExecutePipelineAsync();
 
         var res = await DB.Default.Find<AuthorInt64>().OneAsync(author.ID);
 
@@ -164,15 +172,15 @@ public class UpdateInt64
         await author.SaveAsync();
 
         var stage = new Template<AuthorInt64>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .RenderToString();
+                    .Path(a => a.FullName!)
+                    .Path(a => a.Name)
+                    .Path(a => a.Surname)
+                    .RenderToString();
 
         await DB.Default.Update<AuthorInt64>()
-          .Match(a => a.ID == author.ID)
-          .WithPipelineStage(stage)
-          .ExecutePipelineAsync();
+                .Match(a => a.ID == author.ID)
+                .WithPipelineStage(stage)
+                .ExecutePipelineAsync();
 
         var fullname = (await DB.Default.Find<AuthorInt64>().OneAsync(author.ID))?.FullName;
         Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
@@ -186,25 +194,26 @@ public class UpdateInt64
         var author = new AuthorInt64 { Name = "uwtm", Surname = guid };
         await author.SaveAsync();
 
-        var filter = new Template(@"
+        var filter = new Template(
+                @"
             { 
                 _id: <ID> 
             }")
             .Tag("ID", author.ID.ToString());
 
         var stage = new Template<AuthorInt64>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname);
+                    .Path(a => a.FullName!)
+                    .Path(a => a.Name)
+                    .Path(a => a.Surname);
 
         await DB.Default.Update<AuthorInt64>()
-          .Match(filter)
-          .WithPipeline(stage)
-          .ExecutePipelineAsync();
+                .Match(filter)
+                .WithPipeline(stage)
+                .ExecutePipelineAsync();
 
         var fullname = (await DB.Default.Find<AuthorInt64>()
-                         .OneAsync(author.ID))?
-                         .FullName;
+                                .OneAsync(author.ID))?
+            .FullName;
 
         Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
     }
@@ -218,50 +227,52 @@ public class UpdateInt64
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorInt64{
-                    Name ="name",
+                new AuthorInt64
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorInt64{
-                    Name ="name",
+                new AuthorInt64
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorInt64{
-                    Name ="name",
+                new AuthorInt64
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
-        var filters = new Template<AuthorInt64>(@"
+        var filters = new Template<AuthorInt64>(
+                          @"
             [
                 { '<a.Age>': { $gte: <age> } },
                 { '<b.Name>': 'name' }
             ]")
-            .Elements(0, author => author.Age)
-            .Tag("age", "120")
-            .Elements(1, author => author.Name);
+                      .Elements(0, author => author.Age)
+                      .Tag("age", "120")
+                      .Elements(1, author => author.Name);
 
-        var update = new Template<BookInt64>(@"
+        var update = new Template<BookInt64>(
+                         @"
             { $set: { 
                 '<OtherAuthors.$[a].Age>': <age>,
                 '<OtherAuthors.$[b].Name>': '<value>'
               } 
             }")
-            .PosFiltered(b => b.OtherAuthors[0].Age)
-            .PosFiltered(b => b.OtherAuthors[1].Name)
-            .Tag("age", "321")
-            .Tag("value", "updated");
+                     .PosFiltered(b => b.OtherAuthors[0].Age)
+                     .PosFiltered(b => b.OtherAuthors[1].Name)
+                     .Tag("age", "321")
+                     .Tag("value", "updated");
 
         await DB.Default.Update<BookInt64>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilters(filters)
-          .Modify(update)
-
-          .ExecuteAsync();
+                .Match(b => b.ID == book.ID)
+                .WithArrayFilters(filters)
+                .Modify(update)
+                .ExecuteAsync();
 
         var res = DB.Default.Queryable<BookInt64>()
                     .Where(b => b.ID == book.ID)
@@ -281,45 +292,44 @@ public class UpdateInt64
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorInt64{
-                    Name ="name",
+                new AuthorInt64
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorInt64{
-                    Name ="name",
+                new AuthorInt64
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorInt64{
-                    Name ="name",
+                new AuthorInt64
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
         var arrFil = new Template<AuthorInt64>("{ '<a.Age>': { $gte: <age> } }")
-                            .Elements(0, author => author.Age)
-                            .Tag("age", "120");
+                     .Elements(0, author => author.Age)
+                     .Tag("age", "120");
 
         var prop1 = new Template<BookInt64>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
-                            .PosFiltered(b => b.OtherAuthors[0].Age)
-                            .Tag("age", "321")
-                            .RenderToString();
+                    .PosFiltered(b => b.OtherAuthors[0].Age)
+                    .Tag("age", "321")
+                    .RenderToString();
 
         var filt2 = Prop.Elements<AuthorInt64>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookInt64>(b => b.OtherAuthors[1].Name);
 
         await DB.Default.Update<BookInt64>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilter(arrFil)
-          .Modify(prop1)
-
-          .WithArrayFilter("{'" + filt2 + "':'name'}")
-          .Modify("{$set:{'" + prop2 + "':'updated'}}")
-
-          .ExecuteAsync();
+                .Match(b => b.ID == book.ID)
+                .WithArrayFilter(arrFil)
+                .Modify(prop1)
+                .WithArrayFilter("{'" + filt2 + "':'name'}")
+                .Modify("{$set:{'" + prop2 + "':'updated'}}")
+                .ExecuteAsync();
 
         var res = DB.Default.Queryable<BookInt64>()
                     .Where(b => b.ID == book.ID)
@@ -342,10 +352,10 @@ public class UpdateInt64
         var targetDate = DateTime.UtcNow.AddDays(100);
 
         await DB.Default
-            .Update<BookInt64>()
-            .MatchID(book.ID)
-            .Modify(b => b.ModifiedOn, targetDate)
-            .ExecuteAsync();
+                .Update<BookInt64>()
+                .MatchID(book.ID)
+                .Modify(b => b.ModifiedOn, targetDate)
+                .ExecuteAsync();
 
         book = await DB.Default.Find<BookInt64>().OneAsync(book.ID);
         Assert.AreEqual(targetDate.ToShortDateString(), book!.ModifiedOn.ToShortDateString());
@@ -368,9 +378,9 @@ public class UpdateInt64
         book.PublishedOn = null;
 
         await DB.Default.Update<BookInt64>()
-            .MatchID(book.ID)
-            .ModifyOnly(x => new { x.Title, x.PublishedOn }, book)
-            .ExecuteAsync();
+                .MatchID(book.ID)
+                .ModifyOnly(x => new { x.Title, x.PublishedOn }, book)
+                .ExecuteAsync();
 
         var res = await DB.Default.Find<BookInt64>().OneAsync(book.ID);
 
@@ -393,9 +403,9 @@ public class UpdateInt64
         flower.Name = "daisy";
 
         await DB.Default.Update<FlowerInt64>()
-            .MatchID(flower.Id)
-            .ModifyWith(flower)
-            .ExecuteAsync();
+                .MatchID(flower.Id)
+                .ModifyWith(flower)
+                .ExecuteAsync();
 
         var res = await DB.Default.Find<FlowerInt64>().OneAsync(flower.Id);
 
@@ -406,9 +416,10 @@ public class UpdateInt64
     [TestMethod]
     public async Task bulk_update_with_modifywith()
     {
-        var books = new[] {
-            new BookInt64{ Title ="one"},
-            new BookInt64{ Title ="two"},
+        var books = new[]
+        {
+            new BookInt64 { Title = "one" },
+            new BookInt64 { Title = "two" }
         };
 
         await books.SaveAsync();
@@ -416,10 +427,10 @@ public class UpdateInt64
         foreach (var book in books)
         {
             await DB.Default
-                .Update<BookInt64>()
-                .MatchID(book.ID)
-                .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
-                .ExecuteAsync();
+                    .Update<BookInt64>()
+                    .MatchID(book.ID)
+                    .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
+                    .ExecuteAsync();
         }
 
         var bulkUpdate = DB.Default.Update<BookInt64>();
@@ -438,8 +449,8 @@ public class UpdateInt64
         var bIDs = books.Select(b => b.ID).ToArray();
 
         var res = await DB.Default.Find<BookInt64>()
-            .Match(b => bIDs.Contains(b.ID))
-            .ExecuteAsync();
+                          .Match(b => bIDs.Contains(b.ID))
+                          .ExecuteAsync();
 
         Assert.AreEqual("updated!", res[0].Title);
         Assert.AreEqual("updated!", res[1].Title);
@@ -463,9 +474,9 @@ public class UpdateInt64
         book.PublishedOn = null;
 
         await DB.Default.Update<BookInt64>()
-            .MatchID(book.ID)
-            .ModifyExcept(x => new { x.Title, x.PublishedOn }, book)
-            .ExecuteAsync();
+                .MatchID(book.ID)
+                .ModifyExcept(x => new { x.Title, x.PublishedOn }, book)
+                .ExecuteAsync();
 
         var res = await DB.Default.Find<BookInt64>().OneAsync(book.ID);
 
@@ -481,9 +492,9 @@ public class UpdateInt64
         await book.SaveAsync();
 
         await DB.Default.Update<BookInt64>()
-            .MatchID(book.ID)
-            .Modify(b => b.ModifiedOn, DateTime.MinValue)
-            .ExecuteAsync();
+                .MatchID(book.ID)
+                .Modify(b => b.ModifiedOn, DateTime.MinValue)
+                .ExecuteAsync();
 
         book.ModifiedOn = DateTime.MinValue;
         book.Title = "updated";
@@ -508,17 +519,18 @@ public class UpdateInt64
 
         var guid = Guid.NewGuid().ToString();
 
-        await new[] {
-            new AuthorInt64 { Name = guid, Age = 111},
-            new AuthorInt64 { Name = guid, Age = 200},
-            new AuthorInt64 { Name = guid, Age = 111},
+        await new[]
+        {
+            new AuthorInt64 { Name = guid, Age = 111 },
+            new AuthorInt64 { Name = guid, Age = 200 },
+            new AuthorInt64 { Name = guid, Age = 111 }
         }.SaveAsync();
 
         var res = await db
-            .Update<AuthorInt64>()
-            .Match(a => a.Name == guid)
-            .Modify(a => a.Surname, "surname")
-            .ExecuteAsync();
+                        .Update<AuthorInt64>()
+                        .Match(a => a.Name == guid)
+                        .Modify(a => a.Surname, "surname")
+                        .ExecuteAsync();
 
         Assert.AreEqual(2, res.ModifiedCount);
     }

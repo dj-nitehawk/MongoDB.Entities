@@ -570,9 +570,9 @@ public class SavingInt64
         await author2.SaveAsync();
 
         var res = await DB.Default
-                        .Find<AuthorInt64>()
-                        .Match(f => f.Eq(a => a.Name, guid))
-                        .ExecuteFirstAsync();
+                          .Find<AuthorInt64>()
+                          .Match(f => f.Eq(a => a.Name, guid))
+                          .ExecuteFirstAsync();
 
         Assert.AreEqual(author1.ID, res!.ID);
     }
@@ -587,9 +587,9 @@ public class SavingInt64
         await author2.SaveAsync();
 
         var res = await DB.Default
-                                  .Find<AuthorInt64>()
-                                  .Match(f => f.Eq(a => a.Name, guid))
-                                  .ExecuteAnyAsync();
+                          .Find<AuthorInt64>()
+                          .Match(f => f.Eq(a => a.Name, guid))
+                          .ExecuteAnyAsync();
 
         Assert.IsTrue(res);
     }

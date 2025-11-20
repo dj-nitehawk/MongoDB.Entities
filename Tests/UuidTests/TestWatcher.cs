@@ -24,7 +24,8 @@ public class WatcherUuid
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerUuid { Name = "test" },
             new FlowerUuid { Name = "test" },
             new FlowerUuid { Name = "test" }
@@ -44,7 +45,7 @@ public class WatcherUuid
     public async Task watching_with_projection_works()
     {
         var db = DB.Default;
-        
+
         var watcher = db.Watcher<FlowerUuid>("test-with-projection");
         var allFlowers = new List<FlowerUuid>();
 
@@ -56,13 +57,14 @@ public class WatcherUuid
         await Task.Delay(500);
 
         watcher.OnChangesAsync += async flowers =>
-        {
-            allFlowers.AddRange(flowers);
-            await Task.CompletedTask;
-        };
+                                  {
+                                      allFlowers.AddRange(flowers);
+                                      await Task.CompletedTask;
+                                  };
 
-        await new[] {
-            new FlowerUuid { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
+        await new[]
+        {
+            new FlowerUuid { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
             new FlowerUuid { Name = "test", Color = "red" },
             new FlowerUuid { Name = "test", Color = "red" }
         }.SaveAsync(db);
@@ -98,7 +100,8 @@ public class WatcherUuid
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerUuid { Name = guid },
             new FlowerUuid { Name = guid },
             new FlowerUuid { Name = guid }
@@ -129,16 +132,17 @@ public class WatcherUuid
         await Task.Delay(500);
 
         watcher.OnChangesCSDAsync += async csDocs =>
-        {
-            allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
-            await Task.CompletedTask;
-        };
+                                     {
+                                         allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+                                         await Task.CompletedTask;
+                                     };
 
-        await new[] {
+        await new[]
+        {
             new FlowerUuid { Name = guid },
             new FlowerUuid { Name = "exclude me" },
             new FlowerUuid { Name = guid },
-            new FlowerUuid { Name = guid },
+            new FlowerUuid { Name = guid }
         }.SaveAsync();
 
         var flower = new FlowerUuid { Name = guid };

@@ -46,13 +46,13 @@ public class DatesEntity
     {
         var book = new BookEntity
         {
-            Title = "qotwn",
+            Title = "qotwn"
         };
         await book.SaveAsync();
 
         var res = await DB.Default.Queryable<BookEntity>()
-                                  .Where(b => b.ID == book.ID && b.PublishedOn!.Ticks > 0)
-                                  .SingleOrDefaultAsync();
+                          .Where(b => b.ID == book.ID && b.PublishedOn!.Ticks > 0)
+                          .SingleOrDefaultAsync();
 
         Assert.IsNull(res);
     }
@@ -70,18 +70,18 @@ public class DatesEntity
         await book.SaveAsync();
 
         var db = DB.Default;
-        
+
         var res = (await db.Find<BookEntity>()
-                                   .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks == pubDate.Ticks)
-                                   .ExecuteAsync())
-                    .Single();
+                           .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks == pubDate.Ticks)
+                           .ExecuteAsync())
+            .Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
         res = (await db.Find<BookEntity>()
-                               .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
-                               .ExecuteAsync())
-                .Single();
+                       .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
+                       .ExecuteAsync())
+            .Single();
 
         Assert.AreEqual(book.ID, res.ID);
     }
@@ -99,18 +99,18 @@ public class DatesEntity
         await book.SaveAsync();
 
         var db = DB.Default;
-        
+
         var res = (await db.Find<BookEntity>()
-                                   .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime == pubDate)
-                                   .ExecuteAsync())
-        .Single();
+                           .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime == pubDate)
+                           .ExecuteAsync())
+            .Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
         res = (await db.Find<BookEntity>()
-                               .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime < pubDate.AddSeconds(1))
-                               .ExecuteAsync())
-                .Single();
+                       .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime < pubDate.AddSeconds(1))
+                       .ExecuteAsync())
+            .Single();
 
         Assert.AreEqual(book.ID, res.ID);
     }
@@ -120,7 +120,7 @@ public class DatesEntity
     {
         var now = DateTime.UtcNow;
 
-        var date = new Date() { Ticks = now.Ticks };
+        var date = new Date { Ticks = now.Ticks };
 
         Assert.AreEqual(now, date.DateTime);
     }

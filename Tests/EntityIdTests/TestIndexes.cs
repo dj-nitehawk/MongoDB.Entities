@@ -14,14 +14,14 @@ public class IndexesEntity
     public async Task full_text_search_with_index_returns_correct_result()
     {
         var db = DB.Default;
-        
+
         await db.DropCollectionAsync<AuthorEntity>();
 
         await db.Index<AuthorEntity>()
-                        .Option(o => o.Background = false)
-                        .Key(a => a.Name, KeyType.Text)
-                        .Key(a => a.Surname, KeyType.Text)
-                        .CreateAsync();
+                .Option(o => o.Background = false)
+                .Key(a => a.Name, KeyType.Text)
+                .Key(a => a.Surname, KeyType.Text)
+                .CreateAsync();
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author1.SaveAsync();
@@ -33,8 +33,8 @@ public class IndexesEntity
         Assert.AreEqual(author1.Surname, res[0].Surname);
 
         var res2 = await db.Find<AuthorEntity>()
-                                   .Match(Search.Full, author1.Surname)
-                                   .ExecuteAsync();
+                           .Match(Search.Full, author1.Surname)
+                           .ExecuteAsync();
         Assert.AreEqual(author1.Surname, res2[0].Surname);
     }
 
@@ -42,11 +42,11 @@ public class IndexesEntity
     public async Task full_text_search_with_wilcard_text_index_works()
     {
         var db = DB.Default;
-        
+
         await db.Index<AuthorEntity>()
-                        .Option(o => o.Background = false)
-                        .Key(a => a, KeyType.Text)
-                        .CreateAsync();
+                .Option(o => o.Background = false)
+                .Key(a => a, KeyType.Text)
+                .CreateAsync();
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author1.SaveAsync();
@@ -63,29 +63,29 @@ public class IndexesEntity
     public async Task fuzzy_text_search_with_text_index_works()
     {
         var db = DB.Default;
-        
-        await db.Index<BookEntity>()
-                        .Option(o => o.Background = false)
-                        .Key(b => b.Review.Fuzzy, KeyType.Text)
-                        .Key(b => b.Title, KeyType.Text)
-                        .CreateAsync();
 
-        var b1 = new BookEntity() { Title = "One", Review = new() { Fuzzy = new("Katherine Zeta Jones") } };
-        var b2 = new BookEntity() { Title = "Two", Review = new() { Fuzzy = new("Katheryne Zeta Jones") } };
-        var b3 = new BookEntity() { Title = "Three", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b4 = new BookEntity() { Title = "Four", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b5 = new BookEntity() { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
-        var b6 = new BookEntity() { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
+        await db.Index<BookEntity>()
+                .Option(o => o.Background = false)
+                .Key(b => b.Review.Fuzzy, KeyType.Text)
+                .Key(b => b.Title, KeyType.Text)
+                .CreateAsync();
+
+        var b1 = new BookEntity { Title = "One", Review = new() { Fuzzy = new("Katherine Zeta Jones") } };
+        var b2 = new BookEntity { Title = "Two", Review = new() { Fuzzy = new("Katheryne Zeta Jones") } };
+        var b3 = new BookEntity { Title = "Three", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b4 = new BookEntity { Title = "Four", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b5 = new BookEntity { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
+        var b6 = new BookEntity { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
         await db.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
         var res = await db.Find<BookEntity>()
-                                  .Match(Search.Fuzzy, "catherine jones")
-                                  .Project(b => new() { ID = b.ID, Title = b.Title })
-                                  .SortByTextScore()
-                                  .Skip(0)
-                                  .Limit(6)
-                                  .ExecuteAsync();
+                          .Match(Search.Fuzzy, "catherine jones")
+                          .Project(b => new() { ID = b.ID, Title = b.Title })
+                          .SortByTextScore()
+                          .Skip(0)
+                          .Limit(6)
+                          .ExecuteAsync();
 
         await db.DeleteAsync<BookEntity>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
@@ -97,31 +97,32 @@ public class IndexesEntity
     public async Task sort_by_meta_text_score_dont_retun_the_score()
     {
         var db = DB.Default;
-        
+
         await db.DropCollectionAsync<GenreEntity>();
 
         await db.Index<GenreEntity>()
-                        .Key(g => g.Name, KeyType.Text)
-                        .Option(o => o.Background = false)
-                        .CreateAsync();
+                .Key(g => g.Name, KeyType.Text)
+                .Option(o => o.Background = false)
+                .CreateAsync();
 
         var guid = Guid.NewGuid();
 
-        var list = new[] {
-            new GenreEntity{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreEntity{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreEntity{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreEntity{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreEntity{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+        var list = new[]
+        {
+            new GenreEntity { GuidID = guid, Position = 0, Name = "this should not match" },
+            new GenreEntity { GuidID = guid, Position = 3, Name = "one two three four five six" },
+            new GenreEntity { GuidID = guid, Position = 4, Name = "one two three four five six seven" },
+            new GenreEntity { GuidID = guid, Position = 2, Name = "one two three four five six seven eight" },
+            new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
         await list.SaveAsync();
 
         var res = await db.Find<GenreEntity>()
-                                  .Match(Search.Full, "one eight nine")
-                                  .Project(p => new() { Name = p.Name, Position = p.Position })
-                                  .SortByTextScore()
-                                  .ExecuteAsync();
+                          .Match(Search.Full, "one eight nine")
+                          .Project(p => new() { Name = p.Name, Position = p.Position })
+                          .SortByTextScore()
+                          .ExecuteAsync();
 
         await list.DeleteAllAsync();
 
@@ -134,31 +135,32 @@ public class IndexesEntity
     public async Task sort_by_meta_text_score_retun_the_score()
     {
         var db = DB.Default;
-        
+
         await db.DropCollectionAsync<GenreEntity>();
 
         await db.Index<GenreEntity>()
-                        .Key(g => g.Name, KeyType.Text)
-                        .Option(o => o.Background = false)
-                        .CreateAsync();
+                .Key(g => g.Name, KeyType.Text)
+                .Option(o => o.Background = false)
+                .CreateAsync();
 
         var guid = Guid.NewGuid();
 
-        var list = new[] {
-            new GenreEntity{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreEntity{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreEntity{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreEntity{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreEntity{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+        var list = new[]
+        {
+            new GenreEntity { GuidID = guid, Position = 0, Name = "this should not match" },
+            new GenreEntity { GuidID = guid, Position = 3, Name = "one two three four five six" },
+            new GenreEntity { GuidID = guid, Position = 4, Name = "one two three four five six seven" },
+            new GenreEntity { GuidID = guid, Position = 2, Name = "one two three four five six seven eight" },
+            new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
         await list.SaveAsync();
 
         var res = await db.Find<GenreEntity>()
-                                  .Match(Search.Full, "one eight nine")
-                                  .SortByTextScore(g => g.SortScore)
-                                  .Sort(g => g.Position, Order.Ascending)
-                                  .ExecuteAsync();
+                          .Match(Search.Full, "one eight nine")
+                          .SortByTextScore(g => g.SortScore)
+                          .Sort(g => g.Position, Order.Ascending)
+                          .ExecuteAsync();
 
         await list.DeleteAllAsync();
 
@@ -172,45 +174,45 @@ public class IndexesEntity
     public async Task creating_compound_index_works()
     {
         var db = DB.Default;
-        
-        await db.Index<BookEntity>()
-                        .Key(x => x.Genres, KeyType.Geo2D)
-                        .Key(x => x.Title, KeyType.Descending)
-                        .Key(x => x.ModifiedOn, KeyType.Descending)
-                        .Option(o => o.Background = true)
-                        .CreateAsync();
 
         await db.Index<BookEntity>()
-                        .Key(x => x.Genres, KeyType.Geo2D)
-                        .Key(x => x.Title, KeyType.Descending)
-                        .Key(x => x.ModifiedOn, KeyType.Ascending)
-                        .Option(o => o.Background = true)
-                        .CreateAsync();
+                .Key(x => x.Genres, KeyType.Geo2D)
+                .Key(x => x.Title, KeyType.Descending)
+                .Key(x => x.ModifiedOn, KeyType.Descending)
+                .Option(o => o.Background = true)
+                .CreateAsync();
+
+        await db.Index<BookEntity>()
+                .Key(x => x.Genres, KeyType.Geo2D)
+                .Key(x => x.Title, KeyType.Descending)
+                .Key(x => x.ModifiedOn, KeyType.Ascending)
+                .Option(o => o.Background = true)
+                .CreateAsync();
 
         await db.Index<AuthorEntity>()
-                        .Key(x => x.Age, KeyType.Hashed)
-                        .CreateAsync();
+                .Key(x => x.Age, KeyType.Hashed)
+                .CreateAsync();
 
         await db.Index<AuthorEntity>()
-                        .Key(x => x.Age, KeyType.Ascending)
-                        .CreateAsync();
+                .Key(x => x.Age, KeyType.Ascending)
+                .CreateAsync();
 
         await db.Index<AuthorEntity>()
-                        .Key(x => x.Age, KeyType.Descending)
-                        .CreateAsync();
+                .Key(x => x.Age, KeyType.Descending)
+                .CreateAsync();
     }
 
     [TestMethod]
     public async Task dictionary_item_index_should_use_key_value()
     {
         var db = DB.Default;
-        
+
         await db.DropCollectionAsync<TestModel>();
 
         var index = await db.Index<TestModel>()
-                                    .Key(a => a.Metadata["AnotherKey"], KeyType.Ascending)
-                                    .Key(a => a.EndDate, KeyType.Ascending)
-                                    .CreateAsync();
+                            .Key(a => a.Metadata["AnotherKey"], KeyType.Ascending)
+                            .Key(a => a.EndDate, KeyType.Ascending)
+                            .CreateAsync();
 
         Assert.AreEqual("Metadata.AnotherKey(Asc) | EndDate(Asc)", index);
     }

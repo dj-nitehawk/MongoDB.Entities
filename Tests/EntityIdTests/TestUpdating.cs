@@ -354,10 +354,10 @@ public class UpdateEntity
         var targetDate = DateTime.UtcNow.AddDays(100);
 
         await DB.Default
-              .Update<BookEntity>()
-              .MatchID(book.ID)
-              .Modify(b => b.ModifiedOn, targetDate)
-              .ExecuteAsync();
+                .Update<BookEntity>()
+                .MatchID(book.ID)
+                .Modify(b => b.ModifiedOn, targetDate)
+                .ExecuteAsync();
 
         book = await DB.Default.Find<BookEntity>().OneAsync(book.ID);
         Assert.AreEqual(targetDate.ToShortDateString(), book!.ModifiedOn.ToShortDateString());
@@ -429,10 +429,10 @@ public class UpdateEntity
         foreach (var book in books)
         {
             await DB.Default
-                  .Update<BookEntity>()
-                  .MatchID(book.ID)
-                  .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
-                  .ExecuteAsync();
+                    .Update<BookEntity>()
+                    .MatchID(book.ID)
+                    .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
+                    .ExecuteAsync();
         }
 
         var bulkUpdate = DB.Default.Update<BookEntity>();

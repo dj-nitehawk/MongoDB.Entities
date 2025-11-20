@@ -14,13 +14,13 @@ public class PagedSearchUuid
     {
         var guid = Guid.Empty.ToString();
 
-        var (Results, _, PageCount) =  await DB.Default
-                                            .PagedSearch<BookUuid>()
-                                            .Match(b => b.ID == guid)
-                                            .Sort(b => b.ID, Order.Ascending)
-                                            .PageNumber(1)
-                                            .PageSize(200)
-                                            .ExecuteAsync();
+        var (Results, _, PageCount) = await DB.Default
+                                              .PagedSearch<BookUuid>()
+                                              .Match(b => b.ID == guid)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(1)
+                                              .PageSize(200)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(0, PageCount);
         Assert.IsTrue(Results.Count == 0);
@@ -44,12 +44,12 @@ public class PagedSearchUuid
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB.Default
-                                                      .PagedSearch<BookUuid>()
-                                                      .Match(b => b.Title == guid)
-                                                      .Sort(b => b.ID, Order.Ascending)
-                                                      .PageNumber(2)
-                                                      .PageSize(5)
-                                                      .ExecuteAsync();
+                                              .PagedSearch<BookUuid>()
+                                              .Match(b => b.Title == guid)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(2)
+                                              .PageSize(5)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(2, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -63,12 +63,12 @@ public class PagedSearchUuid
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB.Default
-                                                      .PagedSearch<BookUuid>()
-                                                      .Match(b => b.Title == guid)
-                                                      .Sort(b => b.ID, Order.Ascending)
-                                                      .PageNumber(1)
-                                                      .PageSize(3)
-                                                      .ExecuteAsync();
+                                              .PagedSearch<BookUuid>()
+                                              .Match(b => b.Title == guid)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(1)
+                                              .PageSize(3)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(4, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -85,12 +85,12 @@ public class PagedSearchUuid
                          .Match(b => b.Title == guid);
 
         var (Results, _, PageCount) = await DB.Default
-                                                      .PagedSearch<BookUuid>()
-                                                      .WithFluent(pipeline)
-                                                      .Sort(b => b.ID, Order.Ascending)
-                                                      .PageNumber(2)
-                                                      .PageSize(5)
-                                                      .ExecuteAsync();
+                                              .PagedSearch<BookUuid>()
+                                              .WithFluent(pipeline)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(2)
+                                              .PageSize(5)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(2, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -110,13 +110,13 @@ public class PagedSearchUuid
         await SeedData(guid);
 
         await DB.Default
-                        .PagedSearch<BookUuid, BookResult>()
-                        .Match(b => b.Title == guid)
-                        .Sort(b => b.ID, Order.Ascending)
-                        .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
-                        .PageNumber(1)
-                        .PageSize(5)
-                        .ExecuteAsync();
+                .PagedSearch<BookUuid, BookResult>()
+                .Match(b => b.Title == guid)
+                .Sort(b => b.ID, Order.Ascending)
+                .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
+                .PageNumber(1)
+                .PageSize(5)
+                .ExecuteAsync();
     }
 
     [TestMethod]
@@ -143,11 +143,11 @@ public class PagedSearchUuid
         await list.SaveAsync();
 
         var (Results, _, _) = await DB.Default
-                                              .PagedSearch<GenreUuid>()
-                                              .Match(Search.Full, "one eight nine")
-                                              .Project(p => new() { Name = p.Name, Position = p.Position })
-                                              .SortByTextScore()
-                                              .ExecuteAsync();
+                                      .PagedSearch<GenreUuid>()
+                                      .Match(Search.Full, "one eight nine")
+                                      .Project(p => new() { Name = p.Name, Position = p.Position })
+                                      .SortByTextScore()
+                                      .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);
@@ -178,10 +178,10 @@ public class PagedSearchUuid
         await list.SaveAsync();
 
         var (Results, _, _) = await DB.Default
-                                              .PagedSearch<GenreUuid>()
-                                              .Match(Search.Full, "one eight nine")
-                                              .SortByTextScore()
-                                              .ExecuteAsync();
+                                      .PagedSearch<GenreUuid>()
+                                      .Match(Search.Full, "one eight nine")
+                                      .SortByTextScore()
+                                      .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);

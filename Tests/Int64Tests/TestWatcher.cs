@@ -24,7 +24,8 @@ public class WatcherInt64
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerInt64 { Name = "test" },
             new FlowerInt64 { Name = "test" },
             new FlowerInt64 { Name = "test" }
@@ -55,13 +56,14 @@ public class WatcherInt64
         await Task.Delay(500);
 
         watcher.OnChangesAsync += async flowers =>
-        {
-            allFlowers.AddRange(flowers);
-            await Task.CompletedTask;
-        };
+                                  {
+                                      allFlowers.AddRange(flowers);
+                                      await Task.CompletedTask;
+                                  };
 
-        await new[] {
-            new FlowerInt64 { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
+        await new[]
+        {
+            new FlowerInt64 { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
             new FlowerInt64 { Name = "test", Color = "red" },
             new FlowerInt64 { Name = "test", Color = "red" }
         }.SaveAsync(db);
@@ -97,7 +99,8 @@ public class WatcherInt64
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerInt64 { Name = guid },
             new FlowerInt64 { Name = guid },
             new FlowerInt64 { Name = guid }
@@ -128,16 +131,17 @@ public class WatcherInt64
         await Task.Delay(500);
 
         watcher.OnChangesCSDAsync += async csDocs =>
-        {
-            allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
-            await Task.CompletedTask;
-        };
+                                     {
+                                         allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+                                         await Task.CompletedTask;
+                                     };
 
-        await new[] {
+        await new[]
+        {
             new FlowerInt64 { Name = guid },
             new FlowerInt64 { Name = "exclude me" },
             new FlowerInt64 { Name = guid },
-            new FlowerInt64 { Name = guid },
+            new FlowerInt64 { Name = guid }
         }.SaveAsync();
 
         var flower = new FlowerInt64 { Name = guid };

@@ -15,12 +15,12 @@ public class ReplaceEntity
         book.Title = "updated title";
 
         var db = DB.Default;
-        
+
         await db.Replace<BookEntity>()
-                        .MatchID(book.ID)
-                        .Match(b => b.Title == "book title")
-                        .WithEntity(book)
-                        .ExecuteAsync();
+                .MatchID(book.ID)
+                .Match(b => b.Title == "book title")
+                .WithEntity(book)
+                .ExecuteAsync();
 
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
@@ -36,7 +36,7 @@ public class ReplaceEntity
         await books.SaveAsync();
 
         var db = DB.Default;
-        
+
         var cmd = db.Replace<BookEntity>();
 
         foreach (var book in books)

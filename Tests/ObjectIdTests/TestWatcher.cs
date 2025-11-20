@@ -24,7 +24,8 @@ public class WatcherObjectId
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerObjectId { Name = "test" },
             new FlowerObjectId { Name = "test" },
             new FlowerObjectId { Name = "test" }
@@ -55,13 +56,14 @@ public class WatcherObjectId
         await Task.Delay(500);
 
         watcher.OnChangesAsync += async flowers =>
-        {
-            allFlowers.AddRange(flowers);
-            await Task.CompletedTask;
-        };
+                                  {
+                                      allFlowers.AddRange(flowers);
+                                      await Task.CompletedTask;
+                                  };
 
-        await new[] {
-            new FlowerObjectId { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
+        await new[]
+        {
+            new FlowerObjectId { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
             new FlowerObjectId { Name = "test", Color = "red" },
             new FlowerObjectId { Name = "test", Color = "red" }
         }.SaveAsync(db);
@@ -97,7 +99,8 @@ public class WatcherObjectId
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerObjectId { Name = guid },
             new FlowerObjectId { Name = guid },
             new FlowerObjectId { Name = guid }
@@ -128,16 +131,17 @@ public class WatcherObjectId
         await Task.Delay(500);
 
         watcher.OnChangesCSDAsync += async csDocs =>
-        {
-            allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
-            await Task.CompletedTask;
-        };
+                                     {
+                                         allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+                                         await Task.CompletedTask;
+                                     };
 
-        await new[] {
+        await new[]
+        {
             new FlowerObjectId { Name = guid },
             new FlowerObjectId { Name = "exclude me" },
             new FlowerObjectId { Name = guid },
-            new FlowerObjectId { Name = guid },
+            new FlowerObjectId { Name = guid }
         }.SaveAsync();
 
         var flower = new FlowerObjectId { Name = guid };

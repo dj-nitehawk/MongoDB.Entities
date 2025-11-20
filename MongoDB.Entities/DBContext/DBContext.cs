@@ -16,7 +16,7 @@ namespace MongoDB.Entities;
 public partial class DBContext
 {
     readonly DB _db;
-    
+
     /// <summary>
     /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
     /// </summary>
@@ -37,7 +37,7 @@ public partial class DBContext
     /// You can even inherit from the ModifiedBy class and add your own properties to it.
     /// Only one ModifiedBy property is allowed on a single entity type.
     /// </param>
-    public DBContext(string database, MongoClientSettings? settings=null, ModifiedBy? modifiedBy = null)
+    public DBContext(string database, MongoClientSettings? settings = null, ModifiedBy? modifiedBy = null)
     {
         _db = DB.InitAsync(database, settings).GetAwaiter().GetResult();
 

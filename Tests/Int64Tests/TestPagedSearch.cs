@@ -15,12 +15,12 @@ public class PagedSearchInt64
         const long intId = 0L;
 
         var (Results, _, PageCount) = await DB.Default
-                                                      .PagedSearch<BookInt64>()
-                                                      .Match(b => b.ID == intId)
-                                                      .Sort(b => b.ID, Order.Ascending)
-                                                      .PageNumber(1)
-                                                      .PageSize(200)
-                                                      .ExecuteAsync();
+                                              .PagedSearch<BookInt64>()
+                                              .Match(b => b.ID == intId)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(1)
+                                              .PageSize(200)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(0, PageCount);
         Assert.IsTrue(Results.Count == 0);
@@ -44,12 +44,12 @@ public class PagedSearchInt64
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB.Default
-                                                      .PagedSearch<BookInt64>()
-                                                      .Match(b => b.Title == guid)
-                                                      .Sort(b => b.ID, Order.Ascending)
-                                                      .PageNumber(2)
-                                                      .PageSize(5)
-                                                      .ExecuteAsync();
+                                              .PagedSearch<BookInt64>()
+                                              .Match(b => b.Title == guid)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(2)
+                                              .PageSize(5)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(2, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -63,12 +63,12 @@ public class PagedSearchInt64
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB.Default
-                                                      .PagedSearch<BookInt64>()
-                                                      .Match(b => b.Title == guid)
-                                                      .Sort(b => b.ID, Order.Ascending)
-                                                      .PageNumber(1)
-                                                      .PageSize(3)
-                                                      .ExecuteAsync();
+                                              .PagedSearch<BookInt64>()
+                                              .Match(b => b.Title == guid)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(1)
+                                              .PageSize(3)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(4, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -84,13 +84,13 @@ public class PagedSearchInt64
         var pipeline = DB.Default.Fluent<BookInt64>()
                          .Match(b => b.Title == guid);
 
-        var (Results, _, PageCount) =  await DB.Default
-                                            .PagedSearch<BookInt64>()
-                                            .WithFluent(pipeline)
-                                            .Sort(b => b.ID, Order.Ascending)
-                                            .PageNumber(2)
-                                            .PageSize(5)
-                                            .ExecuteAsync();
+        var (Results, _, PageCount) = await DB.Default
+                                              .PagedSearch<BookInt64>()
+                                              .WithFluent(pipeline)
+                                              .Sort(b => b.ID, Order.Ascending)
+                                              .PageNumber(2)
+                                              .PageSize(5)
+                                              .ExecuteAsync();
 
         Assert.AreEqual(2, PageCount);
         Assert.IsTrue(Results.Count > 0);
@@ -109,14 +109,14 @@ public class PagedSearchInt64
 
         await SeedData(guid);
 
-         await DB.Default
-              .PagedSearch<BookInt64, BookResult>()
-              .Match(b => b.Title == guid)
-              .Sort(b => b.ID, Order.Ascending)
-              .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
-              .PageNumber(1)
-              .PageSize(5)
-              .ExecuteAsync();
+        await DB.Default
+                .PagedSearch<BookInt64, BookResult>()
+                .Match(b => b.Title == guid)
+                .Sort(b => b.ID, Order.Ascending)
+                .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
+                .PageNumber(1)
+                .PageSize(5)
+                .ExecuteAsync();
     }
 
     [TestMethod]
@@ -142,12 +142,12 @@ public class PagedSearchInt64
 
         await list.SaveAsync();
 
-        var (Results, _, _) =  await DB.Default
-                                    .PagedSearch<GenreInt64>()
-                                    .Match(Search.Full, "one eight nine")
-                                    .Project(p => new() { Name = p.Name, Position = p.Position })
-                                    .SortByTextScore()
-                                    .ExecuteAsync();
+        var (Results, _, _) = await DB.Default
+                                      .PagedSearch<GenreInt64>()
+                                      .Match(Search.Full, "one eight nine")
+                                      .Project(p => new() { Name = p.Name, Position = p.Position })
+                                      .SortByTextScore()
+                                      .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);
@@ -177,11 +177,11 @@ public class PagedSearchInt64
 
         await list.SaveAsync();
 
-        var (Results, _, _) =  await DB.Default
-                                    .PagedSearch<GenreInt64>()
-                                    .Match(Search.Full, "one eight nine")
-                                    .SortByTextScore()
-                                    .ExecuteAsync();
+        var (Results, _, _) = await DB.Default
+                                      .PagedSearch<GenreInt64>()
+                                      .Match(Search.Full, "one eight nine")
+                                      .SortByTextScore()
+                                      .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);

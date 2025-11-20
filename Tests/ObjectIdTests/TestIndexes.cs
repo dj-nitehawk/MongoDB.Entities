@@ -16,10 +16,10 @@ public class IndexesObjectId
         await DB.Default.DropCollectionAsync<AuthorObjectId>();
 
         await DB.Default.Index<AuthorObjectId>()
-          .Option(o => o.Background = false)
-          .Key(a => a.Name, KeyType.Text)
-          .Key(a => a.Surname, KeyType.Text)
-          .CreateAsync();
+                .Option(o => o.Background = false)
+                .Key(a => a.Name, KeyType.Text)
+                .Key(a => a.Surname, KeyType.Text)
+                .CreateAsync();
 
         var author1 = new AuthorObjectId { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author1.SaveAsync();
@@ -31,8 +31,8 @@ public class IndexesObjectId
         Assert.AreEqual(author1.Surname, res[0].Surname);
 
         var res2 = await DB.Default.Find<AuthorObjectId>()
-                     .Match(Search.Full, author1.Surname)
-                     .ExecuteAsync();
+                           .Match(Search.Full, author1.Surname)
+                           .ExecuteAsync();
         Assert.AreEqual(author1.Surname, res2[0].Surname);
     }
 
@@ -40,9 +40,9 @@ public class IndexesObjectId
     public async Task full_text_search_with_wilcard_text_index_works()
     {
         await DB.Default.Index<AuthorObjectId>()
-          .Option(o => o.Background = false)
-          .Key(a => a, KeyType.Text)
-          .CreateAsync();
+                .Option(o => o.Background = false)
+                .Key(a => a, KeyType.Text)
+                .CreateAsync();
 
         var author1 = new AuthorObjectId { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author1.SaveAsync();
@@ -59,12 +59,12 @@ public class IndexesObjectId
     public async Task fuzzy_text_search_with_text_index_works()
     {
         var db = DB.Default;
-        
+
         await db.Index<BookObjectId>()
-          .Option(o => o.Background = false)
-          .Key(b => b.Review.Fuzzy, KeyType.Text)
-          .Key(b => b.Title, KeyType.Text)
-          .CreateAsync();
+                .Option(o => o.Background = false)
+                .Key(b => b.Review.Fuzzy, KeyType.Text)
+                .Key(b => b.Title, KeyType.Text)
+                .CreateAsync();
 
         var b1 = new BookObjectId { Title = "One", Review = new() { Fuzzy = new("Katherine Zeta Jones") } };
         var b2 = new BookObjectId { Title = "Two", Review = new() { Fuzzy = new("Katheryne Zeta Jones") } };
@@ -76,12 +76,12 @@ public class IndexesObjectId
         await db.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
         var res = await db.Find<BookObjectId>()
-                    .Match(Search.Fuzzy, "catherine jones")
-                    .Project(b => new() { ID = b.ID, Title = b.Title })
-                    .SortByTextScore()
-                    .Skip(0)
-                    .Limit(6)
-                    .ExecuteAsync();
+                          .Match(Search.Fuzzy, "catherine jones")
+                          .Project(b => new() { ID = b.ID, Title = b.Title })
+                          .SortByTextScore()
+                          .Skip(0)
+                          .Limit(6)
+                          .ExecuteAsync();
 
         await db.DeleteAsync<BookObjectId>(new object[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
@@ -95,27 +95,28 @@ public class IndexesObjectId
         await DB.Default.DropCollectionAsync<GenreObjectId>();
 
         await DB.Default.Index<GenreObjectId>()
-          .Key(g => g.Name, KeyType.Text)
-          .Option(o => o.Background = false)
-          .CreateAsync();
+                .Key(g => g.Name, KeyType.Text)
+                .Option(o => o.Background = false)
+                .CreateAsync();
 
         var guid = Guid.NewGuid();
 
-        var list = new[] {
-            new GenreObjectId{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreObjectId{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreObjectId{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreObjectId{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreObjectId{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+        var list = new[]
+        {
+            new GenreObjectId { GuidID = guid, Position = 0, Name = "this should not match" },
+            new GenreObjectId { GuidID = guid, Position = 3, Name = "one two three four five six" },
+            new GenreObjectId { GuidID = guid, Position = 4, Name = "one two three four five six seven" },
+            new GenreObjectId { GuidID = guid, Position = 2, Name = "one two three four five six seven eight" },
+            new GenreObjectId { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
         await list.SaveAsync();
 
         var res = await DB.Default.Find<GenreObjectId>()
-                    .Match(Search.Full, "one eight nine")
-                    .Project(p => new() { Name = p.Name, Position = p.Position })
-                    .SortByTextScore()
-                    .ExecuteAsync();
+                          .Match(Search.Full, "one eight nine")
+                          .Project(p => new() { Name = p.Name, Position = p.Position })
+                          .SortByTextScore()
+                          .ExecuteAsync();
 
         await list.DeleteAllAsync();
 
@@ -130,27 +131,28 @@ public class IndexesObjectId
         await DB.Default.DropCollectionAsync<GenreObjectId>();
 
         await DB.Default.Index<GenreObjectId>()
-          .Key(g => g.Name, KeyType.Text)
-          .Option(o => o.Background = false)
-          .CreateAsync();
+                .Key(g => g.Name, KeyType.Text)
+                .Option(o => o.Background = false)
+                .CreateAsync();
 
         var guid = Guid.NewGuid();
 
-        var list = new[] {
-            new GenreObjectId{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreObjectId{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreObjectId{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreObjectId{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreObjectId{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+        var list = new[]
+        {
+            new GenreObjectId { GuidID = guid, Position = 0, Name = "this should not match" },
+            new GenreObjectId { GuidID = guid, Position = 3, Name = "one two three four five six" },
+            new GenreObjectId { GuidID = guid, Position = 4, Name = "one two three four five six seven" },
+            new GenreObjectId { GuidID = guid, Position = 2, Name = "one two three four five six seven eight" },
+            new GenreObjectId { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
         await list.SaveAsync();
 
         var res = await DB.Default.Find<GenreObjectId>()
-                    .Match(Search.Full, "one eight nine")
-                    .SortByTextScore(g => g.SortScore)
-                    .Sort(g => g.Position, Order.Ascending)
-                    .ExecuteAsync();
+                          .Match(Search.Full, "one eight nine")
+                          .SortByTextScore(g => g.SortScore)
+                          .Sort(g => g.Position, Order.Ascending)
+                          .ExecuteAsync();
 
         await list.DeleteAllAsync();
 
@@ -164,30 +166,30 @@ public class IndexesObjectId
     public async Task creating_compound_index_works()
     {
         await DB.Default.Index<BookObjectId>()
-          .Key(x => x.Genres, KeyType.Geo2D)
-          .Key(x => x.Title, KeyType.Descending)
-          .Key(x => x.ModifiedOn, KeyType.Descending)
-          .Option(o => o.Background = true)
-          .CreateAsync();
+                .Key(x => x.Genres, KeyType.Geo2D)
+                .Key(x => x.Title, KeyType.Descending)
+                .Key(x => x.ModifiedOn, KeyType.Descending)
+                .Option(o => o.Background = true)
+                .CreateAsync();
 
         await DB.Default.Index<BookObjectId>()
-          .Key(x => x.Genres, KeyType.Geo2D)
-          .Key(x => x.Title, KeyType.Descending)
-          .Key(x => x.ModifiedOn, KeyType.Ascending)
-          .Option(o => o.Background = true)
-          .CreateAsync();
+                .Key(x => x.Genres, KeyType.Geo2D)
+                .Key(x => x.Title, KeyType.Descending)
+                .Key(x => x.ModifiedOn, KeyType.Ascending)
+                .Option(o => o.Background = true)
+                .CreateAsync();
 
         await DB.Default.Index<AuthorObjectId>()
-          .Key(x => x.Age, KeyType.Hashed)
-          .CreateAsync();
+                .Key(x => x.Age, KeyType.Hashed)
+                .CreateAsync();
 
         await DB.Default.Index<AuthorObjectId>()
-            .Key(x => x.Age, KeyType.Ascending)
-            .CreateAsync();
+                .Key(x => x.Age, KeyType.Ascending)
+                .CreateAsync();
 
         await DB.Default.Index<AuthorObjectId>()
-            .Key(x => x.Age, KeyType.Descending)
-            .CreateAsync();
+                .Key(x => x.Age, KeyType.Descending)
+                .CreateAsync();
     }
 
     [TestMethod]
@@ -196,9 +198,9 @@ public class IndexesObjectId
         await DB.Default.DropCollectionAsync<TestModel>();
 
         var index = await DB.Default.Index<TestModel>()
-          .Key(a => a.Metadata["AnotherKey"], KeyType.Ascending)
-          .Key(a => a.EndDate, KeyType.Ascending)
-          .CreateAsync();
+                            .Key(a => a.Metadata["AnotherKey"], KeyType.Ascending)
+                            .Key(a => a.EndDate, KeyType.Ascending)
+                            .CreateAsync();
 
         Assert.AreEqual("Metadata.AnotherKey(Asc) | EndDate(Asc)", index);
     }

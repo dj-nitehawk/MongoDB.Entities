@@ -67,11 +67,14 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// Creates an instance of Many&lt;TChild&gt;
     /// This is only needed in VB.Net
     /// </summary>
-    public Many() { _db = DB.Default; }
+    public Many()
+    {
+        _db = DB.Default;
+    }
 
 #region one-to-many-initializers
 
-    internal Many(object parent, string property, DB? db=null)
+    internal Many(object parent, string property, DB? db = null)
     {
         _db = DB.InstanceOrDefault(db);
         Init((TParent)parent, property);
@@ -109,7 +112,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     {
         _parent = parent;
         _isInverse = isInverse;
-        
+
         var collectionName = isInverse
                                  ? $"[({propertyParent}){_db.CollectionName<TChild>()}~{_db.CollectionName<TParent>()}({propertyChild})]"
                                  : $"[({propertyChild}){_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({propertyParent})]";

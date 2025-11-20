@@ -570,9 +570,9 @@ public class SavingObjectId
         await author2.SaveAsync();
 
         var res = await DB.Default
-                                  .Find<AuthorObjectId>()
-                                  .Match(f => f.Eq(a => a.Name, guid))
-                                  .ExecuteFirstAsync();
+                          .Find<AuthorObjectId>()
+                          .Match(f => f.Eq(a => a.Name, guid))
+                          .ExecuteFirstAsync();
 
         Assert.AreEqual(author1.ID, res!.ID);
     }
@@ -587,9 +587,9 @@ public class SavingObjectId
         await author2.SaveAsync();
 
         var res = await DB.Default
-                                  .Find<AuthorObjectId>()
-                                  .Match(f => f.Eq(a => a.Name, guid))
-                                  .ExecuteAnyAsync();
+                          .Find<AuthorObjectId>()
+                          .Match(f => f.Eq(a => a.Name, guid))
+                          .ExecuteAnyAsync();
 
         Assert.IsTrue(res);
     }

@@ -24,7 +24,8 @@ public class WatcherEntity
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerEntity { Name = "test" },
             new FlowerEntity { Name = "test" },
             new FlowerEntity { Name = "test" }
@@ -55,13 +56,14 @@ public class WatcherEntity
         await Task.Delay(500);
 
         watcher.OnChangesAsync += async flowers =>
-        {
-            allFlowers.AddRange(flowers);
-            await Task.CompletedTask;
-        };
+                                  {
+                                      allFlowers.AddRange(flowers);
+                                      await Task.CompletedTask;
+                                  };
 
-        await new[] {
-            new FlowerEntity { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
+        await new[]
+        {
+            new FlowerEntity { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
             new FlowerEntity { Name = "test", Color = "red" },
             new FlowerEntity { Name = "test", Color = "red" }
         }.SaveAsync(db);
@@ -97,7 +99,8 @@ public class WatcherEntity
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[] {
+        await new[]
+        {
             new FlowerEntity { Name = guid },
             new FlowerEntity { Name = guid },
             new FlowerEntity { Name = guid }
@@ -128,16 +131,17 @@ public class WatcherEntity
         await Task.Delay(500);
 
         watcher.OnChangesCSDAsync += async csDocs =>
-        {
-            allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
-            await Task.CompletedTask;
-        };
+                                     {
+                                         allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+                                         await Task.CompletedTask;
+                                     };
 
-        await new[] {
+        await new[]
+        {
             new FlowerEntity { Name = guid },
             new FlowerEntity { Name = "exclude me" },
             new FlowerEntity { Name = guid },
-            new FlowerEntity { Name = guid },
+            new FlowerEntity { Name = guid }
         }.SaveAsync();
 
         var flower = new FlowerEntity { Name = guid };
