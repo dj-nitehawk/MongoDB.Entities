@@ -30,10 +30,10 @@ var streamTask = new HttpClient().GetStreamAsync("https://placekitten.com/g/4000
 
 using (var stream = await streamTask)
 {
-    await kitty.Data.UploadAsync(stream);
+    await kitty.Data().UploadAsync(stream);
 }
 ```
-the `Data` property on the file entity gives you access to a couple of methods for uploading and downloading. with those methods, you can specify *upload chunk size*, *download batch size*, *operation timeout period*, as well as *cancellation token* for controlling the process.
+the `Data()` method on the file entity gives you access to a couple of options for uploading and downloading. with those methods, you can specify *upload chunk size*, *download batch size*, *operation timeout period*, as well as *cancellation token* for controlling the process.
 
 in addition to the properties you added, there will also be `FileSize`, `ChunkCount` & `UploadSuccessful` properties on the file entity. the file size reports how much data has been read from the stream in bytes if the upload is still in progress or the total file size if the upload is complete. chunk count reports how many number of pieces the file has been broken into for storage. *UploadSuccessful* will only return true if the process completed without any issues.
 
@@ -48,24 +48,24 @@ var kitty = new Picture
     MD5 = "cccfa116f0acf41a217cbefbe34cd599"
 };
 ```
-the `MD5` property comes from the base `FileEntity`. if a value has been set before calling `.Data.UploadAsync()` an MD5 hash will be calculated at the end of the upload process and matched against the MD5 hash you specified. if they don't match, an exception is thrown. so if specifying an MD5 for verification, you should always wrap your upload code in a try/catch block. if verification fails, the uploaded data is discarded and you'll have to re-attempt the upload.
+the `MD5` property comes from the base `FileEntity`. if a value has been set before calling `.Data().UploadAsync()` an MD5 hash will be calculated at the end of the upload process and matched against the MD5 hash you specified. if they don't match, an exception is thrown. so if specifying an MD5 for verification, you should always wrap your upload code in a try/catch block. if verification fails, the uploaded data is discarded and you'll have to re-attempt the upload.
 
 ### Download data
 ```csharp
-var picture = await DB.Instance().Find<Picture>()
+var picture = await db.Find<Picture>()
                       .Match(p => p.Title == "NiceKitty.jpg")
                       .ExecuteSingleAsync();
 
 using (var stream = File.OpenWrite("kitty.jpg"))
 {
-    await picture.Data.DownloadAsync(stream);
+    await picture.Data().DownloadAsync(stream);
 }
 ```
-first retrieve the file entity you want to work with and then call the `.Data.DownloadAsync()` method by supplying it a stream object to write the data to.
+first retrieve the file entity you want to work with and then call the `.Data().DownloadAsync()` method by supplying it a stream object to write the data to.
 
 alternatively, if the ID of the file entity is known, you can avoid fetching the file entity from the database and access the data directly like so:
 ```csharp
-await DB.Instance().File<Picture>("FileID").DownloadAsync(stream);
+await db.File<Picture>("FileID").DownloadAsync(stream);
 ```
 
 ### Transaction support

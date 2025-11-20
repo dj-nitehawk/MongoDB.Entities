@@ -2,29 +2,29 @@
 several overloads are available for finding entities as shown below.
 ### Find one by ID
 ```csharp
-var author = await DB.Instance().Find<Author>().OneAsync("ID");
+var author = await db.Find<Author>().OneAsync("ID");
 ```
 ### Find many by lambda
 ```csharp
-var authors = await DB.Instance().Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
+var authors = await db.Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
 ```
 ### Find many by filter
 ```csharp
-var authors = await DB.Instance().Find<Author>()
+var authors = await db.Find<Author>()
                       .ManyAsync(f=> f.Eq(a=>a.Surname,"Stark") & f.Gt(a=>a.Age,35));
 ```
 > [!tip]
 > all the [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods of the official driver are available for use as shown above.
 ### Find by 2D coordinates
 ```csharp
-var cafes = await DB.Instance().Find<Cafe>()
+var cafes = await db.Find<Cafe>()
                     .Match(c => c.Location, new Coordinates2D(48.857908, 2.295243), 1000)
                     .ExecuteAsync()
 ```
 > see [_this tutorial_](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd) for a detailed walkthrough.
 ## Find by aggregation expression ($expr)
 ```csharp
-var authors = await DB.Instance().Find<Author>()
+var authors = await db.Find<Author>()
                       .MatchExpression("{$gt:['$TotalSales','$SalesGoal']}")
                       .ExecuteAsync();
 ```
@@ -34,7 +34,7 @@ var authors = await DB.Instance().Find<Author>()
 # Advanced find
 ## Sorting, paging and projecting
 ```csharp
-var authors = await DB.Instance().Find<Author>()
+var authors = await db.Find<Author>()
                       .Match(a => a.Age > 30)
                       .Sort(a => a.Age, Order.Descending)
                       .Sort(a => a.Name, Order.Ascending)
@@ -57,7 +57,7 @@ to avoid the complete entity being returned, you can use `.Project()` with a lam
 #### Projection with exclusions
 it is also possible to specify an exclusion projection with a `new` expression like so:
 ```csharp
-var res = await DB.Instance().Find<Author>()
+var res = await db.Find<Author>()
                   .Match(a => a.ID == "xxxxxxxxxxx")
                   .ProjectExcluding(a => new { a.Age, a.Name })
                   .ExecuteSingleAsync();
@@ -67,7 +67,7 @@ doing so will return an Author entity with all the properties populated except f
 #### Project to a different type
 in order to project to a different result type than the input entity type, simply use the generic overload like so:
 ```csharp
-var name = await DB.Instance().Find<Author,string>()
+var name = await db.Find<Author,string>()
                    .Match(a => a.ID == "xxxxxxxxxxx")
                    .Project(a => a.FirstName + " " + a.LastName)
                    .ExecuteSingleAsync();

@@ -1,12 +1,12 @@
 # Multiple database support
 you can store and retrieve Entities in multiple databases on either a single server or multiple servers. the only requirement is to have unique names for each database. the following example demonstrates how to use multiple databases.
 
-### Test Case Usage example, 1 customer per database
+### Test case ssage example: 1 customer per database
 It save the same Entity (Auto) to two different databases.
 
 ```csharp
 var _db1 = await DB.InitAsync("Customer1");
-var _db2 = await DB.InitAsync("Customer1");
+var _db2 = await DB.InitAsync("Customer2");
 
     var auto1 = new Auto
     {

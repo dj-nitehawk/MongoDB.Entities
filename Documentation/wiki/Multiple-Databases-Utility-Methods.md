@@ -4,21 +4,21 @@
 ```csharp
 var dbName = pic.DatabaseName();
 var dbName = pic.DatabaseName(dbInstance);
-var dbName = DB.Instance().DatabaseName();
-var dbName = dbInstance().DatabaseName();
+var dbName = DB.Default.DatabaseName();
+var dbName = dbInstance.DatabaseName();
 ```
 the above methods will return the name of the database that the entity is stored in. if not specifically attached to seperate db, it will return the name of the default database.
 
 ## Check if a database already exists on the server
 ```csharp
 bool dbExists = await DB.Database("BookShopFILES").ExistsAsync();
-bool dbExists = await DB.Database().ExistsAsync();
+bool dbExists = await DB.Default.ExistsAsync();
 ```
 
 ## Check if a database is still accessible
 ```csharp
 bool isAlive = await DB.Database("BookShopFILES").IsAccessibleAsync();
-bool isAlive = await DB.Database().IsAccessibleAsync();
+bool isAlive = await DB.Default.IsAccessibleAsync();
 ```
 
 ## Get a list of all databases on the server

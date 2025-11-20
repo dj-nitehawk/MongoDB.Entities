@@ -1,8 +1,7 @@
 # The DBContext
 
 the *DBContext* class exists for the sole purpose of facilitating the below-mentioned functionality. 
-it is a thin stateful wrapper around the instance `DB` class methods. 
-feel free to create as many instances as you please whenever needed.
+it is a thin wrapper around the `DB` instance methods.
 
 ### Needed for:
 - [Automatic audit fields](DB-Instances-Audit-Fields.md)

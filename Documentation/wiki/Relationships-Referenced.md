@@ -113,26 +113,26 @@ when you delete an entity that's in a `one-to-many` or `many-to-many` relationsh
 
 for example:
 
-```
-| author A has 3 referenced books:
-|-- book A
-|-- book B
-|-- book C
+```txt
+author A has 3 referenced books:
+├─ book A
+├─ book B
+├─ book C
 
-| author B has 3 referenced book:
-|-- book A
-|-- book B
-|-- book C
+author B has 3 referenced book:
+├─ book A
+├─ book B
+├─ book C
 
 now, if you delete book B, the children of authors A and B would look like this:
 
-| author A:
-|-- book A
-|-- book C
+author A:
+├─ book A
+├─ book C
 
-| author B:
-|-- book A
-|-- book C
+author B:
+├─ book A
+├─ book C
 ```
 
 # ToEntityAsync() shortcut

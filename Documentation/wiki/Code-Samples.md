@@ -2,7 +2,7 @@
 ---
 ### Initialize connection
 ```csharp
-  await DB.InitAsync("bookshop","localhost");
+  var db = await DB.InitAsync("bookshop","localhost");
 ```
 ### Persist an entity
 ```csharp
@@ -17,7 +17,7 @@
 ```
 ### Update entity properties
 ```csharp
-  await DB.Instance().Update<Book>()
+  await db.Update<Book>()
           .Match(b => b.Title == "The Power Of Now")
           .Modify(b => b.Publisher, "New World Order")
           .Modify(b => b.ISBN, "SOMEISBNNUMBER")
@@ -45,11 +45,11 @@
 ```        
 ### Queries
 ```csharp
-  var author = await DB.Instance().Find<Author>().OneAsync("ID");
+  var author = await db.Find<Author>().OneAsync("ID");
 
-  var authors = await DB.Instance().Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
+  var authors = await db.Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
 
-  var eckhart = await DB.Instance().Queryable<Author>()
+  var eckhart = await db.Queryable<Author>()
                         .Where(a => a.Name.Contains("Eckhart"))
                         .SingleOrDefaultAsync();
 
@@ -67,8 +67,8 @@
   await book.MainAuthor.DeleteAsync();
   await book.AllAuthors.DeleteAllAsync();
   await book.DeleteAsync();
-  await DB.Instance().DeleteAsync<Genre>("ID");
-  await DB.Instance().DeleteAsync<Book>(b => b.Title == "The Power Of Now");
+  await db.DeleteAsync<Genre>("ID");
+  await db.DeleteAsync<Book>(b => b.Title == "The Power Of Now");
 ```
 ---
 

@@ -14,7 +14,7 @@ public class Book : Entity
 ```
 ## 2. Create text index
 ```csharp
-await DB.Instance().Index<Book>()
+await db.Index<Book>()
         .Key(b => b.AuthorName, KeyType.Text)
         .CreateAsync();
 ```
@@ -24,7 +24,7 @@ await new Book { AuthorName = "Eckhart Tolle" }.SaveAsync();
 ```
 ## 4. Do a fuzzy search on the index
 ```csharp
-var results = await DB.Instance().Find<Book>()
+var results = await db.Find<Book>()
                       .Match(Search.Fuzzy, "ekard tole")
                       .ExecuteAsync();
 ```
@@ -32,7 +32,7 @@ that's all there's to it...
 
 in case you need to start a flunt aggregation pipeline with fuzzy text matching, you can do it like so:
 ```csharp
-DB.Instance().FluentTextSearch<Book>(Search.Fuzzy, "ekard tole")
+db.FluentTextSearch<Book>(Search.Fuzzy, "ekard tole")
 ```
 # How it works
 when you store text using `FuzzyString` class, the resulting mongodb document will look like this:

@@ -1,6 +1,6 @@
 # Define entities
 
-add the import statement shown below and create your entities by inheriting the `Entity` base class.
+add the import statement and create your entities by inheriting the `Entity` base class.
 
 ```csharp
 using MongoDB.Entities;
@@ -118,7 +118,7 @@ public class Book : IEntity
 # Create a collection explicitly
 
 ```csharp
-await DB.Instance().CreateCollectionAsync<Book>(o =>
+await db.CreateCollectionAsync<Book>(o =>
 {
     o.Collation = new Collation("es");
     o.Capped = true;
@@ -135,5 +135,5 @@ however, you'd have to create the collection like above if you need to use a cus
 # Drop a collection
 
 ```csharp
-await DB.Instance().DropCollectionAsync<Book>();
+await db.DropCollectionAsync<Book>();
 ```

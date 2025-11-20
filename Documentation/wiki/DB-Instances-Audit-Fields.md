@@ -52,7 +52,7 @@ doing so will result in the following document in mongodb:
 ## Get/set audit values
 it is also possible to instantiate a `DBContext` without supplying a `ModifiedBy` to the constructor and set or get it like so:
 ```csharp
-var dbContext = new DBContext();
+var db = new DBContext();
 
 db.ModifiedBy = new ModifiedBy
 {
@@ -77,7 +77,7 @@ using (db.Transaction())
 
 or it can be performed with a `Transaction` instance like so:
 ```csharp
-using (var TN = DB.Instance().Transaction(modifiedBy: currentUser))
+using (var TN = db.Transaction(modifiedBy: currentUser))
 {
     await TN.SaveAsync(book);
     await TN.CommitAsync();

@@ -39,7 +39,7 @@ var query = new Template<Book>(@"
 .Tag("book_name","The Power Of Now")
 .Tag("book_price","10.95");
 
-var result = await DB.Instance().Find<Book>()
+var result = await db.Find<Book>()
                      .Match(query)
                      .ExecuteAsync();
 ```
@@ -103,7 +103,7 @@ var pipeline = new Template<Book>(@"
 .Path(b => b.AuthorId)
 .Tag("book_name", "MongoDB Templates");
 
-var book = await DB.Instance().PipelineSingleAsync(pipeline);
+var book = await db.PipelineSingleAsync(pipeline);
 ```
 
 ### Aggregation pipeline with different result type
@@ -135,7 +135,7 @@ var pipeline = new Template<Book, Author>(@"
 .Path(b => b.AuthorID)
 .PathOfResult(a => a.Age);
 
-var authors = await DB.Instance().PipelineAsync(pipeline);
+var authors = await db.PipelineAsync(pipeline);
 ```
 
 ### Find with match expression
@@ -153,7 +153,7 @@ var query = new Template<Author>(@"
 .Tag("author_age", "54")
 .Tag("author_surname", "Tolle");
 
-var authors = await DB.Instance().Find<Author>()
+var authors = await db.Find<Author>()
                       .MatchExpression(query)
                       .ExecuteAsync();
 ```
@@ -171,7 +171,7 @@ var pipeline = new Template<Author>(@"
 .Path(a => a.Surname)
 .Path(a => a.Age);
 
-await DB.Instance().Update<Author>()
+await db.Update<Author>()
         .Match(a => a.ID == "xxxxx")
         .WithPipeline(pipeline)
         .ExecutePipelineAsync();
@@ -200,7 +200,7 @@ var update = new Template<Book>(@"
 .Tag("age", "55")
 .Tag("name", "Updated Name");
 
-await DB.Instance().Update<Book>()
+await db.Update<Book>()
         .Match(book => book.ID == "xxxxxxxx")
         .WithArrayFilters(filters)
         .Modify(update)
@@ -222,5 +222,5 @@ pipeline
 .Path(b => b.Title)
 .Tag("book_name", "MongoDB Templates");
 
-var books = await DB.Instance().PipelineAsync(pipeline);
+var books = await db.PipelineAsync(pipeline);
 ```

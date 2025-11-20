@@ -23,13 +23,13 @@ the value of `CustomID` would be `PID-0000001-X`. the next Person entities you c
 if you don't have an instance of an Entity you can simply call the instance method on the `DB` class like so:
 
 ```csharp
-var number = await DB.Instance().NextSequentialNumberAsync<Person>();
+var number = await db.NextSequentialNumberAsync<Person>();
 ```
 
 #### Generation for any sequence name
 there's also an overload for generating sequential numbers for any given sequence name like so:
 ```csharp
-var number = await DB.Instance().NextSequentialNumberAsync("SequenceName");
+var number = await db.NextSequentialNumberAsync("SequenceName");
 ```
 
 #### Considerations

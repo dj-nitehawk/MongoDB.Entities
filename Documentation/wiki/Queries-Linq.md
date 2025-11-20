@@ -8,7 +8,7 @@ also see the c# driver [expressions documentation](http://mongodb.github.io/mong
 
 ## Query collections
 ```csharp
-var author = await (from a in DB.Instance().Queryable<Author>()
+var author = await (from a in db.Queryable<Author>()
                     where a.Name.Contains("Eckhart")
                     select a).FirstOrDefaultAsync();
 ```
@@ -44,7 +44,7 @@ it is basically a convenience method instead of having to do a manual join like 
 var allBooksOfAnAuthor = await (
         from j in book.Authors.JoinQueryable()
         where j.ChildID == "AuthorID"
-        join b in DB.Instance().Collection<Book>() on j.ParentID equals b.ID
+        join b in db.Collection<Book>() on j.ParentID equals b.ID
         select b
 ).ToListAsync();
 
@@ -53,7 +53,7 @@ var allBooksOfAnAuthor = await book.Authors
         .JoinQueryable()
         .Where(j => j.ChildID == "AuthorID")
         .Join(
-            DB.Instance().Collection<Book>(), //foreign collection
+            db.Collection<Book>(), //foreign collection
             j => j.ParentID,       //local ID
             b => b.ID,             //foreign ID
             (j, b) => b)           //result selector expression
@@ -62,13 +62,13 @@ var allBooksOfAnAuthor = await book.Authors
 
 in cases where you don't have access to an instance of the parent entity and only have the `ID` of the parent, you can access the join records like so:
 ```csharp
-DB.Instance().Entity<Book>("Book ID").Authors.JoinQueryable()
+db.Entity<Book>("Book ID").Authors.JoinQueryable()
 ```
 
 and when you need to access all of the join records for a given entity relationship, you can access the join records like so:
 
 ```csharp
-DB.Instance().Entity<Book>().Authors.JoinQueryable()
+db.Entity<Book>().Authors.JoinQueryable()
 ```
 
 ## Counting children

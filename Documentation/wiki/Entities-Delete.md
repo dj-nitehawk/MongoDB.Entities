@@ -16,17 +16,17 @@ deleting entities can be achieved in any of the following ways:
 ```
 ### Delete by ID from default instance
 ```csharp
-  await DB.Instance().DeleteAsync<Author>("ID");
+  await DB.Default.DeleteAsync<Author>("ID");
 ```
 ### Delete by ID from a specific db instance
 ```csharp
-  await dbInstance.DeleteAsync<Author>("ID");
+  await db.DeleteAsync<Author>("ID");
 ```
 ### Delete by multiple IDs
 ```csharp
-  await DB.Instance().DeleteAsync<Book>(new[] { "ID1", "ID2" });
+  await db.DeleteAsync<Book>(new[] { "ID1", "ID2" });
 ```
 ### Delete by lambda expression
 ```csharp
-  await DB.Instance().DeleteAsync<Book>(b => b.Title.Contains("Trump")); 
+  await db.DeleteAsync<Book>(b => b.Title.Contains("Trump")); 
 ```

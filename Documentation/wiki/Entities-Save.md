@@ -6,7 +6,7 @@ call `SaveAsync()` on any entity to persist it to the database.
 var book = new Book { Title = "The Power Of Now" }; 
 await book.SaveAsync();
 ```
-call `SaveAsync(dbInstance)` on any entity to persist it to a specific database instance.
+call `SaveAsync(dbInstance)` on any entity to persist it to a specific database.
 
 ```csharp
 var book = new Book { Title = "The Power Of Now" }; 
@@ -27,21 +27,21 @@ var books = new[] {
 await books.SaveAsync();
 ```
 
-# Save via the default DB instance class
-you can also use the DB instance class for saving entities like so:
+# Save via the default databse
+entities can be saved via the default database like so:
 ```csharp
-await DB.Instance().SaveAsync(book);
-await DB.Instance().SaveAsync(books);
+await DB.Default.SaveAsync(book);
+await DB.Default.SaveAsync(books);
 ```
-# Save via a specific DB instance class
-you can also use the DB instance class for saving entities like so:
+# Save via a specific database
+you can also use the DB instances for saving entities like so:
 ```csharp
 await dbInstance.SaveAsync(book);
 await dbInstance.SaveAsync(books);
 ```
 
 # Save entities partially
-the above-mentioned `SaveAsync` methods will replace the entire document in the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two choices to make your life easier.
+the above-mentioned `SaveAsync` methods will replace the entire document in the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two convenient choices.
 
 ### Save only a few specified properties
 ```csharp
@@ -81,11 +81,8 @@ await authors.InsertAsync();
 await author.InsertAsync(dbInstance);
 await authors.InsertAsync(dbInstance);
 
-await DB.InsertAsync(author);
-await DB.InsertAsync(authors);
-
-await dbInstance.InsertAsync(author);
-await dbInstance.InsertAsync(authors);
+await db.InsertAsync(author);
+await db.InsertAsync(authors);
 ```
 
 # Embed an entity

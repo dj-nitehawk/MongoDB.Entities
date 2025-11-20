@@ -33,7 +33,7 @@ for ex: if you rename the `Book` entity to `AwesomeBook` and property holding it
 
 if you need to drop a join collection that is no longer needed, you can delete them like so:
 ```csharp
-await DB.Instance().Entity<Author>().Books.JoinCollection.DropAsync();
+await db.Entity<Author>().Books.JoinCollection.DropAsync();
 ```
 
 ### Indexes
