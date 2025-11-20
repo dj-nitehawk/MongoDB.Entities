@@ -99,7 +99,6 @@ public static partial class Extensions
         /// Saves an entity partially while excluding some properties.
         /// The properties to be excluded can be specified using the [Preserve] attribute.
         /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="db">The DB instance to use for this operation</param>
         /// <param name="session"></param>
         /// <param name="cancellation">An optional cancellation token</param>
