@@ -88,7 +88,7 @@
 <h1 id="install">Install</h1>
 
 <p>install the nuget package with command:</p>
-<pre><code>Install-Package MongoDB.Entities
+<pre><code>dotnet add package MongoDB.Entities
 </code></pre>
 <h1 id="initialize">Initialize</h1>
 <p>import the package with <code>using MongoDB.Entities;</code> and initialize the database connection as follows:</p>
@@ -106,10 +106,10 @@
       Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
   },
   new MongoDatabaseSettings()
-      {
-          ReadConcern = ReadConcern.Majority,
-          WriteConcern = WriteConcern.WMajority
-      });
+  {
+      ReadConcern = ReadConcern.Majority,
+      WriteConcern = WriteConcern.WMajority
+  });
 </code></pre>
 <!-- > these MongoClientSettings will only work for mongodb v4.0 or newer databases as it will use the `SCRAM-SHA-256` authentication method. if your db version is older than that and uses `SCRAM-SHA-1` authentication method, please [click here](https://gist.github.com/dj-nitehawk/a0b1484dbba90085305520c156502608) to see how to connect or you may use a connection string to connect as shown below. -->
 <h2 id="using-a-connection-string">Using a connection string</h2>
