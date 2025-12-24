@@ -8,22 +8,6 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-    /// <typeparam name="T">The type of entity</typeparam>
-    extension<T>(T _) where T : IEntity
-    {
-        /// <summary>
-        /// Gets the IMongoDatabase for the given entity type
-        /// </summary>
-        public IMongoDatabase Database(DB? db = null)
-            => DB.InstanceOrDefault(db).Database<T>();
-
-        /// <summary>
-        /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
-        /// </summary>
-        public string DatabaseName(DB? db = null)
-            => DB.InstanceOrDefault(db).DatabaseName<T>();
-    }
-
     /// <param name="db"></param>
     extension(IMongoDatabase db)
     {

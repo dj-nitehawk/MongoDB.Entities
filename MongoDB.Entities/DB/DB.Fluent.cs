@@ -6,18 +6,24 @@ namespace MongoDB.Entities;
 public partial class DB
 {
     /// <summary>
-    /// Exposes the MongoDB collection for the given IEntity as an IAggregateFluent in order to facilitate Fluent queries.
+    /// Exposes the MongoDB collection for the given entity type as IAggregateFluent in order to facilitate Fluent queries
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <typeparam name="T">The type of entity</typeparam>
     /// <param name="options">The options for the aggregation. This is not required.</param>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
-        => session == null
-               ? Collection<T>().Aggregate(options)
-               : Collection<T>().Aggregate(session, options);
+    public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null) where T : IEntity
+    {
+        var globalFilter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+        var fluent = Session == null
+                         ? Collection<T>().Aggregate(options)
+                         : Collection<T>().Aggregate(Session, options);
+
+        return globalFilter != Builders<T>.Filter.Empty
+                   ? fluent.Match(globalFilter)
+                   : fluent;
+    }
 
     /// <summary>
-    /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.
+    /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters
     /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
     /// </summary>
     /// <param name="searchType">The type of text matching to do</param>
@@ -26,15 +32,15 @@ public partial class DB
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
     /// <param name="options">Options for finding documents (not required)</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     public IAggregateFluent<T> FluentTextSearch<T>(Search searchType,
-                                                          string searchTerm,
-                                                          bool caseSensitive = false,
-                                                          bool diacriticSensitive = false,
-                                                          string? language = null,
-                                                          AggregateOptions? options = null,
-                                                          IClientSessionHandle? session = null) where T : IEntity
+                                                   string searchTerm,
+                                                   bool caseSensitive = false,
+                                                   bool diacriticSensitive = false,
+                                                   string? language = null,
+                                                   AggregateOptions? options = null) where T : IEntity
     {
+        var globalFilter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+
         if (searchType == Search.Fuzzy)
         {
             searchTerm = searchTerm.ToDoubleMetaphoneHash();
@@ -52,8 +58,12 @@ public partial class DB
                 Language = language
             });
 
-        return session == null
-                   ? Collection<T>().Aggregate(options).Match(filter)
-                   : Collection<T>().Aggregate(session, options).Match(filter);
+        var fluent = Session == null
+                         ? Collection<T>().Aggregate(options).Match(filter)
+                         : Collection<T>().Aggregate(Session, options).Match(filter);
+
+        return globalFilter != Builders<T>.Filter.Empty
+                   ? fluent.Match(globalFilter)
+                   : fluent;
     }
 }

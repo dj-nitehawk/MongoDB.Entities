@@ -35,22 +35,29 @@ public partial class DB
 
     internal IServiceProvider? ServiceProvider { get; private set; }
 
-    /// <summary>
-    /// The cached MongoClient instances
-    /// </summary>
     static readonly ConcurrentDictionary<MongoClientSettings, MongoClient> _clients = new();
-
     static readonly ConcurrentDictionary<MongoClient, ConcurrentDictionary<string, DB>> _clientInstances = new();
-
     static MongoClientSettings _defaultClientSettings = null!; // to be set on first InitAsync call
-
-    static DB _defaultInstance = null!; // to be set on first InitAsync call
-
-    readonly IMongoDatabase _mongoDatabase;
+    static DB _defaultInstance = null!;                        // to be set on first InitAsync call
+    readonly IMongoDatabase _mongoDb;
 
     private DB(IMongoDatabase db)
     {
-        _mongoDatabase = db;
+        _mongoDb = db;
+    }
+
+    /// <summary>
+    /// The value of this property will be automatically set on entities when saving/updating if the entity has a <see cref="ModifiedBy" /> property
+    /// </summary>
+    public ModifiedBy? ModifiedBy { get; set; }
+
+    void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
+    {
+        if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
+        {
+            throw new InvalidOperationException(
+                $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
+        }
     }
 
     /// <summary>
@@ -121,29 +128,22 @@ public partial class DB
     /// </summary>
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
-    public Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
+    public static Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
         => AllDatabaseNamesAsync(new() { Server = new(host, port) });
 
     /// <summary>
     /// Gets a list of all database names from the server
     /// </summary>
     /// <param name="settings">A MongoClientSettings object</param>
-    public async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
+    public static async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
         => await (await new MongoClient(settings).ListDatabaseNamesAsync().ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
-
-    /// <summary>
-    /// Gets the IMongoDatabase for the given entity type
-    /// </summary>
-    /// <typeparam name="T">The type of entity</typeparam>
-    public IMongoDatabase Database<T>() where T : IEntity
-        => _mongoDatabase;
 
     /// <summary>
     /// Gets the IMongoDatabase for a given database name if it has been previously initialized.
     /// You can also get the default database by passing 'default' or 'null' for the name parameter.
     /// </summary>
     public IMongoDatabase Database()
-        => _mongoDatabase;
+        => _mongoDb;
 
     /// <summary>
     /// Gets the default DB instance when previously initialized.
@@ -189,11 +189,10 @@ public partial class DB
         => db ?? _defaultInstance;
 
     /// <summary>
-    /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
+    /// Gets the name of the database which this DB instance is attached to.
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public string DatabaseName<T>() where T : IEntity
-        => _mongoDatabase.DatabaseNamespace.DatabaseName;
+    public string DatabaseName()
+        => _mongoDb.DatabaseNamespace.DatabaseName;
 
     /// <summary>
     /// Switches the default database at runtime
@@ -214,28 +213,28 @@ public partial class DB
     /// Exposes the mongodb Filter Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public FilterDefinitionBuilder<T> Filter<T>() where T : IEntity
+    public static FilterDefinitionBuilder<T> Filter<T>() where T : IEntity
         => Builders<T>.Filter;
 
     /// <summary>
     /// Exposes the mongodb Sort Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public SortDefinitionBuilder<T> Sort<T>() where T : IEntity
+    public static SortDefinitionBuilder<T> Sort<T>() where T : IEntity
         => Builders<T>.Sort;
 
     /// <summary>
     /// Exposes the mongodb Projection Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
+    public static ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
         => Builders<T>.Projection;
 
     /// <summary>
     /// Returns a new instance of the supplied IEntity type
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public T Entity<T>() where T : IEntity, new()
+    public static T Entity<T>() where T : IEntity, new()
         => new();
 
     /// <summary>
@@ -243,7 +242,7 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The ID to set on the returned instance</param>
-    public T Entity<T>(object ID) where T : IEntity, new()
+    public static T Entity<T>(object ID) where T : IEntity, new()
     {
         var newT = new T();
         newT.SetId(ID);
@@ -258,4 +257,18 @@ public partial class DB
     /// <param name="serviceProvider">The <see cref="IServiceProvider" /> instance</param>
     public void SetServiceProvider(IServiceProvider serviceProvider)
         => ServiceProvider = serviceProvider;
+
+    /// <summary>
+    /// This event hook will be triggered right before an entity is persisted
+    /// </summary>
+    /// <typeparam name="T">Any entity that implements IEntity</typeparam>
+    protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
+        => null;
+
+    /// <summary>
+    /// This event hook will be triggered right before an update/replace command is executed
+    /// </summary>
+    /// <typeparam name="T">Any entity that implements IEntity</typeparam>
+    protected virtual Action<UpdateBase<T>>? OnBeforeUpdate<T>() where T : IEntity
+        => null;
 }
