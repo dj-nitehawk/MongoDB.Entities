@@ -48,8 +48,9 @@ public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
-    public DataStreamer<T> Data(DB db)
-        => _streamer ??= new(this, db);
+    /// <param name="database">The database instance to use for this operation</param>
+    public DataStreamer<T> Data(DB? database = null)
+        => _streamer ??= new(this, database ?? DB.Default);
 }
 
 [Collection("[BINARY_CHUNKS]")]

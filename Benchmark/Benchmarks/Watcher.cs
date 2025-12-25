@@ -10,30 +10,29 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class Watcher : BenchBase
 {
+    readonly DB db = DB.Default;
+
     [Benchmark]
     public override async Task MongoDB_Entities()
     {
         var cts = new CancellationTokenSource();
 
-        var watcher = DB.Default.Watcher<Book>(Guid.NewGuid().ToString());
+        var watcher = db.Watcher<Book>(Guid.NewGuid().ToString());
 
         watcher.OnChangesCSD += csDocs =>
-        {
-            foreach (var _ in csDocs)
-            {
-                //Console.WriteLine(csd.FullDocument.Title);
-                cts.Cancel();
-            }
-        };
+                                {
+                                    foreach (var _ in csDocs)
+
+                                        //Console.WriteLine(csd.FullDocument.Title);
+                                        cts.Cancel();
+                                };
 
         watcher.Start(EventType.Created, cancellation: cts.Token);
 
         await InsertAnEntity();
 
         while (!cts.IsCancellationRequested)
-        {
             await Task.Delay(1);
-        }
 
         cts.Dispose();
     }
@@ -47,22 +46,21 @@ public class Watcher : BenchBase
 
         var cursor = await BookCollection.WatchAsync(pipeline, cancellationToken: cts.Token);
 
-        _ = cursor.ForEachAsync(_ =>
-         {
-             //Console.WriteLine(csd.FullDocument.Title);
-             cts.Cancel();
-         });
+        _ = cursor.ForEachAsync(
+            _ =>
+            {
+                //Console.WriteLine(csd.FullDocument.Title);
+                cts.Cancel();
+            });
 
         await InsertAnEntity();
 
         while (!cts.IsCancellationRequested)
-        {
             await Task.Delay(1);
-        }
 
         cts.Dispose();
     }
 
     Task InsertAnEntity()
-        => new Book { Title = "book name" }.SaveAsync();
+        => db.SaveAsync(new Book { Title = "book name" });
 }
