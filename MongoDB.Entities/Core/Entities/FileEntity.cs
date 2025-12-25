@@ -85,16 +85,11 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     internal DataStreamer(FileEntity<T> parent, DB db)
     {
         _parent = parent;
-
         _db = db;
-
         _mongoDatabase = _db.Database();
-
         _chunkCollection = _db.Collection<FileChunk>();
 
-        var dbName = _mongoDatabase.DatabaseNamespace.DatabaseName;
-
-        if (_indexedDBs.Add(dbName))
+        if (_indexedDBs.Add(_mongoDatabase.DatabaseNamespace.DatabaseName))
         {
             _ = _chunkCollection.Indexes.CreateOneAsync(
                 new CreateIndexModel<FileChunk>(

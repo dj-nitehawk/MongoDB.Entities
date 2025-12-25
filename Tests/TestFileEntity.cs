@@ -25,7 +25,7 @@ public class FileEntities
         var db = await DB.InitAsync(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         //https://placekitten.com/g/4000/4000 - 1097221
         //https://djnitehawk.com/test/test.bmp - 69455612
@@ -46,7 +46,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using var stream = File.OpenRead("Models/test.jpg");
         await img.Data(db).UploadAsync(stream).ConfigureAwait(false);
@@ -65,7 +65,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test-bad-hash.png", Md5 = "wrong-hash" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using var stream = File.OpenRead("Models/test.jpg");
 
@@ -78,7 +78,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test-correct-hash.png", Md5 = "cccfa116f0acf41a217cbefbe34cd599" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using var stream = File.OpenRead("Models/test.jpg");
         await img.Data(db).UploadAsync(stream).ConfigureAwait(false);
@@ -97,7 +97,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 100, Width = 100, Name = "Test-small.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using var stream = File.OpenRead("Models/test.jpg");
         await img.Data(db).UploadAsync(stream, 4096).ConfigureAwait(false);
@@ -116,7 +116,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { ID = Guid.NewGuid().ToString(), Height = 400, Width = 400, Name = "Test-Delete.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using var stream = File.Open("Models/test.jpg", FileMode.Open);
         await img.Data(db).UploadAsync(stream).ConfigureAwait(false);
@@ -128,15 +128,14 @@ public class FileEntities
 
         Assert.AreEqual(img.ChunkCount, countBefore);
 
-        var deleteResult = await img.DeleteAsync(db);
+        var deleteResult = await db.DeleteAsync(img);
 
         Assert.IsTrue(deleteResult.IsAcknowledged);
         Assert.AreEqual(1, deleteResult.DeletedCount);
 
-        var countAfter =
-            await db.Collection<FileChunk>().AsQueryable()
-                    .Where(c => c.FileID == img.ID)
-                    .CountAsync();
+        var countAfter = await db.Collection<FileChunk>().AsQueryable()
+                                 .Where(c => c.FileID == img.ID)
+                                 .CountAsync();
 
         Assert.AreEqual(0, countAfter);
     }
@@ -147,7 +146,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using var stream = File.Open("Models/test.jpg", FileMode.Open);
         await img.Data(db).UploadAsync(stream).ConfigureAwait(false);
@@ -177,7 +176,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using (var inStream = File.OpenRead("Models/test.jpg"))
             await img.Data(db).UploadAsync(inStream).ConfigureAwait(false);
@@ -198,7 +197,7 @@ public class FileEntities
         var db = await InitTest.InitTestDatabase(dbName);
 
         var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
-        await img.SaveAsync(db).ConfigureAwait(false);
+        await db.SaveAsync(img).ConfigureAwait(false);
 
         using (var inStream = File.OpenRead("Models/test.jpg"))
             await img.Data(db).UploadAsync(inStream).ConfigureAwait(false);
