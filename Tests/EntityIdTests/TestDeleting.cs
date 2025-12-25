@@ -12,6 +12,11 @@ public class DeletingEntity
 {
     readonly DB _db = DB.Default;
 
+    public DeletingEntity()
+    {
+        _db = _db.WithModifiedBy(new());
+    }
+
     [TestMethod]
     public async Task delete_by_id_removes_entity_from_collectionAsync()
     {

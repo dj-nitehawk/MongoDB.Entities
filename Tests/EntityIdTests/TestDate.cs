@@ -11,6 +11,11 @@ public class DatesEntity
 {
     readonly DB _db = DB.Default;
 
+    public DatesEntity()
+    {
+        _db = _db.WithModifiedBy(new());
+    }
+
     [TestMethod]
     public async Task not_setting_date_doesnt_cause_issuesAsync()
     {
@@ -35,7 +40,7 @@ public class DatesEntity
         };
         await _db.SaveAsync(book);
 
-        var res = await DB.Default.Find<BookEntity>().OneAsync(book.ID);
+        var res = await _db.Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual(pubDate.Ticks, res!.PublishedOn!.Ticks);
         Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);

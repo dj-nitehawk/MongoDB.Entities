@@ -13,7 +13,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_index_returns_correct_result()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.DropCollectionAsync<AuthorEntity>();
 
@@ -41,7 +41,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_wilcard_text_index_works()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.Index<AuthorEntity>()
                 .Option(o => o.Background = false)
@@ -62,7 +62,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task fuzzy_text_search_with_text_index_works()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.Index<BookEntity>()
                 .Option(o => o.Background = false)

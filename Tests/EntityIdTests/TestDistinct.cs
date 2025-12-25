@@ -15,7 +15,7 @@ public class DistinctEntity
         var guid2 = Guid.NewGuid().ToString();
         var guids = new[] { guid1, guid2 };
 
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.SaveAsync(
         [

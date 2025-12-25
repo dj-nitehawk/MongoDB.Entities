@@ -56,7 +56,7 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_with_pipeline_using_template()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
         var guid = Guid.NewGuid().ToString();
 
         var author = new AuthorEntity { Name = "uwput", Surname = guid, Age = 666 };
@@ -85,7 +85,7 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_with_aggregation_pipeline_works()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
         var guid = Guid.NewGuid().ToString();
 
         var author = new AuthorEntity { Name = "uwapw", Surname = guid };

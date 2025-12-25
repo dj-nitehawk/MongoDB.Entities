@@ -132,7 +132,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = DB.Instance(dbName);
+        var db = DB.Instance(dbName).WithModifiedBy(new());
 
         var author = new AuthorEntity { Name = "test" };
         await db.SaveAsync(author);

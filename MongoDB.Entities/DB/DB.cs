@@ -57,7 +57,15 @@ public partial class DB
     /// <summary>
     /// The value of this property will be automatically set on entities when saving/updating if the entity has a <see cref="ModifiedBy" /> property
     /// </summary>
-    public ModifiedBy? ModifiedBy { get; set; }
+    public ModifiedBy? ModifiedBy { get; internal set; }
+
+    /// <summary>
+    /// Gets a DB instance with it's <see cref="ModifiedBy" /> property set to the supplied value. Any operations performed with the returned instance will use the
+    /// supplied audit data when storing/updating entities.
+    /// </summary>
+    /// <param name="modifiedBy">the audit data to use</param>
+    public DB WithModifiedBy(ModifiedBy modifiedBy)
+        => new(this) { ModifiedBy = modifiedBy };
 
     /// <summary>
     /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.

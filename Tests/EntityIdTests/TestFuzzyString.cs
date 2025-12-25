@@ -9,7 +9,7 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class FuzzyStringTestEntity
 {
-    readonly DB _db = DB.Default;
+    readonly DB _db = DB.Default.WithModifiedBy(new());
 
     [TestMethod]
     public async Task fuzzystring_type_saving_and_retrieval_worksAsync()
