@@ -41,6 +41,14 @@ public partial class DB
     static DB _defaultInstance = null!;                        // to be set on first InitAsync call
     readonly IMongoDatabase _mongoDb;
 
+    protected DB(DB source)
+    {
+        _mongoDb = source.Database();
+        _globalFilters = source._globalFilters;
+        IgnoreGlobalFilters = source.IgnoreGlobalFilters;
+        ModifiedBy = source.ModifiedBy;
+    }
+
     private DB(IMongoDatabase db)
     {
         _mongoDb = db;
@@ -249,6 +257,7 @@ public partial class DB
     public void SetServiceProvider(IServiceProvider serviceProvider)
         => ServiceProvider = serviceProvider;
 
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
     /// <summary>
     /// This event hook will be triggered right before an entity is persisted
     /// </summary>
@@ -256,6 +265,7 @@ public partial class DB
     protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
         => null;
 
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
     /// <summary>
     /// This event hook will be triggered right before an update/replace command is executed
     /// </summary>

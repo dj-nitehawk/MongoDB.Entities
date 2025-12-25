@@ -31,12 +31,12 @@ public partial class DB
         var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
 
         return PrepAndCheckIfInsert(entity)
-                   ? Session == null
+                   ? SessionHandle == null
                          ? Collection<T>().InsertOneAsync(entity, null, cancellation)
-                         : Collection<T>().InsertOneAsync(Session, entity, null, cancellation)
-                   : Session == null
+                         : Collection<T>().InsertOneAsync(SessionHandle, entity, null, cancellation)
+                   : SessionHandle == null
                        ? Collection<T>().ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
-                       : Collection<T>().ReplaceOneAsync(Session, filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
+                       : Collection<T>().ReplaceOneAsync(SessionHandle, filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
     }
 
     /// <summary>
@@ -66,9 +66,9 @@ public partial class DB
             OnBeforeSave<T>()?.Invoke(ent);
         }
 
-        return Session == null
+        return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(Session, models, _unOrdBlkOpts, cancellation);
+                   : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
     }
 
     /// <summary>
@@ -246,9 +246,9 @@ public partial class DB
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
 
         return
-            Session == null
+            SessionHandle == null
                 ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation)
-                : Collection<T>().UpdateOneAsync(Session, filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation);
+                : Collection<T>().UpdateOneAsync(SessionHandle, filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation);
     }
 
     Task<UpdateResult> SavePartial<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
@@ -260,14 +260,14 @@ public partial class DB
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
 
         return
-            Session == null
+            SessionHandle == null
                 ? Collection<T>().UpdateOneAsync(
                     filter,
                     Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)),
                     _updateOptions,
                     cancellation)
                 : Collection<T>().UpdateOneAsync(
-                    Session,
+                    SessionHandle,
                     filter,
                     Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)),
                     _updateOptions,
@@ -291,9 +291,9 @@ public partial class DB
                     { IsUpsert = true });
         }
 
-        return Session == null
+        return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(Session, models, _unOrdBlkOpts, cancellation);
+                   : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
     }
 
     static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity

@@ -14,6 +14,6 @@ public partial class DB
     {
         ThrowIfModifiedByIsEmpty<T>();
 
-        return new(Session, ModifiedBy, _globalFilters, OnBeforeSave<T>(), this);
+        return new(SessionHandle, ModifiedBy, _globalFilters, OnBeforeSave<T>(), this);
     }
 }

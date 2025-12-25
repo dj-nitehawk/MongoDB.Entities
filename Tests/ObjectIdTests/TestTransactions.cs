@@ -16,19 +16,23 @@ public class TransactionsObjectId
     public async Task not_commiting_and_aborting_update_transaction_doesnt_modify_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorObjectId { Name = "uwtrcd1", Surname = guid }; await author1.SaveAsync();
-        var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorObjectId { Name = "uwtrcd1", Surname = guid };
+        await author1.SaveAsync();
+        var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid };
+        await author3.SaveAsync();
 
         using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.Update<AuthorObjectId>()
-              .Match(a => a.Surname == guid)
-              .Modify(a => a.Name, guid)
-              .Modify(a => a.Surname, author1.Name)
-              .ExecuteAsync();
+                    .Match(a => a.Surname == guid)
+                    .Modify(a => a.Name, guid)
+                    .Modify(a => a.Surname, author1.Name)
+                    .ExecuteAsync();
 
             await TN.AbortAsync();
+
             //TN.CommitAsync();
         }
 
@@ -41,17 +45,20 @@ public class TransactionsObjectId
     public async Task commiting_update_transaction_modifies_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorObjectId { Name = "uwtrcd1", Surname = guid }; await author1.SaveAsync();
-        var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorObjectId { Name = "uwtrcd1", Surname = guid };
+        await author1.SaveAsync();
+        var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid };
+        await author3.SaveAsync();
 
         using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.Update<AuthorObjectId>()
-              .Match(a => a.Surname == guid)
-              .Modify(a => a.Name, guid)
-              .Modify(a => a.Surname, author1.Name)
-              .ExecuteAsync();
+                    .Match(a => a.Surname == guid)
+                    .Modify(a => a.Name, guid)
+                    .Modify(a => a.Surname, author1.Name)
+                    .ExecuteAsync();
 
             await TN.CommitAsync();
         }
@@ -65,9 +72,12 @@ public class TransactionsObjectId
     public async Task commiting_update_transaction_modifies_docs_dbcontext()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorObjectId { Name = "uwtrcd1", Surname = guid }; await author1.SaveAsync();
-        var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorObjectId { Name = "uwtrcd1", Surname = guid };
+        await author1.SaveAsync();
+        var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid };
+        await author3.SaveAsync();
 
         var db = new DBContext(modifiedBy: new());
 
@@ -102,7 +112,7 @@ public class TransactionsObjectId
             await TN.SaveAsync(book2);
 
             res = await TN.Find<BookObjectId>().OneAsync(book1.ID);
-            res = book1.Fluent(null, TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
+            res = book1.Fluent(null, TN.SessionHandle).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
             fnt = TN.Fluent<BookObjectId>().FirstOrDefault();
             fnt = TN.Fluent<BookObjectId>().Match(b => b.ID == book2.ID).SingleOrDefault();
             fnt = TN.Fluent<BookObjectId>().Match(f => f.Eq(b => b.ID, book2.ID)).SingleOrDefault();
@@ -134,10 +144,10 @@ public class TransactionsObjectId
     public async Task full_text_search_transaction_returns_correct_results()
     {
         await DB.Default.Index<AuthorObjectId>()
-          .Option(o => o.Background = false)
-          .Key(a => a.Name, KeyType.Text)
-          .Key(a => a.Surname, KeyType.Text)
-          .CreateAsync();
+                .Option(o => o.Background = false)
+                .Key(a => a.Name, KeyType.Text)
+                .Key(a => a.Surname, KeyType.Text)
+                .CreateAsync();
 
         var author1 = new AuthorObjectId { Name = "Name", Surname = Guid.NewGuid().ToString() };
         var author2 = new AuthorObjectId { Name = "Name", Surname = Guid.NewGuid().ToString() };
@@ -157,10 +167,11 @@ public class TransactionsObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        var entities = new[] {
-            new BookObjectId{Title="one "+guid},
-            new BookObjectId{Title="two "+guid},
-            new BookObjectId{Title="thr "+guid}
+        var entities = new[]
+        {
+            new BookObjectId { Title = "one " + guid },
+            new BookObjectId { Title = "two " + guid },
+            new BookObjectId { Title = "thr " + guid }
         };
 
         using (var TN = new Transaction(modifiedBy: new()))
@@ -173,9 +184,7 @@ public class TransactionsObjectId
         Assert.AreEqual(entities.Length, res.Count);
 
         foreach (var ent in res)
-        {
             ent.Title = "updated " + guid;
-        }
         await res.SaveAsync();
 
         res = await DB.Default.Find<BookObjectId>().ManyAsync(b => b.Title.Contains(guid));

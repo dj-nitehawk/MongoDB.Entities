@@ -22,7 +22,7 @@ public partial class DB
         //       i.e. don't pass the cancellation token to delete methods below that don't take a session.
         //       also make consumers call ThrowIfCancellationNotSupported() before calling this method.
 
-        ThrowIfCancellationNotSupported(Session, cancellation);
+        ThrowIfCancellationNotSupported(SessionHandle, cancellation);
 
         var tasks = new List<Task>();
 
@@ -30,17 +30,17 @@ public partial class DB
         {
             // ReSharper disable once MethodSupportsCancellation
             tasks.Add(
-                Session == null
+                SessionHandle == null
                     ? refCollection.DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                    : refCollection.DeleteManyAsync(Session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
+                    : refCollection.DeleteManyAsync(SessionHandle, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
         }
 
         var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.In(Cache<T>.IdPropName, IDs));
 
         // ReSharper disable once MethodSupportsCancellation
-        var delResTask = Session == null
+        var delResTask = SessionHandle == null
                              ? Collection<T>().DeleteManyAsync(filter)
-                             : Collection<T>().DeleteManyAsync(Session, filter, null, cancellation);
+                             : Collection<T>().DeleteManyAsync(SessionHandle, filter, null, cancellation);
 
         tasks.Add(delResTask);
 
@@ -50,9 +50,10 @@ public partial class DB
         {
             // ReSharper disable once MethodSupportsCancellation
             tasks.Add(
-                Session == null
+                SessionHandle == null
                     ? _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
-                    : _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(Session, x => IDs.Contains(x.FileID), null, cancellation));
+                    : _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>())
+                              .DeleteManyAsync(SessionHandle, x => IDs.Contains(x.FileID), null, cancellation));
         }
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
@@ -139,14 +140,14 @@ public partial class DB
     public async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation? collation = null)
         where T : IEntity
     {
-        ThrowIfCancellationNotSupported(Session, cancellation);
+        ThrowIfCancellationNotSupported(SessionHandle, cancellation);
 
         //workaround for the newly added implicit operator in driver which matches all strings as json filters
         var jsonFilter = filter as JsonFilterDefinition<T>;
         if (jsonFilter?.Json.StartsWith("{") is false)
             filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
 
-        var cursor = await new Find<T, object>(Session, null, this)
+        var cursor = await new Find<T, object>(SessionHandle, null, this)
                            .Match(_ => filter)
                            .Project(p => p.Include(Cache<T>.IdPropName))
                            .Option(o => o.BatchSize = DeleteBatchSize)

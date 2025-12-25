@@ -50,7 +50,7 @@ public partial class DB
                 includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey
             }
-            .ToFluent(this, options, Session);
+            .ToFluent(this, options, SessionHandle);
 
         return globalFilter != Builders<T>.Filter.Empty
                    ? pipeline.Match(globalFilter)

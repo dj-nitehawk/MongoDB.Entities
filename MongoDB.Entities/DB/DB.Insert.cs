@@ -21,9 +21,9 @@ public partial class DB
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return Session == null
+        return SessionHandle == null
                    ? Collection<T>().InsertOneAsync(entity, null, cancellation)
-                   : Collection<T>().InsertOneAsync(Session, entity, null, cancellation);
+                   : Collection<T>().InsertOneAsync(SessionHandle, entity, null, cancellation);
     }
 
     /// <summary>
@@ -44,8 +44,8 @@ public partial class DB
             models.Add(new InsertOneModel<T>(ent));
         }
 
-        return Session == null
+        return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(Session, models, _unOrdBlkOpts, cancellation);
+                   : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
     }
 }

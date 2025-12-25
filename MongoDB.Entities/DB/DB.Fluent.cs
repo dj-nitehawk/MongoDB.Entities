@@ -13,9 +13,9 @@ public partial class DB
     public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null) where T : IEntity
     {
         var globalFilter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
-        var fluent = Session == null
+        var fluent = SessionHandle == null
                          ? Collection<T>().Aggregate(options)
-                         : Collection<T>().Aggregate(Session, options);
+                         : Collection<T>().Aggregate(SessionHandle, options);
 
         return globalFilter != Builders<T>.Filter.Empty
                    ? fluent.Match(globalFilter)
@@ -58,9 +58,9 @@ public partial class DB
                 Language = language
             });
 
-        var fluent = Session == null
+        var fluent = SessionHandle == null
                          ? Collection<T>().Aggregate(options).Match(filter)
-                         : Collection<T>().Aggregate(Session, options).Match(filter);
+                         : Collection<T>().Aggregate(SessionHandle, options).Match(filter);
 
         return globalFilter != Builders<T>.Filter.Empty
                    ? fluent.Match(globalFilter)

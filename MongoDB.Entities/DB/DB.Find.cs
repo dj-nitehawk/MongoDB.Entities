@@ -11,7 +11,7 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public Find<T> Find<T>() where T : IEntity
-        => new(Session, _globalFilters, this);
+        => new(SessionHandle, _globalFilters, this);
 
     /// <summary>
     /// Represents a MongoDB Find command
@@ -20,5 +20,5 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
     public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
-        => new(Session, _globalFilters, this);
+        => new(SessionHandle, _globalFilters, this);
 }

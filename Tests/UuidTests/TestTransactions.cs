@@ -112,7 +112,7 @@ public class TransactionsUuid
             await TN.SaveAsync(book2);
 
             await TN.Find<BookUuid>().OneAsync(book1.ID);
-            res = book1.Fluent(null, TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
+            res = book1.Fluent(null, TN.SessionHandle).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
             TN.Fluent<BookUuid>().FirstOrDefault();
             TN.Fluent<BookUuid>().Match(b => b.ID == book2.ID).SingleOrDefault();
             fnt = TN.Fluent<BookUuid>().Match(f => f.Eq(b => b.ID, book2.ID)).SingleOrDefault();

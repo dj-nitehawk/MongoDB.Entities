@@ -22,9 +22,9 @@ public partial class DB
     public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template,
                                                                        CancellationToken cancellation = default,
                                                                        AggregateOptions? options = null) where T : IEntity
-        => Session == null
+        => SessionHandle == null
                ? Collection<T>().AggregateAsync(MergeGlobalFilter(template).ToPipeline(), options, cancellation)
-               : Collection<T>().AggregateAsync(Session, MergeGlobalFilter(template).ToPipeline(), options, cancellation);
+               : Collection<T>().AggregateAsync(SessionHandle, MergeGlobalFilter(template).ToPipeline(), options, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object and get a list of results

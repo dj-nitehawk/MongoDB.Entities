@@ -33,9 +33,9 @@ public partial class DB
     {
         var filter = Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, _globalFilters, expression);
 
-        return Session is null
+        return SessionHandle is null
                    ? Collection<T>().CountDocumentsAsync(filter, options, cancellation)
-                   : Collection<T>().CountDocumentsAsync(Session, filter, options, cancellation);
+                   : Collection<T>().CountDocumentsAsync(SessionHandle, filter, options, cancellation);
     }
 
     /// <summary>
@@ -53,9 +53,9 @@ public partial class DB
     {
         var f = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter);
 
-        return Session is null
+        return SessionHandle is null
                    ? Collection<T>().CountDocumentsAsync(f, options, cancellation)
-                   : Collection<T>().CountDocumentsAsync(Session, f, options, cancellation);
+                   : Collection<T>().CountDocumentsAsync(SessionHandle, f, options, cancellation);
     }
 
     /// <summary>
@@ -73,9 +73,9 @@ public partial class DB
     {
         var f = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter));
 
-        return Session is null
+        return SessionHandle is null
                    ? Collection<T>().CountDocumentsAsync(f, options, cancellation)
-                   : Collection<T>().CountDocumentsAsync(Session, f, options, cancellation);
+                   : Collection<T>().CountDocumentsAsync(SessionHandle, f, options, cancellation);
     }
 
     /// <summary>
