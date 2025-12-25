@@ -11,7 +11,7 @@ public class Migrations
     {
         await DB.Default.MigrateAsync();
 
-        var count = await DB.Default.Collection<Migration>().CountDocumentsAsync (DB.Default.Filter<Migration>().Empty);
+        var count = await DB.Default.Collection<Migration>().CountDocumentsAsync(DB.Filter<Migration>().Empty);
 
         Assert.AreEqual(2, count);
 
@@ -23,7 +23,7 @@ public class Migrations
     {
         await DB.Default.MigrateAsync<Migrations>();
 
-        var count = await DB.Default.Collection<Migration>().CountDocumentsAsync (DB.Default.Filter<Migration>().Empty);
+        var count = await DB.Default.Collection<Migration>().CountDocumentsAsync(DB.Filter<Migration>().Empty);
 
         Assert.AreEqual(2, count);
 

@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-
-namespace MongoDB.Entities;
+﻿namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
 public partial class DB
@@ -10,7 +8,6 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any Entity that implements IEntity interface</typeparam>
     /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public Distinct<T, TProperty> Distinct<T, TProperty>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, this);
+    public Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
+        => new(SessionHandle, _globalFilters, this);
 }

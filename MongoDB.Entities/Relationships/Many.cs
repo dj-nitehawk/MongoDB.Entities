@@ -74,9 +74,9 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
 #region one-to-many-initializers
 
-    internal Many(object parent, string property, DB? db = null)
+    internal Many(object parent, string property, DB db)
     {
-        _db = DB.InstanceOrDefault(db);
+        _db = db;
         Init((TParent)parent, property);
     }
 
@@ -85,7 +85,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         _parent = parent;
         _isInverse = false;
         var collectionName = $"[{_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({property})]";
-        JoinCollection = _db.GetRefCollection<TParent>(collectionName);
+        JoinCollection = _db.GetRefCollection(collectionName);
         CreateIndexesAsync(JoinCollection);
         Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
     }
@@ -102,9 +102,9 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
 #region many-to-many initializers
 
-    internal Many(object parent, string propertyParent, string propertyChild, bool isInverse, DB? db = null)
+    internal Many(object parent, string propertyParent, string propertyChild, bool isInverse, DB db)
     {
-        _db = DB.InstanceOrDefault(db);
+        _db = db;
         Init((TParent)parent, propertyParent, propertyChild, isInverse);
     }
 
@@ -117,7 +117,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
                                  ? $"[({propertyParent}){_db.CollectionName<TChild>()}~{_db.CollectionName<TParent>()}({propertyChild})]"
                                  : $"[({propertyChild}){_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({propertyParent})]";
 
-        JoinCollection = _db.GetRefCollection<TParent>(collectionName);
+        JoinCollection = _db.GetRefCollection(collectionName);
 
         CreateIndexesAsync(JoinCollection);
         Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);

@@ -14,15 +14,16 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The instance to persist</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public Task InsertAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public Task InsertAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
     {
         PrepAndCheckIfInsert(entity);
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
 
-        return session == null
+        return SessionHandle == null
                    ? Collection<T>().InsertOneAsync(entity, null, cancellation)
-                   : Collection<T>().InsertOneAsync(session, entity, null, cancellation);
+                   : Collection<T>().InsertOneAsync(SessionHandle, entity, null, cancellation);
     }
 
     /// <summary>
@@ -30,22 +31,21 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">The entities to persist</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities,
-                                                          IClientSessionHandle? session = null,
-                                                          CancellationToken cancellation = default) where T : IEntity
+    public Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
 
         foreach (var ent in entities)
         {
             PrepAndCheckIfInsert(ent);
+            SetModifiedBySingle(ent);
+            OnBeforeSave<T>()?.Invoke(ent);
             models.Add(new InsertOneModel<T>(ent));
         }
 
-        return session == null
+        return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
+                   : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
     }
 }

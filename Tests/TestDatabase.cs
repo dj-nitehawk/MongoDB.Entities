@@ -6,7 +6,7 @@ public static class TestDatabase
 {
     private static readonly SemaphoreSlim _semaphore = new(1, 1);
     private static MongoDbContainer? _testContainer;
-    private static int Port = 27017;
+    private static int _port = 27017;
 
     public static async Task<MongoDbContainer> CreateDatabase()
     {
@@ -27,7 +27,7 @@ public static class TestDatabase
     private static async Task<MongoDbContainer> CreateTestDatabase()
     {
         _testContainer = new MongoDbBuilder()
-                         .WithPortBinding(Port++)
+                         .WithPortBinding(_port++)
                          .WithPassword("username")
                          .WithUsername("password")
                          .WithReplicaSet()

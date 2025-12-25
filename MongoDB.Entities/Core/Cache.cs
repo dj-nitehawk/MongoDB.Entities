@@ -149,19 +149,19 @@ static class Cache<T> where T : IEntity
 
     static BsonClassMap MapBsonClass(Type type)
     {
-        if (type.BaseType != typeof(object) && !BsonClassMap<T>.IsClassMapRegistered(type.BaseType!))
+        if (type.BaseType != typeof(object) && !BsonClassMap.IsClassMapRegistered(type.BaseType!))
             MapBsonClass(type.BaseType!);
 
-        if (!BsonClassMap<T>.IsClassMapRegistered(type))
+        if (!BsonClassMap.IsClassMapRegistered(type))
         {
             var cm = new BsonClassMap(type);
             cm.AutoMap();
             cm.SetIgnoreExtraElements(true);
 
-            BsonClassMap<T>.RegisterClassMap(cm);
+            BsonClassMap.RegisterClassMap(cm);
         }
 
-        return BsonClassMap<T>.LookupClassMap(type);
+        return BsonClassMap.LookupClassMap(type);
     }
 
     internal static bool AddReferenceCollection(string name, IMongoCollection<JoinRecord> collection)

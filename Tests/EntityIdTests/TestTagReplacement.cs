@@ -186,7 +186,7 @@ public class TemplatesEntity
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 54 };
         var author2 = new AuthorEntity { Name = guid, Age = 53 };
-        await DB.Default.SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync([author1, author2]);
 
         var pipeline = new Template<AuthorEntity>(
                            @"
@@ -204,9 +204,9 @@ public class TemplatesEntity
 
         var results = await DB.Default.PipelineAsync(pipeline);
 
-        Assert.AreEqual(2, results.Count);
-        Assert.IsTrue(results[0].Name == guid);
-        Assert.IsTrue(results.Last().Age == 54);
+        Assert.HasCount(2, results);
+        Assert.AreEqual(guid, results[0].Name);
+        Assert.AreEqual(54, results.Last().Age);
 
         await Assert.ThrowsExactlyAsync<InvalidOperationException>(() => DB.Default.PipelineSingleAsync(pipeline));
 
@@ -218,12 +218,12 @@ public class TemplatesEntity
     [TestMethod]
     public async Task tag_replacement_with_global_filter_prepend()
     {
-        var db = new MyDBEntity(prepend: true);
+        var db = new MyDbEntity(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
         var author2 = new AuthorEntity { Name = guid, Age = 53 };
-        await DB.Default.SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync([author1, author2]);
 
         var pipeline = new Template<AuthorEntity>(
                            @"
@@ -241,20 +241,20 @@ public class TemplatesEntity
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-        Assert.AreEqual(1, results.Count);
-        Assert.IsTrue(results[0].Name == guid);
-        Assert.IsTrue(results.Last().Age == 111);
+        Assert.HasCount(1, results);
+        Assert.AreEqual(guid, results[0].Name);
+        Assert.AreEqual(111, results.Last().Age);
     }
 
     [TestMethod]
     public async Task tag_replacement_with_global_filter_append()
     {
-        var db = new MyDBEntity(prepend: false);
+        var db = new MyDbEntity(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
         var author2 = new AuthorEntity { Name = guid, Age = 53 };
-        await DB.Default.SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync([author1, author2]);
 
         var pipeline = new Template<AuthorEntity>(
                            @"
@@ -272,20 +272,20 @@ public class TemplatesEntity
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-        Assert.AreEqual(1, results.Count);
-        Assert.IsTrue(results[0].Name == guid);
-        Assert.IsTrue(results.Last().Age == 111);
+        Assert.HasCount(1, results);
+        Assert.AreEqual(guid, results[0].Name);
+        Assert.AreEqual(111, results.Last().Age);
     }
 
     [TestMethod]
     public async Task tag_replacement_with_global_filter_append_string_filter()
     {
-        var db = new MyDBTemplatesEntity(prepend: false);
+        var db = new MyDbTemplatesEntity(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
         var author2 = new AuthorEntity { Name = guid, Age = 53 };
-        await DB.Default.SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync([author1, author2]);
 
         var pipeline = new Template<AuthorEntity>(
                            @"
@@ -303,20 +303,20 @@ public class TemplatesEntity
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-        Assert.AreEqual(1, results.Count);
-        Assert.IsTrue(results[0].Name == guid);
-        Assert.IsTrue(results.Last().Age == 111);
+        Assert.HasCount(1, results);
+        Assert.AreEqual(guid, results[0].Name);
+        Assert.AreEqual(111, results.Last().Age);
     }
 
     [TestMethod]
     public async Task tag_replacement_with_global_filter_prepend_string_filter()
     {
-        var db = new MyDBTemplatesEntity(prepend: true);
+        var db = new MyDbTemplatesEntity(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
         var author2 = new AuthorEntity { Name = guid, Age = 53 };
-        await DB.Default.SaveAsync(new[] { author1, author2 });
+        await DB.Default.SaveAsync([author1, author2]);
 
         var pipeline = new Template<AuthorEntity>(
                            @"
@@ -334,25 +334,26 @@ public class TemplatesEntity
 
         var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-        Assert.AreEqual(1, results.Count);
-        Assert.IsTrue(results[0].Name == guid);
-        Assert.IsTrue(results.Last().Age == 111);
+        Assert.HasCount(1, results);
+        Assert.AreEqual(guid, results[0].Name);
+        Assert.AreEqual(111, results.Last().Age);
     }
 
     [TestMethod]
     public async Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
     {
+        var db = DB.Default;
         var guid = Guid.NewGuid().ToString();
 
         var author = new AuthorEntity { Name = guid };
-        await author.SaveAsync();
+        await db.SaveAsync(author);
 
         var book = new BookEntity
         {
             Title = guid,
             MainAuthor = new(author)
         };
-        await book.SaveAsync();
+        await db.SaveAsync(book);
 
         var pipeline = new Template<BookEntity, AuthorEntity>(
                 @"
@@ -376,12 +377,12 @@ public class TemplatesEntity
                         $set: { <Surname> : '$<Name>' }
                     }
                 ]").Tag("book_id", $"ObjectId('{book.ID}')")
-                   .Tag("author_collection", DB.Default.CollectionName<AuthorEntity>())
+                   .Tag("author_collection", db.CollectionName<AuthorEntity>())
                    .Path(b => b.MainAuthor.ID)
                    .PathOfResult(a => a.Surname)
                    .PathOfResult(a => a.Name);
 
-        var result = (await (await DB.Default.PipelineCursorAsync(pipeline))
+        var result = (await (await db.PipelineCursorAsync(pipeline))
                           .ToListAsync())
             .Single();
 

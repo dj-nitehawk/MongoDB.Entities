@@ -9,7 +9,7 @@ namespace MongoDB.Entities;
 public partial class DB
 {
     /// <summary>
-    /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.
+    /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters
     /// </summary>
     /// <param name="NearCoordinates">The coordinates from which to find documents from</param>
     /// <param name="DistanceField">x => x.Distance</param>
@@ -22,23 +22,25 @@ public partial class DB
     /// <param name="IncludeLocations">Specify the output field to store the point used to calculate the distance</param>
     /// <param name="IndexKey"></param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates,
-                                                       Expression<Func<T, object?>>? DistanceField,
-                                                       bool Spherical = true,
-                                                       double? MaxDistance = null,
-                                                       double? MinDistance = null,
-                                                       int? Limit = null,
-                                                       BsonDocument? Query = null,
-                                                       double? DistanceMultiplier = null,
-                                                       Expression<Func<T, object?>>? IncludeLocations = null,
-                                                       string? IndexKey = null,
-                                                       AggregateOptions? options = null,
-                                                       IClientSessionHandle? session = null) where T : IEntity
-        => new GeoNear<T>
+    /// <typeparam name="T">The type of entity</typeparam>
+    public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates,
+                                          Expression<Func<T, object?>> DistanceField,
+                                          bool Spherical = true,
+                                          int? MaxDistance = null,
+                                          int? MinDistance = null,
+                                          int? Limit = null,
+                                          BsonDocument? Query = null,
+                                          int? DistanceMultiplier = null,
+                                          Expression<Func<T, object?>>? IncludeLocations = null,
+                                          string? IndexKey = null,
+                                          AggregateOptions? options = null) where T : IEntity
+    {
+        var globalFilter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+
+        var pipeline = new GeoNear<T>
             {
                 near = NearCoordinates,
-                distanceField = DistanceField?.FullPath(),
+                distanceField = DistanceField.FullPath(),
                 spherical = Spherical,
                 maxDistance = MaxDistance,
                 minDistance = MinDistance,
@@ -48,5 +50,10 @@ public partial class DB
                 includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey
             }
-            .ToFluent(this, options, session);
+            .ToFluent(this, options, SessionHandle);
+
+        return globalFilter != Builders<T>.Filter.Empty
+                   ? pipeline.Match(globalFilter)
+                   : pipeline;
+    }
 }

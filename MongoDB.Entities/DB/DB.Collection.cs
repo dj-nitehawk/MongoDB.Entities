@@ -9,8 +9,8 @@ namespace MongoDB.Entities;
 // ReSharper disable once InconsistentNaming
 public partial class DB
 {
-    internal IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
-        => Database<T>().GetCollection<JoinRecord>(name);
+    internal IMongoCollection<JoinRecord> GetRefCollection(string name)
+        => Database().GetCollection<JoinRecord>(name);
 
     /// <summary>
     /// Gets the IMongoCollection for a given IEntity type.
@@ -18,7 +18,7 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public IMongoCollection<T> Collection<T>() where T : IEntity
-        => _mongoDatabase.GetCollection<T>(Cache<T>.CollectionName);
+        => _mongoDb.GetCollection<T>(Cache<T>.CollectionName);
 
     /// <summary>
     /// Gets the collection name for a given entity type
@@ -42,8 +42,8 @@ public partial class DB
         options(opts);
 
         return session == null
-                   ? _mongoDatabase.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
-                   : _mongoDatabase.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
+                   ? _mongoDb.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                   : _mongoDb.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
     }
 
     /// <summary>
@@ -55,7 +55,6 @@ public partial class DB
     public async Task DropCollectionAsync<T>(IClientSessionHandle? session = null) where T : IEntity
     {
         var tasks = new List<Task>();
-        var db = Database<T>();
         var collName = CollectionName<T>();
         var options = new ListCollectionNamesOptions
         {
@@ -63,21 +62,21 @@ public partial class DB
         };
 
         // ReSharper disable once MethodHasAsyncOverload
-        var list = await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false);
+        var list = await _mongoDb.ListCollectionNames(options).ToListAsync().ConfigureAwait(false);
 
         for (var i = 0; i < list.Count; i++)
         {
             var cName = list[i];
             tasks.Add(
                 session == null
-                    ? db.DropCollectionAsync(cName)
-                    : db.DropCollectionAsync(session, cName));
+                    ? _mongoDb.DropCollectionAsync(cName)
+                    : _mongoDb.DropCollectionAsync(session, cName));
         }
 
         tasks.Add(
             session == null
-                ? db.DropCollectionAsync(collName)
-                : db.DropCollectionAsync(session, collName));
+                ? _mongoDb.DropCollectionAsync(collName)
+                : _mongoDb.DropCollectionAsync(session, collName));
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
     }

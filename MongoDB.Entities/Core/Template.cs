@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -302,6 +303,7 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
 /// <summary>
 /// A helper class to build a JSON command from a string with tag replacement
 /// </summary>
+[SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
 public class Template
 {
     static readonly Regex _regex = new("<.*?>", RegexOptions.Compiled);

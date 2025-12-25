@@ -39,7 +39,7 @@ public class SortingEntity
 
         var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value, 10).ToArray();
 
-        Assert.AreEqual(3, res.Length);
+        Assert.HasCount(3, res);
         Assert.AreEqual("Five", res[0].Title);
         Assert.AreEqual("Four", res[1].Title);
         Assert.AreEqual("Three", res[2].Title);

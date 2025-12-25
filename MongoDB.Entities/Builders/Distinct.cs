@@ -26,6 +26,7 @@ public class Distinct<T, TProperty> where T : IEntity
     {
         _session = session;
         _globalFilters = globalFilters;
+        _ignoreGlobalFilters = db.IgnoreGlobalFilters;
         _db = db;
     }
 

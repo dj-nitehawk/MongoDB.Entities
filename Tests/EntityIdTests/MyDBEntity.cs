@@ -3,36 +3,38 @@ using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
-public class MyDBTemplatesEntity : DBContext
+public class MyDbTemplatesEntity : DB
 {
-    public MyDBTemplatesEntity(bool prepend) : base(modifiedBy: new())
+    public MyDbTemplatesEntity(bool prepend) : base(Default)
     {
+        ModifiedBy = new();
         SetGlobalFilter(typeof(AuthorEntity), "{ Age: {$eq: 111 } }", prepend);
     }
 }
 
-public class MyDBEntity : DBContext
+public class MyDbEntity : DB
 {
-    public MyDBEntity(bool prepend = false) : base(modifiedBy: new())
+    public MyDbEntity(bool prepend = false) : base(Default)
     {
+        ModifiedBy = new();
         SetGlobalFilter<AuthorEntity>(a => a.Age == 111, prepend);
     }
 
     protected override Action<T> OnBeforeSave<T>()
     {
         Action<FlowerEntity> action = f =>
-        {
-            if (f.Id == null)
-            {
-                f.CreatedBy = "God";
-                f.CreatedDate = DateTime.MinValue;
-            }
-            else
-            {
-                f.UpdatedBy = "Human";
-                f.UpdateDate = DateTime.UtcNow;
-            }
-        };
+                                      {
+                                          if (string.IsNullOrEmpty(f.Id))
+                                          {
+                                              f.CreatedBy = "God";
+                                              f.CreatedDate = DateTime.MinValue;
+                                          }
+                                          else
+                                          {
+                                              f.UpdatedBy = "Human";
+                                              f.UpdateDate = DateTime.UtcNow;
+                                          }
+                                      };
 
         return (action as Action<T>)!;
     }
@@ -40,26 +42,26 @@ public class MyDBEntity : DBContext
     protected override Action<UpdateBase<T>> OnBeforeUpdate<T>()
     {
         Action<UpdateBase<FlowerEntity>> action = update =>
-        {
-            update.AddModification(f => f.UpdatedBy, "Human");
-            update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
-        };
+                                                  {
+                                                      update.AddModification(f => f.UpdatedBy, "Human");
+                                                      update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
+                                                  };
 
         return (action as Action<UpdateBase<T>>)!;
     }
 }
 
-public class MyDBFlower : DBContext
+public class MyDbFlower : DB
 {
-    public MyDBFlower(bool prepend)
+    public MyDbFlower(bool prepend) : base(Default)
     {
         SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
     }
 }
 
-public class MyBaseEntityDB : DBContext
+public class MyBaseEntityDb : DB
 {
-    public MyBaseEntityDB()
+    public MyBaseEntityDb() : base(Default)
     {
         SetGlobalFilterForBaseClass<BaseEntity>(be => be.CreatedBy == "xyz");
     }

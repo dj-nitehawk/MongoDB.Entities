@@ -9,12 +9,12 @@ public class ReplaceEntity
     [TestMethod]
     public async Task correct_doc_is_replaced()
     {
+        var db = DB.Default;
+
         var book = new BookEntity { Title = "book title" };
-        await book.SaveAsync();
+        await db.SaveAsync(book);
 
         book.Title = "updated title";
-
-        var db = DB.Default;
 
         await db.Replace<BookEntity>()
                 .MatchID(book.ID)
@@ -30,12 +30,12 @@ public class ReplaceEntity
     [TestMethod]
     public async Task correct_docs_replaced_with_bulk_replace()
     {
+        var db = DB.Default;
+
         var book1 = new BookEntity { Title = "book one" };
         var book2 = new BookEntity { Title = "book two" };
         var books = new[] { book1, book2 };
-        await books.SaveAsync();
-
-        var db = DB.Default;
+        await db.SaveAsync(books);
 
         var cmd = db.Replace<BookEntity>();
 
@@ -59,7 +59,7 @@ public class ReplaceEntity
     [TestMethod]
     public async Task on_before_update_for_replace()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var flower = new FlowerEntity { Name = "flower" };
         await db.SaveAsync(flower);

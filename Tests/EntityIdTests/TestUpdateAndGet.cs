@@ -11,15 +11,16 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task updating_modifies_correct_documents()
     {
+        var db = DB.Default;
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" };
-        await author1.SaveAsync();
+        await db.SaveAsync(author1);
         var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid };
-        await author2.SaveAsync();
+        await db.SaveAsync(author2);
         var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid };
-        await author3.SaveAsync();
+        await db.SaveAsync(author3);
 
-        var res = await DB.Default.UpdateAndGet<AuthorEntity, string>()
+        var res = await db.UpdateAndGet<AuthorEntity, string>()
                           .Match(a => a.Surname == guid)
                           .Modify(a => a.Name, guid)
                           .Modify(a => a.Surname, author1.Name)
@@ -33,15 +34,16 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_by_def_builder_mods_correct_docs()
     {
+        var db = DB.Default;
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1", Age = 1 };
-        await author1.SaveAsync();
+        await db.SaveAsync(author1);
         var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid, Age = 1 };
-        await author2.SaveAsync();
+        await db.SaveAsync(author2);
         var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid, Age = 1 };
-        await author3.SaveAsync();
+        await db.SaveAsync(author3);
 
-        var res = await DB.Default.UpdateAndGet<AuthorEntity>()
+        var res = await db.UpdateAndGet<AuthorEntity>()
                           .Match(a => a.Surname == guid)
                           .Modify(b => b.Inc(a => a.Age, 1))
                           .Modify(b => b.Set(a => a.Name, guid))
@@ -54,23 +56,25 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_with_pipeline_using_template()
     {
+        var db = DB.Default.WithModifiedBy(new());
         var guid = Guid.NewGuid().ToString();
 
         var author = new AuthorEntity { Name = "uwput", Surname = guid, Age = 666 };
-        await author.SaveAsync();
+        await db.SaveAsync(author);
 
         var pipeline = new Template<AuthorEntity>(
-                           @"
-            [
-              { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
-              { $unset: '<Age>'}
-            ]")
+                           """
+                           [
+                             { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
+                             { $unset: '<Age>'}
+                           ]
+                           """)
                        .Path(a => a.FullName!)
                        .Path(a => a.Name)
                        .Path(a => a.Surname)
                        .Path(a => a.Age);
 
-        var res = await DB.Default.UpdateAndGet<AuthorEntity>()
+        var res = await db.UpdateAndGet<AuthorEntity>()
                           .Match(a => a.ID == author.ID)
                           .WithPipeline(pipeline)
                           .ExecutePipelineAsync();
@@ -81,10 +85,11 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_with_aggregation_pipeline_works()
     {
+        var db = DB.Default.WithModifiedBy(new());
         var guid = Guid.NewGuid().ToString();
 
         var author = new AuthorEntity { Name = "uwapw", Surname = guid };
-        await author.SaveAsync();
+        await db.SaveAsync(author);
 
         var stage = new Template<AuthorEntity>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
                     .Path(a => a.FullName)
@@ -92,7 +97,7 @@ public class UpdateAndGetEntity
                     .Path(a => a.Surname)
                     .RenderToString();
 
-        var res = await DB.Default.UpdateAndGet<AuthorEntity>()
+        var res = await db.UpdateAndGet<AuthorEntity>()
                           .Match(a => a.ID == author.ID)
                           .WithPipelineStage(stage)
                           .ExecutePipelineAsync();
@@ -103,54 +108,57 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_with_array_filters_using_templates_work()
     {
+        var db = DB.Default;
         var guid = Guid.NewGuid().ToString();
         var book = new BookEntity
         {
             Title = "uwafw " + guid,
-            OtherAuthors = new[]
-            {
-                new AuthorEntity
+            OtherAuthors =
+            [
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 100
                 }
-            }
+            ]
         };
-        await book.SaveAsync();
+        await db.SaveAsync(book);
 
         var filters = new Template<AuthorEntity>(
-                          @"
-            [
-                { '<a.Age>': { $gte: <age> } },
-                { '<b.Name>': 'name' }
-            ]")
+                          """
+                          [
+                              { '<a.Age>': { $gte: <age> } },
+                              { '<b.Name>': 'name' }
+                          ]
+                          """)
                       .Elements(0, author => author.Age)
                       .Tag("age", "120")
                       .Elements(1, author => author.Name);
 
         var update = new Template<BookEntity>(
-                         @"
-            { $set: { 
-                '<OtherAuthors.$[a].Age>': <age>,
-                '<OtherAuthors.$[b].Name>': '<value>'
-              } 
-            }")
+                         """
+                         { $set: { 
+                             '<OtherAuthors.$[a].Age>': <age>,
+                             '<OtherAuthors.$[b].Name>': '<value>'
+                           } 
+                         }
+                         """)
                      .PosFiltered(b => b.OtherAuthors[0].Age)
                      .PosFiltered(b => b.OtherAuthors[1].Name)
                      .Tag("age", "321")
                      .Tag("value", "updated");
 
-        var res = await DB.Default.UpdateAndGet<BookEntity>()
+        var res = await db.UpdateAndGet<BookEntity>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilters(filters)
                           .Modify(update)
@@ -162,30 +170,31 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task update_with_array_filters_work()
     {
+        var db = DB.Default;
         var guid = Guid.NewGuid().ToString();
         var book = new BookEntity
         {
             Title = "uwafw " + guid,
-            OtherAuthors = new[]
-            {
-                new AuthorEntity
+            OtherAuthors =
+            [
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 100
                 }
-            }
+            ]
         };
-        await book.SaveAsync();
+        await db.SaveAsync(book);
 
         var arrFil = new Template<AuthorEntity>("{ '<a.Age>': { $gte: <age> } }")
                      .Elements(0, author => author.Age)
@@ -199,7 +208,7 @@ public class UpdateAndGetEntity
         var filt2 = Prop.Elements<AuthorEntity>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookEntity>(b => b.OtherAuthors[1].Name);
 
-        var res = await DB.Default.UpdateAndGet<BookEntity>()
+        var res = await db.UpdateAndGet<BookEntity>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilter(arrFil)
                           .Modify(prop1)
@@ -213,48 +222,47 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task next_sequential_number_for_entities()
     {
-        var book = new BookEntity();
+        var db = DB.Default;
 
-        var lastNum = await book.NextSequentialNumberAsync();
+        var lastNum = await db.NextSequentialNumberAsync<BookEntity>();
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => await book.NextSequentialNumberAsync(null, ct));
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, _) => await db.NextSequentialNumberAsync<BookEntity>());
 
-        Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
+        Assert.AreEqual(lastNum + 10, await db.NextSequentialNumberAsync<BookEntity>() - 1);
     }
 
     [TestMethod]
     public async Task next_sequential_number_for_entities_multidb()
     {
-        await DB.InitAsync("mongodb-entities-test-multi");
+        var dbName = "mongodb-entities-test-multi";
+        await DB.InitAsync(dbName);
+        var db = DB.Instance(dbName);
 
-        var book = new BookEntity();
-
-        var lastNum = await book.NextSequentialNumberAsync();
+        var lastNum = await db.NextSequentialNumberAsync<BookEntity>();
 
         await Parallel.ForEachAsync(
             Enumerable.Range(0, 10),
             async (_, ct) =>
             {
-                await book.NextSequentialNumberAsync(null, ct);
+                await db.NextSequentialNumberAsync<BookEntity>(ct);
             });
 
-        Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
+        Assert.AreEqual(lastNum + 10, await db.NextSequentialNumberAsync<BookEntity>() - 1);
     }
 
     [TestMethod]
     public async Task on_before_update_for_updateandget()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var flower = new FlowerEntity { Name = "flower" };
         await db.SaveAsync(flower);
         Assert.AreEqual("God", flower.CreatedBy);
 
-        var res = await db
-                        .UpdateAndGet<FlowerEntity>()
-                        .MatchID(flower.Id)
-                        .ModifyWith(flower)
-                        .ExecuteAsync();
+        var res = await db.UpdateAndGet<FlowerEntity>()
+                          .MatchID(flower.Id)
+                          .ModifyWith(flower)
+                          .ExecuteAsync();
 
         Assert.AreEqual("Human", res!.UpdatedBy);
     }
