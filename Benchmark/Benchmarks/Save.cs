@@ -10,6 +10,7 @@ namespace Benchmark;
 public class SavePartialVsUpdate : BenchBase
 {
     readonly Author author;
+    readonly DB db = DB.Default;
 
     public SavePartialVsUpdate()
     {
@@ -20,27 +21,29 @@ public class SavePartialVsUpdate : BenchBase
             LastName = "Test",
             Birthday = DateTime.UtcNow
         };
-        author.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(author).GetAwaiter().GetResult();
     }
 
     [Benchmark(Baseline = true)]
     public Task Update()
     {
-        return DB.Default.Update<Author>()
-                         .MatchID(author.ID)
-                         .Modify(a => a.FirstName, "updated")
-                         .Modify(a => a.LastName, "updated")
-                         .ExecuteAsync();
+        return db.Update<Author>()
+                 .MatchID(author.ID)
+                 .Modify(a => a.FirstName, "updated")
+                 .Modify(a => a.LastName, "updated")
+                 .ExecuteAsync();
     }
 
     [Benchmark]
     public Task SavePartial()
     {
-        return author.SaveOnlyAsync(a => new
-        {
-            a.FirstName,
-            a.LastName
-        });
+        return db.SaveOnlyAsync(
+            author,
+            a => new
+            {
+                a.FirstName,
+                a.LastName
+            });
     }
 
     public override Task MongoDB_Entities()
@@ -48,37 +51,4 @@ public class SavePartialVsUpdate : BenchBase
 
     public override Task Official_Driver()
         => throw new NotImplementedException();
-}
-
-[MemoryDiagnoser]
-public class DBContextVsStaticSave : BenchBase
-{
-    readonly Author author;
-
-    public DBContextVsStaticSave()
-    {
-        author = new()
-        {
-            FirstName = "Test",
-            LastName = "Test",
-            Birthday = DateTime.UtcNow
-        };
-    }
-
-    [Benchmark]
-    public Task DB_Context()
-    {
-        author.ID = null!;
-        return new DBContext().SaveAsync(author);
-    }
-
-    [Benchmark(Baseline = true)]
-    public Task DB_Static()
-    {
-        author.ID = null!;
-        return DB.Default.SaveAsync(author);
-    }
-
-    public override Task MongoDB_Entities() => throw new NotImplementedException();
-    public override Task Official_Driver() => throw new NotImplementedException();
 }

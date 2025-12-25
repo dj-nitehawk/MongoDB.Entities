@@ -10,12 +10,12 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class MultiDbEntity
 {
-    const string dbName = "mongodb-entities-test-multi";
+    const string DbName = "mongodb-entities-test-multi";
 
     [TestMethod]
     public async Task save_entity_works()
     {
-        var db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(DbName);
 
         var cover = new BookCover
         {
@@ -23,7 +23,7 @@ public class MultiDbEntity
             BookName = "test book " + Guid.NewGuid()
         };
 
-        await cover.SaveAsync(db: db);
+        await db.SaveAsync(cover);
         Assert.IsNotNull(cover.ID);
 
         var res = await db.Find<BookCover>().OneAsync(cover.ID);
@@ -38,14 +38,14 @@ public class MultiDbEntity
     [TestMethod]
     public async Task relationships_work()
     {
-        var db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(DbName);
 
         var cover = new BookCover(db)
         {
             BookID = "123",
             BookName = "test book " + Guid.NewGuid()
         };
-        await cover.SaveAsync(db);
+        await db.SaveAsync(cover);
 
         var mark = new BookMark
         {
@@ -53,7 +53,7 @@ public class MultiDbEntity
             BookName = cover.BookName
         };
 
-        await mark.SaveAsync(db);
+        await db.SaveAsync(mark);
 
         await cover.BookMarks.AddAsync(mark);
 
@@ -67,7 +67,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task get_instance_by_db_name()
     {
-        var db1 = await DB.InitAsync("test1");
+        //var db1 = await DB.InitAsync("test1");
         var db2 = await DB.InitAsync("test2");
 
         var res = DB.Instance("test2").Database();
@@ -96,7 +96,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dropping_collections()
     {
-        var db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(DbName);
 
         var guid = Guid.NewGuid().ToString();
         var marks = new[]
@@ -106,7 +106,7 @@ public class MultiDbEntity
             new BookMark { BookName = guid }
         };
 
-        await marks.SaveAsync(db);
+        await db.SaveAsync(marks);
 
         var covers = new[]
         {
@@ -115,7 +115,7 @@ public class MultiDbEntity
             new BookCover(db) { BookID = guid }
         };
 
-        await covers.SaveAsync(db);
+        await db.SaveAsync(covers);
 
         foreach (var cover in covers)
             await cover.BookMarks.AddAsync(marks);
@@ -132,7 +132,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, modifiedBy: new());
+        var db = DB.Instance(DbName).WithModifiedBy(new());
 
         var author = new AuthorEntity { Name = "test" };
         await db.SaveAsync(author);

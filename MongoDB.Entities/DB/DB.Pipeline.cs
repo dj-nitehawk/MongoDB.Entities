@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace MongoDB.Entities;
@@ -16,15 +18,13 @@ public partial class DB
     /// <typeparam name="TResult">The type of the resulting objects</typeparam>
     /// <param name="template">A 'Template' object with tags replaced</param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template,
-                                                                              AggregateOptions? options = null,
-                                                                              IClientSessionHandle? session = null,
-                                                                              CancellationToken cancellation = default) where T : IEntity
-        => session == null
-               ? Collection<T>().AggregateAsync(template.ToPipeline(), options, cancellation)
-               : Collection<T>().AggregateAsync(session, template.ToPipeline(), options, cancellation);
+                                                                       CancellationToken cancellation = default,
+                                                                       AggregateOptions? options = null) where T : IEntity
+        => SessionHandle == null
+               ? Collection<T>().AggregateAsync(MergeGlobalFilter(template).ToPipeline(), options, cancellation)
+               : Collection<T>().AggregateAsync(SessionHandle, MergeGlobalFilter(template).ToPipeline(), options, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object and get a list of results
@@ -33,15 +33,13 @@ public partial class DB
     /// <typeparam name="TResult">The type of the resulting objects</typeparam>
     /// <param name="template">A 'Template' object with tags replaced</param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template,
-                                                                      AggregateOptions? options = null,
-                                                                      IClientSessionHandle? session = null,
-                                                                      CancellationToken cancellation = default) where T : IEntity
+                                                               CancellationToken cancellation = default,
+                                                               AggregateOptions? options = null) where T : IEntity
     {
         var list = new List<TResult>();
-        using var cursor = await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false);
+        using var cursor = await PipelineCursorAsync(template, cancellation, options).ConfigureAwait(false);
 
         while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
             list.AddRange(cursor.Current);
@@ -57,17 +55,15 @@ public partial class DB
     /// <typeparam name="TResult">The type of the resulting object</typeparam>
     /// <param name="template">A 'Template' object with tags replaced</param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template,
-                                                                      AggregateOptions? options = null,
-                                                                      IClientSessionHandle? session = null,
-                                                                      CancellationToken cancellation = default) where T : IEntity
+                                                               CancellationToken cancellation = default,
+                                                               AggregateOptions? options = null) where T : IEntity
     {
         var opts = options ?? new AggregateOptions();
         opts.BatchSize = 2;
 
-        using var cursor = await PipelineCursorAsync(template, opts, session, cancellation).ConfigureAwait(false);
+        using var cursor = await PipelineCursorAsync(template, cancellation, opts).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
 
         return cursor.Current.SingleOrDefault();
@@ -80,19 +76,41 @@ public partial class DB
     /// <typeparam name="TResult">The type of the resulting object</typeparam>
     /// <param name="template">A 'Template' object with tags replaced</param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template,
-                                                                     AggregateOptions? options = null,
-                                                                     IClientSessionHandle? session = null,
-                                                                     CancellationToken cancellation = default) where T : IEntity
+                                                              CancellationToken cancellation = default,
+                                                              AggregateOptions? options = null) where T : IEntity
     {
         var opts = options ?? new AggregateOptions();
         opts.BatchSize = 1;
 
-        using var cursor = await PipelineCursorAsync(template, opts, session, cancellation).ConfigureAwait(false);
+        using var cursor = await PipelineCursorAsync(template, cancellation, opts).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
 
         return cursor.Current.SingleOrDefault();
+    }
+
+    Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template) where T : IEntity
+    {
+        //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
+        //         if the following logic changes, update the other method also
+
+        if (IgnoreGlobalFilters || !(_globalFilters?.Count > 0) || !_globalFilters.TryGetValue(typeof(T), out var gFilter))
+            return template;
+
+        var filter = gFilter.filterDef switch
+        {
+            FilterDefinition<T> def => def.Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)),
+            BsonDocument doc => doc,
+            string jsonString => BsonDocument.Parse(jsonString),
+            _ => null
+        };
+
+        if (gFilter.prepend)
+            template.Builder.Insert(1, $"{{$match:{filter}}},");
+        else
+            template.Builder.Insert(template.Builder.Length - 1, $",{{$match:{filter}}}");
+
+        return template;
     }
 }

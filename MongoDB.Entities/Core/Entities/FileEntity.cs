@@ -48,8 +48,9 @@ public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
-    public DataStreamer<T> Data(DB? db = null)
-        => _streamer ??= new(this, DB.InstanceOrDefault(db));
+    /// <param name="database">The database instance to use for this operation</param>
+    public DataStreamer<T> Data(DB? database = null)
+        => _streamer ??= new(this, database ?? DB.Default);
 }
 
 [Collection("[BINARY_CHUNKS]")]
@@ -85,16 +86,11 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     internal DataStreamer(FileEntity<T> parent, DB db)
     {
         _parent = parent;
-
         _db = db;
-
         _mongoDatabase = _db.Database();
-
         _chunkCollection = _db.Collection<FileChunk>();
 
-        var dbName = _mongoDatabase.DatabaseNamespace.DatabaseName;
-
-        if (_indexedDBs.Add(dbName))
+        if (_indexedDBs.Add(_mongoDatabase.DatabaseNamespace.DatabaseName))
         {
             _ = _chunkCollection.Indexes.CreateOneAsync(
                 new CreateIndexModel<FileChunk>(

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace MongoDB.Entities;
@@ -20,19 +22,21 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The instance to persist</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public Task SaveAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
     {
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
+
         var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
 
         return PrepAndCheckIfInsert(entity)
-                   ? session == null
+                   ? SessionHandle == null
                          ? Collection<T>().InsertOneAsync(entity, null, cancellation)
-                         : Collection<T>().InsertOneAsync(session, entity, null, cancellation)
-                   : session == null
+                         : Collection<T>().InsertOneAsync(SessionHandle, entity, null, cancellation)
+                   : SessionHandle == null
                        ? Collection<T>().ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
-                       : Collection<T>().ReplaceOneAsync(session, filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
+                       : Collection<T>().ReplaceOneAsync(SessionHandle, filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
     }
 
     /// <summary>
@@ -41,10 +45,8 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">The entities to persist</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        where T : IEntity
+    public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
 
@@ -60,11 +62,13 @@ public partial class DB
                             replacement: ent)
                         { IsUpsert = true });
             }
+            SetModifiedBySingle(ent);
+            OnBeforeSave<T>()?.Invoke(ent);
         }
 
-        return session == null
+        return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
+                   : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
     }
 
     /// <summary>
@@ -78,13 +82,9 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveOnlyAsync<T>(T entity,
-                                               Expression<Func<T, object?>> members,
-                                               IClientSessionHandle? session = null,
-                                               CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation);
+    public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
+        => SavePartial(entity, Logic.GetPropNamesFromExpression(members), cancellation);
 
     /// <summary>
     /// Saves an entity partially with only the specified subset of properties.
@@ -97,13 +97,9 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to save</param>
     /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveOnlyAsync<T>(T entity,
-                                               IEnumerable<string> propNames,
-                                               IClientSessionHandle? session = null,
-                                               CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entity, propNames, session, cancellation);
+    public Task<UpdateResult> SaveOnlyAsync<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+        => SavePartial(entity, propNames, cancellation);
 
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties.
@@ -116,13 +112,10 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities,
-                                                     Expression<Func<T, object?>> members,
-                                                     IClientSessionHandle? session = null,
-                                                     CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entities, Logic.GetPropNamesFromExpression(members), session, cancellation);
+    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, CancellationToken cancellation = default)
+        where T : IEntity
+        => SavePartial(entities, Logic.GetPropNamesFromExpression(members), cancellation);
 
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties.
@@ -135,13 +128,10 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities,
-                                                     IEnumerable<string> propNames,
-                                                     IClientSessionHandle? session = null,
-                                                     CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entities, propNames, session, cancellation);
+    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default)
+        where T : IEntity
+        => SavePartial(entities, propNames, cancellation);
 
     /// <summary>
     /// Saves an entity partially excluding the specified subset of properties.
@@ -154,13 +144,9 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveExceptAsync<T>(T entity,
-                                                 Expression<Func<T, object?>> members,
-                                                 IClientSessionHandle? session = null,
-                                                 CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation, true);
+    public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
+        => SavePartial(entity, Logic.GetPropNamesFromExpression(members), cancellation, true);
 
     /// <summary>
     /// Saves an entity partially excluding the specified subset of properties.
@@ -173,13 +159,9 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to save</param>
     /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveExceptAsync<T>(T entity,
-                                                 IEnumerable<string> propNames,
-                                                 IClientSessionHandle? session = null,
-                                                 CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entity, propNames, session, cancellation, true);
+    public Task<UpdateResult> SaveExceptAsync<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+        => SavePartial(entity, propNames, cancellation, true);
 
     /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties.
@@ -192,13 +174,10 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities,
-                                                       Expression<Func<T, object?>> members,
-                                                       IClientSessionHandle? session = null,
-                                                       CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entities, Logic.GetPropNamesFromExpression(members), session, cancellation, true);
+    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, CancellationToken cancellation = default)
+        where T : IEntity
+        => SavePartial(entities, Logic.GetPropNamesFromExpression(members), cancellation, true);
 
     /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties.
@@ -211,13 +190,10 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities,
-                                                       IEnumerable<string> propNames,
-                                                       IClientSessionHandle? session = null,
-                                                       CancellationToken cancellation = default) where T : IEntity
-        => SavePartial(entities, propNames, session, cancellation, true);
+    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default)
+        where T : IEntity
+        => SavePartial(entities, propNames, cancellation, true);
 
     /// <summary>
     /// Saves an entity partially while excluding some properties.
@@ -225,12 +201,14 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to save</param>
-    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default)
         where T : IEntity
     {
         entity.ThrowIfUnsaved();
+
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
 
         var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
@@ -268,46 +246,44 @@ public partial class DB
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
 
         return
-            session == null
+            SessionHandle == null
                 ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation)
-                : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation);
+                : Collection<T>().UpdateOneAsync(SessionHandle, filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation);
     }
 
-    Task<UpdateResult> SavePartial<T>(T entity,
-                                      IEnumerable<string> propNames,
-                                      IClientSessionHandle? session,
-                                      CancellationToken cancellation,
-                                      bool excludeMode = false) where T : IEntity
+    Task<UpdateResult> SavePartial<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
     {
         PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
+
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
 
         return
-            session == null
+            SessionHandle == null
                 ? Collection<T>().UpdateOneAsync(
                     filter,
                     Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)),
                     _updateOptions,
                     cancellation)
                 : Collection<T>().UpdateOneAsync(
-                    session,
+                    SessionHandle,
                     filter,
                     Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)),
                     _updateOptions,
                     cancellation);
     }
 
-    Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities,
-                                            IEnumerable<string> propNames,
-                                            IClientSessionHandle? session,
-                                            CancellationToken cancellation,
-                                            bool excludeMode = false) where T : IEntity
+    Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation, bool excludeMode = false)
+        where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
 
         foreach (var ent in entities)
         {
             PrepAndCheckIfInsert(ent); //just prep. we don't care about inserts here
+            SetModifiedBySingle(ent);
+            OnBeforeSave<T>()?.Invoke(ent);
             models.Add(
                 new UpdateOneModel<T>(
                         filter: Builders<T>.Filter.Eq(ent.GetIdName(), ent.GetId()),
@@ -315,12 +291,12 @@ public partial class DB
                     { IsUpsert = true });
         }
 
-        return session == null
+        return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
+                   : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
     }
 
-    bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
+    static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
     {
         if (entity.HasDefaultID())
         {
@@ -337,5 +313,36 @@ public partial class DB
             ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
 
         return false;
+    }
+
+    void SetModifiedBySingle<T>(T entity) where T : IEntity
+    {
+        ThrowIfModifiedByIsEmpty<T>();
+        Cache<T>.ModifiedByProp?.SetValue(entity, BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+
+        //note: we can't use an IModifiedBy interface because the above line needs a concrete type
+        //      to be able to correctly deserialize a user supplied derived/subclass of ModifiedOn.
+    }
+
+    // void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
+    // {
+    //     if (Cache<T>.ModifiedByProp is null)
+    //         return;
+    //
+    //     ThrowIfModifiedByIsEmpty<T>();
+    //
+    //     var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType);
+    //
+    //     foreach (var e in entities)
+    //         Cache<T>.ModifiedByProp.SetValue(e, val);
+    // }
+
+    void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
+    {
+        if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
+        {
+            throw new InvalidOperationException(
+                $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
+        }
     }
 }

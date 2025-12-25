@@ -8,11 +8,11 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class CountingEntity
 {
-    DBContext _db;
+    DB _db = null!;
 
     Task Init(string guid)
     {
-        _db = new MyDBEntity();
+        _db = new MyDbEntity();
 
         var list = new List<AuthorEntity>();
 
@@ -22,7 +22,7 @@ public class CountingEntity
         for (var i = 1; i <= 10; i++)
             list.Add(new() { Name = guid, Age = 222 });
 
-        return list.SaveAsync();
+        return _db.SaveAsync(list);
     }
 
     [TestMethod]
@@ -33,7 +33,7 @@ public class CountingEntity
 
         var count = await _db.CountEstimatedAsync<AuthorEntity>();
 
-        Assert.IsTrue(count > 0);
+        Assert.IsGreaterThan(0, count);
     }
 
     [TestMethod]
@@ -64,7 +64,7 @@ public class CountingEntity
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var filter = DB.Default.Filter<AuthorEntity>()
+        var filter = DB.Filter<AuthorEntity>()
                        .Eq(a => a.Name, guid);
 
         var count = await _db.CountAsync(filter);

@@ -13,7 +13,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_index_returns_correct_result()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.DropCollectionAsync<AuthorEntity>();
 
@@ -24,10 +24,10 @@ public class IndexesEntity
                 .CreateAsync();
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author1.SaveAsync();
+        await db.SaveAsync(author1);
 
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author2.SaveAsync();
+        await db.SaveAsync(author2);
 
         var res = db.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToList();
         Assert.AreEqual(author1.Surname, res[0].Surname);
@@ -41,7 +41,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_wilcard_text_index_works()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.Index<AuthorEntity>()
                 .Option(o => o.Background = false)
@@ -49,10 +49,10 @@ public class IndexesEntity
                 .CreateAsync();
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author1.SaveAsync();
+        await db.SaveAsync(author1);
 
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author2.SaveAsync();
+        await db.SaveAsync(author2);
 
         var res = await db.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToListAsync();
 
@@ -62,7 +62,7 @@ public class IndexesEntity
     [TestMethod]
     public async Task fuzzy_text_search_with_text_index_works()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new());
 
         await db.Index<BookEntity>()
                 .Option(o => o.Background = false)
@@ -77,7 +77,7 @@ public class IndexesEntity
         var b5 = new BookEntity { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
         var b6 = new BookEntity { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
-        await db.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
+        await db.SaveAsync([b1, b2, b3, b4, b5, b6]);
 
         var res = await db.Find<BookEntity>()
                           .Match(Search.Fuzzy, "catherine jones")
@@ -87,9 +87,9 @@ public class IndexesEntity
                           .Limit(6)
                           .ExecuteAsync();
 
-        await db.DeleteAsync<BookEntity>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
+        await db.DeleteAsync<BookEntity>([b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID]);
 
-        Assert.AreEqual(4, res.Count);
+        Assert.HasCount(4, res);
         Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
     }
 
@@ -116,7 +116,7 @@ public class IndexesEntity
             new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
-        await list.SaveAsync();
+        await db.SaveAsync(list);
 
         var res = await db.Find<GenreEntity>()
                           .Match(Search.Full, "one eight nine")
@@ -124,9 +124,9 @@ public class IndexesEntity
                           .SortByTextScore()
                           .ExecuteAsync();
 
-        await list.DeleteAllAsync();
+        await db.DeleteAsync(list);
 
-        Assert.AreEqual(4, res.Count);
+        Assert.HasCount(4, res);
         Assert.AreEqual(1, res[0].Position);
         Assert.AreEqual(4, res.Last().Position);
     }
@@ -154,7 +154,7 @@ public class IndexesEntity
             new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
-        await list.SaveAsync();
+        await db.SaveAsync(list);
 
         var res = await db.Find<GenreEntity>()
                           .Match(Search.Full, "one eight nine")
@@ -162,12 +162,12 @@ public class IndexesEntity
                           .Sort(g => g.Position, Order.Ascending)
                           .ExecuteAsync();
 
-        await list.DeleteAllAsync();
+        await db.DeleteAsync(list);
 
-        Assert.AreEqual(4, res.Count);
+        Assert.HasCount(4, res);
         Assert.AreEqual(1, res[0].Position);
         Assert.AreEqual(4, res.Last().Position);
-        Assert.IsTrue(res[0].SortScore > 0);
+        Assert.IsGreaterThan(0, res[0].SortScore);
     }
 
     [TestMethod]

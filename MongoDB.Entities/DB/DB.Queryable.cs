@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace MongoDB.Entities;
 
@@ -7,13 +8,20 @@ namespace MongoDB.Entities;
 public partial class DB
 {
     /// <summary>
-    /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
+    /// Exposes the MongoDB collection for the given entity type as IQueryable in order to facilitate LINQ queries
     /// </summary>
     /// <param name="options">The aggregate options</param>
-    /// <param name="session">An optional session if used within a transaction</param>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public IQueryable<T> Queryable<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
-        => session == null
-               ? Collection<T>().AsQueryable(options)
-               : Collection<T>().AsQueryable(session, options);
+    /// <typeparam name="T">The type of entity</typeparam>
+    public IQueryable<T> Queryable<T>(AggregateOptions? options = null) where T : IEntity
+    {
+        var globalFilter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+
+        var queryable = SessionHandle == null
+                            ? Collection<T>().AsQueryable(options)
+                            : Collection<T>().AsQueryable(SessionHandle, options);
+
+        return globalFilter != Builders<T>.Filter.Empty
+                   ? queryable.Where(_ => globalFilter.Inject())
+                   : queryable;
+    }
 }

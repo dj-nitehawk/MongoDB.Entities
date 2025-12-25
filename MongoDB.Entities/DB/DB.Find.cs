@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-
-namespace MongoDB.Entities;
+﻿namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
 public partial class DB
@@ -10,9 +8,8 @@ public partial class DB
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public Find<T> Find<T>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, this);
+    public Find<T> Find<T>() where T : IEntity
+        => new(SessionHandle, _globalFilters, this);
 
     /// <summary>
     /// Represents a MongoDB Find command
@@ -20,7 +17,6 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public Find<T, TProjection> Find<T, TProjection>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, this);
+    public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
+        => new(SessionHandle, _globalFilters, this);
 }

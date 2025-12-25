@@ -50,12 +50,13 @@ public class PagedSearch<T, TProjection> where T : IEntity
 
         _session = session;
         _globalFilters = globalFilters;
+        _ignoreGlobalFilters = db.IgnoreGlobalFilters;
         _db = db;
     }
 
     /// <summary>
     /// Begins the paged search aggregation pipeline with the provided fluent pipeline.
-    /// <para>TIP: This method must be first in the chain and it cannot be used with .Match()</para>
+    /// <para>TIP: This method must be first in the chain, and it cannot be used with .Match()</para>
     /// </summary>
     /// <typeparam name="TFluent">The type of the input pipeline</typeparam>
     /// <param name="fluentPipeline">The input IAggregateFluent pipeline</param>

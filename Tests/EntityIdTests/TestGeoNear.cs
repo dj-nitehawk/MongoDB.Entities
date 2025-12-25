@@ -21,12 +21,12 @@ public class GeoNearEntityTest
 
         var guid = Guid.NewGuid().ToString();
 
-        await new[]
-        {
-            new PlaceEntity { Name = "Paris " + guid, Location = new(48.8539241, 2.2913515) },
-            new PlaceEntity { Name = "Versailles " + guid, Location = new(48.796964, 2.137456) },
+        await db.SaveAsync(
+        [
+            new() { Name = "Paris " + guid, Location = new(48.8539241, 2.2913515) },
+            new() { Name = "Versailles " + guid, Location = new(48.796964, 2.137456) },
             new PlaceEntity { Name = "Poissy " + guid, Location = new(48.928860, 2.046889) }
-        }.SaveAsync();
+        ]);
 
         var res = (await db.Find<PlaceEntity>()
                            .Match(p => p.Location, new(48.857908, 2.295243), 20000) //20km from eiffel tower
@@ -36,7 +36,7 @@ public class GeoNearEntityTest
                   .Where(c => c.Name == "Paris " + guid)
                   .ToList();
 
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 
     [TestMethod]
@@ -51,53 +51,55 @@ public class GeoNearEntityTest
 
         var guid = Guid.NewGuid().ToString();
 
-        await new[]
-        {
-            new PlaceEntity { Name = "Paris " + guid, Location = new(48.8539241, 2.2913515) },
-            new PlaceEntity { Name = "Versailles " + guid, Location = new(48.796964, 2.137456) },
+        await db.SaveAsync(
+        [
+            new() { Name = "Paris " + guid, Location = new(48.8539241, 2.2913515) },
+            new() { Name = "Versailles " + guid, Location = new(48.796964, 2.137456) },
             new PlaceEntity { Name = "Poissy " + guid, Location = new(48.928860, 2.046889) }
-        }.SaveAsync();
+        ]);
 
-        var qry = db.FluentGeoNear<PlaceEntity>(
+        var qry = db.GeoNear<PlaceEntity>(
             NearCoordinates: new(48.857908, 2.295243), //eiffel tower
             DistanceField: x => x.DistanceKM,
             MaxDistance: 20000);
 
         var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
-        Assert.AreEqual(2, cnt.Count);
+        Assert.HasCount(2, cnt);
 
         var res = await qry.Match(c => c.Name == "Paris " + guid).ToListAsync();
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 
     [TestMethod]
     public async Task geo_near_transaction_returns_correct_results()
     {
-        await DB.Default.Index<PlaceEntity>()
+        var db = DB.Default;
+
+        await db.Index<PlaceEntity>()
                 .Key(x => x.Location, KeyType.Geo2DSphere)
                 .Option(x => x.Background = false)
                 .CreateAsync();
 
         var guid = Guid.NewGuid().ToString();
 
-        using var TN = new Transaction();
+        using var tn = db.Transaction();
 
-        await new[]
-        {
-            new PlaceEntity { Name = "Paris " + guid, Location = new(48.8539241, 2.2913515) },
-            new PlaceEntity { Name = "Versailles " + guid, Location = new(48.796964, 2.137456) },
+        await db.SaveAsync(
+        [
+            new() { Name = "Paris " + guid, Location = new(48.8539241, 2.2913515) },
+            new() { Name = "Versailles " + guid, Location = new(48.796964, 2.137456) },
             new PlaceEntity { Name = "Poissy " + guid, Location = new(48.928860, 2.046889) }
-        }.SaveAsync();
+        ]);
 
-        var qry = TN.GeoNear<PlaceEntity>(
+        var qry = tn.GeoNear<PlaceEntity>(
             NearCoordinates: new(48.857908, 2.295243), //eiffel tower
             DistanceField: x => x.DistanceKM,
             MaxDistance: 20000);
 
         var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
-        Assert.AreEqual(2, cnt.Count);
+        Assert.HasCount(2, cnt);
 
         var res = await qry.Match(c => c.Name == "Paris " + guid).ToListAsync();
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 }

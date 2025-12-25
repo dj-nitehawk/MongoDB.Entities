@@ -11,17 +11,18 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class UpdateOne : BenchBase
 {
+    readonly DB db = DB.Default;
     readonly string id = ObjectId.GenerateNewId().ToString()!;
 
     public UpdateOne()
     {
-        DB.Default.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
+        db.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Default.Update<Author>()
+        return db.Update<Author>()
                  .MatchID(id)
                  .Modify(a => a.FirstName, "updated")
                  .ExecuteAsync();
@@ -42,10 +43,11 @@ public class Update100 : BenchBase
 {
     readonly List<Author> list = new(1000);
     readonly string guid = Guid.NewGuid().ToString();
+    readonly DB db = DB.Default;
 
     public Update100()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -60,7 +62,7 @@ public class Update100 : BenchBase
                     FirstName = i is > 500 and <= 600 ? guid : "test"
                 });
         }
-        list.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(list).GetAwaiter().GetResult();
     }
 
     [Benchmark]

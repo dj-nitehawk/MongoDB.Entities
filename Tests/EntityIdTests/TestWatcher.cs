@@ -9,10 +9,12 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class WatcherEntity
 {
+    readonly DB _db = DB.Default;
+
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Default.Watcher<FlowerEntity>("test");
+        var watcher = _db.Watcher<FlowerEntity>("test");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -24,28 +26,26 @@ public class WatcherEntity
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[]
-        {
-            new FlowerEntity { Name = "test" },
-            new FlowerEntity { Name = "test" },
+        await _db.SaveAsync(
+        [
+            new() { Name = "test" },
+            new() { Name = "test" },
             new FlowerEntity { Name = "test" }
-        }.SaveAsync();
+        ]);
 
         var flower = new FlowerEntity { Name = "test" };
-        await flower.SaveAsync();
-
-        await flower.DeleteAsync();
+        await _db.SaveAsync(flower);
+        await _db.DeleteAsync(flower);
 
         await Task.Delay(500);
 
-        Assert.AreEqual(4, allFlowers.Count);
+        Assert.HasCount(4, allFlowers);
     }
 
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var db = DB.Default;
-        var watcher = db.Watcher<FlowerEntity>("test-with-projection");
+        var watcher = _db.Watcher<FlowerEntity>("test-with-projection");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -61,21 +61,20 @@ public class WatcherEntity
                                       await Task.CompletedTask;
                                   };
 
-        await new[]
-        {
-            new FlowerEntity { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
-            new FlowerEntity { Name = "test", Color = "red" },
+        await _db.SaveAsync(
+        [
+            new() { Name = "test", Color = "red", NestedFlower = new() { Name = "nested" } },
+            new() { Name = "test", Color = "red" },
             new FlowerEntity { Name = "test", Color = "red" }
-        }.SaveAsync(db);
+        ]);
 
         var flower = new FlowerEntity { Name = "test" };
-        await flower.SaveAsync(db);
-
-        await flower.DeleteAsync(db);
+        await _db.SaveAsync(flower);
+        await _db.DeleteAsync(flower);
 
         await Task.Delay(500);
 
-        Assert.AreEqual(3, allFlowers.Count);
+        Assert.HasCount(3, allFlowers);
         Assert.IsTrue(
             allFlowers[0].Name == null &&
             allFlowers[0].Color == "red" &&
@@ -87,7 +86,7 @@ public class WatcherEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Default.Watcher<FlowerEntity>("test-with-filter-builders");
+        var watcher = _db.Watcher<FlowerEntity>("test-with-filter-builders");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -99,21 +98,19 @@ public class WatcherEntity
         watcher.OnChanges +=
             allFlowers.AddRange;
 
-        await new[]
-        {
-            new FlowerEntity { Name = guid },
-            new FlowerEntity { Name = guid },
+        await _db.SaveAsync(
+        [
+            new() { Name = guid },
+            new() { Name = guid },
             new FlowerEntity { Name = guid }
-        }.SaveAsync();
+        ]);
 
         var flower = new FlowerEntity { Name = guid };
-        await flower.SaveAsync();
-
-        await flower.DeleteAsync();
-
+        await _db.SaveAsync(flower);
+        await _db.DeleteAsync(flower);
         await Task.Delay(500);
 
-        Assert.AreEqual(4, allFlowers.Count);
+        Assert.HasCount(4, allFlowers);
     }
 
     [TestMethod]
@@ -121,7 +118,7 @@ public class WatcherEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Default.Watcher<FlowerEntity>("test-with-filter-builders-csd");
+        var watcher = _db.Watcher<FlowerEntity>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerEntity>();
 
         watcher.Start(
@@ -136,21 +133,19 @@ public class WatcherEntity
                                          await Task.CompletedTask;
                                      };
 
-        await new[]
-        {
-            new FlowerEntity { Name = guid },
-            new FlowerEntity { Name = "exclude me" },
-            new FlowerEntity { Name = guid },
+        await _db.SaveAsync(
+        [
+            new() { Name = guid },
+            new() { Name = "exclude me" },
+            new() { Name = guid },
             new FlowerEntity { Name = guid }
-        }.SaveAsync();
+        ]);
 
         var flower = new FlowerEntity { Name = guid };
-        await flower.SaveAsync();
-
-        await flower.DeleteAsync();
-
+        await _db.SaveAsync(flower);
+        await _db.DeleteAsync(flower);
         await Task.Delay(500);
 
-        Assert.AreEqual(4, allFlowers.Count);
+        Assert.HasCount(4, allFlowers);
     }
 }

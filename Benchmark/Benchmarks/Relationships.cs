@@ -14,19 +14,21 @@ public class Relationships : BenchBase
     const string bookTitle = "BOOKTITLE";
     const string authorName = "AUTHORNAME";
 
+    readonly DB db = DB.Default;
+
     public Relationships()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync().GetAwaiter().GetResult();
 
-        DB.Default.Index<Book>()
+        db.Index<Book>()
           .Key(b => b.Title, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync().GetAwaiter().GetResult();
 
-        DB.Default.Index<Book>()
+        db.Index<Book>()
           .Key(b => b.Author.ID, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync().GetAwaiter().GetResult();
@@ -39,7 +41,7 @@ public class Relationships : BenchBase
                 LastName = "last name",
                 Birthday = DateTime.UtcNow
             };
-            author.SaveAsync().GetAwaiter().GetResult();
+            db.SaveAsync(author).GetAwaiter().GetResult();
 
             for (var y = 1; y <= 10; y++)
             {
@@ -49,7 +51,7 @@ public class Relationships : BenchBase
                     PublishedOn = DateTime.UtcNow,
                     Title = x == 500 ? bookTitle : "book title " + y
                 };
-                book.SaveAsync().GetAwaiter().GetResult();
+                db.SaveAsync(book).GetAwaiter().GetResult();
                 author.Books.AddAsync(book);
             }
         }
@@ -58,10 +60,10 @@ public class Relationships : BenchBase
     [Benchmark(Baseline = true)]
     public async Task Lookup()
     {
-        _ = (await DB.Default.Fluent<Author>()
+        _ = (await db.Fluent<Author>()
                      .Match(a => a.FirstName == authorName)
                      .Lookup<Author, Book, AuthorWithBooksDTO>(
-                         DB.Default.Collection<Book>(),
+                         db.Collection<Book>(),
                          a => a.ID,
                          b => b.Author.ID,
                          dto => dto.BookList)
@@ -71,21 +73,21 @@ public class Relationships : BenchBase
     [Benchmark]
     public async Task Clientside_Join()
     {
-        var author = await DB.Default.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
+        var author = await db.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
         _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,
             FirstName = author.FirstName,
             LastName = author.LastName,
             ID = author.ID,
-            BookList = await DB.Default.Find<Book>().ManyAsync(b => Equals(b.Author.ID, author.ID))
+            BookList = await db.Find<Book>().ManyAsync(b => Equals(b.Author.ID, author.ID))
         };
     }
 
     [Benchmark]
     public async Task Children_Fluent()
     {
-        var author = await DB.Default.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
+        var author = await db.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
         _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,
@@ -99,7 +101,7 @@ public class Relationships : BenchBase
     [Benchmark]
     public async Task Children_Queryable()
     {
-        var author = await DB.Default.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
+        var author = await db.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
         _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,

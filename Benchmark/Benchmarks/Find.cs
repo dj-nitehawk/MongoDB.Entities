@@ -12,10 +12,11 @@ public class FindOne : BenchBase
 {
     readonly List<Author> list = new(1000);
     readonly string guid = Guid.NewGuid().ToString();
+    readonly DB db = DB.Default;
 
     public FindOne()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -30,13 +31,13 @@ public class FindOne : BenchBase
                     FirstName = i == 500 ? guid : "test"
                 });
         }
-        list.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(list).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Default.Find<Author>()
+        return db.Find<Author>()
                  .Match(x => x.FirstName == guid)
                  .ExecuteAsync();
     }
@@ -54,10 +55,11 @@ public class Find100 : BenchBase
 {
     readonly List<Author> list = new(1000);
     readonly string guid = Guid.NewGuid().ToString();
+    readonly DB db = DB.Default;
 
     public Find100()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -72,7 +74,7 @@ public class Find100 : BenchBase
                     FirstName = i is > 500 and <= 600 ? guid : "test"
                 });
         }
-        list.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(list).GetAwaiter().GetResult();
     }
 
     [Benchmark]
@@ -97,10 +99,11 @@ public class FindFirst : BenchBase
 {
     readonly List<Author> list = new(1000);
     readonly string guid = Guid.NewGuid().ToString();
+    readonly DB db = DB.Default;
 
     public FindFirst()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -115,14 +118,13 @@ public class FindFirst : BenchBase
                     FirstName = i is > 500 and <= 600 ? guid : "test"
                 });
         }
-        list.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(list).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Default
-                 .Find<Author>()
+        return db.Find<Author>()
                  .Match(x => x.FirstName == guid)
                  .ExecuteFirstAsync();
     }
@@ -140,10 +142,11 @@ public class FindAny : BenchBase
 {
     readonly List<Author> list = new(1000);
     readonly string guid = Guid.NewGuid().ToString();
+    readonly DB db = DB.Default;
 
     public FindAny()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -158,14 +161,13 @@ public class FindAny : BenchBase
                     FirstName = i is > 500 and <= 600 ? guid : "test"
                 });
         }
-        list.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(list).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Default
-                 .Find<Author>()
+        return db.Find<Author>()
                  .Match(x => x.FirstName == guid)
                  .ExecuteAnyAsync();
     }
@@ -183,10 +185,11 @@ public class FindSingle : BenchBase
 {
     readonly List<Author> list = new(1000);
     readonly string guid = Guid.NewGuid().ToString();
+    readonly DB db = DB.Default;
 
     public FindSingle()
     {
-        DB.Default.Index<Author>()
+        db.Index<Author>()
           .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
@@ -201,14 +204,13 @@ public class FindSingle : BenchBase
                     FirstName = i == 500 ? guid : "test"
                 });
         }
-        list.SaveAsync().GetAwaiter().GetResult();
+        db.SaveAsync(list).GetAwaiter().GetResult();
     }
 
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DB.Default
-                 .Find<Author>()
+        return db.Find<Author>()
                  .Match(x => x.FirstName == guid)
                  .ExecuteSingleAsync();
     }

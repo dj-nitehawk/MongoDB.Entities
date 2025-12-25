@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -9,6 +10,7 @@ using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+[SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
 public abstract class UpdateBase<T> where T : IEntity
 {
     //note: this base class exists for facilitating the OnBeforeUpdate custom hook of DBContext class
@@ -17,7 +19,7 @@ public abstract class UpdateBase<T> where T : IEntity
     protected readonly List<UpdateDefinition<T>> Defs = [];
 
     /// <summary>
-    /// Specify the property and it's value to modify (use multiple times if needed)
+    /// Specify the property, and it's value to modify (use multiple times if needed)
     /// </summary>
     /// <param name="property">x => x.Property</param>
     /// <param name="value">The value to set on the property</param>
@@ -70,6 +72,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     {
         _session = session;
         _globalFilters = globalFilters;
+        _ignoreGlobalFilters = db.IgnoreGlobalFilters;
         _onUpdateAction = onUpdateAction;
         _db = db;
     }
@@ -210,7 +213,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     }
 
     /// <summary>
-    /// Specify the property and it's value to modify (use multiple times if needed)
+    /// Specify the property, and it's value to modify (use multiple times if needed)
     /// </summary>
     /// <param name="property">x => x.Property</param>
     /// <param name="value">The value to set on the property</param>
@@ -473,8 +476,9 @@ public class Update<T> : UpdateBase<T> where T : IEntity
             throw new ArgumentException("Please use Match() method first!");
         if (_stages.Count == 0)
             throw new ArgumentException("Please use WithPipelineStage() method first!");
-        if (Defs.Count > 0)
-            throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+
+        // if (Defs.Count > 0)
+        //     throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
         if (ShouldSetModDate())
             WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
