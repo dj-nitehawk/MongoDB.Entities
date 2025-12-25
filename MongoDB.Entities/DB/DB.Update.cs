@@ -6,30 +6,44 @@ namespace MongoDB.Entities;
 public partial class DB
 {
     /// <summary>
-    /// Represents an update command
-    /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+    /// Starts an update command for the given entity type
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public Update<T> Update<T>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, null, this);
+    /// <typeparam name="T">The type of entity</typeparam>
+    public Update<T> Update<T>() where T : IEntity
+    {
+        var cmd = new Update<T>(Session, _globalFilters, OnBeforeUpdate<T>(), this);
+
+        if (Cache<T>.ModifiedByProp == null)
+            return cmd;
+
+        ThrowIfModifiedByIsEmpty<T>();
+        cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+
+        return cmd;
+    }
 
     /// <summary>
-    /// Update and retrieve the first document that was updated.
-    /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+    /// Starts an update-and-get command for the given entity type
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    /// <typeparam name="TProjection">The type to project to</typeparam>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, null, this);
+    /// <typeparam name="T">The type of entity</typeparam>
+    public UpdateAndGet<T, T> UpdateAndGet<T>() where T : IEntity
+        => UpdateAndGet<T, T>();
 
     /// <summary>
-    /// Update and retrieve the first document that was updated.
-    /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+    /// Starts an update-and-get command with projection support for the given entity type
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    /// <param name="session">An optional session if using within a transaction</param>
-    public UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, null, this);
+    /// <typeparam name="T">The type of entity</typeparam>
+    /// <typeparam name="TProjection">The type of the end result</typeparam>
+    public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
+    {
+        var cmd = new UpdateAndGet<T, TProjection>(Session, _globalFilters, OnBeforeUpdate<T>(), this);
+
+        if (Cache<T>.ModifiedByProp == null)
+            return cmd;
+
+        ThrowIfModifiedByIsEmpty<T>();
+        cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+
+        return cmd;
+    }
 }

@@ -70,6 +70,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     {
         _session = session;
         _globalFilters = globalFilters;
+        _ignoreGlobalFilters = db.IgnoreGlobalFilters;
         _onUpdateAction = onUpdateAction;
         _db = db;
     }

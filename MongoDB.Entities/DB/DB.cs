@@ -51,15 +51,6 @@ public partial class DB
     /// </summary>
     public ModifiedBy? ModifiedBy { get; set; }
 
-    void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
-    {
-        if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
-        {
-            throw new InvalidOperationException(
-                $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
-        }
-    }
-
     /// <summary>
     /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.
     /// <para>WARNING: will throw an error if server is not reachable!</para>

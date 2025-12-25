@@ -35,6 +35,7 @@ public class Replace<T> where T : IEntity
         _session = session;
         _modifiedBy = modifiedBy;
         _globalFilters = globalFilters;
+        _ignoreGlobalFilters = db.IgnoreGlobalFilters;
         _onSaveAction = onSaveAction;
         _db = db;
     }
