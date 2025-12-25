@@ -474,8 +474,9 @@ public class Update<T> : UpdateBase<T> where T : IEntity
             throw new ArgumentException("Please use Match() method first!");
         if (_stages.Count == 0)
             throw new ArgumentException("Please use WithPipelineStage() method first!");
-        if (Defs.Count > 0)
-            throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+
+        // if (Defs.Count > 0)
+        //     throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
         if (ShouldSetModDate())
             WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");

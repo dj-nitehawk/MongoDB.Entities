@@ -9,7 +9,7 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class UpdateEntity
 {
-    readonly DB db = DB.Default;
+    readonly DB db = DB.Default.WithModifiedBy(new());
 
     [TestMethod]
     public async Task updating_modifies_correct_documents()
