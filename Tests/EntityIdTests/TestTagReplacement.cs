@@ -342,17 +342,18 @@ public class TemplatesEntity
     [TestMethod]
     public async Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
     {
+        var db = DB.Default;
         var guid = Guid.NewGuid().ToString();
 
         var author = new AuthorEntity { Name = guid };
-        await author.SaveAsync();
+        await db.SaveAsync(author);
 
         var book = new BookEntity
         {
             Title = guid,
             MainAuthor = new(author)
         };
-        await book.SaveAsync();
+        await db.SaveAsync(book);
 
         var pipeline = new Template<BookEntity, AuthorEntity>(
                 @"
@@ -376,12 +377,12 @@ public class TemplatesEntity
                         $set: { <Surname> : '$<Name>' }
                     }
                 ]").Tag("book_id", $"ObjectId('{book.ID}')")
-                   .Tag("author_collection", DB.Default.CollectionName<AuthorEntity>())
+                   .Tag("author_collection", db.CollectionName<AuthorEntity>())
                    .Path(b => b.MainAuthor.ID)
                    .PathOfResult(a => a.Surname)
                    .PathOfResult(a => a.Name);
 
-        var result = (await (await DB.Default.PipelineCursorAsync(pipeline))
+        var result = (await (await db.PipelineCursorAsync(pipeline))
                           .ToListAsync())
             .Single();
 

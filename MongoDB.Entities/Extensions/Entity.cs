@@ -68,6 +68,17 @@ public static partial class Extensions
         => Prop.Path(expression);
 
     /// <summary>
+    /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
+    /// </summary>
+    public static T ToDocument<T>(this T entity) where T : IEntity
+    {
+        var res = entity.Duplicate();
+        res.SetId(res.GenerateNewID());
+
+        return res;
+    }
+
+    /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
     public static T[] ToDocuments<T>(this T[] entities, DB? dbInstance = null) where T : IEntity
