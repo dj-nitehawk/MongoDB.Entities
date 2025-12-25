@@ -15,17 +15,20 @@ public class DistinctEntity
         var guid2 = Guid.NewGuid().ToString();
         var guids = new[] { guid1, guid2 };
 
-        await new[] {
-            new AuthorEntity{ Name = guid1 },
-            new AuthorEntity{ Name = guid1 },
-            new AuthorEntity{ Name = guid2 },
-            new AuthorEntity{ Name = guid2 },
-        }.SaveAsync();
+        var db = DB.Default;
 
-        var res = await DB.Default.Distinct<AuthorEntity, string>()
-            .Match(a => guids.Contains(a.Name))
-            .Property(a => a.Name)
-            .ExecuteAsync();
+        await db.SaveAsync(
+        [
+            new() { Name = guid1 },
+            new() { Name = guid1 },
+            new() { Name = guid2 },
+            new AuthorEntity { Name = guid2 }
+        ]);
+
+        var res = await db.Distinct<AuthorEntity, string>()
+                          .Match(a => guids.Contains(a.Name))
+                          .Property(a => a.Name)
+                          .ExecuteAsync();
 
         Assert.AreEqual(2, res.Count);
         Assert.IsTrue(!res.Except(guids).Any());

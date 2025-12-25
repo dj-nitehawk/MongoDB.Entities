@@ -66,10 +66,31 @@ public partial class DB
     /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entity">The entity to delete</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<DeleteResult> DeleteAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        => DeleteCascadingAsync<T>([entity.GetId()], cancellation);
+
+    /// <summary>
+    /// Deletes a single entity from MongoDB.
+    /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<DeleteResult> DeleteAsync<T>(object ID, CancellationToken cancellation = default) where T : IEntity
         => DeleteCascadingAsync<T>([ID], cancellation);
+
+    /// <summary>
+    /// Deletes entities using a collection of IDs
+    /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
+    /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entities">An IEnumerable of entities</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<DeleteResult> DeleteAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
+        => DeleteAsync<T>(entities.Select(e => e.GetId()), cancellation);
 
     // ReSharper disable once InconsistentNaming
     /// <summary>
@@ -80,8 +101,7 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation = default)
-        where T : IEntity
+    public async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation = default) where T : IEntity
     {
         if (IDs.Count() <= DeleteBatchSize)
             return await DeleteCascadingAsync<T>(IDs, cancellation).ConfigureAwait(false);

@@ -23,7 +23,7 @@ public class MultiDbEntity
             BookName = "test book " + Guid.NewGuid()
         };
 
-        await cover.SaveAsync(db: db);
+        await db.SaveAsync(cover);
         Assert.IsNotNull(cover.ID);
 
         var res = await db.Find<BookCover>().OneAsync(cover.ID);
@@ -45,7 +45,7 @@ public class MultiDbEntity
             BookID = "123",
             BookName = "test book " + Guid.NewGuid()
         };
-        await cover.SaveAsync(db);
+        await db.SaveAsync(cover);
 
         var mark = new BookMark
         {
@@ -53,7 +53,7 @@ public class MultiDbEntity
             BookName = cover.BookName
         };
 
-        await mark.SaveAsync(db);
+        await db.SaveAsync(mark);
 
         await cover.BookMarks.AddAsync(mark);
 
@@ -106,7 +106,7 @@ public class MultiDbEntity
             new BookMark { BookName = guid }
         };
 
-        await marks.SaveAsync(db);
+        await db.SaveAsync(marks);
 
         var covers = new[]
         {
@@ -115,7 +115,7 @@ public class MultiDbEntity
             new BookCover(db) { BookID = guid }
         };
 
-        await covers.SaveAsync(db);
+        await db.SaveAsync(covers);
 
         foreach (var cover in covers)
             await cover.BookMarks.AddAsync(marks);
@@ -132,7 +132,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, modifiedBy: new());
+        var db = DB.Instance(dbName);
 
         var author = new AuthorEntity { Name = "test" };
         await db.SaveAsync(author);

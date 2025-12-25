@@ -9,16 +9,18 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class FuzzyStringTestEntity
 {
+    readonly DB _db = DB.Default;
+
     [TestMethod]
     public async Task fuzzystring_type_saving_and_retrieval_worksAsync()
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookEntity { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
+        await _db.SaveAsync(new BookEntity { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } });
 
-        var res = await DB.Default.Queryable<BookEntity>()
-                          .Where(b => b.Review.Fuzzy!.Value == guid)
-                          .SingleAsync();
+        var res = await _db.Queryable<BookEntity>()
+                           .Where(b => b.Review.Fuzzy!.Value == guid)
+                           .SingleAsync();
 
         Assert.AreEqual(guid, res.Review.Fuzzy!.Value);
     }
@@ -28,15 +30,16 @@ public class FuzzyStringTestEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookEntity
-        {
-            Title = guid,
-            Review = new() { Fuzzy = null }
-        }.SaveAsync();
+        await _db.SaveAsync(
+            new BookEntity
+            {
+                Title = guid,
+                Review = new() { Fuzzy = null }
+            });
 
-        var res = await DB.Default.Queryable<BookEntity>()
-                          .Where(b => b.Title == guid)
-                          .SingleAsync();
+        var res = await _db.Queryable<BookEntity>()
+                           .Where(b => b.Title == guid)
+                           .SingleAsync();
 
         Assert.IsNull(res.Review.Fuzzy?.Value);
     }

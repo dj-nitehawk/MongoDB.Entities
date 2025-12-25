@@ -9,11 +9,13 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class DatesEntity
 {
+    readonly DB _db = DB.Default;
+
     [TestMethod]
     public async Task not_setting_date_doesnt_cause_issuesAsync()
     {
         var book = new BookEntity { Title = "nsddci" };
-        await book.SaveAsync();
+        await _db.SaveAsync(book);
 
         var res = await DB.Default.Find<BookEntity>().OneAsync(book.ID);
 
@@ -31,7 +33,7 @@ public class DatesEntity
             Title = "dpccv",
             PublishedOn = pubDate.ToDate()
         };
-        await book.SaveAsync();
+        await _db.SaveAsync(book);
 
         var res = await DB.Default.Find<BookEntity>().OneAsync(book.ID);
 
@@ -48,7 +50,7 @@ public class DatesEntity
         {
             Title = "qotwn"
         };
-        await book.SaveAsync();
+        await _db.SaveAsync(book);
 
         var res = await DB.Default.Queryable<BookEntity>()
                           .Where(b => b.ID == book.ID && b.PublishedOn!.Ticks > 0)
@@ -67,21 +69,17 @@ public class DatesEntity
             Title = "qotw",
             PublishedOn = new(pubDate)
         };
-        await book.SaveAsync();
+        await _db.SaveAsync(book);
 
-        var db = DB.Default;
-
-        var res = (await db.Find<BookEntity>()
-                           .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks == pubDate.Ticks)
-                           .ExecuteAsync())
-            .Single();
+        var res = (await _db.Find<BookEntity>()
+                            .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks == pubDate.Ticks)
+                            .ExecuteAsync()).Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
-        res = (await db.Find<BookEntity>()
-                       .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
-                       .ExecuteAsync())
-            .Single();
+        res = (await _db.Find<BookEntity>()
+                        .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
+                        .ExecuteAsync()).Single();
 
         Assert.AreEqual(book.ID, res.ID);
     }
@@ -96,21 +94,17 @@ public class DatesEntity
             Title = "qodtpw",
             PublishedOn = new(pubDate)
         };
-        await book.SaveAsync();
+        await _db.SaveAsync(book);
 
-        var db = DB.Default;
-
-        var res = (await db.Find<BookEntity>()
-                           .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime == pubDate)
-                           .ExecuteAsync())
-            .Single();
+        var res = (await _db.Find<BookEntity>()
+                            .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime == pubDate)
+                            .ExecuteAsync()).Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
-        res = (await db.Find<BookEntity>()
-                       .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime < pubDate.AddSeconds(1))
-                       .ExecuteAsync())
-            .Single();
+        res = (await _db.Find<BookEntity>()
+                        .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime < pubDate.AddSeconds(1))
+                        .ExecuteAsync()).Single();
 
         Assert.AreEqual(book.ID, res.ID);
     }

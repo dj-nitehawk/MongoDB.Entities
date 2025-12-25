@@ -24,10 +24,10 @@ public class IndexesEntity
                 .CreateAsync();
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author1.SaveAsync();
+        await db.SaveAsync(author1);
 
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author2.SaveAsync();
+        await db.SaveAsync(author2);
 
         var res = db.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToList();
         Assert.AreEqual(author1.Surname, res[0].Surname);
@@ -49,10 +49,10 @@ public class IndexesEntity
                 .CreateAsync();
 
         var author1 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author1.SaveAsync();
+        await db.SaveAsync(author1);
 
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
-        await author2.SaveAsync();
+        await db.SaveAsync(author2);
 
         var res = await db.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToListAsync();
 
@@ -116,7 +116,7 @@ public class IndexesEntity
             new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
-        await list.SaveAsync();
+        await db.SaveAsync(list);
 
         var res = await db.Find<GenreEntity>()
                           .Match(Search.Full, "one eight nine")
@@ -124,7 +124,7 @@ public class IndexesEntity
                           .SortByTextScore()
                           .ExecuteAsync();
 
-        await list.DeleteAllAsync();
+        await db.DeleteAsync(list);
 
         Assert.AreEqual(4, res.Count);
         Assert.AreEqual(1, res[0].Position);
@@ -154,7 +154,7 @@ public class IndexesEntity
             new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
-        await list.SaveAsync();
+        await db.SaveAsync(list);
 
         var res = await db.Find<GenreEntity>()
                           .Match(Search.Full, "one eight nine")
@@ -162,7 +162,7 @@ public class IndexesEntity
                           .Sort(g => g.Position, Order.Ascending)
                           .ExecuteAsync();
 
-        await list.DeleteAllAsync();
+        await db.DeleteAsync(list);
 
         Assert.AreEqual(4, res.Count);
         Assert.AreEqual(1, res[0].Position);

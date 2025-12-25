@@ -11,9 +11,8 @@ public class ModifiedByEntity
     [TestMethod]
     public async Task throw_if_mod_by_not_supplied()
     {
-        var db = new DBContext();
-        await Assert.ThrowsExactlyAsync<InvalidOperationException>(
-            async () => await db.SaveAsync(new AuthorEntity()));
+        var db = DB.Default;
+        await Assert.ThrowsExactlyAsync<InvalidOperationException>(async () => await db.SaveAsync(new AuthorEntity()));
     }
 
     [TestMethod]
@@ -21,12 +20,12 @@ public class ModifiedByEntity
     {
         var userID = ObjectId.GenerateNewId().ToString()!;
 
-        var db = new DBContext(
-            modifiedBy: new()
-            {
-                UserID = userID,
-                UserName = "TestUser"
-            });
+        var db = DB.Default;
+        db.ModifiedBy = new()
+        {
+            UserID = userID,
+            UserName = "TestUser"
+        };
 
         var author = new AuthorEntity();
         await db.SaveAsync(author);
@@ -42,13 +41,13 @@ public class ModifiedByEntity
     {
         var userID = ObjectId.GenerateNewId().ToString()!;
 
-        var db = new DBContext(
-            modifiedBy: new UpdatedBy
-            {
-                UserID = userID,
-                UserName = "TestUser",
-                UserType = "TEST"
-            });
+        var db = DB.Default;
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUser",
+            UserType = "TEST"
+        };
 
         var author = new BookEntity();
         await db.SaveAsync(author);
@@ -64,13 +63,13 @@ public class ModifiedByEntity
     public async Task mod_by_replace()
     {
         var userID = ObjectId.GenerateNewId().ToString()!;
-        var db = new DBContext(
-            modifiedBy: new UpdatedBy
-            {
-                UserID = userID,
-                UserName = "TestUser",
-                UserType = "TEST"
-            });
+        var db = DB.Default;
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUser",
+            UserType = "TEST"
+        };
         var book = new BookEntity();
         await db.SaveAsync(book);
 
@@ -84,11 +83,10 @@ public class ModifiedByEntity
 
         book.Title = "TEST().BOOK";
 
-        await db
-            .Replace<BookEntity>()
-            .MatchID(book.ID)
-            .WithEntity(book)
-            .ExecuteAsync();
+        await db.Replace<BookEntity>()
+                .MatchID(book.ID)
+                .WithEntity(book)
+                .ExecuteAsync();
 
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
@@ -102,13 +100,13 @@ public class ModifiedByEntity
     public async Task mod_by_update()
     {
         var userID = ObjectId.GenerateNewId().ToString()!;
-        var db = new DBContext(
-            modifiedBy: new UpdatedBy
-            {
-                UserID = userID,
-                UserName = "TestUser",
-                UserType = "TEST"
-            });
+        var db = DB.Default;
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUser",
+            UserType = "TEST"
+        };
         var book = new BookEntity();
         await db.SaveAsync(book);
 
@@ -120,10 +118,10 @@ public class ModifiedByEntity
             UserType = "TEST-UPDATED"
         };
         await db
-            .Update<BookEntity>()
-            .MatchID(book.ID)
-            .Modify(b => b.Title, "TEST().BOOK")
-            .ExecuteAsync();
+              .Update<BookEntity>()
+              .MatchID(book.ID)
+              .Modify(b => b.Title, "TEST().BOOK")
+              .ExecuteAsync();
 
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
@@ -137,13 +135,13 @@ public class ModifiedByEntity
     public async Task mod_by_update_using_modifyonly()
     {
         var userID = ObjectId.GenerateNewId().ToString()!;
-        var db = new DBContext(
-            modifiedBy: new UpdatedBy
-            {
-                UserID = userID,
-                UserName = "TestUser",
-                UserType = "TEST"
-            });
+        var db = DB.Default;
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUser",
+            UserType = "TEST"
+        };
         var book = new BookEntity();
         await db.SaveAsync(book);
 
@@ -158,10 +156,10 @@ public class ModifiedByEntity
         book.Title = "TEST().BOOK";
 
         await db
-            .Update<BookEntity>()
-            .MatchID(book.ID)
-            .ModifyOnly(x => new { x.Title }, book)
-            .ExecuteAsync();
+              .Update<BookEntity>()
+              .MatchID(book.ID)
+              .ModifyOnly(x => new { x.Title }, book)
+              .ExecuteAsync();
 
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 

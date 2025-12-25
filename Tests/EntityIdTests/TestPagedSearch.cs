@@ -33,7 +33,7 @@ public class PagedSearchEntity
         for (var i = 1; i <= 10; i++)
             list.Add(new() { Title = guid });
 
-        return list.SaveAsync();
+        return DB.Default.SaveAsync(list);
     }
 
     [TestMethod]
@@ -144,7 +144,7 @@ public class PagedSearchEntity
             new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
-        await list.SaveAsync();
+        await db.SaveAsync(list);
 
         var (Results, _, _) = await db
                                     .PagedSearch<GenreEntity>()
@@ -181,7 +181,7 @@ public class PagedSearchEntity
             new GenreEntity { GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine" }
         };
 
-        await list.SaveAsync();
+        await db.SaveAsync(list);
 
         var (Results, _, _) = await db
                                     .PagedSearch<GenreEntity>()
@@ -204,7 +204,7 @@ public class PagedSearchEntity
             Age = 22,
             FullName = "fullname"
         };
-        await author.SaveAsync();
+        await DB.Default.SaveAsync(author);
 
         var (res, _, _) = await DB.Default.PagedSearch<AuthorEntity>()
                                   .Match(a => a.ID == author.ID)

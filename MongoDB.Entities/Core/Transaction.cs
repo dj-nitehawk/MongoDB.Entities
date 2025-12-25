@@ -16,7 +16,7 @@ public class Transaction : DB, IDisposable
     /// </summary>
     public IClientSessionHandle Session => SessionHandle ?? throw new InvalidOperationException("The session hasn't been started yet!");
 
-    internal Transaction(DB source, ClientSessionOptions? sessionOpts, TransactionOptions? trnsOpts) : base(source)
+    internal Transaction(DB source, ClientSessionOptions? sessionOpts = null, TransactionOptions? trnsOpts = null) : base(source)
     {
         SessionHandle = Database().Client.StartSession(sessionOpts);
         SessionHandle.StartTransaction(trnsOpts);

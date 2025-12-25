@@ -12,6 +12,6 @@ public partial class DB
     /// </summary>
     /// <param name="options">Client session options for this transaction</param>
     /// <param name="transactionOptions">options for the transaction</param>
-    public Transaction CreateTransaction(ClientSessionOptions? options = null, TransactionOptions? transactionOptions = null)
+    public Transaction Transaction(ClientSessionOptions? options = null, TransactionOptions? transactionOptions = null)
         => new(this, options, transactionOptions);
 }
