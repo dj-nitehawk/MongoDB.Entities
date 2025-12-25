@@ -55,13 +55,13 @@ public class SavingEntity
         var author1 = new AuthorEntity { Name = guid };
         var author2 = new AuthorEntity { Name = guid };
 
-        await db.InsertAsync(new[] { author1, author2 });
+        await db.InsertAsync([author1, author2]);
 
         var res = await db.Find<AuthorEntity>()
                           .Match(a => a.Name == guid)
                           .ExecuteAsync();
 
-        Assert.AreEqual(2, res.Count);
+        Assert.HasCount(2, res);
     }
 
     [TestMethod]
@@ -79,7 +79,7 @@ public class SavingEntity
             .Single();
 
         Assert.AreEqual(res.ToLongTimeString(), author.CreatedOn.ToLongTimeString());
-        Assert.IsTrue(DateTime.UtcNow.Subtract(res).TotalSeconds <= 5);
+        Assert.IsLessThanOrEqualTo(5, DateTime.UtcNow.Subtract(res).TotalSeconds);
     }
 
     [TestMethod]
@@ -185,7 +185,7 @@ public class SavingEntity
         var res = await db.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(100, res!.Price);
-        Assert.AreEqual(null, res.Title);
+        Assert.IsNull(res.Title);
 
         res.Title = "updated";
 
@@ -207,7 +207,7 @@ public class SavingEntity
         var res = await db.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(100, res!.Price);
-        Assert.AreEqual(null, res.Title);
+        Assert.IsNull(res.Title);
 
         res.Title = "updated";
 
@@ -237,8 +237,8 @@ public class SavingEntity
 
         Assert.AreEqual(100, res[0].Price);
         Assert.AreEqual(200, res[1].Price);
-        Assert.AreEqual(null, res[0].Title);
-        Assert.AreEqual(null, res[1].Title);
+        Assert.IsNull(res[0].Title);
+        Assert.IsNull(res[1].Title);
     }
 
     [TestMethod]
@@ -260,8 +260,8 @@ public class SavingEntity
 
         Assert.AreEqual(100, res[0].Price);
         Assert.AreEqual(200, res[1].Price);
-        Assert.AreEqual(null, res[0].Title);
-        Assert.AreEqual(null, res[1].Title);
+        Assert.IsNull(res[0].Title);
+        Assert.IsNull(res[1].Title);
     }
 
     [TestMethod]
@@ -325,8 +325,8 @@ public class SavingEntity
 
         Assert.AreEqual(res!.Title, book.Title);
         Assert.AreEqual(res.Price, book.Price);
-        Assert.AreEqual(res.PriceDbl, 666);
-        Assert.IsFalse(res.MainAuthor.ID == null);
+        Assert.AreEqual(666, res.PriceDbl);
+        Assert.IsNotNull(res.MainAuthor.ID);
     }
 
     [TestMethod]
@@ -423,7 +423,7 @@ public class SavingEntity
         var authors = db.Queryable<BookEntity>()
                         .Where(b => b.ID == book.ID)
                         .Select(b => b.OtherAuthors).Single();
-        Assert.AreEqual(authors.Length, 2);
+        Assert.HasCount(2, authors);
         Assert.AreEqual(author2.Name, authors[1].Name);
         Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
     }
@@ -444,7 +444,7 @@ public class SavingEntity
         var authors = db.Queryable<BookEntity>()
                         .Where(b => b.ID == book.ID)
                         .Select(b => b.OtherAuthors).Single();
-        Assert.AreEqual(authors.Length, 2);
+        Assert.HasCount(2, authors);
         Assert.AreEqual(author2.Name, authors[1].Name);
         Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
     }
@@ -452,7 +452,7 @@ public class SavingEntity
     [TestMethod]
     public async Task find_with_ignore_global_filter()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var guid = Guid.NewGuid().ToString();
 
@@ -468,13 +468,13 @@ public class SavingEntity
                           .IgnoreGlobalFilters()
                           .ExecuteAsync();
 
-        Assert.AreEqual(3, res.Count);
+        Assert.HasCount(3, res);
     }
 
     [TestMethod]
     public async Task queryable_with_global_filter()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var guid = Guid.NewGuid().ToString();
 
@@ -489,7 +489,7 @@ public class SavingEntity
                           .Where(a => a.Name == guid)
                           .ToListAsync();
 
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 
     [TestMethod]
@@ -497,7 +497,7 @@ public class SavingEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var db = new MyBaseEntityDB();
+        var db = new MyBaseEntityDb();
 
         var flowers = new[]
         {
@@ -510,13 +510,13 @@ public class SavingEntity
 
         var res = await db.Find<FlowerEntity>().Match(f => f.Name == guid).ExecuteAsync();
 
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 
     [TestMethod]
     public async Task global_filter_for_interface_prepend()
     {
-        var db = new MyDBFlower(prepend: true);
+        var db = new MyDbFlower(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
 
@@ -531,7 +531,7 @@ public class SavingEntity
 
         var res = await db.Find<FlowerEntity>().Match(f => f.Name == guid).ExecuteAsync();
 
-        Assert.AreEqual(2, res.Count);
+        Assert.HasCount(2, res);
     }
 
     [TestMethod]
@@ -546,13 +546,13 @@ public class SavingEntity
 
         var res = await db.Find<AuthorEntity>().ManyAsync(a => a.Name == guid);
 
-        Assert.AreEqual(2, res.Count);
+        Assert.HasCount(2, res);
     }
 
     [TestMethod]
     public async Task find_by_id_returns_correct_document()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
         var book1 = new BookEntity { Title = "fbircdb1" };
         await db.SaveAsync(book1);
         var book2 = new BookEntity { Title = "fbircdb2" };
@@ -561,7 +561,7 @@ public class SavingEntity
         var res1 = await db.Find<BookEntity>().OneAsync(ObjectId.GenerateNewId().ToString()!);
         var res2 = await db.Find<BookEntity>().OneAsync(book2.ID);
 
-        Assert.AreEqual(null, res1);
+        Assert.IsNull(res1);
         Assert.AreEqual(book2.ID, res2!.ID);
     }
 
@@ -577,7 +577,7 @@ public class SavingEntity
 
         var res = await db.Find<AuthorEntity>().ManyAsync(f => f.Eq(a => a.Name, guid));
 
-        Assert.AreEqual(2, res.Count);
+        Assert.HasCount(2, res);
     }
 
     [TestMethod]
@@ -633,7 +633,7 @@ public class SavingEntity
                           .Match(a => a.Surname == guid)
                           .ExecuteAsync();
 
-        Assert.AreEqual(3, res.Count);
+        Assert.HasCount(3, res);
         Assert.IsFalse(res.Any(a => a.Age == 10));
     }
 
@@ -666,7 +666,7 @@ public class SavingEntity
 
     class Test
     {
-        public string Tester { get; set; }
+        public string Tester { get; init; }
     }
 
     [TestMethod]
@@ -718,8 +718,8 @@ public class SavingEntity
 
         Assert.AreEqual(author.FullName, res.FullName);
         Assert.AreEqual(author.Surname, res.Surname);
-        Assert.IsTrue(res.Age == 0);
-        Assert.IsTrue(res.Name == null);
+        Assert.AreEqual(0, res.Age);
+        Assert.IsNull(res.Name);
     }
 
     [TestMethod]
@@ -884,8 +884,8 @@ public class SavingEntity
 
         var res = await db.Find<AuthorEntity>().OneAsync(author.ID);
 
-        Assert.IsTrue(res!.Age == 0);
-        Assert.IsTrue(res.Birthday == null);
+        Assert.AreEqual(0, res!.Age);
+        Assert.IsNull(res.Birthday);
     }
 
     [TestMethod]

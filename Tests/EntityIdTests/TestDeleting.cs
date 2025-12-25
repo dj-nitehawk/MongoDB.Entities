@@ -36,7 +36,7 @@ public class DeletingEntity
                           .Where(a => a.ID == author2.ID)
                           .SingleOrDefaultAsync();
 
-        Assert.AreEqual(null, a2);
+        Assert.IsNull(a2);
         Assert.AreEqual(author1.Name, a1.Name);
     }
 
@@ -78,7 +78,7 @@ public class DeletingEntity
         await _db.SaveAsync(book);
         await book.OtherAuthors.DeleteAllAsync(_db);
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
-        Assert.AreEqual(null, await _db.Queryable<AuthorEntity>().Where(a => a.ID == author1.ID).SingleOrDefaultAsync());
+        Assert.IsNull(await _db.Queryable<AuthorEntity>().Where(a => a.ID == author1.ID).SingleOrDefaultAsync());
     }
 
     [TestMethod]
@@ -91,7 +91,7 @@ public class DeletingEntity
         book.MainAuthor = author.ToReference();
         await _db.SaveAsync(book);
         await _db.DeleteAsync(author);
-        Assert.AreEqual(null, await book.MainAuthor.ToEntityAsync(_db));
+        Assert.IsNull(await book.MainAuthor.ToEntityAsync(_db));
     }
 
     [TestMethod]
@@ -113,12 +113,12 @@ public class DeletingEntity
     [TestMethod]
     public async Task high_volume_deletes_with_idsAsync()
     {
-        var IDs = new List<string>(100100);
+        var ds = new List<string>(100100);
 
         for (var i = 0; i < 100100; i++)
-            IDs.Add(ObjectId.GenerateNewId().ToString()!);
+            ds.Add(ObjectId.GenerateNewId().ToString()!);
 
-        await _db.DeleteAsync<Blank>(IDs);
+        await _db.DeleteAsync<Blank>(ds);
     }
 
     [TestCategory("SkipWhenLiveUnitTesting"), TestMethod]
@@ -146,7 +146,7 @@ public class DeletingEntity
     [TestMethod]
     public async Task delete_by_ids_with_global_filter()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var a1 = new AuthorEntity { Age = 10 };
         var a2 = new AuthorEntity { Age = 111 };
@@ -154,16 +154,16 @@ public class DeletingEntity
 
         await db.SaveAsync([a1, a2, a3]);
 
-        var IDs = new[] { a1.ID, a2.ID, a3.ID };
+        var ds = new[] { a1.ID, a2.ID, a3.ID };
 
-        var res = await db.DeleteAsync<AuthorEntity>(IDs);
+        var res = await db.DeleteAsync<AuthorEntity>(ds);
 
         var notDeletedIDs = await _db.Find<AuthorEntity, string>()
-                                     .Match(a => IDs.Contains(a.ID))
+                                     .Match(a => ds.Contains(a.ID))
                                      .Project(a => a.ID)
                                      .ExecuteAsync();
 
         Assert.AreEqual(2, res.DeletedCount);
-        Assert.IsTrue(notDeletedIDs.Single() == a1.ID);
+        Assert.AreEqual(a1.ID, notDeletedIDs.Single());
     }
 }

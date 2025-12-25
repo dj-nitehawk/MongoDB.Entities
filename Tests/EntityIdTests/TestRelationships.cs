@@ -72,7 +72,7 @@ public class RelationshipsEntity
                                   .SingleAsync()).MainAuthor.ToEntityAsync(a => new() { Name = a.Name }, _db);
 
         Assert.AreEqual(author.Name, res.Name);
-        Assert.AreEqual(null, res.ID);
+        Assert.IsNull(res.ID);
     }
 
     [TestMethod]
@@ -87,7 +87,7 @@ public class RelationshipsEntity
                                   .Where(b => b.ID == book.ID)
                                   .SingleAsync()).MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID), _db);
         Assert.AreEqual(author.Name, res.Name);
-        Assert.AreEqual(null, res.ID);
+        Assert.IsNull(res.ID);
     }
 
     [TestMethod]
@@ -125,11 +125,11 @@ public class RelationshipsEntity
                               .SingleAsync())
             .Books;
 
-        List<BookEntity> booklist = new();
+        List<BookEntity> booklist = [];
 
         booklist.AddRange(books);
 
-        Assert.AreEqual(2, booklist.Count);
+        Assert.HasCount(2, booklist);
     }
 
     [TestMethod]
@@ -296,28 +296,28 @@ public class RelationshipsEntity
                               .ParentsFluent(genre.ID)
                               .ToListAsync();
 
-        Assert.AreEqual(1, books.Count);
+        Assert.HasCount(1, books);
         Assert.AreEqual(book.Title, books.Single().Title);
 
         books = await book.Genres
                           .ParentsFluent(_db.Fluent<GenreEntity>().Match(g => g.Name.Contains(guid)))
                           .ToListAsync();
 
-        Assert.AreEqual(1, books.Count);
+        Assert.HasCount(1, books);
         Assert.AreEqual(book.Title, books.Single().Title);
 
         var genres = await genre.Books
-                                .ParentsFluent(new[] { book.ID })
+                                .ParentsFluent([book.ID])
                                 .ToListAsync();
 
-        Assert.AreEqual(2, genres.Count);
+        Assert.HasCount(2, genres);
         Assert.AreEqual(genre.Name, genres.Single(g => g.ID == genre.ID).Name);
 
         _ = await genre.Books
                        .ParentsFluent(_db.Fluent<BookEntity>().Match(b => b.ID == book.ID))
                        .ToListAsync();
 
-        Assert.AreEqual(1, books.Count);
+        Assert.HasCount(1, books);
         Assert.AreEqual(book.Title, books.Single().Title);
     }
 
@@ -340,9 +340,9 @@ public class RelationshipsEntity
                                 .OrderBy(b => b.Title)
                                 .ToListAsync();
 
-        Assert.AreEqual(2, books.Count);
-        Assert.IsTrue(books[0].Title == "book1");
-        Assert.IsTrue(books[1].Title == "book2");
+        Assert.HasCount(2, books);
+        Assert.AreEqual("book1", books[0].Title);
+        Assert.AreEqual("book2", books[1].Title);
     }
 
     [TestMethod]
@@ -410,9 +410,9 @@ public class RelationshipsEntity
                                 .OrderBy(b => b.Title)
                                 .ToListAsync();
 
-        Assert.AreEqual(2, books.Count);
-        Assert.IsTrue(books[0].Title == "book1");
-        Assert.IsTrue(books[1].Title == "book2");
+        Assert.HasCount(2, books);
+        Assert.AreEqual("book1", books[0].Title);
+        Assert.AreEqual("book2", books[1].Title);
     }
 
     [TestMethod]
@@ -451,16 +451,16 @@ public class RelationshipsEntity
         await _db.SaveAsync([a1, a2]);
         await _db.SaveAsync([b1, b2]);
 
-        await a1.Books.AddAsync(new[] { b1, b2 });
-        await a2.Books.AddAsync(new[] { b1, b2 });
+        await a1.Books.AddAsync([b1, b2]);
+        await a2.Books.AddAsync([b1, b2]);
 
-        await a1.Books.RemoveAsync(new[] { b1, b2 });
+        await a1.Books.RemoveAsync([b1, b2]);
 
-        var a2books = await a2.Books.ChildrenQueryable().OrderBy(b => b.Title).ToListAsync();
+        var a2Books = await a2.Books.ChildrenQueryable().OrderBy(b => b.Title).ToListAsync();
 
-        Assert.AreEqual(2, a2books.Count);
-        Assert.AreEqual(b1.Title, a2books[0].Title);
-        Assert.AreEqual(b2.Title, a2books.Last().Title);
+        Assert.HasCount(2, a2Books);
+        Assert.AreEqual(b1.Title, a2Books[0].Title);
+        Assert.AreEqual(b2.Title, a2Books.Last().Title);
         Assert.AreEqual(0, await a1.Books.ChildrenCountAsync());
     }
 }

@@ -113,24 +113,24 @@ public class UpdateAndGetEntity
         var book = new BookEntity
         {
             Title = "uwafw " + guid,
-            OtherAuthors = new[]
-            {
-                new AuthorEntity
+            OtherAuthors =
+            [
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 100
                 }
-            }
+            ]
         };
         await db.SaveAsync(book);
 
@@ -175,24 +175,24 @@ public class UpdateAndGetEntity
         var book = new BookEntity
         {
             Title = "uwafw " + guid,
-            OtherAuthors = new[]
-            {
-                new AuthorEntity
+            OtherAuthors =
+            [
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 123
                 },
-                new AuthorEntity
+                new()
                 {
                     Name = "name",
                     Age = 100
                 }
-            }
+            ]
         };
         await db.SaveAsync(book);
 
@@ -226,7 +226,7 @@ public class UpdateAndGetEntity
 
         var lastNum = await db.NextSequentialNumberAsync<BookEntity>();
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => await db.NextSequentialNumberAsync<BookEntity>());
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, _) => await db.NextSequentialNumberAsync<BookEntity>());
 
         Assert.AreEqual(lastNum + 10, await db.NextSequentialNumberAsync<BookEntity>() - 1);
     }
@@ -253,7 +253,7 @@ public class UpdateAndGetEntity
     [TestMethod]
     public async Task on_before_update_for_updateandget()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var flower = new FlowerEntity { Name = "flower" };
         await db.SaveAsync(flower);

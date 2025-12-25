@@ -10,12 +10,12 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class MultiDbEntity
 {
-    const string dbName = "mongodb-entities-test-multi";
+    const string DbName = "mongodb-entities-test-multi";
 
     [TestMethod]
     public async Task save_entity_works()
     {
-        var db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(DbName);
 
         var cover = new BookCover
         {
@@ -38,7 +38,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task relationships_work()
     {
-        var db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(DbName);
 
         var cover = new BookCover(db)
         {
@@ -67,7 +67,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task get_instance_by_db_name()
     {
-        var db1 = await DB.InitAsync("test1");
+        //var db1 = await DB.InitAsync("test1");
         var db2 = await DB.InitAsync("test2");
 
         var res = DB.Instance("test2").Database();
@@ -96,7 +96,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dropping_collections()
     {
-        var db = await InitTest.InitTestDatabase(dbName);
+        var db = await InitTest.InitTestDatabase(DbName);
 
         var guid = Guid.NewGuid().ToString();
         var marks = new[]
@@ -132,7 +132,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = DB.Instance(dbName).WithModifiedBy(new());
+        var db = DB.Instance(DbName).WithModifiedBy(new());
 
         var author = new AuthorEntity { Name = "test" };
         await db.SaveAsync(author);

@@ -30,7 +30,7 @@ public class DistinctEntity
                           .Property(a => a.Name)
                           .ExecuteAsync();
 
-        Assert.AreEqual(2, res.Count);
-        Assert.IsTrue(!res.Except(guids).Any());
+        Assert.HasCount(2, res);
+        Assert.IsFalse(res.Except(guids).Any());
     }
 }

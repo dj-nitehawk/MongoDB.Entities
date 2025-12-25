@@ -3,18 +3,18 @@ using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
-public class MyDBTemplatesEntity : DB
+public class MyDbTemplatesEntity : DB
 {
-    public MyDBTemplatesEntity(bool prepend) : base(Default)
+    public MyDbTemplatesEntity(bool prepend) : base(Default)
     {
         ModifiedBy = new();
         SetGlobalFilter(typeof(AuthorEntity), "{ Age: {$eq: 111 } }", prepend);
     }
 }
 
-public class MyDBEntity : DB
+public class MyDbEntity : DB
 {
-    public MyDBEntity(bool prepend = false) : base(Default)
+    public MyDbEntity(bool prepend = false) : base(Default)
     {
         ModifiedBy = new();
         SetGlobalFilter<AuthorEntity>(a => a.Age == 111, prepend);
@@ -24,7 +24,7 @@ public class MyDBEntity : DB
     {
         Action<FlowerEntity> action = f =>
                                       {
-                                          if (f.Id == null)
+                                          if (string.IsNullOrEmpty(f.Id))
                                           {
                                               f.CreatedBy = "God";
                                               f.CreatedDate = DateTime.MinValue;
@@ -51,17 +51,17 @@ public class MyDBEntity : DB
     }
 }
 
-public class MyDBFlower : DB
+public class MyDbFlower : DB
 {
-    public MyDBFlower(bool prepend) : base(Default)
+    public MyDbFlower(bool prepend) : base(Default)
     {
         SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
     }
 }
 
-public class MyBaseEntityDB : DB
+public class MyBaseEntityDb : DB
 {
-    public MyBaseEntityDB() : base(Default)
+    public MyBaseEntityDb() : base(Default)
     {
         SetGlobalFilterForBaseClass<BaseEntity>(be => be.CreatedBy == "xyz");
     }

@@ -33,7 +33,7 @@ public class ModifiedByEntity
         var res = await db.Find<AuthorEntity>().OneAsync(author.ID);
 
         Assert.AreEqual(res!.UpdatedBy.UserID, userID);
-        Assert.AreEqual(res.UpdatedBy.UserName, "TestUser");
+        Assert.AreEqual("TestUser", res.UpdatedBy.UserName);
     }
 
     [TestMethod]
@@ -55,8 +55,8 @@ public class ModifiedByEntity
         var res = await db.Find<BookEntity>().OneAsync(author.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
-        Assert.AreEqual(res.ModifiedBy.UserName, "TestUser");
-        Assert.AreEqual(res.ModifiedBy.UserType, "TEST");
+        Assert.AreEqual("TestUser", res.ModifiedBy.UserName);
+        Assert.AreEqual("TEST", res.ModifiedBy.UserType);
     }
 
     [TestMethod]
@@ -91,9 +91,9 @@ public class ModifiedByEntity
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
-        Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
-        Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
-        Assert.AreEqual(res.Title, "TEST().BOOK");
+        Assert.AreEqual("TestUserUPDATED", res.ModifiedBy.UserName);
+        Assert.AreEqual("TEST-UPDATED", res.ModifiedBy.UserType);
+        Assert.AreEqual("TEST().BOOK", res.Title);
     }
 
     [TestMethod]
@@ -126,9 +126,9 @@ public class ModifiedByEntity
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
-        Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
-        Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
-        Assert.AreEqual(res.Title, "TEST().BOOK");
+        Assert.AreEqual("TestUserUPDATED", res.ModifiedBy.UserName);
+        Assert.AreEqual("TEST-UPDATED", res.ModifiedBy.UserType);
+        Assert.AreEqual("TEST().BOOK", res.Title);
     }
 
     [TestMethod]
@@ -164,8 +164,8 @@ public class ModifiedByEntity
         var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
-        Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
-        Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
-        Assert.AreEqual(res.Title, "TEST().BOOK");
+        Assert.AreEqual("TestUserUPDATED", res.ModifiedBy.UserName);
+        Assert.AreEqual("TEST-UPDATED", res.ModifiedBy.UserType);
+        Assert.AreEqual("TEST().BOOK", res.Title);
     }
 }

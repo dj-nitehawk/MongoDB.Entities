@@ -77,7 +77,7 @@ public class IndexesEntity
         var b5 = new BookEntity { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
         var b6 = new BookEntity { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
-        await db.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
+        await db.SaveAsync([b1, b2, b3, b4, b5, b6]);
 
         var res = await db.Find<BookEntity>()
                           .Match(Search.Fuzzy, "catherine jones")
@@ -87,9 +87,9 @@ public class IndexesEntity
                           .Limit(6)
                           .ExecuteAsync();
 
-        await db.DeleteAsync<BookEntity>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
+        await db.DeleteAsync<BookEntity>([b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID]);
 
-        Assert.AreEqual(4, res.Count);
+        Assert.HasCount(4, res);
         Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
     }
 
@@ -126,7 +126,7 @@ public class IndexesEntity
 
         await db.DeleteAsync(list);
 
-        Assert.AreEqual(4, res.Count);
+        Assert.HasCount(4, res);
         Assert.AreEqual(1, res[0].Position);
         Assert.AreEqual(4, res.Last().Position);
     }
@@ -164,10 +164,10 @@ public class IndexesEntity
 
         await db.DeleteAsync(list);
 
-        Assert.AreEqual(4, res.Count);
+        Assert.HasCount(4, res);
         Assert.AreEqual(1, res[0].Position);
         Assert.AreEqual(4, res.Last().Position);
-        Assert.IsTrue(res[0].SortScore > 0);
+        Assert.IsGreaterThan(0, res[0].SortScore);
     }
 
     [TestMethod]

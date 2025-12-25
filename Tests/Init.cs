@@ -6,6 +6,8 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
+[assembly: DoNotParallelize]
+
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
@@ -38,6 +40,7 @@ public static class InitTest
         if (UseTestContainers)
         {
             await DB.InitAsync(databaseName, ClientSettings2);
+
             return await DB.InitAsync(databaseName, ClientSettings1);
         }
 

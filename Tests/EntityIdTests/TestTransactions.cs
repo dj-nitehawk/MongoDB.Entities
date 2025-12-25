@@ -111,7 +111,7 @@ public class TransactionsEntity
             await tn.CommitAsync();
         }
 
-        Assert.AreEqual(null, await DB.Default.Find<BookEntity>().OneAsync(book1.ID));
+        Assert.IsNull(await DB.Default.Find<BookEntity>().OneAsync(book1.ID));
     }
 
     [TestMethod]
@@ -151,21 +151,21 @@ public class TransactionsEntity
             new BookEntity { Title = "thr " + guid }
         };
 
-        using (var TN = db.Transaction())
+        using (var tn = db.Transaction())
         {
-            await TN.SaveAsync(entities);
-            await TN.CommitAsync();
+            await tn.SaveAsync(entities);
+            await tn.CommitAsync();
         }
 
         var res = await db.Find<BookEntity>().ManyAsync(b => b.Title.Contains(guid));
-        Assert.AreEqual(entities.Length, res.Count);
+        Assert.HasCount(entities.Length, res);
 
         foreach (var ent in res)
             ent.Title = "updated " + guid;
         await db.SaveAsync(res);
 
         res = await db.Find<BookEntity>().ManyAsync(b => b.Title.Contains(guid));
-        Assert.AreEqual(3, res.Count);
+        Assert.HasCount(3, res);
         Assert.AreEqual("updated " + guid, res[0].Title);
     }
 }

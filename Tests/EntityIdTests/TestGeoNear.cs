@@ -36,7 +36,7 @@ public class GeoNearEntityTest
                   .Where(c => c.Name == "Paris " + guid)
                   .ToList();
 
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 
     [TestMethod]
@@ -64,10 +64,10 @@ public class GeoNearEntityTest
             MaxDistance: 20000);
 
         var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
-        Assert.AreEqual(2, cnt.Count);
+        Assert.HasCount(2, cnt);
 
         var res = await qry.Match(c => c.Name == "Paris " + guid).ToListAsync();
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 
     [TestMethod]
@@ -82,7 +82,7 @@ public class GeoNearEntityTest
 
         var guid = Guid.NewGuid().ToString();
 
-        using var TN = db.Transaction();
+        using var tn = db.Transaction();
 
         await db.SaveAsync(
         [
@@ -91,15 +91,15 @@ public class GeoNearEntityTest
             new PlaceEntity { Name = "Poissy " + guid, Location = new(48.928860, 2.046889) }
         ]);
 
-        var qry = TN.GeoNear<PlaceEntity>(
+        var qry = tn.GeoNear<PlaceEntity>(
             NearCoordinates: new(48.857908, 2.295243), //eiffel tower
             DistanceField: x => x.DistanceKM,
             MaxDistance: 20000);
 
         var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
-        Assert.AreEqual(2, cnt.Count);
+        Assert.HasCount(2, cnt);
 
         var res = await qry.Match(c => c.Name == "Paris " + guid).ToListAsync();
-        Assert.AreEqual(1, res.Count);
+        Assert.HasCount(1, res);
     }
 }

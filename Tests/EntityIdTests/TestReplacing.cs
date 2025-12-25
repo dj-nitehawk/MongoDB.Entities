@@ -59,7 +59,7 @@ public class ReplaceEntity
     [TestMethod]
     public async Task on_before_update_for_replace()
     {
-        var db = new MyDBEntity();
+        var db = new MyDbEntity();
 
         var flower = new FlowerEntity { Name = "flower" };
         await db.SaveAsync(flower);

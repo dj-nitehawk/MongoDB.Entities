@@ -14,7 +14,7 @@ public class PagedSearchEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        var (Results, _, PageCount) = await DB.Default
+        var (results, _, pageCount) = await DB.Default
                                               .PagedSearch<BookEntity>()
                                               .Match(b => b.ID == guid)
                                               .Sort(b => b.ID, Order.Ascending)
@@ -22,8 +22,8 @@ public class PagedSearchEntity
                                               .PageSize(200)
                                               .ExecuteAsync();
 
-        Assert.AreEqual(0, PageCount);
-        Assert.IsTrue(Results.Count == 0);
+        Assert.AreEqual(0, pageCount);
+        Assert.IsEmpty(results);
     }
 
     static Task SeedData(string guid)
@@ -43,7 +43,7 @@ public class PagedSearchEntity
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB.Default
+        var (results, _, pageCount) = await DB.Default
                                               .PagedSearch<BookEntity>()
                                               .Match(b => b.Title == guid)
                                               .Sort(b => b.ID, Order.Ascending)
@@ -51,8 +51,8 @@ public class PagedSearchEntity
                                               .PageSize(5)
                                               .ExecuteAsync();
 
-        Assert.AreEqual(2, PageCount);
-        Assert.IsTrue(Results.Count > 0);
+        Assert.AreEqual(2, pageCount);
+        Assert.IsNotEmpty(results);
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class PagedSearchEntity
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB.Default
+        var (results, _, pageCount) = await DB.Default
                                               .PagedSearch<BookEntity>()
                                               .Match(b => b.Title == guid)
                                               .Sort(b => b.ID, Order.Ascending)
@@ -70,8 +70,8 @@ public class PagedSearchEntity
                                               .PageSize(3)
                                               .ExecuteAsync();
 
-        Assert.AreEqual(4, PageCount);
-        Assert.IsTrue(Results.Count > 0);
+        Assert.AreEqual(4, pageCount);
+        Assert.IsNotEmpty(results);
     }
 
     [TestMethod]
@@ -86,7 +86,7 @@ public class PagedSearchEntity
         var pipeline = db.Fluent<BookEntity>()
                          .Match(b => b.Title == guid);
 
-        var (Results, _, PageCount) = await db
+        var (results, _, pageCount) = await db
                                             .PagedSearch<BookEntity>()
                                             .WithFluent(pipeline)
                                             .Sort(b => b.ID, Order.Ascending)
@@ -94,8 +94,8 @@ public class PagedSearchEntity
                                             .PageSize(5)
                                             .ExecuteAsync();
 
-        Assert.AreEqual(2, PageCount);
-        Assert.IsTrue(Results.Count > 0);
+        Assert.AreEqual(2, pageCount);
+        Assert.IsNotEmpty(results);
     }
 
     class BookResult
@@ -146,16 +146,16 @@ public class PagedSearchEntity
 
         await db.SaveAsync(list);
 
-        var (Results, _, _) = await db
+        var (results, _, _) = await db
                                     .PagedSearch<GenreEntity>()
                                     .Match(Search.Full, "one eight nine")
                                     .Project(p => new() { Name = p.Name, Position = p.Position })
                                     .SortByTextScore()
                                     .ExecuteAsync();
 
-        Assert.AreEqual(4, Results.Count);
-        Assert.AreEqual(1, Results[0].Position);
-        Assert.AreEqual(4, Results[Results.Count - 1].Position);
+        Assert.HasCount(4, results);
+        Assert.AreEqual(1, results[0].Position);
+        Assert.AreEqual(4, results[^1].Position);
     }
 
     [TestMethod]
@@ -183,15 +183,15 @@ public class PagedSearchEntity
 
         await db.SaveAsync(list);
 
-        var (Results, _, _) = await db
+        var (results, _, _) = await db
                                     .PagedSearch<GenreEntity>()
                                     .Match(Search.Full, "one eight nine")
                                     .SortByTextScore()
                                     .ExecuteAsync();
 
-        Assert.AreEqual(4, Results.Count);
-        Assert.AreEqual(1, Results[0].Position);
-        Assert.AreEqual(4, Results[Results.Count - 1].Position);
+        Assert.HasCount(4, results);
+        Assert.AreEqual(1, results[0].Position);
+        Assert.AreEqual(4, results[^1].Position);
     }
 
     [TestMethod]
@@ -214,7 +214,7 @@ public class PagedSearchEntity
 
         Assert.AreEqual(author.FullName, res[0].FullName);
         Assert.AreEqual(author.Surname, res[0].Surname);
-        Assert.IsTrue(res[0].Age == 0);
-        Assert.IsTrue(res[0].Name == null);
+        Assert.AreEqual(0, res[0].Age);
+        Assert.IsNull(res[0].Name);
     }
 }
