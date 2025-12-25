@@ -9,7 +9,7 @@ public static partial class Extensions
     extension<T>(Expression<T> expression)
     {
         internal PropertyInfo PropertyInfo()
-            => (PropertyInfo)MemberInfo(expression);
+            => (PropertyInfo)expression.MemberInfo();
 
         internal MemberInfo MemberInfo()
             => expression.Body switch

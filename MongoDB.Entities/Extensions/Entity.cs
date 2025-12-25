@@ -4,11 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -69,36 +66,6 @@ public static partial class Extensions
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static string FullPath<T>(this Expression<Func<T, object?>> expression)
         => Prop.Path(expression);
-
-    extension<T>(T _) where T : IEntity
-    {
-        /// <summary>
-        /// An IQueryable collection of sibling Entities.
-        /// </summary>
-        /// <param name="db">The DB instance to use for this operation</param>
-        /// <param name="options"></param>
-        public IQueryable<T> Queryable(DB? db = null, AggregateOptions? options = null)
-            => DB.InstanceOrDefault(db).Queryable<T>(options);
-
-        /// <summary>
-        /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
-        /// </summary>
-        public T ToDocument(DB? dbInstance = null)
-        {
-            var res = _.Duplicate();
-            res.SetId(res.GenerateNewID());
-
-            return res;
-        }
-
-        /// <summary>
-        /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
-        /// </summary>
-        /// <param name="db">The DB instance to use for this operation</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ulong> NextSequentialNumberAsync(DB? db = null, CancellationToken cancellation = default)
-            => DB.InstanceOrDefault(db).NextSequentialNumberAsync<T>(cancellation);
-    }
 
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.

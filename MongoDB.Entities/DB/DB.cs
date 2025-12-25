@@ -181,13 +181,6 @@ public partial class DB
     }
 
     /// <summary>
-    /// returns the default DB instance if null, otherwise db
-    /// </summary>
-    /// <param name="db">The DB instance to check</param>
-    public static DB InstanceOrDefault(DB? db)
-        => db ?? _defaultInstance;
-
-    /// <summary>
     /// Gets the name of the database which this DB instance is attached to.
     /// </summary>
     public string DatabaseName()
