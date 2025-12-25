@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-
-namespace MongoDB.Entities;
+﻿namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
 public partial class DB

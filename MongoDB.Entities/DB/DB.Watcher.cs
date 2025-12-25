@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace MongoDB.Entities;
 
@@ -13,9 +14,9 @@ public partial class DB
     /// <typeparam name="T">The entity type to get a watcher for</typeparam>
     /// <param name="name">A unique name for the watcher of this entity type. Names can be duplicate among different entity types.</param>
     public Watcher<T> Watcher<T>(string name) where T : IEntity
-        => Cache<T>.Watchers.GetOrAdd(this, _ => new()).GetOrAdd(
-            name.ToLower().Trim(),
-            newName => new(this, newName));
+        => Cache<T>.Watchers
+                   .GetOrAdd(this, new ConcurrentDictionary<string, Watcher<T>>())
+                   .GetOrAdd(name.ToLower().Trim(), newName => new(this, newName));
 
     /// <summary>
     /// Returns all the watchers for a given entity type
