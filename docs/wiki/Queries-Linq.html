@@ -106,43 +106,34 @@ also see the c# driver <a href="http://mongodb.github.io/mongo-csharp-driver/2.1
 <p>this <code>.ChildrenQueryable()</code> is an already filtered <code>IQueryable</code> of child entities. For ex: the above <code>.ChildrenQueryable()</code> is limited to only the Authors of that particular <code>Book</code> entity. It does not give you access to all of the <code>Author</code> entities in the Authors collection.</p>
 <h2 id="reverse-relationship-access">Reverse relationship access</h2>
 <p>for example, if you'd like to get all the books belonging to a genre, you can do it with the help of <code>.ParentsQueryable()</code> like so:</p>
-<pre><code class="lang-csharp">var books = book.Genres
-                .ParentsQueryable&lt;Book&gt;(&quot;GenreID&quot;);
-</code></pre>
-<p>you can also pass in an <code>IQueryable</code> of genres and get an <code>IQueryable</code> of books like shown below:</p>
-<pre><code class="lang-csharp">var query = genre.Queryable()
-                 .Where(g =&gt; g.Name.Contains(&quot;Music&quot;));
-
-var books = book.Genres
-                .ParentsQueryable&lt;Book&gt;(query);
+<pre><code class="lang-csharp">var books = book.Genres.ParentsQueryable(&quot;GenreID&quot;);
 </code></pre>
 <p>it is basically a convenience method instead of having to do a manual join like the one shown below in order to access parents of one-to-many or many-to-many relationships.</p>
 <h2 id="relationship-joins">Relationship joins</h2>
 <p><code>Many&lt;T&gt;.JoinQueryable()</code> gives you access to all the join records of that particular entity relationship. A join record has two properties <code>ParentID</code> and <code>ChildID</code> that you can use to gain access to parent Entities like so:</p>
 <pre><code class="lang-csharp">//LINQ syntax
-var allBooksOfAnAuthor = await (
-        from j in book.Authors.JoinQueryable()
-        where j.ChildID == &quot;AuthorID&quot;
-        join b in db.Collection&lt;Book&gt;() on j.ParentID equals b.ID
-        select b
-).ToListAsync();
+var allBooksOfAnAuthor = await (from j in book.Authors.JoinQueryable()
+                                where j.ChildID == &quot;AuthorID&quot;
+                                join b in db.Collection&lt;Book&gt;() on j.ParentID equals b.ID
+                                select b
+                               ).ToListAsync();
 
 //Lambda syntax
 var allBooksOfAnAuthor = await book.Authors
-        .JoinQueryable()
-        .Where(j =&gt; j.ChildID == &quot;AuthorID&quot;)
-        .Join(
-            db.Collection&lt;Book&gt;(), //foreign collection
-            j =&gt; j.ParentID,       //local ID
-            b =&gt; b.ID,             //foreign ID
-            (j, b) =&gt; b)           //result selector expression
-        .ToListAsync();
+                                   .JoinQueryable()
+                                   .Where(j =&gt; j.ChildID == &quot;AuthorID&quot;)
+                                   .Join(
+                                       db.Collection&lt;Book&gt;(), //foreign collection
+                                       j =&gt; j.ParentID,       //local ID
+                                       b =&gt; b.ID,             //foreign ID
+                                       (j, b) =&gt; b)           //result selector expression
+                                   .ToListAsync();
 </code></pre>
 <p>in cases where you don't have access to an instance of the parent entity and only have the <code>ID</code> of the parent, you can access the join records like so:</p>
-<pre><code class="lang-csharp">db.Entity&lt;Book&gt;(&quot;Book ID&quot;).Authors.JoinQueryable()
+<pre><code class="lang-csharp">DB.Entity&lt;Book&gt;(&quot;Book ID&quot;).Authors.JoinQueryable();
 </code></pre>
-<p>and when you need to access all of the join records for a given entity relationship, you can access the join records like so:</p>
-<pre><code class="lang-csharp">db.Entity&lt;Book&gt;().Authors.JoinQueryable()
+<p>and when you need to access all the join records for a given entity relationship, you can access the join records like so:</p>
+<pre><code class="lang-csharp">DB.Entity&lt;Book&gt;().Authors.JoinQueryable();
 </code></pre>
 <h2 id="counting-children">Counting children</h2>
 <p>you can get how many entities are there in the opposite side of any relationship as shown below:</p>

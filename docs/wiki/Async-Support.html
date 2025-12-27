@@ -87,7 +87,7 @@
         <article data-uid="">
 <h1 id="async-only-api">Async-only api</h1>
 
-<p>This library no longer supports synchronous operations after version 20 as it was discovered that the official mongodb driver is doing faux sync (sync-over-async anti-pattern) under the hood in order to maintain backward compatibility.</p>
+<p>This library no longer supports synchronous operations after version 20 as it was discovered that the official mongodb driver is doing faux sync (sync-over-async antipattern) under the hood in order to maintain backward compatibility.</p>
 <blockquote>
 <p>&quot;One caveat is that the synchronous legacy API in 2.0 is implemented by calling the low level async API and blocking, waiting for the Task to complete. This is not considered a performant way to use async APIs, so for performance-sensitive code you may prefer to use the 1.10 version of the driver until you are ready to convert your application to use the new async API.&quot; - <a href="https://www.mongodb.com/blog/post/introducing-20-net-driver"><em>Robert Stem</em></a></p>
 </blockquote>
@@ -96,7 +96,7 @@
 <p>however, in places where you can't call async code, you can wrap the async methods in a <code>Task.Run()</code> like so:</p>
 <pre><code class="lang-csharp">Task.Run(async () =&gt;
 {
-    await DB.InitAsync(&quot;MyDatabase&quot;, &quot;127.0.0.1&quot;);
+    await DB.InitAsync(&quot;MyDatabase&quot;);
 })
 .GetAwaiter()
 .GetResult();
@@ -109,21 +109,20 @@
 <p>if for whatever reason you refuse to go the async/await route and don't really care about application performance, you can add the <a href="https://gist.github.com/dj-nitehawk/43a7de03da03ae42a3bc8a44070b1ac4">this utility class</a> to your project and use that to wrap any async methods you'd want to call like so:</p>
 <pre><code class="lang-csharp">Run.Sync(() =&gt; book.SaveAsync());
 
-var allBooks = Run.Sync(() =&gt;
-
-    DB.Default
-      .Find&lt;Book&gt;()
-      .Match(_ =&gt; true)
-      .ExecuteAsync()
-
-);
+var allBooks = Run.Sync(
+    () =&gt;
+    {
+        return db.Find&lt;Book&gt;()
+                 .Match(_ =&gt; true)
+                 .ExecuteAsync();
+    });
 </code></pre>
 <h1 id="linq-async-extensions">LINQ async extensions</h1>
 <p>in order to write async LINQ queries, make sure to import the mongodb linq extensions and write queries as follows:</p>
 <pre><code class="lang-csharp">using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 </code></pre>
-<pre><code class="lang-csharp">var lastAuthor = await (from a in author.Queryable()
+<pre><code class="lang-csharp">var lastAuthor = await (from a in db.Queryable&lt;Author&gt;()
                         orderby a.ModifiedOn descending
                         select a).FirstOrDefaultAsync();
 </code></pre>

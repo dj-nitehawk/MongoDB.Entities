@@ -110,8 +110,8 @@
                       .ExecuteAsync();
 </code></pre>
 <p>that's all there's to it...</p>
-<p>in case you need to start a flunt aggregation pipeline with fuzzy text matching, you can do it like so:</p>
-<pre><code class="lang-csharp">db.FluentTextSearch&lt;Book&gt;(Search.Fuzzy, &quot;ekard tole&quot;)
+<p>in case you need to start a fluent aggregation pipeline with fuzzy text matching, you can do it like so:</p>
+<pre><code class="lang-csharp">db.FluentTextSearch&lt;Book&gt;(Search.Fuzzy, &quot;ekard tole&quot;);
 </code></pre>
 <h1 id="how-it-works">How it works</h1>
 <p>when you store text using <code>FuzzyString</code> class, the resulting mongodb document will look like this:</p>

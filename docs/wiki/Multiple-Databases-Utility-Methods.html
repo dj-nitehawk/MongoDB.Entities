@@ -87,20 +87,14 @@
         <article data-uid="">
 <h1 id="utility-methods">Utility methods</h1>
 
-<h2 id="get-database-name-from-an-entity-instance-or-type">Get database name from an entity instance or type</h2>
-<pre><code class="lang-csharp">var dbName = pic.DatabaseName();
-var dbName = pic.DatabaseName(dbInstance);
-var dbName = DB.Default.DatabaseName();
-var dbName = dbInstance.DatabaseName();
+<h2 id="get-database-name-from-a-db-instance">Get database name from a DB instance</h2>
+<pre><code class="lang-csharp">var dbName = db.DatabaseName();
 </code></pre>
-<p>the above methods will return the name of the database that the entity is stored in. if not specifically attached to seperate db, it will return the name of the default database.</p>
 <h2 id="check-if-a-database-already-exists-on-the-server">Check if a database already exists on the server</h2>
-<pre><code class="lang-csharp">bool dbExists = await DB.Database(&quot;BookShopFILES&quot;).ExistsAsync();
-bool dbExists = await DB.Default.ExistsAsync();
+<pre><code class="lang-csharp">bool dbExists = await db.Database().ExistsAsync();
 </code></pre>
 <h2 id="check-if-a-database-is-still-accessible">Check if a database is still accessible</h2>
-<pre><code class="lang-csharp">bool isAlive = await DB.Database(&quot;BookShopFILES&quot;).IsAccessibleAsync();
-bool isAlive = await DB.Default.IsAccessibleAsync();
+<pre><code class="lang-csharp">bool isAlive = await db.Database().IsAccessibleAsync();
 </code></pre>
 <h2 id="get-a-list-of-all-databases-on-the-server">Get a list of all databases on the server</h2>
 <pre><code class="lang-csharp">var dbNames = await DB.AllDatabaseNamesAsync(&quot;localhost&quot;);

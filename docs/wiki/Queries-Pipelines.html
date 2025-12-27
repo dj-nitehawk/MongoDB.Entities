@@ -91,7 +91,7 @@
 <pre><code class="lang-csharp">var author = await db.Fluent&lt;Author&gt;()
                      .Match(a =&gt; a.Surname == &quot;Stark&quot; &amp;&amp; a.Age &gt; 10)
                      .SortByDescending(a =&gt; a.Age)
-                     .ThenByAscending(a =&gt; a.Name)
+                     .SortBy(a =&gt; a.Name)
                      .Skip(1).Limit(1)
                      .Project(a =&gt; new { Test = a.Name })
                      .SingleOrDefaultAsync();
@@ -102,24 +102,21 @@
 </div>
 <h1 id="geonear-aggregation-pipelines">GeoNear aggregation pipelines</h1>
 <p>in order to start a fluent aggregation pipeline with a <code>GeoNear</code> query, simply do the following:</p>
-<pre><code class="lang-csharp">var query = db.FluentGeoNear&lt;Place&gt;(
-               NearCoordinates: new Coordinates2D(48.857908, 2.295243),
-               DistanceField: x =&gt; x.DistanceMeters,
-               MaxDistance: 20000);
+<pre><code class="lang-csharp">var query = db.GeoNear&lt;Place&gt;(
+    NearCoordinates: new Coordinates2D(48.857908, 2.295243),
+    DistanceField: x =&gt; x.DistanceMeters,
+    MaxDistance: 20000);
 </code></pre>
 <p>the above code builds an aggregation pipeline that will find all the documents tagged with locations within 20Km from the eiffel tower in paris.</p>
 <p>you can then add more pipeline stages to the above query in order to do further processing. you can specify all the supported options for <code>$geoNear</code> using the constructor above.</p>
 <h1 id="other-fluent-interfaces">Other fluent interfaces</h1>
 <p>there are also fluent counterparts of other methods such as:</p>
-<pre><code class="lang-csharp">Many&lt;T&gt;.ChildrenFluent() //pre-filtered children of the parent
-Many&lt;T&gt;.ParentsFluent() //access parents of a given child
-Many&lt;T&gt;.JoinFluent() //all records of the join collection
-Transaction.Fluent&lt;T&gt;() //transactional variation of DB.Fluent&lt;T&gt;()
-db.FluentTextSearch&lt;T&gt;() //full text search
-db.FluentGeoNear&lt;T&gt;() //geospatial fluent pupeline
-Transaction.FluentTextSearch&lt;T&gt;() //transactional full text search
+<pre><code class="lang-csharp">Many&lt;T&gt;.ChildrenFluent()         //pre-filtered children of the parent
+Many&lt;T&gt;.ParentsFluent()          //access parents of a given child
+Many&lt;T&gt;.JoinFluent()             //all records of the join collection
+db.FluentTextSearch&lt;T&gt;()         //full text search
+db.GeoNear&lt;T&gt;()                  //geospatial fluent pupeline
 db.Fluent&lt;T&gt;().MatchExpression() //$expr queries
-author.Fluent() //shortcut for DB.Fluent&lt;Author&gt;()
 </code></pre>
 
 </article>

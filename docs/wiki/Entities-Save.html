@@ -87,43 +87,30 @@
         <article data-uid="">
 <h1 id="save-an-entity">Save an entity</h1>
 
-<p>call <code>SaveAsync()</code> on any entity to persist it to the database.</p>
-<pre><code class="lang-csharp">var book = new Book { Title = &quot;The Power Of Now&quot; }; 
-await book.SaveAsync();
-</code></pre>
-<p>call <code>SaveAsync(dbInstance)</code> on any entity to persist it to a specific database.</p>
-<pre><code class="lang-csharp">var book = new Book { Title = &quot;The Power Of Now&quot; }; 
-await book.SaveAsync(dbInstance);
+<p>call <code>db.SaveAsync()</code> with any entity to persist it to the database.</p>
+<pre><code class="lang-csharp">var book = new Book { Title = &quot;The Power Of Now&quot; };
+await db.SaveAsync(book);
 </code></pre>
 <p>new entities are automatically assigned an <code>ID</code> when saved. saving an entity that has the <code>ID</code> already populated will <em><a href="Schema-Changes.html">replace</a></em> the matching entity in the database if it exists. if an entity with that <code>ID</code> does not exist in the database, a new one will be created.</p>
 <h1 id="save-multiple-entities">Save multiple entities</h1>
 <p>multiple entities can be saved in a single bulk operation like so:</p>
-<pre><code class="lang-csharp">var books = new[] {
-    new Book{ Title = &quot;Book One&quot; },
-    new Book{ Title = &quot;Book Two&quot; },
-    new Book{ Title = &quot;Book Three&quot;}
-    };
+<pre><code class="lang-csharp">var books = new[]
+{
+    new Book { Title = &quot;Book One&quot; },
+    new Book { Title = &quot;Book Two&quot; },
+    new Book { Title = &quot;Book Three&quot; }
+};
 
-await books.SaveAsync();
-</code></pre>
-<h1 id="save-via-the-default-databse">Save via the default databse</h1>
-<p>entities can be saved via the default database like so:</p>
-<pre><code class="lang-csharp">await DB.Default.SaveAsync(book);
-await DB.Default.SaveAsync(books);
-</code></pre>
-<h1 id="save-via-a-specific-database">Save via a specific database</h1>
-<p>you can also use the DB instances for saving entities like so:</p>
-<pre><code class="lang-csharp">await dbInstance.SaveAsync(book);
-await dbInstance.SaveAsync(books);
+await db.SaveAsync(books);
 </code></pre>
 <h1 id="save-entities-partially">Save entities partially</h1>
 <p>the above-mentioned <code>SaveAsync</code> methods will replace the entire document in the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two convenient choices.</p>
 <h3 id="save-only-a-few-specified-properties">Save only a few specified properties</h3>
-<pre><code class="lang-csharp">await book.SaveOnlyAsync(x =&gt; new { x.Title, x.Price });
+<pre><code class="lang-csharp">await db.SaveOnlyAsync(book, x =&gt; new { x.Title, x.Price });
 </code></pre>
 <p>this will save <strong>only</strong> the Title and Price properties and exclude all other properties of the entity.</p>
 <h3 id="save-all-others-except-for-the-specified-properties">Save all others except for the specified properties</h3>
-<pre><code class="lang-csharp">await book.SaveExceptAsync(x =&gt; new { x.AuthorName })
+<pre><code class="lang-csharp">await db.SaveExceptAsync(book, x =&gt; new { x.AuthorName });
 </code></pre>
 <p>this will save all other properties of the entity <strong>except</strong> the <code>AuthorName</code> property.</p>
 <div class="NOTE">
@@ -136,7 +123,7 @@ await dbInstance.SaveAsync(books);
 </div>
 <h1 id="partial-save-with-attributes">Partial save with attributes</h1>
 <p>if you find specifying <code>New</code> expressions everywhere in your code as above tedious when needing to omit properties while saving an entity, you can use the <code>SavePreservingAsync()</code> method together with the use of an attribute.</p>
-<p>simply decorate the properties you want to omit with the [<a class="xref" href="../api/MongoDB.Entities.PreserveAttribute.html">Preserve</a>] attribute and call <code>book.SavePreservingAsync()</code> without having to supply an expression everytime. whatever properties you have decorated with <code>[Preserve]</code> attribute, will not be updated. all other properties of the entity will be updated with the values from your entity.</p>
+<p>simply decorate the properties you want to omit with the [<a class="xref" href="../api/MongoDB.Entities.PreserveAttribute.html">Preserve</a>] attribute and call <code>db.SavePreservingAsync(book)</code> without having to supply an expression everytime. whatever properties you have decorated with <code>[Preserve]</code> attribute, will not be updated. all other properties of the entity will be updated with the values from your entity.</p>
 <p>you can also do the opposite with the use of [<a class="xref" href="../api/MongoDB.Entities.DontPreserveAttribute.html">DontPreserve</a>] attribute. if you decorate properties with <code>[DontPreserve]</code>, only the values of those properties are written to the database and all other properties are implicitly ignored when calling <code>SavePreservingAsync()</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
@@ -144,20 +131,14 @@ await dbInstance.SaveAsync(books);
 </div>
 <h1 id="inserts">Inserts</h1>
 <p>even though inserts can be handled with the <code>.SaveAsync()</code> methods above, you can also do inserts specifically using the <code>.InsertAsync()</code> methods like below:</p>
-<pre><code class="lang-csharp">await author.InsertAsync();
-await authors.InsertAsync();
-
-await author.InsertAsync(dbInstance);
-await authors.InsertAsync(dbInstance);
-
-await db.InsertAsync(author);
+<pre><code class="lang-csharp">await db.InsertAsync(author);
 await db.InsertAsync(authors);
 </code></pre>
 <h1 id="embed-an-entity">Embed an entity</h1>
-<p>to store an unlinked copy of an entity,  call the <code>ToDocument()</code> method. doing so will store an independant duplicate (with a new ID) of the original entity that has no relationship to the original entity.</p>
+<p>to store an unlinked copy of an entity, call the <code>ToDocument()</code> method. doing so will store an independant duplicate (with a new ID) of the original entity that has no relationship to the original entity.</p>
 <pre><code class="lang-csharp">book.Author = author.ToDocument();
-book.OtherAuthors = (new Author[] { author2, author3 }).ToDocuments();
-await book.SaveAsync();
+book.OtherAuthors = authors.ToDocuments();
+await db.SaveAsync(book);
 </code></pre>
 
 </article>

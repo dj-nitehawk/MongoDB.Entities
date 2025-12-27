@@ -93,82 +93,58 @@ var book2 = new Book { Title = &quot;book two&quot; };
 
 await db.SaveAsync(new[] { book1, book2 });
 
-using (var TN = db.Transaction())
+using (var t = db.Transaction())
 {
-      var author1 = new Author { Name = &quot;one&quot; };
-      var author2 = new Author { Name = &quot;two&quot; };
+    var author1 = new Author { Name = &quot;one&quot; };
+    var author2 = new Author { Name = &quot;two&quot; };
 
-      await TN.SaveAsync(new[] { author1, author2 });
+    await t.SaveAsync(new[] { author1, author2 });
 
-      await TN.DeleteAsync&lt;Book&gt;(new[] { book1.ID, book2.ID });
+    await t.DeleteAsync&lt;Book&gt;(new[] { book1.ID, book2.ID });
 
-      await TN.CommitAsync();
+    await t.CommitAsync();
 }
 </code></pre>
 <p>in the above code, book1 and book2 are saved before the transaction begins. author1 and author2 are created within the transaction and book1 and book2 are deleted within the transaction.</p>
-<p>a transaction is started when you instantiate a <code>Transaction</code> object either via the factory method <code>db.Transaction()</code> or <code>new Transaction()</code>. you then perform all transaction logic using the methods supplied by that class such as <code>.SaveAsync()</code>, <code>.DeleteAsync()</code>, <code>.Update()</code>, <code>.Find()</code> instead of the methods supplied by the <code>DB</code> class instance like you'd normally do.</p>
-<p>the methods of the <code>DB</code> class also supports transactions but you would have to supply a <code>session</code> to each method call, which would be less convenient than using the <code>Transaction</code> class.</p>
+<p>a transaction is started when you instantiate a <code>Transaction</code> object via <code>db.Transaction()</code>. you then perform all transaction logic using the methods supplied by that class such as <code>.SaveAsync()</code>, <code>.DeleteAsync()</code>, <code>.Update()</code>, <code>.Find()</code> instead of the <code>db</code> instance that created the transaction.</p>
 <p>whatever transactional operations you do are only saved to the database once you call the <code>.CommitAsync()</code> method. if you do not call .CommitAsync(), then nothing changes in the database.</p>
 <p>if an exception occurs before the .CommitAsync() line is reached, all changes are rolled back and the transaction is implicitly terminated.</p>
-<p>it is best to always wrap the transaction in a using statement because reaching the end of the using statement will automatically end the transaction and dispose the underlying session. if no using statement is used, you will have to manually dispose the transaction object you created in order to finalize things.</p>
+<p>it is best to always wrap the transaction in a <code>using statement</code> because reaching the end of the using statement will automatically end the transaction and dispose the underlying session. if no using statement is used, you will have to manually dispose the transaction object you created in order to finalize things.</p>
 <p>you can also call <code>.AbortAsync()</code> to abort a transaction prematurely if needed at which point all changes will be rolled back.</p>
 <h2 id="relationship-manipulation">Relationship Manipulation</h2>
 <p><a href="Relationships-Referenced.html">relationships</a> within a transaction requires passing down the session to the <code>.Add()</code> and <code>.Remove()</code> methods as shown below.</p>
-<pre><code class="lang-csharp">using (var TN = db.Transaction())
+<pre><code class="lang-csharp">using (var t = db.Transaction())
 {
     var author = new Author { Name = &quot;author one&quot; };
-    await TN.SaveAsync(author);
+    await t.SaveAsync(author);
 
     var book = new Book { Title = &quot;book one&quot; };
-    await TN.SaveAsync(book);
+    await t.SaveAsync(book);
 
-    await author.Books.AddAsync(book, TN.Session);
-    await author.Books.RemoveAsync(book, TN.Session);
+    await author.Books.AddAsync(book, t.Session);
+    await author.Books.RemoveAsync(book, t.Session);
 
-    await TN.CommitAsync();
+    await t.CommitAsync();
 }
 </code></pre>
 <h2 id="file-storage">File Storage</h2>
 <p><a href="File-Storage.html">file storage</a> within a transaction also requires passing down the session like so:</p>
-<pre><code class="lang-csharp">using (var TN = db.Transaction())
+<pre><code class="lang-csharp">using (var t = db.Transaction())
 {
     var picture = new Picture { Title = &quot;my picture&quot; };
-    await TN.SaveAsync(picture);
+    await t.SaveAsync(picture);
 
     var streamTask = new HttpClient()
-                      .GetStreamAsync(&quot;https://placekitten.com/g/4000/4000&quot;);
+        .GetStreamAsync(&quot;https://placekitten.com/g/4000/4000&quot;);
 
     using (var stream = await streamTask)
     {
-        await picture.Data.UploadAsync(stream, session: TN.Session);
+        await picture.Data(db).UploadAsync(stream, session: t.Session);
     }
 
-    await TN.CommitAsync();
+    await t.CommitAsync();
 }
 </code></pre>
-<!-- ## Multiple Databases
-
-a transaction is always tied to a single database. you can specify which database to use for a transaction in a couple of ways.
-```csharp
-var TN = db.Transaction("DatabaseName") // manually specify the database name
-var TN = db.Transaction<Book>() // gets the database from the entity type
-```
-
-if you try to perform an operation on an entity type that is not connected to the same database as the transaction, mongodb server will throw an exception.
-
-> [!note]
-> please read the page on [multiple databases](Multiple-Databases.md) to understand how multi-db support works. -->
-<h2 id="transactions-with-dbcontext-instances">Transactions with DBContext instances</h2>
-<p>Transactions can be performed using DBContext instances like so:</p>
-<pre><code class="lang-csharp">var db = new DBContext();
-
-using (var session = db.Transaction())
-{
-    await db.SaveAsync(new Book { Title = &quot;test&quot; });
-    await db.CommitAsync();
-}
-</code></pre>
-<p><strong>Note:</strong> only one active transaction is allowed per DBContext instance. if you need to start another transaction for the same instance, make sure to first commit your changes -&gt; dispose the <code>session</code> object <em>(if not wrapped in a using statement)</em> -&gt; assign a <code>null</code> to the <code>session</code> before you call <code>db.Transaction()</code> again.</p>
 
 </article>
 

@@ -107,7 +107,7 @@
 <p>Reference(Join) collections use the naming format <code>[Parent~Child(PropertyName)]</code> for <strong>One-To-Many</strong> and <code>[(PropertyName)Parent~Child(PropertyName)]</code> for <strong>Many-To-Many</strong>. you don't have to pay any attention to these special collections unless you rename your entities or properties.</p>
 <p>for ex: if you rename the <code>Book</code> entity to <code>AwesomeBook</code> and property holding it to <code>GoodAuthors</code> just rename the corresponding join collection from <code>[Book~Author(Authors)]</code> to <code>[AwesomeBook~Author(GoodAuthors)]</code> in order to get the references working again.</p>
 <p>if you need to drop a join collection that is no longer needed, you can delete them like so:</p>
-<pre><code class="lang-csharp">await db.Entity&lt;Author&gt;().Books.JoinCollection.DropAsync();
+<pre><code class="lang-csharp">await DB.Entity&lt;Author&gt;().Books.JoinCollection.DropAsync();
 </code></pre>
 <h3 id="indexes">Indexes</h3>
 <p>some care is needed to make sure there won't be any orphaned/ redundant indexes in mongodb after changing your schema.</p>

@@ -98,7 +98,7 @@ public class _003_i_will_be_run_third : IMigration { }
 <p>next implement the <code>UpgradeAsync()</code> method of IMigration and place your migration logic there.</p>
 <h3 id="run-migrations">Run Migrations</h3>
 <p>in order to execute the migrations, simply call <code>db.MigrateAsync()</code> whenever you need the database brought up to date. the library keeps track of the last migration run and will execute all newer migrations in the order of their number. in most cases, you'd place the following line of code in the startup of your app right after initializing the database.</p>
-<pre><code class="lang-csharp">await db.MigrateAsync()
+<pre><code class="lang-csharp">await db.MigrateAsync();
 </code></pre>
 <p>the above will try to discover all migrations from all assemblies of the application if it's a multi-project solution. you can speed things up a bit by specifying a type so that migrations will only be discovered from the same assembly/project as the specified type, like so:</p>
 <pre><code class="lang-csharp">await db.MigrateAsync&lt;SomeType&gt;();
@@ -165,7 +165,7 @@ public class _003_i_will_be_run_third : IMigration { }
 {
     public Task UpgradeAsync()
     {
-      return db.Database&lt;Author&gt;()
+      return db.Database()
                .RenameCollectionAsync(&quot;Author&quot;, &quot;Writer&quot;);
     }
 }

@@ -105,7 +105,7 @@
 <h3 id="find-by-2d-coordinates">Find by 2D coordinates</h3>
 <pre><code class="lang-csharp">var cafes = await db.Find&lt;Cafe&gt;()
                     .Match(c =&gt; c.Location, new Coordinates2D(48.857908, 2.295243), 1000)
-                    .ExecuteAsync()
+                    .ExecuteAsync();
 </code></pre>
 <blockquote>
 <p>see <a href="https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd"><em>this tutorial</em></a> for a detailed walkthrough.</p>

@@ -1,6 +1,6 @@
 # Get distinct values of a property
 
-you can get a list of unique values for a given property of an entity with the `Distinct<T,TProperty>()` method of the `DB` entrypoint.
+you can get a list of unique values for a given property of an entity with the `Distinct<T,TProperty>()` method.
 
 `T` is the type of entity you want to query.
 `TProperty` is the type of the property whose unique values you want returned.

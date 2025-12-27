@@ -144,24 +144,6 @@ var res = await db.PagedSearch&lt;Author&gt;()
                   .PageSize(25)
                   .ExecuteAsync();
 </code></pre>
-<p>alternatively you can use the extension method on any fluent pipeline as well.</p>
-<pre><code class="lang-csharp">var res = await pipeline.PagedSearch()
-                        .Sort(a =&gt; a.Name, Order.Descending)
-                        .PageSize(25)
-                        .PageNumber(1)
-                        .ExecuteAsync();
-</code></pre>
-<p>it's specially useful when you need to page children of a relationship like so:</p>
-<pre><code class="lang-csharp">var res = await db.Entity&lt;Author&gt;(&quot;AuthorID&quot;)
-                  .Books
-                  .ChildrenFluent()
-                  .Match(b =&gt; b.Title.Contains(&quot;The&quot;))
-                  .PagedSearch()
-                  .Sort(b =&gt; b.Title, Order.Ascending)
-                  .PageNumber(1)
-                  .PageSize(10)
-                  .ExecuteAsync();
-</code></pre>
 
 </article>
 

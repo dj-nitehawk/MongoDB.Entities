@@ -1,4 +1,5 @@
 # Paged search
+
 paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. it can also be done via a `$facet` aggregation query, which is cumbersome to do using the driver. this library provides a convenient method for this exact use case via the `PagedSearch` builder.
 
 ## Example
@@ -20,12 +21,13 @@ specify the search criteria with the `.Match()` method as you'd typically do. sp
 
 the result is a value tuple consisting of the `Results`,`TotalCount`,`PageCount`.
 
-> [!note] 
+> [!note]
 > if you do not specify a matching criteria, all entities will match. the default page size is 100 if not specified and the 1st page is always returned if you omit it.
 
-
 ## Project results to a different type
+
 if you'd like to change the shape of the returned entity list, use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
+
 ```csharp
 var res = await db.PagedSearch<Book, BookListing>()
                   .Sort(b => b.Title, Order.Ascending)
@@ -68,27 +70,5 @@ var res = await db.PagedSearch<Author>()
                   .Sort(a => a.Name, Order.Descending)
                   .PageNumber(1)
                   .PageSize(25)
-                  .ExecuteAsync();
-```
-
-alternatively you can use the extension method on any fluent pipeline as well.
-```csharp
-var res = await pipeline.PagedSearch()
-                        .Sort(a => a.Name, Order.Descending)
-                        .PageSize(25)
-                        .PageNumber(1)
-                        .ExecuteAsync();
-```
-
-it's specially useful when you need to page children of a relationship like so:
-```csharp
-var res = await db.Entity<Author>("AuthorID")
-                  .Books
-                  .ChildrenFluent()
-                  .Match(b => b.Title.Contains("The"))
-                  .PagedSearch()
-                  .Sort(b => b.Title, Order.Ascending)
-                  .PageNumber(1)
-                  .PageSize(10)
                   .ExecuteAsync();
 ```

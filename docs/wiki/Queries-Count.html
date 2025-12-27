@@ -104,7 +104,7 @@ the above will give you a rough estimate of the total entities using collection 
 <pre><code class="lang-csharp">var count = await db.CountAsync&lt;Author&gt;(b =&gt; b.Eq(a =&gt; a.Name, &quot;Eckhart Tolle&quot;));
 </code></pre>
 <h3 id="count-matches-with-a-filter-definition">Count matches with a filter definition</h3>
-<pre><code class="lang-csharp">var filter = db.Filter&lt;Author&gt;()
+<pre><code class="lang-csharp">var filter = DB.Filter&lt;Author&gt;()
                .Eq(a =&gt; a.Name, &quot;Eckhart Tolle&quot;);
 
 var count = await db.CountAsync(filter);

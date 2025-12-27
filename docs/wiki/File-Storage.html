@@ -89,8 +89,8 @@
 
 <p>this library features a GridFS alternative where you can stream upload &amp; download files in chunks to keep memory usage at a minimum when dealing with large files. there is no limitation on the size or type of file you can store and the API is designed to be much simpler than GridFS.</p>
 <h3 id="define-a-file-entity">Define a file entity</h3>
-<p>inherit from <code>FileEntity</code> abstract class instead of the usual <code>Entity</code> class for defining your file entities like below. You can add any other properties you wish to store with it.</p>
-<pre><code class="lang-csharp">public class Picture : FileEntity
+<p>inherit from <code>FileEntity&lt;T&gt;</code> abstract class instead of the usual <code>Entity</code> class for defining your file entities like below. You can add any other properties you wish to store with it.</p>
+<pre><code class="lang-csharp">public class Picture : FileEntity&lt;Picture&gt;
 {
     public string Title { get; set; }
     public int Width { get; set; }
@@ -106,14 +106,12 @@
     Width = 4000,
     Height = 4000
 };
+await db.SaveAsync(kitty);
 
-await kitty.SaveAsync();
-
-var streamTask = new HttpClient().GetStreamAsync(&quot;https://placekitten.com/g/4000/4000&quot;);
-
-using (var stream = await streamTask)
+var stream = await new HttpClient().GetStreamAsync(&quot;https://placekitten.com/g/4000/4000&quot;);
+using (stream)
 {
-    await kitty.Data().UploadAsync(stream);
+    await kitty.Data(db).UploadAsync(stream);
 }
 </code></pre>
 <p>the <code>Data()</code> method on the file entity gives you access to a couple of options for uploading and downloading. with those methods, you can specify <em>upload chunk size</em>, <em>download batch size</em>, <em>operation timeout period</em>, as well as <em>cancellation token</em> for controlling the process.</p>
@@ -136,10 +134,10 @@ using (var stream = await streamTask)
 
 using (var stream = File.OpenWrite(&quot;kitty.jpg&quot;))
 {
-    await picture.Data().DownloadAsync(stream);
+    await picture.Data(db).DownloadAsync(stream);
 }
 </code></pre>
-<p>first retrieve the file entity you want to work with and then call the <code>.Data().DownloadAsync()</code> method by supplying it a stream object to write the data to.</p>
+<p>first retrieve the file entity you want to work with and then call the <code>.Data(db).DownloadAsync()</code> method by supplying it a stream object to write the data to.</p>
 <p>alternatively, if the ID of the file entity is known, you can avoid fetching the file entity from the database and access the data directly like so:</p>
 <pre><code class="lang-csharp">await db.File&lt;Picture&gt;(&quot;FileID&quot;).DownloadAsync(stream);
 </code></pre>

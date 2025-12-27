@@ -123,15 +123,15 @@ public class Genre : Entity
 book.MainAuthor = new(author);          //assign a child instance
 book.MainAuthor = new(&quot;AuthorID&quot;);      //assign just the ID value of a child
 
-await book.SaveAsync();                 //call save on parent to store
+await db.SaveAsync(book);               //call save on parent to store
 </code></pre>
 <h3 id="reference-removal">Reference removal</h3>
-<pre><code class="lang-csharp">book.MainAuthor = null;
-await book.SaveAsync();
+<pre><code class="lang-csharp">book.MainAuthor = null!;
+await db.SaveAsync(book);
 </code></pre>
 <p>the original <code>author</code> in the <code>Authors</code> collection is unaffected.</p>
 <h3 id="entity-deletion">Entity deletion</h3>
-<p>if you delete an entity that is referenced as above, all references pointing to that entity would then be invalid. as such, <code>book.MainAuthor.ToEntityAsync()</code> will then return <code>null</code>. the <code>.ToEntityAsync()</code> method is described below.</p>
+<p>if you delete an entity that is referenced as above, all references pointing to that entity would then be invalid. as such, <code>book.MainAuthor.ToEntityAsync(db)</code> will then return <code>null</code>. the <code>.ToEntityAsync()</code> method is described below.</p>
 <p>for example:</p>
 <pre><code>book A has 1:1 relationship with author A
 book B has 1:1 relationship with author A
@@ -139,15 +139,15 @@ book C has 1:1 relationship with author A
 
 now, if you delete author A, the results would be the following:
 
-await bookA.MainAuthor.ToEntityAsync() //returns null
-await bookB.MainAuthor.ToEntityAsync() //returns null
-await bookC.MainAuthor.ToEntityAsync() //returns null
+await bookA.MainAuthor.ToEntityAsync(db) //returns null
+await bookB.MainAuthor.ToEntityAsync(db) //returns null
+await bookC.MainAuthor.ToEntityAsync(db) //returns null
 </code></pre>
 <h2 id="one-to-many--many-to-many">One-to-many &amp; many-to-many</h2>
 <pre><code class="lang-csharp">await book.Authors.AddAsync(author); //one-to-many
-await book.Genres.AddAsync(genre); //many-to-many
+await book.Genres.AddAsync(genre);   //many-to-many
 </code></pre>
-<p>there's no need to call <code>book.SaveAsync()</code> again because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html#reference-collections">Schema Changes</a> section.</p>
+<p>there's no need to call <code>db.SaveAsync(book)</code> again because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html#reference-collections">Schema Changes</a> section.</p>
 <p>however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their <code>ID</code> values populated. otherwise, you'd get an exception instructing you to save them both before calling <code>AddAsync()</code>.</p>
 <p>alternatively when you don't have access to the parent entity and you only have the parent <code>ID</code> value, you can use the following to access the relationship:</p>
 <pre><code class="lang-csharp">await DB.Entity&lt;Book&gt;(&quot;BookID&quot;).Authors.AddAsync(author);
@@ -187,15 +187,16 @@ author B:
 </code></pre>
 <h1 id="toentityasync-shortcut">ToEntityAsync() shortcut</h1>
 <p>a reference can be turned back in to an entity with the <code>ToEntityAsync()</code> method.</p>
-<pre><code class="lang-csharp">var author = await book.MainAuthor.ToEntityAsync();
+<pre><code class="lang-csharp">var author = await book.MainAuthor.ToEntityAsync(db);
 </code></pre>
 <p>you can also project the properties you need instead of getting back the complete entity like so:</p>
-<pre><code class="lang-csharp">var author = await book.MainAuthor
-                       .ToEntityAsync(a =&gt; new Author
-                        {
-                          Name = a.Name,
-                          Age = a.Age
-                        });
+<pre><code class="lang-csharp">var author = await book.MainAuthor.ToEntityAsync(
+                 a =&gt; new()
+                 {
+                     Name = a.Name,
+                     Age = a.Age
+                 },
+                 db);
 </code></pre>
 <h1 id="transaction-support">Transaction support</h1>
 <p>adding and removing related entities require passing in the session when used within a transaction. see <a href="Transactions.html#relationship-manipulation">here</a> for an example.</p>
