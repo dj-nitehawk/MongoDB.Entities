@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Multiple database support | MongoDB.Entities </title>
+      <title>Global filters | MongoDB.Entities </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Multiple database support | MongoDB.Entities ">
+      <meta name="title" content="Global filters | MongoDB.Entities ">
       <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
       
       <link rel="icon" href="../images/favicon.ico">
@@ -85,56 +85,76 @@
         </div>
 
         <article data-uid="">
-<h1 id="multiple-database-support">Multiple database support</h1>
+<h1 id="global-filters">Global filters</h1>
 
-<p>you can store and retrieve Entities in multiple databases on either a single server or multiple servers. the only requirement is to have unique names for each database. the following example demonstrates how to use multiple databases.</p>
-<h3 id="test-case-usage-example-1-customer-per-database">Test case usage example: 1 customer per database</h3>
-<p>It save the same Entity (Auto) to two different databases.</p>
-<pre><code class="lang-csharp">var _db1 = await DB.InitAsync(&quot;Customer1&quot;);
-var _db2 = await DB.InitAsync(&quot;Customer2&quot;);
-
-    var auto1 = new Auto
+<p>with the use of global filters you can set up a set of criteria to be applied to all operations performed by a <code>DB</code> instance in order to save the trouble of having to specify the same criteria in each and every operation you perform. i.e. you specify common criteria in one place, and all <strong>retrieval, update and delete</strong> operations will have the common filters automatically applied to them before execution.</p>
+<p>to be able to specify common criteria, you need to create a derived <code>DB</code> class so:</p>
+<pre><code class="lang-csharp">public class MyDatabase : DB
+{
+    public MyDatabase(string dbName) : base(Instance(dbName))
     {
-        Make = &quot;Toyota&quot;,
-        Model = &quot;Corolla&quot;,
-        Year = 2020
-    };
-    await auto1.SaveAsync(_db1);
-    
-    var auto2 = new Auto
-    {
-        Make = &quot;Honda&quot;,
-        Model = &quot;Civic&quot;,
-        Year = 2021
-    };
-    await auto2.SaveAsync(_db2);
-    
-    var res1 = await _db1.Find&lt;Auto&gt;().MatchID(auto1.ID).ExecuteSingleAsync();
-    Assert.IsNotNull(res1);
-    Assert.AreEqual(auto1.Make, res1.Make);
-    Assert.AreEqual(auto1.Model, res1.Model);
-    Assert.AreEqual(auto1.Year, res1.Year);
+        SetGlobalFilter&lt;Book&gt;(
+            b =&gt; b.Publisher == &quot;Harper Collins&quot; &amp;&amp;
+                 b.IsDeleted == false);
 
-    var res2 = await _db2.Find&lt;Auto&gt;().MatchID(auto2.ID).ExecuteSingleAsync();
-    Assert.IsNotNull(res2);
-    Assert.AreEqual(auto2.Make, res2.Make);
-    Assert.AreEqual(auto2.Model, res2.Model);
-    Assert.AreEqual(auto2.Year, res2.Year);
+        SetGlobalFilter&lt;Author&gt;(
+            a =&gt; a.Status == &quot;Active&quot; &amp;&amp;
+                 a.IsDeleted == false);
+    }
+}
+</code></pre>
+<p>you can then instantiate your derived <code>DB</code> instance from anywhere like so:</p>
+<pre><code class="lang-csharp">var db = new MyDatabase(&quot;DatabaseName&quot;);
+</code></pre>
+<h2 id="specify-filters-using-a-base-class">Specify filters using a base class</h2>
+<p>filters can be specified on a per-entity type basis like above or common filters can be specified using a base class type like so:</p>
+<pre><code class="lang-csharp">SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
+</code></pre>
+<h2 id="specify-filters-using-an-interface">Specify filters using an interface</h2>
+<p>if you'd like a global filter to be applied to any entity type that implements an interface, you can specify it like below using a json string.
+it is currently not possible to do it in a strongly typed manner due to a limitation in the driver.</p>
+<pre><code class="lang-csharp">SetGlobalFilterForInterface&lt;ISoftDeletable&gt;(&quot;{ IsDeleted : false }&quot;);
+</code></pre>
+<h2 id="prepending-global-filters">Prepending global filters</h2>
+<p>global filters by default are appended to your operation filters. if you'd like to instead have the global filters prepended, use the following overload:</p>
+<pre><code class="lang-csharp">SetGlobalFilter&lt;Book&gt;(
+    filter: b =&gt; b.Publisher == &quot;Harper Collins&quot;,
+    prepend: true);
+</code></pre>
+<h2 id="temporarily-ignoring-global-filters">Temporarily ignoring global filters</h2>
+<p>it's possible to skip/ignore global filters on a per operation basis as follows:</p>
+<pre><code class="lang-csharp">//with fluent operations
+await db.Find&lt;Book&gt;()
+        .Match(b =&gt; b.Title == &quot;Power Of Tomorrow&quot;)
+        .IgnoreGlobalFilters() //ignored only for this operation
+        .ExecuteAsync();
 
-    res1 = await _db1.Find&lt;Auto&gt;().MatchID(auto2.ID).ExecuteSingleAsync();
-    res2 = await _db2.Find&lt;Auto&gt;().MatchID(auto1.ID).ExecuteSingleAsync();
-    
-    Assert.IsNull(res1);
-    Assert.IsNull(res2);
+//with direct methods:
+db.IgnoreGlobalFilters = true; //all operations ignore global filters until changed
+await db.DeleteAsync&lt;Book&gt;(b =&gt; b.Title == &quot;Power Of Tomorrow&quot;);
 </code></pre>
-<h3 id="limitations">Limitations</h3>
-<ul>
-<li>cross-database relationships with <code>Many&lt;T&gt;</code> is not supported.</li>
-<li>no cross-database joins/ look-ups as the driver doesn't support it.</li>
-</ul>
-<h2 id="referenced-relationships-example-with-multiple-databases">Referenced relationships example with multiple databases</h2>
-<pre><code class="lang-cs">//todo: write example and explanation
+<h2 id="limitations">Limitations</h2>
+<ol>
+<li><p>only one filter per entity type is allowed. specify multiple criteria for the same entity type with the <code>&amp;&amp;</code> operator as shown above. if you call <code>SetGlobalFilter&lt;Book&gt;</code> more than once, only the last call will be registered.</p>
+</li>
+<li><p>if using a base class to specify filters, no derived entity type (of that specific base class) can be used for registering another filter. take the following for example:</p>
+</li>
+</ol>
+<pre><code class="lang-csharp">    SetGlobalFilter&lt;Book&gt;(b =&gt; b.Publisher == &quot;Harper Collins&quot;);
+
+    SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
 </code></pre>
+<p>only the second filter would take effect. the first one is discarded because the <code>Book</code> type is a derived type of <code>BaseEntity</code>.</p>
+<p>you can however switch the order of registration so that the base class registration occurs first. but you need to make sure to include the criteria the base class registration caters to as well, like so:</p>
+<pre><code class="lang-csharp">    SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
+
+    SetGlobalFilter&lt;Book&gt;(
+          b =&gt; b.Publisher == &quot;Harper Collins&quot; &amp;&amp;
+               b.IsDeleted == false);
+</code></pre>
+<ol start="3">
+<li>only delete, update and retrieval operations will use global filters. the <code>Save*()</code> operations will ignore any registered global filters as they will only match on the <code>ID</code> field.</li>
+</ol>
 
 </article>
 

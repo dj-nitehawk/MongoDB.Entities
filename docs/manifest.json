@@ -914,6 +914,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "wiki/Audit-Fields.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Audit-Fields.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "wiki/Change-Streams.md",
       "output": {
         ".html": {
@@ -928,46 +938,6 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Code-Samples.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "wiki/DB-Instances-Audit-Fields.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/DB-Instances-Audit-Fields.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "wiki/DB-Instances-Event-Hooks.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/DB-Instances-Event-Hooks.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "wiki/DB-Instances-Global-Filters.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/DB-Instances-Global-Filters.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "wiki/DB-Instances.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/DB-Instances.html"
         }
       },
       "version": ""
@@ -1024,6 +994,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "wiki/Event-Hooks.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Event-Hooks.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "wiki/Extras-Date.md",
       "output": {
         ".html": {
@@ -1068,6 +1048,16 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Get-Started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Global-Filters.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Global-Filters.html"
         }
       },
       "version": ""

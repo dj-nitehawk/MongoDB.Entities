@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Multiple database support | MongoDB.Entities </title>
+      <title>Custom event hooks | MongoDB.Entities </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Multiple database support | MongoDB.Entities ">
+      <meta name="title" content="Custom event hooks | MongoDB.Entities ">
       <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
       
       <link rel="icon" href="../images/favicon.ico">
@@ -85,55 +85,88 @@
         </div>
 
         <article data-uid="">
-<h1 id="multiple-database-support">Multiple database support</h1>
+<h1 id="custom-event-hooks">Custom event hooks</h1>
 
-<p>you can store and retrieve Entities in multiple databases on either a single server or multiple servers. the only requirement is to have unique names for each database. the following example demonstrates how to use multiple databases.</p>
-<h3 id="test-case-usage-example-1-customer-per-database">Test case usage example: 1 customer per database</h3>
-<p>It save the same Entity (Auto) to two different databases.</p>
-<pre><code class="lang-csharp">var _db1 = await DB.InitAsync(&quot;Customer1&quot;);
-var _db2 = await DB.InitAsync(&quot;Customer2&quot;);
+<p>there are two hooks you can tap into: <code>OnBeforeSave</code> and <code>OnBeforeUpdate</code>. use them to modify the incoming operation just before it executes. these hooks can also replace the built-in audit fields for finer-grained control. Override both methods to ensure inserts and updates are consistently handled.</p>
+<p>say for example, you have a <code>Flower</code> entity like the following, and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.</p>
+<pre><code class="lang-csharp">public class Flower : Entity
+{
+    public string Name { get; set; }
 
-    var auto1 = new Auto
-    {
-        Make = &quot;Toyota&quot;,
-        Model = &quot;Corolla&quot;,
-        Year = 2020
-    };
-    await auto1.SaveAsync(_db1);
-    
-    var auto2 = new Auto
-    {
-        Make = &quot;Honda&quot;,
-        Model = &quot;Civic&quot;,
-        Year = 2021
-    };
-    await auto2.SaveAsync(_db2);
-    
-    var res1 = await _db1.Find&lt;Auto&gt;().MatchID(auto1.ID).ExecuteSingleAsync();
-    Assert.IsNotNull(res1);
-    Assert.AreEqual(auto1.Make, res1.Make);
-    Assert.AreEqual(auto1.Model, res1.Model);
-    Assert.AreEqual(auto1.Year, res1.Year);
+    public string CreatedBy { get; set; }
+    public DateTime CreatedDate { get; set; }
 
-    var res2 = await _db2.Find&lt;Auto&gt;().MatchID(auto2.ID).ExecuteSingleAsync();
-    Assert.IsNotNull(res2);
-    Assert.AreEqual(auto2.Make, res2.Make);
-    Assert.AreEqual(auto2.Model, res2.Model);
-    Assert.AreEqual(auto2.Year, res2.Year);
-
-    res1 = await _db1.Find&lt;Auto&gt;().MatchID(auto2.ID).ExecuteSingleAsync();
-    res2 = await _db2.Find&lt;Auto&gt;().MatchID(auto1.ID).ExecuteSingleAsync();
-    
-    Assert.IsNull(res1);
-    Assert.IsNull(res2);
+    public string UpdatedBy { get; set; }
+    public DateTime UpdateDate { get; set; }
+}
 </code></pre>
-<h3 id="limitations">Limitations</h3>
-<ul>
-<li>cross-database relationships with <code>Many&lt;T&gt;</code> is not supported.</li>
-<li>no cross-database joins/ look-ups as the driver doesn't support it.</li>
-</ul>
-<h2 id="referenced-relationships-example-with-multiple-databases">Referenced relationships example with multiple databases</h2>
-<pre><code class="lang-cs">//todo: write example and explanation
+<p>to be able to tap in to the hooks, create a derived <code>DB</code> class and override the two methods as follows:</p>
+<pre><code class="lang-csharp">public class MyDatabase() : DB(Default) //example of using the default database
+{
+    protected override Action&lt;T&gt;? OnBeforeSave&lt;T&gt;()
+    {
+        return ModifyFlowerEntities as Action&lt;T&gt;;
+
+        void ModifyFlowerEntities(Flower f)
+        {
+            if (string.IsNullOrEmpty(f.ID))
+            {
+                f.CreatedBy = &quot;God&quot;;
+                f.CreatedDate = DateTime.MinValue;
+            }
+            else
+            {
+                f.UpdatedBy = &quot;Human&quot;;
+                f.UpdateDate = DateTime.UtcNow;
+            }
+        }
+    }
+
+    protected override Action&lt;UpdateBase&lt;T&gt;&gt;? OnBeforeUpdate&lt;T&gt;()
+    {
+        return ModifyFlowerEntities as Action&lt;UpdateBase&lt;T&gt;&gt;;
+
+        void ModifyFlowerEntities(UpdateBase&lt;Flower&gt; update)
+        {
+            update.AddModification(f =&gt; f.UpdatedBy, &quot;Human&quot;);
+            update.AddModification(f =&gt; f.UpdateDate, DateTime.UtcNow);
+        }
+    }
+}
+</code></pre>
+<p>after that, simply create new instances of <code>MyDatabase</code> when you need the above functionality and perform operations as usual:</p>
+<pre><code class="lang-csharp">var db = new MyDatabase();
+
+await db.SaveAsync(new Flower() { Name = &quot;Red Rose&quot; });
+
+await db.Update&lt;Flower&gt;()
+        .Match(f =&gt; f.Name == &quot;Red Rose&quot;)
+        .Modify(f =&gt; f.Name, &quot;White Rose&quot;)
+        .ExecuteAsync();
+</code></pre>
+<h2 id="handling-multiple-entity-types">Handling multiple entity types</h2>
+<p>it's possible to handle more than one type of entity inside the hooks like below:</p>
+<pre><code class="lang-csharp">protected override Action&lt;T&gt;? OnBeforeSave&lt;T&gt;()
+{
+    return typeof(T) switch
+    {
+        Type t when t == typeof(Book) =&gt; BookModifier as Action&lt;T&gt;,
+        Type t when t == typeof(Flower) =&gt; FlowerModifier as Action&lt;T&gt;,
+        _ =&gt; null
+    };
+
+    void BookModifier(Book b)
+    {
+        b.SavedBy = &quot;Author&quot;;
+        b.SavedOn = DateTime.UtcNow;
+    }
+
+    void FlowerModifier(Flower f)
+    {
+        f.SavedBy = &quot;Human&quot;;
+        f.SavedOn = DateTime.MinValue;
+    }
+}
 </code></pre>
 
 </article>
