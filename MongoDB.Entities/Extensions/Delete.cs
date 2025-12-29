@@ -8,15 +8,15 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-    // /// <summary>
-    // /// Deletes a single entity from MongoDB.
-    // /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    // /// </summary>
-    // /// <param name="entity"></param>
-    // /// <param name="db">The DB instance to use for this operation</param>
-    // /// <param name="cancellation">An optional cancellation token</param>
-    // public static Task<DeleteResult> DeleteAsync<T>(this T entity, DB db, CancellationToken cancellation = default) where T : IEntity
-    //     => db.DeleteAsync<T>(entity.GetId(), cancellation);
+    /// <summary>
+    /// Deletes a single entity from MongoDB.
+    /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="db">The DB instance to use for this operation</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public static Task<DeleteResult> DeleteAsync<T>(this T entity, DB db, CancellationToken cancellation = default) where T : IEntity
+        => db.DeleteAsync<T>(entity.GetId(), cancellation);
 
     /// <summary>
     /// Deletes multiple entities from the database

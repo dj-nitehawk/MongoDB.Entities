@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution/">
+    <File Path=".editorconfig" />
+    <File Path="changelog.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Benchmark/Benchmark.csproj" />
+  <Project Path="MongoDB.Entities/MongoDB.Entities.csproj" />
+  <Project Path="Tests/Tests.csproj" />
+</Solution>
