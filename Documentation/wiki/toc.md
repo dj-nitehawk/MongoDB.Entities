@@ -40,10 +40,6 @@
 
 ## [Fuzzy Text](Indexes-Fuzzy-Text-Search.md)
 
-# [DB Instances TODO](DB-Instances.md)
-
-## [Event Hooks](DB-Instances-Event-Hooks.md)
-
 # [Multiple Databases](Multiple-Databases.md)
 
 ## [Utility Methods](Multiple-Databases-Utility-Methods.md)
@@ -57,6 +53,8 @@
 # [Audit Fields](Audit-Fields.md)
 
 # [Global Filters](Global-Filters.md)
+
+# [Event Hooks](Event-Hooks.md)
 
 # [String Templates](String-Templates.md)
 
