@@ -1,7 +1,13 @@
 # [Documentation](wiki/)
+
 # [Code Samples](wiki/Code-Samples.md)
+
 # [Benchmarks](wiki/Performance-Benchmarks.md)
+
 # [Api Reference](api/)
+
 # [GitHub](https://github.com/dj-nitehawk/MongoDB.Entities)
+
 # [Discord](https://discord.gg/8UpqWT35rj)
-# [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
+
+# [Sponsor](https://bit.ly/sponsor-mongo-db-entities)
