@@ -75,16 +75,16 @@
 
 <hr>
 <h3 id="initialize-connection">Initialize connection</h3>
-<pre><code class="lang-csharp">  var db = await DB.InitAsync(&quot;bookshop&quot;,&quot;localhost&quot;);
+<pre><code class="lang-csharp">  var db = await DB.InitAsync(&quot;bookshop&quot;);
 </code></pre>
 <h3 id="persist-an-entity">Persist an entity</h3>
 <pre><code class="lang-csharp">  var book = new Book { Title = &quot;The Power Of Now&quot; };
-  await book.SaveAsync();
+  await db.SaveAsync(book);
 </code></pre>
 <h3 id="embed-as-document">Embed as document</h3>
 <pre><code class="lang-csharp">  var dickens = new Author { Name = &quot;Charles Dickens&quot; };
   book.Author = dickens.ToDocument();
-  await book.SaveAsync();
+  await db.SaveAsync(book);
 </code></pre>
 <h3 id="update-entity-properties">Update entity properties</h3>
 <pre><code class="lang-csharp">  await db.Update&lt;Book&gt;()
@@ -95,20 +95,20 @@
 </code></pre>
 <h3 id="one-to-one-relationship">One-To-One relationship</h3>
 <pre><code class="lang-csharp">  var hemmingway = new Author { Name = &quot;Ernest Hemmingway&quot; };
-  await hemmingway.SaveAsync();
+  await db.SaveAsync(hemmingway);
   book.MainAuthor = hemmingway;
-  await book.SaveAsync();
+  await db.SaveAsync(book);
 </code></pre>
 <h3 id="one-to-many-relationship">One-To-Many relationship</h3>
 <pre><code class="lang-csharp">  var tolle = new Author { Name = &quot;Eckhart Tolle&quot; };
-  await tolle.SaveAsync();
-  await book.Authors.AddAsync(tolle);
+  await db.SaveAsync(tolle);
+  await book.Authors.AddAsync(tolle, db);
 </code></pre>
 <h3 id="many-to-many-relationship">Many-To-Many relationship</h3>
 <pre><code class="lang-csharp">  var genre = new Genre { Name = &quot;Self Help&quot; };
-  await genre.SaveAsync();
-  await book.AllGenres.AddAsync(genre);
-  await genre.AllBooks.AddAsync(book);
+  await db.SaveAsync(genre);
+  await book.AllGenres.AddAsync(genre, db);
+  await genre.AllBooks.AddAsync(book, db);
 </code></pre>
 <h3 id="queries">Queries</h3>
 <pre><code class="lang-csharp">  var author = await db.Find&lt;Author&gt;().OneAsync(&quot;ID&quot;);
@@ -118,26 +118,18 @@
   var eckhart = await db.Queryable&lt;Author&gt;()
                         .Where(a =&gt; a.Name.Contains(&quot;Eckhart&quot;))
                         .SingleOrDefaultAsync();
-
-  var powerofnow = await genre.AllBooks
-                              .ChildrenQueryable()
-                              .Where(b =&gt; b.Title.Contains(&quot;Power&quot;))
-                              .SingleOrDefaultAsync();
-
-  var selfhelp = await book.AllGenres
-                           .ChildrenQueryable()
-                           .FirstAsync();
 </code></pre>
 <h3 id="delete">Delete</h3>
-<pre><code class="lang-csharp">  await book.MainAuthor.DeleteAsync();
-  await book.AllAuthors.DeleteAllAsync();
-  await book.DeleteAsync();
+<pre><code class="lang-csharp">  await book.MainAuthor.DeleteAsync(db);
+  await book.AllAuthors.DeleteAllAsync(db);
+  await db.DeleteAsync(book);
   await db.DeleteAsync&lt;Genre&gt;(&quot;ID&quot;);
   await db.DeleteAsync&lt;Book&gt;(b =&gt; b.Title == &quot;The Power Of Now&quot;);
 </code></pre>
 <hr>
-<div class="actions-container">
-  <div><a href="Get-Started.html">Get Started</a></div>
+<div style="display:flex;justify-content:left;gap:12px;margin:0;">
+  <a href="Get-Started.html" style="display:inline-block;padding:10px 16px;background:#0078D4;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;box-shadow:0 2px 4px rgba(0,0,0,0.1);">Get Started</a> 
+  <a href="Performance-Benchmarks.html" style="display:inline-block;padding:10px 16px;background:#0A6ED1;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;box-shadow:0 2px 4px rgba(0,0,0,0.1);">Benchmarks</a>
 </div>
 <hr>
 <h1 id="tutorials">Tutorials</h1>
