@@ -42,8 +42,6 @@
 
 # [DB Instances TODO](DB-Instances.md)
 
-## [Audit Fields](DB-Instances-Audit-Fields.md)
-
 ## [Event Hooks](DB-Instances-Event-Hooks.md)
 
 ## [Global Filters](DB-Instances-Global-Filters.md)
@@ -57,6 +55,8 @@
 # [File Storage](File-Storage.md)
 
 # [Change Streams](Change-Streams.md)
+
+# [Audit Fields](Audit-Fields.md)
 
 # [String Templates](String-Templates.md)
 

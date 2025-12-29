@@ -1,10 +1,11 @@
 # The DBContext
 
-the *DBContext* class exists for the sole purpose of facilitating the below-mentioned functionality. 
+the *DBContext* class exists for the sole purpose of facilitating the below-mentioned functionality.
 it is a thin wrapper around the `DB` instance methods.
 
 ### Needed for:
-- [Automatic audit fields](DB-Instances-Audit-Fields.md)
+
+- [Automatic audit fields](Audit-Fields.md)
 - [Custom event hooks](DB-Instances-Event-Hooks.md)
 - [Global filters](DB-Instances-Global-Filters.md)
 - [Dependency injection](DB-Instances.md#dependency-injection) (debatable)
@@ -14,7 +15,8 @@ it is a thin wrapper around the `DB` instance methods.
 ```csharp
 var db = new DBContext("database-name", "127.0.0.1");
 ```
-connection parameters only need to be supplied to the constructor if you **haven't** initialized the same database connection before in your application. 
+
+connection parameters only need to be supplied to the constructor if you **haven't** initialized the same database connection before in your application.
 if for example you have done: `await DB.InitAsync(...)` on app startup, then simply do `new DBContext()` without supplying any parameters.
 
 **Note:**
@@ -23,6 +25,7 @@ the DBContext constructor does **not** try to establish network connectivity wit
 ## Perform operations
 
 all operations supported by the instance `DB` class are available via DBContext instances like so:
+
 ```csharp
 await db.SaveAsync(new Book { Title = "test" });
 
