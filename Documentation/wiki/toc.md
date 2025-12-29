@@ -44,8 +44,6 @@
 
 ## [Event Hooks](DB-Instances-Event-Hooks.md)
 
-## [Global Filters](DB-Instances-Global-Filters.md)
-
 # [Multiple Databases](Multiple-Databases.md)
 
 ## [Utility Methods](Multiple-Databases-Utility-Methods.md)
@@ -57,6 +55,8 @@
 # [Change Streams](Change-Streams.md)
 
 # [Audit Fields](Audit-Fields.md)
+
+# [Global Filters](Global-Filters.md)
 
 # [String Templates](String-Templates.md)
 

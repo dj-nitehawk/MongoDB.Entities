@@ -7,7 +7,7 @@ it is a thin wrapper around the `DB` instance methods.
 
 - [Automatic audit fields](Audit-Fields.md)
 - [Custom event hooks](DB-Instances-Event-Hooks.md)
-- [Global filters](DB-Instances-Global-Filters.md)
+- [Global filters](Global-Filters.md)
 - [Dependency injection](DB-Instances.md#dependency-injection) (debatable)
 
 ## Create an instance
