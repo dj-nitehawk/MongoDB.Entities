@@ -20,12 +20,12 @@ there's a special `Date` type you can use to store date/time values in mongodb i
     .Save();
 
 // query with 'Ticks'
-    var book = await DB.Find<Book>()
+    var book = await db.Find<Book>()
                        .Match(b => b.PublishedOn.Ticks < DateTime.UtcNow.Ticks)
                        .ExecuteFirstAsync();
 
 // query with 'DateTime'
-    var book = await DB.Find<Book>()
+    var book = await db.Find<Book>()
                        .Match(b => b.PublishedOn.DateTime < DateTime.UtcNow)
                        .ExecuteFirstAsync();
 

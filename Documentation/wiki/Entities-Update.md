@@ -1,7 +1,7 @@
 # Update without retrieving
-you can update a single or batch of entities on the mongodb server by supplying a filter criteria and a subset of properties and the data/ values to be set on them as shown below.
+you can update a single or batch of entities on the mongodb server by supplying a filter criteria and a subset of properties and the data/values to be set on them as shown below.
 ```csharp
-await DB.Update<Author>()
+await db.Update<Author>()
         .Match(a => a.Surname == "Stark")
         .Modify(a => a.Name, "Brandon")
         .Modify(a => a.Surname, "The Broken")
@@ -12,7 +12,7 @@ specify the filter criteria with a lambda expression using the `.Match()` method
 ## Update by ID
 if you'd like to update a single entity, simply target it by `ID` like below:
 ```csharp
-await DB.Update<Author>()
+await db.Update<Author>()
         .MatchID("xxxxxxxxxxx")
         .Modify(a => a.Surname, "The Broken")
         .ExecuteAsync();
@@ -21,7 +21,7 @@ await DB.Update<Author>()
 ## Update by matching with filters
 you can use [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods to match entities. all of the filters of the official driver are available for use as follows.
 ```csharp
-await DB.Update<Author>()
+await db.Update<Author>()
         .Match(f=> f.Eq(a=>a.Surname,"Stark") & f.Gt(a=>a.Age,35))
         .Modify(a => a.Name, "Brandon")
         .ExecuteAsync();
@@ -30,7 +30,7 @@ await DB.Update<Author>()
 ## Update with builder methods
 also you can use all the [_update definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_UpdateDefinitionBuilder_1.htm) methods supplied by the mongodb driver like so:
 ```csharp
-await DB.Update<Author>()
+await db.Update<Author>()
         .Match(a => a.ID == "xxxxxxx")
         .Modify(x => x.Inc(a => a.Age, 10))
         .Modify(x => x.Set(a => a.Name, "Brandon"))
@@ -41,7 +41,7 @@ await DB.Update<Author>()
 ## Update all properties
 instead of specifying each and every property with `.Modify()` you can simply supply a complete entity using `.ModifyWith()`. all properties of the matched documents will be updated with the corresponding property values of the supplied entity instance.
 ```csharp
-await DB.Update<Book>()
+await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")
         .ModifyWith(book)
         .ExecuteAsync();
@@ -50,7 +50,7 @@ await DB.Update<Book>()
 ## Update only a few specified properties
 you can specify a couple of properties to be updated with the corresponding values from a supplied entity instance like below.
 ```csharp
-await DB.Update<Book>()
+await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")
         .ModifyOnly(b => new { b.Title, b.Price }, book)
         .ExecuteAsync();  
@@ -60,7 +60,7 @@ in the above example, only the `Title` and `Price` of the matched book will be u
 ## Update all others except for the specified properties
 you can update all other properties than the specified properties with the corresponding values from the supplied entity instance like so:
 ```csharp
-await DB.Update<Book>()
+await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")
         .ModifyExcept(b => new { b.Price, b.ISBN }, book)
         .ExecuteAsync();  
@@ -69,7 +69,7 @@ in the above example, all other properties except the `Price` and `ISBN` are upd
 
 # Bulk updates
 ```csharp
-var bulkUpdate = DB.Update<Author>();
+var bulkUpdate = db.Update<Author>();
 
 bulkUpdate.Match(a => a.Age > 25)
           .Modify(a => a.Age, 35)
@@ -88,7 +88,7 @@ first get a reference to a `Update<T>` class. then specify matching criteria wit
 in order to update an entity and retrieve the updated enity, use the `.UpdateAndGet<T>()` method on the `DB` class like so:
 
 ```csharp
-var result = await DB.UpdateAndGet<Book>()
+var result = await db.UpdateAndGet<Book>()
                      .Match(b => b.ID == "xxxxxxxxxxxxx")
                      .Modify(b => b.Title, "updated title")
                      .ExecuteAsync();
@@ -96,7 +96,7 @@ var result = await DB.UpdateAndGet<Book>()
 ## Update and retrieve with projection
 projection of the returned entity is possible using the `.Project()` method before calling `.ExecuteAsync()`. 
 ```csharp
-var result = await DB.UpdateAndGet<Book>()
+var result = await db.UpdateAndGet<Book>()
                      .Match(b => b.ID == "xxxxxxxxxxxxx")
                      .Modify(b => b.Title, "updated title")
                      .Project(b => new Book { Title = b.Title })
@@ -104,7 +104,7 @@ var result = await DB.UpdateAndGet<Book>()
 ```
 you can also project the result to a completely different type using the generic overload like so:
 ```csharp
-var result = await DB.UpdateAndGet<Book, decimal>()
+var result = await db.UpdateAndGet<Book, decimal>()
                      .Match(b => b.ID == "xxxxxxxxxxxxx")
                      .Modify(b => b.Title, "updated title")
                      .Project(b => b.Price)
@@ -120,7 +120,7 @@ the following example does 3 things.
 - removes the Email field.
 
 ```csharp
-await DB.Update<Author>()
+await db.Update<Author>()
         .Match(_ => true)
         .WithPipelineStage("{ $set: { FullName: { $concat: ['$FirstName',' ','$LastName'] }}}")
         .WithPipelineStage("{ $set: { LowerCaseEmail: { $toLower: '$Email' } } }")
@@ -131,7 +131,7 @@ await DB.Update<Author>()
 
 # Array filter updates
 ```csharp
-await DB.Update<Book>()
+await db.Update<Book>()
         .Match(_ => true)
         .WithArrayFilter("{ 'x.Age' : { $gte : 30 } }")
         .Modify("{ $set : { 'Authors.$[x].Age' : 25 } }")

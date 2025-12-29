@@ -1,114 +1,136 @@
-﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
+<!DOCTYPE html>
 <html>
-
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Distinct&lt;T, TProperty&gt;
- | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Distinct&lt;T, TProperty&gt;
- | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <title>Class Distinct&lt;T, TProperty&gt; | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Distinct&lt;T, TProperty&gt; | MongoDB.Entities ">
+      <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+      <meta name="description" content="Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.">
+      <link rel="icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/icon.png" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/icon.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Distinct`2">
+
+        <article data-uid="MongoDB.Entities.Distinct`2">
 
 
 
-  <h1 id="MongoDB_Entities_Distinct_2" data-uid="MongoDB.Entities.Distinct`2" class="text-break">Class Distinct&lt;T, TProperty&gt;
-</h1>
-  <div class="markdown level0 summary"><p>Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.</p>
-</div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
-    <div class="level1"><span class="xref">Distinct&lt;T, TProperty&gt;</span></div>
+  <h1 id="MongoDB_Entities_Distinct_2" data-uid="MongoDB.Entities.Distinct`2" class="text-break">
+Class Distinct&lt;T, TProperty&gt;  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>MongoDB.Entities.dll</dd></dl>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+  <div class="markdown summary"><p>Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Distinct&lt;T, TProperty&gt;
+    where T : IEntity</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>Any Entity that implements IEntity interface</p>
+</dd>
+    <dt><code>TProperty</code></dt>
+    <dd><p>The type of the property of the entity you'd like to get unique values for</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">Object</span></div>
+      <div><span class="xref">Distinct&lt;T, TProperty&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <span class="xref">Object.Equals(Object)</span>
     </div>
@@ -130,715 +152,589 @@
     <div>
       <span class="xref">Object.ToString()</span>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
-  <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
-  <h5 id="MongoDB_Entities_Distinct_2_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Distinct&lt;T, TProperty&gt;
-    where T : IEntity</code></pre>
-  </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>Any Entity that implements IEntity interface</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="parametername">TProperty</span></td>
-        <td><p>The type of the property of the entity you'd like to get unique values for</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
 
 
   <a id="MongoDB_Entities_Distinct_2_ExecuteAsync_" data-uid="MongoDB.Entities.Distinct`2.ExecuteAsync*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)">
+  ExecuteAsync(CancellationToken)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Run the Distinct command in MongoDB server and get a list of unique property values</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;List&lt;TProperty&gt;&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">List</span>&lt;TProperty&gt;&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellation</code> <span class="xref">CancellationToken</span></dt>
+    <dd><p>An optional cancellation token</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span>&lt;<span class="xref">List</span>&lt;TProperty&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_ExecuteCursorAsync_" data-uid="MongoDB.Entities.Distinct`2.ExecuteCursorAsync*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_ExecuteCursorAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)">ExecuteCursorAsync(CancellationToken)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_ExecuteCursorAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)">
+  ExecuteCursorAsync(CancellationToken)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Run the Distinct command in MongoDB server and get a cursor instead of materialized results</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TProperty&gt;&gt; ExecuteCursorAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">IAsyncCursor</span>&lt;TProperty&gt;&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellation</code> <span class="xref">CancellationToken</span></dt>
+    <dd><p>An optional cancellation token</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span>&lt;<span class="xref">IAsyncCursor</span>&lt;TProperty&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_IgnoreGlobalFilters_" data-uid="MongoDB.Entities.Distinct`2.IgnoreGlobalFilters*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_IgnoreGlobalFilters" data-uid="MongoDB.Entities.Distinct`2.IgnoreGlobalFilters">IgnoreGlobalFilters()</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_IgnoreGlobalFilters" data-uid="MongoDB.Entities.Distinct`2.IgnoreGlobalFilters">
+  IgnoreGlobalFilters()
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify that this operation should ignore any global filters</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; IgnoreGlobalFilters()</code></pre>
   </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">
+  Match(Search, String, Boolean, Boolean, String)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Search.html">Search</a></td>
-        <td><span class="parametername">searchType</span></td>
-        <td><p>The type of text matching to do</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><span class="parametername">searchTerm</span></td>
-        <td><p>The search term</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><span class="parametername">caseSensitive</span></td>
-        <td><p>Case sensitivity of the search (optional)</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><span class="parametername">diacriticSensitive</span></td>
-        <td><p>Diacritic sensitivity of the search (optional)</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><span class="parametername">language</span></td>
-        <td><p>The language for the search (optional)</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>searchType</code> <a class="xref" href="MongoDB.Entities.Search.html">Search</a></dt>
+    <dd><p>The type of text matching to do</p>
+</dd>
+    <dt><code>searchTerm</code> <span class="xref">String</span></dt>
+    <dd><p>The search term</p>
+</dd>
+    <dt><code>caseSensitive</code> <span class="xref">Boolean</span></dt>
+    <dd><p>Case sensitivity of the search (optional)</p>
+</dd>
+    <dt><code>diacriticSensitive</code> <span class="xref">Boolean</span></dt>
+    <dd><p>Diacritic sensitivity of the search (optional)</p>
+</dd>
+    <dt><code>language</code> <span class="xref">String</span></dt>
+    <dd><p>The language for the search (optional)</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)">Match(Template)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)">
+  Match(Template)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Template template)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
-        <td><span class="parametername">template</span></td>
-        <td><p>A Template with a find query</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>template</code> <a class="xref" href="MongoDB.Entities.Template.html">Template</a></dt>
+    <dd><p>A Template with a find query</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">
+  Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
-        <td><span class="parametername">filter</span></td>
-        <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>filter</code> <span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</dt>
+    <dd><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+  Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
-        <td><span class="parametername">expression</span></td>
-        <td><p>x =&gt; x.Property == Value</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>expression</code> <span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</dt>
+    <dd><p>x =&gt; x.Property == Value</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">
+  Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
 <p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>
 <p>Note: DB.FluentGeoNear() supports more advanced options</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
-        <td><span class="parametername">coordinatesProperty</span></td>
-        <td><p>The property where 2DCoordinates are stored</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></td>
-        <td><span class="parametername">nearCoordinates</span></td>
-        <td><p>The search point</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
-        <td><span class="parametername">maxDistance</span></td>
-        <td><p>Maximum distance in meters from the search point</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
-        <td><span class="parametername">minDistance</span></td>
-        <td><p>Minimum distance in meters from the search point</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>coordinatesProperty</code> <span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</dt>
+    <dd><p>The property where 2DCoordinates are stored</p>
+</dd>
+    <dt><code>nearCoordinates</code> <a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></dt>
+    <dd><p>The search point</p>
+</dd>
+    <dt><code>maxDistance</code> <span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</dt>
+    <dd><p>Maximum distance in meters from the search point</p>
+</dd>
+    <dt><code>minDistance</code> <span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</dt>
+    <dd><p>Minimum distance in meters from the search point</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_MatchExpression_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression(MongoDB.Entities.Template)">
+  MatchExpression(Template)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; MatchExpression(Template template)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
-        <td><span class="parametername">template</span></td>
-        <td><p>A Template object</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>template</code> <a class="xref" href="MongoDB.Entities.Template.html">Template</a></dt>
+    <dd><p>A Template object</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_MatchExpression_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression(System.String)">MatchExpression(String)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression(System.String)">
+  MatchExpression(String)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; MatchExpression(string expression)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><span class="parametername">expression</span></td>
-        <td><p>{ $gt: ['$Property1', '$Property2'] }</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>expression</code> <span class="xref">String</span></dt>
+    <dd><p>{ $gt: ['$Property1', '$Property2'] }</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_MatchString_" data-uid="MongoDB.Entities.Distinct`2.MatchString*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_MatchString_System_String_" data-uid="MongoDB.Entities.Distinct`2.MatchString(System.String)">MatchString(String)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_MatchString_System_String_" data-uid="MongoDB.Entities.Distinct`2.MatchString(System.String)">
+  MatchString(String)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; MatchString(string jsonString)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><span class="parametername">jsonString</span></td>
-        <td><p>{ Title : 'The Power Of Now' }</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonString</code> <span class="xref">String</span></dt>
+    <dd><p>{ Title : 'The Power Of Now' }</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Option_" data-uid="MongoDB.Entities.Distinct`2.Option*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Option_System_Action_MongoDB_Driver_DistinctOptions__" data-uid="MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})">Option(Action&lt;DistinctOptions&gt;)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Option_System_Action_MongoDB_Driver_DistinctOptions__" data-uid="MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})">
+  Option(Action&lt;DistinctOptions&gt;)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify an option for this find command (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Option(Action&lt;DistinctOptions&gt; option)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">DistinctOptions</span>&gt;</td>
-        <td><span class="parametername">option</span></td>
-        <td><p>x =&gt; x.OptionName = OptionValue</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>option</code> <span class="xref">Action</span>&lt;<span class="xref">DistinctOptions</span>&gt;</dt>
+    <dd><p>x =&gt; x.OptionName = OptionValue</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Property_" data-uid="MongoDB.Entities.Distinct`2.Property*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Property(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
+  Property(Expression&lt;Func&lt;T, Object&gt;&gt;)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the property you want to get the unique values for (as a member expression)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Property(Expression&lt;Func&lt;T, object&gt;&gt; property)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
-        <td><span class="parametername">property</span></td>
-        <td><p>x =&gt; x.Address.Street</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>property</code> <span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</dt>
+    <dd><p>x =&gt; x.Address.Street</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Distinct_2_Property_" data-uid="MongoDB.Entities.Distinct`2.Property*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Property_System_String_" data-uid="MongoDB.Entities.Distinct`2.Property(System.String)">Property(String)</h4>
+
+  <h3 id="MongoDB_Entities_Distinct_2_Property_System_String_" data-uid="MongoDB.Entities.Distinct`2.Property(System.String)">
+  Property(String)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Specify the property you want to get the unique values for (as a string path)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Property(string property)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><span class="parametername">property</span></td>
-        <td><p>ex: &quot;Address.Street&quot;</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>property</code> <span class="xref">String</span></dt>
+    <dd><p>ex: &quot;Address.Street&quot;</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                </ul>
-              </div>
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
-                <div></div>
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
         </div>
+
+
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-      
-          </div>
-        </div>
-      </footer>
-    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

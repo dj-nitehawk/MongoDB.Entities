@@ -28,18 +28,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/SOURCE-CONTROL/MongoDB.Entities/Documentation&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "last_opened_file_path": "D:/SOURCE-CONTROL/MongoDB.Entities/Documentation",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General"
   }
-}</component>
-  <component name="RunManager" selected="Shell Script.Build">
+}]]></component>
+  <component name="RunManager">
     <configuration name="Build" type="ShConfigurationType" focusToolWindowBeforeRun="true">
       <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
@@ -70,16 +71,23 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Shell Script.Serve" />
-      <item itemvalue="Shell Script.Build" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a5670e1d-f6dc-4331-866b-57cdea0c1a73" name="Changes" comment="" />
+      <created>1766737670735</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766737670735</updated>
+    </task>
+    <servers />
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
+    <option featureType="com.intellij.configurationType" implementationName="ShConfigurationType" />
     <option featureType="dependencySupport" implementationName="executable:docker" />
     <option featureType="dependencySupport" implementationName="executable:kubectl" />
   </component>

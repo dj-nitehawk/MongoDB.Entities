@@ -1,5 +1,6 @@
 # Async-only api
-This library no longer supports synchronous operations after version 20 as it was discovered that the official mongodb driver is doing faux sync (sync-over-async anti-pattern) under the hood in order to maintain backward compatibility. 
+
+This library no longer supports synchronous operations after version 20 as it was discovered that the official mongodb driver is doing faux sync (sync-over-async antipattern) under the hood in order to maintain backward compatibility.
 
 > "One caveat is that the synchronous legacy API in 2.0 is implemented by calling the low level async API and blocking, waiting for the Task to complete. This is not considered a performant way to use async APIs, so for performance-sensitive code you may prefer to use the 1.10 version of the driver until you are ready to convert your application to use the new async API." - [_Robert Stem_](https://www.mongodb.com/blog/post/introducing-20-net-driver)
 
@@ -12,14 +13,14 @@ however, in places where you can't call async code, you can wrap the async metho
 ```csharp
 Task.Run(async () =>
 {
-    await DB.InitAsync("MyDatabase", "127.0.0.1");
+    await DB.InitAsync("MyDatabase");
 })
 .GetAwaiter()
 .GetResult();
 ```
 
 > [!tip]
-> try not to do that except for calling the init method once at app start-up. 
+> try not to do that except for calling the init method once at app start-up.
 
 ## Sync-over-async wrapper utility
 
@@ -28,13 +29,13 @@ if for whatever reason you refuse to go the async/await route and don't really c
 ```csharp
 Run.Sync(() => book.SaveAsync());
 
-var allBooks = Run.Sync(() =>
-
-    DB.Find<Book>()
-      .Match(_ => true)
-      .ExecuteAsync()
-
-);
+var allBooks = Run.Sync(
+    () =>
+    {
+        return db.Find<Book>()
+                 .Match(_ => true)
+                 .ExecuteAsync();
+    });
 ```
 
 # LINQ async extensions
@@ -45,8 +46,9 @@ in order to write async LINQ queries, make sure to import the mongodb linq exten
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 ```
+
 ```csharp
-var lastAuthor = await (from a in author.Queryable()
+var lastAuthor = await (from a in db.Queryable<Author>()
                         orderby a.ModifiedOn descending
                         select a).FirstOrDefaultAsync();
 ```

@@ -1,6 +1,6 @@
 # Define entities
 
-add the import statement shown below and create your entities by inheriting the `Entity` base class.
+add the import statement and create your entities by inheriting the `Entity` base class.
 
 ```csharp
 using MongoDB.Entities;
@@ -77,15 +77,12 @@ public class Book : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 ```
 
 # Customizing the ID format
 
-the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the type/format of the ID, simply override the `GenerateNewID` and `HasDefaultID` methods of the `Entity` base class or implement the `IEntity` interface. if implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute to indicate that it's the primary key.
+the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the type/format of the ID, simply override the `GenerateNewID` method of the `Entity` base class or implement the `IEntity` interface. if implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute to indicate that it's the primary key.
 
 ```csharp
 public class Book : IEntity
@@ -95,9 +92,6 @@ public class Book : IEntity
 
     public object GenerateNewID()
         => Guid.NewGuid();
-
-    public bool HasDefaultID()
-        => Id == Guid.Empty;
 }
 ```
 
@@ -124,7 +118,7 @@ public class Book : IEntity
 # Create a collection explicitly
 
 ```csharp
-await DB.CreateCollectionAsync<Book>(o =>
+await db.CreateCollectionAsync<Book>(o =>
 {
     o.Collation = new Collation("es");
     o.Capped = true;
@@ -141,5 +135,5 @@ however, you'd have to create the collection like above if you need to use a cus
 # Drop a collection
 
 ```csharp
-await DB.DropCollectionAsync<Book>();
+await db.DropCollectionAsync<Book>();
 ```

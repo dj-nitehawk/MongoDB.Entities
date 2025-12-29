@@ -1,115 +1,134 @@
-﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
+<!DOCTYPE html>
 <html>
-
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-39155502-5');
-    </script>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Index&lt;T&gt;
- | MongoDB.Entities </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Index&lt;T&gt;
- | MongoDB.Entities ">
-    <meta name="generator" content="docfx ">
-  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  <meta property="docfx:newtab" content="true">
-    <meta property="og:title" content="MongoDB.Entities">
-    <meta property="og:site_name" content="MongoDB.Entities">
-    <meta property="og:url" content="https://mongodb-entities.com">
-    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+      <title>Class Index&lt;T&gt; | MongoDB.Entities </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Index&lt;T&gt; | MongoDB.Entities ">
+      <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+      <meta name="description" content="Represents an index creation command TIP: Define the keys first with .Key() method and finally call the .Create() method.">
+      <link rel="icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/icon.png" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/icon.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Index`1">
+
+        <article data-uid="MongoDB.Entities.Index`1">
 
 
 
-  <h1 id="MongoDB_Entities_Index_1" data-uid="MongoDB.Entities.Index`1" class="text-break">Class Index&lt;T&gt;
-</h1>
-  <div class="markdown level0 summary"><p>Represents an index creation command</p>
+  <h1 id="MongoDB_Entities_Index_1" data-uid="MongoDB.Entities.Index`1" class="text-break">
+Class Index&lt;T&gt;  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>MongoDB.Entities.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an index creation command</p>
 <p>TIP: Define the keys first with .Key() method and finally call the .Create() method.</p>
 </div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
-    <div class="level1"><span class="xref">Index&lt;T&gt;</span></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Index&lt;T&gt;
+    where T : IEntity</code></pre>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>Any class that implements IEntity</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">Object</span></div>
+      <div><span class="xref">Index&lt;T&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <span class="xref">Object.Equals(Object)</span>
     </div>
@@ -131,302 +150,238 @@
     <div>
       <span class="xref">Object.ToString()</span>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
-  <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
-  <h5 id="MongoDB_Entities_Index_1_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Index&lt;T&gt;
-    where T : IEntity</code></pre>
-  </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>Any class that implements IEntity</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
 
 
   <a id="MongoDB_Entities_Index_1_CreateAsync_" data-uid="MongoDB.Entities.Index`1.CreateAsync*"></a>
-  <h4 id="MongoDB_Entities_Index_1_CreateAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)">CreateAsync(CancellationToken)</h4>
+
+  <h3 id="MongoDB_Entities_Index_1_CreateAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)">
+  CreateAsync(CancellationToken)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Call this method to finalize defining the index after setting the index keys and options.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;string&gt; CreateAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">String</span>&gt;</td>
-        <td><p>The name of the created index</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellation</code> <span class="xref">CancellationToken</span></dt>
+    <dd><p>An optional cancellation token</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span>&lt;<span class="xref">String</span>&gt;</dt>
+    <dd><p>The name of the created index</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Index_1_DropAllAsync_" data-uid="MongoDB.Entities.Index`1.DropAllAsync*"></a>
-  <h4 id="MongoDB_Entities_Index_1_DropAllAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)">DropAllAsync(CancellationToken)</h4>
+
+  <h3 id="MongoDB_Entities_Index_1_DropAllAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)">
+  DropAllAsync(CancellationToken)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Drops all indexes for this entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task DropAllAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Task</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellation</code> <span class="xref">CancellationToken</span></dt>
+    <dd><p>An optional cancellation token</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Index_1_DropAsync_" data-uid="MongoDB.Entities.Index`1.DropAsync*"></a>
-  <h4 id="MongoDB_Entities_Index_1_DropAsync_System_String_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)">DropAsync(String, CancellationToken)</h4>
+
+  <h3 id="MongoDB_Entities_Index_1_DropAsync_System_String_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)">
+  DropAsync(String, CancellationToken)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Drops an index by name for this entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task DropAsync(string name, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>The name of the index to drop</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Task</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <span class="xref">String</span></dt>
+    <dd><p>The name of the index to drop</p>
+</dd>
+    <dt><code>cancellation</code> <span class="xref">CancellationToken</span></dt>
+    <dd><p>An optional cancellation token</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Index_1_Key_" data-uid="MongoDB.Entities.Index`1.Key*"></a>
-  <h4 id="MongoDB_Entities_Index_1_Key_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_KeyType_" data-uid="MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)">Key(Expression&lt;Func&lt;T, Object&gt;&gt;, KeyType)</h4>
+
+  <h3 id="MongoDB_Entities_Index_1_Key_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_KeyType_" data-uid="MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)">
+  Key(Expression&lt;Func&lt;T, Object&gt;&gt;, KeyType)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Adds a key definition to the index</p>
 <p>TIP: At least one key definition is required</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Index&lt;T&gt; Key(Expression&lt;Func&lt;T, object&gt;&gt; propertyToIndex, KeyType type)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
-        <td><span class="parametername">propertyToIndex</span></td>
-        <td><p>x =&gt; x.PropertyName</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.KeyType.html">KeyType</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>The type of the key</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Index-1.html">Index</a>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>propertyToIndex</code> <span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</dt>
+    <dd><p>x =&gt; x.PropertyName</p>
+</dd>
+    <dt><code>type</code> <a class="xref" href="MongoDB.Entities.KeyType.html">KeyType</a></dt>
+    <dd><p>The type of the key</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Index-1.html">Index</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MongoDB_Entities_Index_1_Option_" data-uid="MongoDB.Entities.Index`1.Option*"></a>
-  <h4 id="MongoDB_Entities_Index_1_Option_System_Action_MongoDB_Driver_CreateIndexOptions__0___" data-uid="MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})">Option(Action&lt;CreateIndexOptions&lt;T&gt;&gt;)</h4>
+
+  <h3 id="MongoDB_Entities_Index_1_Option_System_Action_MongoDB_Driver_CreateIndexOptions__0___" data-uid="MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})">
+  Option(Action&lt;CreateIndexOptions&lt;T&gt;&gt;)
+  
+  </h3>
+
   <div class="markdown level1 summary"><p>Set the options for this index definition</p>
 <p>TIP: Setting options is not required.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Index&lt;T&gt; Option(Action&lt;CreateIndexOptions&lt;T&gt;&gt; option)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">CreateIndexOptions</span>&lt;T&gt;&gt;</td>
-        <td><span class="parametername">option</span></td>
-        <td><p>x =&gt; x.OptionName = OptionValue</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Index-1.html">Index</a>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>option</code> <span class="xref">Action</span>&lt;<span class="xref">CreateIndexOptions</span>&lt;T&gt;&gt;</dt>
+    <dd><p>x =&gt; x.OptionName = OptionValue</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MongoDB.Entities.Index-1.html">Index</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                </ul>
-              </div>
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
-                <div></div>
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
         </div>
+
+
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-      
-          </div>
-        </div>
-      </footer>
-    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

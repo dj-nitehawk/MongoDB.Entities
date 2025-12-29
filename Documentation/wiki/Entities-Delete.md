@@ -3,22 +3,25 @@
 deleting entities can be achieved in any of the following ways:
 
 ### Delete a single entity
+
 ```csharp
-  await book.DeleteAsync();
+  await db.DeleteAsync(book);
 ```
-### Delete embeded entities
-```csharp
-  await book.OtherAuthors.DeleteAllAsync();
-```
+
 ### Delete by ID
+
 ```csharp
-  await DB.DeleteAsync<Author>("ID");
+  await db.DeleteAsync<Author>("ID");
 ```
+
 ### Delete by multiple IDs
+
 ```csharp
-  await DB.DeleteAsync<Book>(new[] { "ID1", "ID2" });
+  await db.DeleteAsync<Book>(["ID1", "ID2"]);
 ```
+
 ### Delete by lambda expression
+
 ```csharp
-  await DB.DeleteAsync<Book>(b => b.Title.Contains("Trump")); 
+  await db.DeleteAsync<Book>(b => b.Title.Contains("Trump")); 
 ```

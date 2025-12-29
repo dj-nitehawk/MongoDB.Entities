@@ -45,21 +45,21 @@ book.MainAuthor = author.ToReference(); //call ToReference on a child
 book.MainAuthor = new(author);          //assign a child instance
 book.MainAuthor = new("AuthorID");      //assign just the ID value of a child
 
-await book.SaveAsync();                 //call save on parent to store
+await db.SaveAsync(book);               //call save on parent to store
 ```
 
 ### Reference removal
 
 ```csharp
-book.MainAuthor = null;
-await book.SaveAsync();
+book.MainAuthor = null!;
+await db.SaveAsync(book);
 ```
 
 the original `author` in the `Authors` collection is unaffected.
 
 ### Entity deletion
 
-if you delete an entity that is referenced as above, all references pointing to that entity would then be invalid. as such, `book.MainAuthor.ToEntityAsync()` will then return `null`. the `.ToEntityAsync()` method is described below.
+if you delete an entity that is referenced as above, all references pointing to that entity would then be invalid. as such, `book.MainAuthor.ToEntityAsync(db)` will then return `null`. the `.ToEntityAsync()` method is described below.
 
 for example:
 
@@ -70,19 +70,19 @@ book C has 1:1 relationship with author A
 
 now, if you delete author A, the results would be the following:
 
-await bookA.MainAuthor.ToEntityAsync() //returns null
-await bookB.MainAuthor.ToEntityAsync() //returns null
-await bookC.MainAuthor.ToEntityAsync() //returns null
+await bookA.MainAuthor.ToEntityAsync(db) //returns null
+await bookB.MainAuthor.ToEntityAsync(db) //returns null
+await bookC.MainAuthor.ToEntityAsync(db) //returns null
 ```
 
 ## One-to-many & many-to-many
 
 ```csharp
 await book.Authors.AddAsync(author); //one-to-many
-await book.Genres.AddAsync(genre); //many-to-many
+await book.Genres.AddAsync(genre);   //many-to-many
 ```
 
-there's no need to call `book.SaveAsync()` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md#reference-collections) section.
+there's no need to call `db.SaveAsync(book)` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md#reference-collections) section.
 
 however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their `ID` values populated. otherwise, you'd get an exception instructing you to save them both before calling `AddAsync()`.
 
@@ -113,26 +113,26 @@ when you delete an entity that's in a `one-to-many` or `many-to-many` relationsh
 
 for example:
 
-```
-| author A has 3 referenced books:
-|-- book A
-|-- book B
-|-- book C
+```txt
+author A has 3 referenced books:
+├─ book A
+├─ book B
+├─ book C
 
-| author B has 3 referenced book:
-|-- book A
-|-- book B
-|-- book C
+author B has 3 referenced book:
+├─ book A
+├─ book B
+├─ book C
 
 now, if you delete book B, the children of authors A and B would look like this:
 
-| author A:
-|-- book A
-|-- book C
+author A:
+├─ book A
+├─ book C
 
-| author B:
-|-- book A
-|-- book C
+author B:
+├─ book A
+├─ book C
 ```
 
 # ToEntityAsync() shortcut
@@ -140,18 +140,19 @@ now, if you delete book B, the children of authors A and B would look like this:
 a reference can be turned back in to an entity with the `ToEntityAsync()` method.
 
 ```csharp
-var author = await book.MainAuthor.ToEntityAsync();
+var author = await book.MainAuthor.ToEntityAsync(db);
 ```
 
 you can also project the properties you need instead of getting back the complete entity like so:
 
 ```csharp
-var author = await book.MainAuthor
-                       .ToEntityAsync(a => new Author
-                        {
-                          Name = a.Name,
-                          Age = a.Age
-                        });
+var author = await book.MainAuthor.ToEntityAsync(
+                 a => new()
+                 {
+                     Name = a.Name,
+                     Age = a.Age
+                 },
+                 db);
 ```
 
 # Transaction support
