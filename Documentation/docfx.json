@@ -3,8 +3,9 @@
     {
       "src": [
         {
+          "src": "../MongoDB.Entities",
           "files": [
-            "../MongoDB.Entities/MongoDB.Entities.csproj"
+            "MongoDB.Entities.csproj"
           ]
         }
       ],
