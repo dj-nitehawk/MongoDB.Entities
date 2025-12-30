@@ -1,0 +1,20 @@
+-   name: Documentation
+    href: wiki/
+
+-   name: Code Samples
+    href: wiki/Code-Samples.md
+
+-   name: Benchmarks
+    href: wiki/Performance-Benchmarks.md
+
+-   name: API Reference
+    href: api/
+
+-   name: GitHub
+    href: https://github.com/dj-nitehawk/MongoDB.Entities
+
+-   name: Discord
+    href: https://discord.gg/8UpqWT35rj
+
+-   name: Sponsor
+    href: https://bit.ly/sponsor-mongo-db-entities

@@ -32,7 +32,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "last_opened_file_path": "D:/SOURCE-CONTROL/MongoDB.Entities/Documentation",
+    "last_opened_file_path": "D:/SOURCE-CONTROL/MongoDB.Entities/Documentation/wiki",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -40,6 +40,11 @@
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\wiki" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Build" type="ShConfigurationType" focusToolWindowBeforeRun="true">
       <option name="SCRIPT_TEXT" value="" />
