@@ -4,38 +4,39 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
+    /// <summary>
+    /// Gets the name of the Identity object
+    /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-    extension<T>(T entity) where T : IEntity
+    internal static string GetIdName<T>(this T entity) where T : IEntity
+        => Cache<T>.IdPropName;
+
+    /// <summary>
+    /// Gets the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static object GetId<T>(this T entity) where T : IEntity
+        => Cache<T>.IdGetter(entity);
+
+    /// <summary>
+    /// Gets stored representation of the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static BsonValue GetBsonId<T>(this T entity) where T : IEntity
     {
-        /// <summary>
-        /// Gets the name of the Identity object
-        /// </summary>
-        internal string GetIdName()
-            => Cache<T>.IdPropName;
+        var bsonEntity = entity.ToBsonDocument();
 
-        /// <summary>
-        /// Gets the Identity object
-        /// </summary>
-        internal object GetId()
-            => Cache<T>.IdGetter(entity);
-
-        /// <summary>
-        /// Gets stored representation of the Identity object
-        /// </summary>
-        internal BsonValue GetBsonId()
-        {
-            var bsonEntity = entity.ToBsonDocument();
-
-            return bsonEntity.GetValue(Cache<T>.IdBsonName);
-        }
-
-        /// <summary>
-        /// Sets the Identity object
-        /// </summary>
-        internal void SetId(object id)
-            => Cache<T>.IdSetter(entity, id);
-
-        internal bool HasDefaultID()
-            => Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
+        return bsonEntity.GetValue(Cache<T>.IdBsonName);
     }
+
+    /// <summary>
+    /// Sets the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static void SetId<T>(this T entity, object id) where T : IEntity
+        => Cache<T>.IdSetter(entity, id);
+
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static bool HasDefaultID<T>(this T entity) where T : IEntity
+        => Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
 }

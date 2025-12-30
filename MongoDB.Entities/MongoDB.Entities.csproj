@@ -21,7 +21,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore dotnetstandard database persistance dal repo</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>13</LangVersion> <!-- docfx doesn't yet support c14 -->
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>

@@ -6,17 +6,14 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-    extension<T>(Expression<T> expression)
-    {
-        internal PropertyInfo PropertyInfo()
-            => (PropertyInfo)expression.MemberInfo();
+    internal static PropertyInfo PropertyInfo<T>(this Expression<T> expression)
+        => (PropertyInfo)expression.MemberInfo();
 
-        internal MemberInfo MemberInfo()
-            => expression.Body switch
-            {
-                MemberExpression m => m.Member,
-                UnaryExpression { Operand: MemberExpression m } => m.Member,
-                _ => throw new NotSupportedException($"[{expression}] is not a valid member expression!")
-            };
-    }
+    internal static MemberInfo MemberInfo<T>(this Expression<T> expression)
+        => expression.Body switch
+        {
+            MemberExpression m => m.Member,
+            UnaryExpression { Operand: MemberExpression m } => m.Member,
+            _ => throw new NotSupportedException($"[{expression}] is not a valid member expression!")
+        };
 }

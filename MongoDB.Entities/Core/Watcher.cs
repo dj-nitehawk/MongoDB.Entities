@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using MongoDB.Entities;
 
 namespace MongoDB.Entities;
 
@@ -14,14 +15,11 @@ public delegate Task AsyncEventHandler<in TEventArgs>(TEventArgs args);
 
 public static class AsyncEventHandlerExtensions
 {
-    extension<TEventArgs>(AsyncEventHandler<TEventArgs> handler)
-    {
-        public IEnumerable<AsyncEventHandler<TEventArgs>> GetHandlers()
-            => handler.GetInvocationList().Cast<AsyncEventHandler<TEventArgs>>();
+    public static IEnumerable<AsyncEventHandler<TEventArgs>> GetHandlers<TEventArgs>(this AsyncEventHandler<TEventArgs> handler)
+        => handler.GetInvocationList().Cast<AsyncEventHandler<TEventArgs>>();
 
-        public Task InvokeAllAsync(TEventArgs args)
-            => Task.WhenAll(handler.GetHandlers().Select(h => h(args)));
-    }
+    public static Task InvokeAllAsync<TEventArgs>(this AsyncEventHandler<TEventArgs> handler, TEventArgs args)
+        => Task.WhenAll(handler.GetHandlers().Select(h => h(args)));
 }
 
 /// <summary>
