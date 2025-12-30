@@ -30,7 +30,7 @@ the above code builds an aggregation pipeline that will find all the documents t
 
 you can then add more pipeline stages to the above query in order to do further processing. you can specify all the supported options for `$geoNear` using the constructor above.
 
-# Other fluent interfaces
+## Other fluent interfaces
 
 there are also fluent counterparts of other methods such as:
 

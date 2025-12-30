@@ -8,6 +8,8 @@
 
 # [Get Started](Get-Started.md)
 
+## [Code Samples](Code-Samples.md)
+
 # [Entities](Entities.md)
 
 ## [Save](Entities-Save.md)

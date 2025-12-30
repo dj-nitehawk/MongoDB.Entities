@@ -11,7 +11,7 @@ public class Book : Entity
 }
 ```
 
-# Ignore properties
+## Ignore properties
 
 if there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute`.
 you can prevent null/default values from being stored with the use of `IgnoreDefaultAttribute`.
@@ -27,7 +27,7 @@ public class Book : Entity
 }
 ```
 
-# Customize field names
+## Customize field names
 
 you can set the field names of the documents stored in mongodb using the `FieldAttribute` like so:
 
@@ -39,7 +39,7 @@ public class Book
 }
 ```
 
-# Customize collection names
+## Customize collection names
 
 by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the `CollectionAttribute` as follows:
 
@@ -51,7 +51,7 @@ public class Author : Entity
 }
 ```
 
-# Optional auto-managed properties
+## Optional auto-managed properties
 
 there are 2 optional interfaces `ICreatedOn` & `IModifiedOn` that you can add to entity class definitions like so:
 
@@ -66,7 +66,7 @@ public class Book : Entity, ICreatedOn, IModifiedOn
 
 if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.
 
-# The IEntity interface
+## The IEntity interface
 
 if for whatever reason, you're unable to inherit the `Entity` base class, you can simply implement the `IEntity` interface to make your classes compatible with the library like so:
 
@@ -80,7 +80,7 @@ public class Book : IEntity
 }
 ```
 
-# Customizing the ID format
+## Customizing the ID format
 
 the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the type/format of the ID, simply override the `GenerateNewID` method of the `Entity` base class or implement the `IEntity` interface. if implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute to indicate that it's the primary key.
 
@@ -102,7 +102,6 @@ public class Book : IEntity
 > - long
 > - ObjectId
 
-<!-- <h2 style="color:#cb0000">A word of warning about custom IDs</h2> -->
 > [!warning]
 > it is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).
 >
@@ -115,7 +114,7 @@ public class Book : IEntity
 >
 >so you're better off sticking with `ObjectId` because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.
 
-# Create a collection explicitly
+## Create a collection explicitly
 
 ```csharp
 await db.CreateCollectionAsync<Book>(o =>
@@ -132,7 +131,7 @@ however, you'd have to create the collection like above if you need to use a cus
 > [!note]
 > if a collection already exists for the specified entity type, an exception will be thrown.
 
-# Drop a collection
+## Drop a collection
 
 ```csharp
 await db.DropCollectionAsync<Book>();

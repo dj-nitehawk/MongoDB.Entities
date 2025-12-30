@@ -1,4 +1,4 @@
-# GridFS alternative
+## GridFS alternative
 
 this library features a GridFS alternative where you can stream upload & download files in chunks to keep memory usage at a minimum when dealing with large files. there is no limitation on the size or type of file you can store and the API is designed to be much simpler than GridFS.
 
@@ -41,7 +41,7 @@ the `Data()` method on the file entity gives you access to a couple of options f
 
 in addition to the properties you added, there will also be `FileSize`, `ChunkCount` & `UploadSuccessful` properties on the file entity. the file size reports how much data has been read from the stream in bytes if the upload is still in progress or the total file size if the upload is complete. chunk count reports how many number of pieces the file has been broken into for storage. *UploadSuccessful* will only return true if the process completed without any issues.
 
-#### Data integrity verification
+### Data integrity verification
 
 you have the option of specifying an MD5 hash when uploading and get mongodb to throw an `InvalidDataException` in case the data stream has got corrupted during the upload/transfer process. typically you'd calculate an MD5 hash value in your front-end/ui app before initiating the file upload and set it as a property value on the file entity like so:
 
@@ -78,6 +78,6 @@ alternatively, if the ID of the file entity is known, you can avoid fetching the
 await db.File<Picture>("FileID").DownloadAsync(stream);
 ```
 
-### Transaction support
+## Transaction support
 
 uploading & downloading file data within a transaction requires passing in a session to the upload and download methods. see [here](Transactions.md#file-storage) for an example.

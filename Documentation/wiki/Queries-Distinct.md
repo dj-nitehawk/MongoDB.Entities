@@ -5,7 +5,7 @@ you can get a list of unique values for a given property of an entity with the `
 `T` is the type of entity you want to query.
 `TProperty` is the type of the property whose unique values you want returned.
 
-### Get a list of all distinct values
+## Get a list of all distinct values
 
 ```csharp
 var genres = await db.Distinct<Book, string>()
@@ -15,7 +15,7 @@ var genres = await db.Distinct<Book, string>()
 
 use `.Property()` to specify the property you want to get the unique values of, and finally call the `.ExecuteAsync()` method.
 
-### Get distinct values for a subset of entities
+## Get distinct values for a subset of entities
 
 ```csharp
 var genres = await db.Distinct<Book, string>()

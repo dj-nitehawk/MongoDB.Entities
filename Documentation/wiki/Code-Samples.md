@@ -1,20 +1,20 @@
 # Code Samples
 ---
 
-### Initialize connection
+## Initialize connection
 
 ```csharp
   var db = await DB.InitAsync("bookshop");
 ```
 
-### Persist an entity
+## Persist an entity
 
 ```csharp
   var book = new Book { Title = "The Power Of Now" };
   await db.SaveAsync(book);
 ```
 
-### Embed as document
+## Embed as document
 
 ```csharp
   var dickens = new Author { Name = "Charles Dickens" };
@@ -22,7 +22,7 @@
   await db.SaveAsync(book);
 ```
 
-### Update entity properties
+## Update entity properties
 
 ```csharp
   await db.Update<Book>()
@@ -32,7 +32,7 @@
           .ExecuteAsync();
 ```
 
-### One-To-One relationship
+## One-To-One relationship
 
 ```csharp
   var hemmingway = new Author { Name = "Ernest Hemmingway" };
@@ -41,7 +41,7 @@
   await db.SaveAsync(book);
 ```
 
-### One-To-Many relationship
+## One-To-Many relationship
 
 ```csharp
   var tolle = new Author { Name = "Eckhart Tolle" };
@@ -49,7 +49,7 @@
   await book.Authors.AddAsync(tolle, db);
 ```
 
-### Many-To-Many relationship
+## Many-To-Many relationship
 
 ```csharp
   var genre = new Genre { Name = "Self Help" };
@@ -58,7 +58,7 @@
   await genre.AllBooks.AddAsync(book, db);
 ```        
 
-### Queries
+## Queries
 
 ```csharp
   var author = await db.Find<Author>().OneAsync("ID");
@@ -70,7 +70,7 @@
                         .SingleOrDefaultAsync();
 ```
 
-### Delete
+## Delete
 
 ```csharp
   await book.MainAuthor.DeleteAsync(db);

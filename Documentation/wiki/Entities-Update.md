@@ -1,5 +1,7 @@
 # Update without retrieving
+
 you can update a single or batch of entities on the mongodb server by supplying a filter criteria and a subset of properties and the data/values to be set on them as shown below.
+
 ```csharp
 await db.Update<Author>()
         .Match(a => a.Surname == "Stark")
@@ -7,10 +9,13 @@ await db.Update<Author>()
         .Modify(a => a.Surname, "The Broken")
         .ExecuteAsync();
 ```
+
 specify the filter criteria with a lambda expression using the `.Match()` method to indicate which entities/documents you want to target for the update. then use multiples of the `.Modify()` method to specify which properties you want updated with what data. finally call the `.ExecuteAsync()` method to run the update command which will take place remotely on the database server.
 
 ## Update by ID
+
 if you'd like to update a single entity, simply target it by `ID` like below:
+
 ```csharp
 await db.Update<Author>()
         .MatchID("xxxxxxxxxxx")
@@ -19,7 +24,9 @@ await db.Update<Author>()
 ```
 
 ## Update by matching with filters
+
 you can use [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods to match entities. all of the filters of the official driver are available for use as follows.
+
 ```csharp
 await db.Update<Author>()
         .Match(f=> f.Eq(a=>a.Surname,"Stark") & f.Gt(a=>a.Age,35))
@@ -28,7 +35,9 @@ await db.Update<Author>()
 ```
 
 ## Update with builder methods
+
 also you can use all the [_update definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_UpdateDefinitionBuilder_1.htm) methods supplied by the mongodb driver like so:
+
 ```csharp
 await db.Update<Author>()
         .Match(a => a.ID == "xxxxxxx")
@@ -39,7 +48,9 @@ await db.Update<Author>()
 ```
 
 ## Update all properties
+
 instead of specifying each and every property with `.Modify()` you can simply supply a complete entity using `.ModifyWith()`. all properties of the matched documents will be updated with the corresponding property values of the supplied entity instance.
+
 ```csharp
 await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")
@@ -48,26 +59,33 @@ await db.Update<Book>()
 ```
 
 ## Update only a few specified properties
+
 you can specify a couple of properties to be updated with the corresponding values from a supplied entity instance like below.
+
 ```csharp
 await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")
         .ModifyOnly(b => new { b.Title, b.Price }, book)
         .ExecuteAsync();  
 ```
+
 in the above example, only the `Title` and `Price` of the matched book will be updated in the database.
 
 ## Update all others except for the specified properties
+
 you can update all other properties than the specified properties with the corresponding values from the supplied entity instance like so:
+
 ```csharp
 await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")
         .ModifyExcept(b => new { b.Price, b.ISBN }, book)
         .ExecuteAsync();  
 ```
+
 in the above example, all other properties except the `Price` and `ISBN` are updated with the values from the book instance.
 
-# Bulk updates
+## Bulk updates
+
 ```csharp
 var bulkUpdate = db.Update<Author>();
 
@@ -81,9 +99,10 @@ bulkUpdate.Match(a => a.Sex == "Male")
 
 await bulkUpdate.ExecuteAsync();
 ```
+
 first get a reference to a `Update<T>` class. then specify matching criteria with `Match()` method and modifications with `Modify()` method just like you would with a regular update. then instead of calling `ExecuteAsync()`, simply call `AddToQueue()` in order to queue it up for batch execution. when you are ready to commit the updates, call `ExecuteAsync()` which will issue a single `bulkWrite` command to the database.
 
-# Update and retrieve
+## Update and retrieve
 
 in order to update an entity and retrieve the updated enity, use the `.UpdateAndGet<T>()` method on the `DB` class like so:
 
@@ -93,8 +112,11 @@ var result = await db.UpdateAndGet<Book>()
                      .Modify(b => b.Title, "updated title")
                      .ExecuteAsync();
 ```
-## Update and retrieve with projection
-projection of the returned entity is possible using the `.Project()` method before calling `.ExecuteAsync()`. 
+
+### Update and retrieve with projection
+
+projection of the returned entity is possible using the `.Project()` method before calling `.ExecuteAsync()`.
+
 ```csharp
 var result = await db.UpdateAndGet<Book>()
                      .Match(b => b.ID == "xxxxxxxxxxxxx")
@@ -102,7 +124,9 @@ var result = await db.UpdateAndGet<Book>()
                      .Project(b => new Book { Title = b.Title })
                      .ExecuteAsync();
 ```
+
 you can also project the result to a completely different type using the generic overload like so:
+
 ```csharp
 var result = await db.UpdateAndGet<Book, decimal>()
                      .Match(b => b.ID == "xxxxxxxxxxxxx")
@@ -111,10 +135,12 @@ var result = await db.UpdateAndGet<Book, decimal>()
                      .ExecuteAsync();
 ```
 
-# Aggregation pipeline updates
+## Aggregation pipeline updates
+
 starting from mongodb sever v4.2, we can refer to existing fields of the documents when updating as described [here](https://docs.mongodb.com/master/reference/command/update/index.html#update-with-aggregation-pipeline).
 
 the following example does 3 things.
+
 - creates a 'FullName' field by concatenating the values from 'FirstName' and 'LastName' fields.
 - creates a 'LowerCaseEmail' field by getting the value from 'Email' field and lower-casing it.
 - removes the Email field.
@@ -127,9 +153,11 @@ await db.Update<Author>()
         .WithPipelineStage("{ $unset: 'Email'}")
         .ExecutePipelineAsync();
 ```
+
 **note:** pipeline updates and regular updates cannot be used together in one command as it's not supported by the official c# driver.
 
-# Array filter updates
+## Array filter updates
+
 ```csharp
 await db.Update<Book>()
         .Match(_ => true)
@@ -137,4 +165,5 @@ await db.Update<Book>()
         .Modify("{ $set : { 'Authors.$[x].Age' : 25 } }")
         .ExecuteAsync();
 ```
+
 the above update command will set the age of all authors of books where the age is 30 years or older to 25. refer to [this document](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) for more info on array filters.

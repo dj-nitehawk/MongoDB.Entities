@@ -2,7 +2,7 @@
 
 you can store and retrieve Entities in multiple databases on either a single server or multiple servers. the only requirement is to have unique names for each database. the following example demonstrates how to use multiple databases.
 
-### Test case usage example: 1 customer per database
+## Tenant per database example
 
 It save the same Entity (Auto) to two different databases.
 
@@ -45,7 +45,7 @@ var _db2 = await DB.InitAsync("Customer2");
     Assert.IsNull(res2);
 ```
 
-### Limitations
+## Limitations
 
 - cross-database relationships with `Many<T>` is not supported.
 - no cross-database joins/ look-ups as the driver doesn't support it.

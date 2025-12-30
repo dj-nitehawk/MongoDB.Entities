@@ -1,4 +1,4 @@
-# Fuzzy Text Search
+## Fuzzy Text Search
 
 fuzzy text matching is done using the [double metaphone](https://en.wikipedia.org/wiki/Metaphone) algorythm. with it you can find non-exact matches that sounds similar to your search term.
 
@@ -6,7 +6,7 @@ fuzzy matching will only work on properties that are of the type [FuzzyString](x
 
 here's how you'd typically get the fuzzy search to work:
 
-## 1. Define entity class
+### 1. Define entity class
 
 ```csharp
 public class Book : Entity
@@ -15,7 +15,7 @@ public class Book : Entity
 }
 ```
 
-## 2. Create text index
+### 2. Create text index
 
 ```csharp
 await db.Index<Book>()
@@ -23,13 +23,13 @@ await db.Index<Book>()
         .CreateAsync();
 ```
 
-## 3. Store the entity
+### 3. Store the entity
 
 ```csharp
 await new Book { AuthorName = "Eckhart Tolle" }.SaveAsync();
 ```
 
-## 4. Do a fuzzy search on the index
+### 4. Do a fuzzy search on the index
 
 ```csharp
 var results = await db.Find<Book>()
@@ -45,7 +45,7 @@ in case you need to start a fluent aggregation pipeline with fuzzy text matching
 db.FluentTextSearch<Book>(Search.Fuzzy, "ekard tole");
 ```
 
-# How it works
+## How it works
 
 when you store text using `FuzzyString` class, the resulting mongodb document will look like this:
 
@@ -62,7 +62,7 @@ when you store text using `FuzzyString` class, the resulting mongodb document wi
 
 the text is stored in both the original form and also a hash consisting of double metaphone key codes for each word. when you perform a fuzzy search, your search term is converted to double metaphone key codes on the fly and matched against the stored hash to find results using standard mongodb full text functionality.
 
-# Sorting Fuzzy Results:
+## Sorting Fuzzy Results:
 
 if you'd like to sort the results by relevence (closeness to the original search term) you can use the following utility method:
 
@@ -78,7 +78,7 @@ you can also exclude items from the resulting list that has a greater edit dista
 var sortedResults = results.SortByRelevance("ekard tole", b => b.AuthorName, 10);
 ```
 
-# Performance considerations:
+## Performance considerations:
 
 by default, you are only allowed to store strings of up to 250 characters in length, which is roughly about 25 to 30 words max. if the you try to store strings larger than that, an exception will be thrown. this is to discourage abuse of this feature which would lead to performance degradation and wasted resources.
 

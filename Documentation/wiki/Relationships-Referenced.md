@@ -135,7 +135,7 @@ author B:
 ├─ book C
 ```
 
-# ToEntityAsync() shortcut
+## ToEntityAsync() shortcut
 
 a reference can be turned back in to an entity with the `ToEntityAsync()` method.
 
@@ -155,6 +155,6 @@ var author = await book.MainAuthor.ToEntityAsync(
                  db);
 ```
 
-# Transaction support
+## Transaction support
 
 adding and removing related entities require passing in the session when used within a transaction. see [here](Transactions.md#relationship-manipulation) for an example.

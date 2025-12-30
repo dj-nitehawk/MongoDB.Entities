@@ -6,7 +6,7 @@ install the nuget package with command:
 dotnet add package MongoDB.Entities
 ```
 
-# Initialize
+## Initialize
 
 import the package with `using MongoDB.Entities;` and initialize the database connection as follows:
 

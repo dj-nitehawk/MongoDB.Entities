@@ -2,19 +2,19 @@
 
 several overloads are available for finding entities as shown below.
 
-### Find one by ID
+## Find one by ID
 
 ```csharp
 var author = await db.Find<Author>().OneAsync("ID");
 ```
 
-### Find many by lambda
+## Find many by lambda
 
 ```csharp
 var authors = await db.Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
 ```
 
-### Find many by filter
+## Find many by filter
 
 ```csharp
 var authors = await db.Find<Author>()
@@ -24,7 +24,7 @@ var authors = await db.Find<Author>()
 > [!tip]
 > all the [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods of the official driver are available for use as shown above.
 
-### Find by 2D coordinates
+## Find by 2D coordinates
 
 ```csharp
 var cafes = await db.Find<Cafe>()
@@ -65,7 +65,7 @@ sorting is specified using `.Sort()` which takes in a lambda for the property to
 
 how many items to skip and take are specified using `.Skip()` and `.Limit()`
 
-### Projections
+## Projections
 
 to avoid the complete entity being returned, you can use `.Project()` with a lambda expression to get back only the properties you need as shown above. it is also possible to use projection builder methods like so:
 
@@ -76,7 +76,7 @@ to avoid the complete entity being returned, you can use `.Project()` with a lam
 > [!tip]
 > to be able to chain projection builder methods like above, please add the import statement **using MongoDB.Driver;** to your class.
 
-#### Projection with exclusions
+### Projection with exclusions
 
 it is also possible to specify an exclusion projection with a `new` expression like so:
 
@@ -89,7 +89,7 @@ var res = await db.Find<Author>()
 
 doing so will return an Author entity with all the properties populated except for the Age and Name properties.
 
-#### Project to a different type
+### Project to a different type
 
 in order to project to a different result type than the input entity type, simply use the generic overload like so:
 
