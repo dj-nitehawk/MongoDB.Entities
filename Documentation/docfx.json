@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "src/**.csproj"
+            "../MongoDB.Entities/MongoDB.Entities.csproj"
           ]
         }
       ],
@@ -44,7 +44,7 @@
         ]
       }
     ],
-    "dest": "../docs",
+    "dest": "_site",
     "globalMetadata": {
       "_appTitle": "MongoDB.Entities",
       "_description": "A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.",
