@@ -82,5 +82,3 @@ returns a path without any filtered positional identifier prepended to it.
 ```csharp
     var path = Prop.Elements<Book>(b => b.Tags);
 ```
-
-test
