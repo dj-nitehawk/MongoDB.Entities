@@ -1,6 +1,6 @@
 # Count entities
 
-there are a couple of ways to get the count of entities stored in a collection.
+There are a couple of ways to get the count of entities stored in a collection.
 
 ## Count estimated total
 
@@ -8,8 +8,8 @@ there are a couple of ways to get the count of entities stored in a collection.
 var count = await db.CountEstimatedAsync<Author>();
 ```
 
-you can get a fast estimate of total entities for a given entity type at the expense of accuracy.
-the above will give you a rough estimate of the total entities using collection meta-data.
+You can get a fast estimate of total entities for a given entity type at the expense of accuracy.
+The above will give you a rough estimate of the total entities using collection meta-data.
 
 ## Count total entities
 
@@ -17,7 +17,7 @@ the above will give you a rough estimate of the total entities using collection 
 var count = await db.CountAsync<Author>();
 ```
 
-the above will give you an accurate count of total entities by running an aggregation query.
+The above will give you an accurate count of total entities by running an aggregation query.
 
 ## Count matches with an expression
 
@@ -42,7 +42,7 @@ var count = await db.CountAsync(filter);
 
 ## Counting children of a relationship
 
-you can get how many entities are there in the opposite side of any relationship as shown below:
+You can get how many entities are there in the opposite side of any relationship as shown below:
 
 ```csharp
 var authorCount = await book.Authors.ChildrenCountAsync();

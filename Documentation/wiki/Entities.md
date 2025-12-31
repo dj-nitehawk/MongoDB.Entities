@@ -1,6 +1,6 @@
 # Define entities
 
-add the import statement and create your entities by inheriting the `Entity` base class.
+Add the import statement and create your entities by inheriting the `Entity` base class.
 
 ```csharp
 using MongoDB.Entities;
@@ -13,8 +13,8 @@ public class Book : Entity
 
 ## Ignore properties
 
-if there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute`.
-you can prevent null/default values from being stored with the use of `IgnoreDefaultAttribute`.
+If there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute`.
+You can prevent null/default values from being stored with the use of `IgnoreDefaultAttribute`.
 
 ```csharp
 public class Book : Entity
@@ -29,7 +29,7 @@ public class Book : Entity
 
 ## Customize field names
 
-you can set the field names of the documents stored in mongodb using the `FieldAttribute` like so:
+You can set the field names of the documents stored in mongodb using the `FieldAttribute` like so:
 
 ```csharp
 public class Book
@@ -41,7 +41,7 @@ public class Book
 
 ## Customize collection names
 
-by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the `CollectionAttribute` as follows:
+By default, mongodb collections will use the names of the entity classes. You can customize the collection names by decorating your entities with the `CollectionAttribute` as follows:
 
 ```csharp
 [Collection("Writer")]
@@ -53,7 +53,7 @@ public class Author : Entity
 
 ## Optional auto-managed properties
 
-there are 2 optional interfaces `ICreatedOn` & `IModifiedOn` that you can add to entity class definitions like so:
+There are 2 optional interfaces `ICreatedOn` & `IModifiedOn` that you can add to entity class definitions like so:
 
 ```csharp
 public class Book : Entity, ICreatedOn, IModifiedOn
@@ -64,11 +64,11 @@ public class Book : Entity, ICreatedOn, IModifiedOn
 }
 ```
 
-if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.
+If your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.
 
 ## The IEntity interface
 
-if for whatever reason, you're unable to inherit the `Entity` base class, you can simply implement the `IEntity` interface to make your classes compatible with the library like so:
+If for whatever reason, you're unable to inherit the `Entity` base class, you can simply implement the `IEntity` interface to make your classes compatible with the library like so:
 
 ```csharp
 public class Book : IEntity
@@ -82,7 +82,7 @@ public class Book : IEntity
 
 ## Customizing the ID format
 
-the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the type/format of the ID, simply override the `GenerateNewID` method of the `Entity` base class or implement the `IEntity` interface. if implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute to indicate that it's the primary key.
+The default format of the IDs automatically generated for new entities is `ObjectId`. If you'd like to change the type/format of the ID, simply override the `GenerateNewID` method of the `Entity` base class or implement the `IEntity` interface. If implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute to indicate that it's the primary key.
 
 ```csharp
 public class Book : IEntity
@@ -125,8 +125,8 @@ await db.CreateCollectionAsync<Book>(o =>
 });
 ```
 
-typically you don't need to create collections manually as they will be created automatically the first time you save an entity.
-however, you'd have to create the collection like above if you need to use a custom *[COLLATION](https://docs.mongodb.com/manual/reference/collation/)*, create a *[CAPPED](https://docs.mongodb.com/manual/core/capped-collections/)*, or *[TIME SERIES](https://docs.mongodb.com/manual/core/timeseries-collections/)* collection before you can save any entities.
+Typically you don't need to create collections manually as they will be created automatically the first time you save an entity.
+However, you'd have to create the collection like above if you need to use a custom *[COLLATION](https://docs.mongodb.com/manual/reference/collation/)*, create a *[CAPPED](https://docs.mongodb.com/manual/core/capped-collections/)*, or *[TIME SERIES](https://docs.mongodb.com/manual/core/timeseries-collections/)* collection before you can save any entities.
 
 > [!note]
 > if a collection already exists for the specified entity type, an exception will be thrown.

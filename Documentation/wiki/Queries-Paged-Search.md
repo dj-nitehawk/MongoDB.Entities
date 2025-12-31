@@ -1,6 +1,6 @@
 # Paged search
 
-paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. it can also be done via a `$facet` aggregation query, which is cumbersome to do using the driver. this library provides a convenient method for this exact use case via the `PagedSearch` builder.
+Paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. It can also be done via a `$facet` aggregation query, which is cumbersome to do using the driver. This library provides a convenient method for this exact use case via the `PagedSearch` builder.
 
 ## Example
 
@@ -17,16 +17,16 @@ long totalMatchCount = res.TotalCount;
 int totalPageCount = res.PageCount;                  
 ```
 
-specify the search criteria with the `.Match()` method as you'd typically do. specify how to order the result set using the `.Sort()` method. specify the size of a single page using `.PageSize()` method. specify which page number to retrieve using `PageNumber()` method and finally issue the command using `ExecuteAsync()` to get the result of the facetted aggregation query.
+Specify the search criteria with the `.Match()` method as you'd typically do. Specify how to order the result set using the `.Sort()` method. Specify the size of a single page using `.PageSize()` method. Specify which page number to retrieve using `PageNumber()` method and finally issue the command using `ExecuteAsync()` to get the result of the facetted aggregation query.
 
-the result is a value tuple consisting of the `Results`,`TotalCount`,`PageCount`.
+The result is a value tuple consisting of the `Results`,`TotalCount`,`PageCount`.
 
 > [!note]
-> if you do not specify a matching criteria, all entities will match. the default page size is 100 if not specified and the 1st page is always returned if you omit it.
+> If you do not specify a matching criteria, all entities will match. The default page size is 100 if not specified and the 1st page is always returned if you omit it.
 
 ## Project results to a different type
 
-if you'd like to change the shape of the returned entity list, use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
+If you'd like to change the shape of the returned entity list, use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
 
 ```csharp
 var res = await db.PagedSearch<Book, BookListing>()
@@ -58,7 +58,7 @@ int totalPageCount = res.PageCount;
 
 ## Paging support for any fluent pipeline
 
-you can add paged search to any [fluent pipeline](Queries-Pipelines.md). the difference is, instead of specifying the search criteria with `.Match()`, you start off by using the `.WithFluent()` method like so:
+You can add paged search to any [fluent pipeline](Queries-Pipelines.md). The difference is, instead of specifying the search criteria with `.Match()`, you start off by using the `.WithFluent()` method like so:
 
 ```csharp
 var pipeline = db.Fluent<Author>()

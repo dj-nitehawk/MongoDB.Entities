@@ -1,8 +1,8 @@
 # Custom event hooks
 
-there are two hooks you can tap into: `OnBeforeSave` and `OnBeforeUpdate`. use them to modify the incoming operation just before it executes. these hooks can also replace the built-in audit fields for finer-grained control. Override both methods to ensure inserts and updates are consistently handled.
+There are two hooks you can tap into: `OnBeforeSave` and `OnBeforeUpdate`. Use them to modify the incoming operation just before it executes. These hooks can also replace the built-in audit fields for finer-grained control. Override both methods to ensure inserts and updates are consistently handled.
 
-say for example, you have a `Flower` entity like the following, and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.
+Say for example, you have a `Flower` entity like the following, and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.
 
 ```csharp
 public class Flower : Entity
@@ -17,7 +17,7 @@ public class Flower : Entity
 }
 ```
 
-to be able to tap in to the hooks, create a derived `DB` class and override the two methods as follows:
+To be able to tap in to the hooks, create a derived `DB` class and override the two methods as follows:
 
 ```csharp
 public class MyDatabase() : DB(Default) //example of using the default database
@@ -54,7 +54,7 @@ public class MyDatabase() : DB(Default) //example of using the default database
 }
 ```
 
-after that, simply create new instances of `MyDatabase` when you need the above functionality and perform operations as usual:
+After that, simply create new instances of `MyDatabase` when you need the above functionality and perform operations as usual:
 
 ```csharp
 var db = new MyDatabase();
@@ -69,7 +69,7 @@ await db.Update<Flower>()
 
 ## Handling multiple entity types
 
-it's possible to handle more than one type of entity inside the hooks like below:
+It's possible to handle more than one type of entity inside the hooks like below:
 
 ```csharp
 protected override Action<T>? OnBeforeSave<T>()

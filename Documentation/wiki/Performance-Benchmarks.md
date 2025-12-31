@@ -1,6 +1,6 @@
 # Performance Benchmarks
-source code of the benchmarks can be found on [github](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Benchmark/Benchmarks).
-more benchmarks will be added as time permits. please feel free to add your own and submit a PR, or join our [discord server](https://discord.com/invite/CM5mw2G) and request a particular benchmark you're interested in.
+Source code of the benchmarks can be found on [github](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Benchmark/Benchmarks).
+More benchmarks will be added as time permits. Please feel free to add your own and submit a PR, or join our [discord server](https://discord.com/invite/CM5mw2G) and request a particular benchmark you're interested in.
 
 ### Environment
 ```

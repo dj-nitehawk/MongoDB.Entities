@@ -4,11 +4,11 @@ This library no longer supports synchronous operations after version 20 as it wa
 
 > "One caveat is that the synchronous legacy API in 2.0 is implemented by calling the low level async API and blocking, waiting for the Task to complete. This is not considered a performant way to use async APIs, so for performance-sensitive code you may prefer to use the 1.10 version of the driver until you are ready to convert your application to use the new async API." - [_Robert Stem_](https://www.mongodb.com/blog/post/introducing-20-net-driver)
 
-stress/load testing showed that it is inefficient at handling large volumes leading to thread-pool starvation. since the official driver has been made fully async after v2.0, it was decided to discourage consumers of this library from using the faux-sync api of the driver by removing all sync wrapper methods and only support async operations for IO bound work going forward.
+Stress/load testing showed that it is inefficient at handling large volumes leading to thread-pool starvation. Since the official driver has been made fully async after v2.0, it was decided to discourage consumers of this library from using the faux-sync api of the driver by removing all sync wrapper methods and only support async operations for IO bound work going forward.
 
-it is highly recommended you build applications that run in server environments fully async from top to bottom in order to make sure they scale well.
+It is highly recommended you build applications that run in server environments fully async from top to bottom in order to make sure they scale well.
 
-however, in places where you can't call async code, you can wrap the async methods in a `Task.Run()` like so:
+However, in places where you can't call async code, you can wrap the async methods in a `Task.Run()` like so:
 
 ```csharp
 Task.Run(async () =>
@@ -20,11 +20,11 @@ Task.Run(async () =>
 ```
 
 > [!tip]
-> try not to do that except for calling the init method once at app start-up.
+> Try not to do that except for calling the init method once at app start-up.
 
 ## Sync-over-async wrapper utility
 
-if for whatever reason you refuse to go the async/await route and don't really care about application performance, you can add the [this utility class](https://gist.github.com/dj-nitehawk/43a7de03da03ae42a3bc8a44070b1ac4) to your project and use that to wrap any async methods you'd want to call like so:
+If for whatever reason you refuse to go the async/await route and don't really care about application performance, you can add the [this utility class](https://gist.github.com/dj-nitehawk/43a7de03da03ae42a3bc8a44070b1ac4) to your project and use that to wrap any async methods you'd want to call like so:
 
 ```csharp
 Run.Sync(() => book.SaveAsync());
@@ -40,7 +40,7 @@ var allBooks = Run.Sync(
 
 # LINQ async extensions
 
-in order to write async LINQ queries, make sure to import the mongodb linq extensions and write queries as follows:
+In order to write async LINQ queries, make sure to import the mongodb linq extensions and write queries as follows:
 
 ```csharp
 using MongoDB.Driver;
