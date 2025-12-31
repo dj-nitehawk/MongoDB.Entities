@@ -52,7 +52,7 @@ This event is fired when desired change events have been received from mongodb. 
 
 **Receiving ChangeStreamDocuments:**
 
-if you'd like to receive the complete `ChangeStreamDocuments` instead of just the entities, you can subscribe to the `OnChangesCSD` method like so:
+If you'd like to receive the complete `ChangeStreamDocuments` instead of just the entities, you can subscribe to the `OnChangesCSD` method like so:
 ```csharp
 watcher.OnChangesCSD += changes =>
 {

@@ -96,23 +96,23 @@ public class Book : IEntity
 ```
 
 > [!note]
-> the type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). however, due to a technical constraint, only the following types are supported with the [referenced relationship](Relationships-Referenced.md) functionality:
+> The type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). However, due to a technical constraint, only the following types are supported with the [referenced relationship](Relationships-Referenced.md) functionality:
 >
 > - string
 > - long
 > - ObjectId
 
 > [!warning]
-> it is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).
+> It is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).
 >
 >
->if you choose something like `Guid`, there's a possibility for duplicates to be generated and data loss could occur when using the [partial entity saving](Entities-Save.md#save-entities-partially) operations. reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.
+>If you choose something like `Guid`, there's a possibility for duplicates to be generated and data loss could occur when using the [partial entity saving](Entities-Save.md#save-entities-partially) operations. Reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.
 >
 >
->the normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.
+>The normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.
 >
 >
->so you're better off sticking with `ObjectId` because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.
+>So you're better off sticking with `ObjectId` because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.
 
 ## Create a collection explicitly
 
@@ -129,7 +129,7 @@ Typically you don't need to create collections manually as they will be created 
 However, you'd have to create the collection like above if you need to use a custom *[COLLATION](https://docs.mongodb.com/manual/reference/collation/)*, create a *[CAPPED](https://docs.mongodb.com/manual/core/capped-collections/)*, or *[TIME SERIES](https://docs.mongodb.com/manual/core/timeseries-collections/)* collection before you can save any entities.
 
 > [!note]
-> if a collection already exists for the specified entity type, an exception will be thrown.
+> If a collection already exists for the specified entity type, an exception will be thrown.
 
 ## Drop a collection
 

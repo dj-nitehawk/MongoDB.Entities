@@ -22,7 +22,7 @@ var authors = await db.Find<Author>()
 ```
 
 > [!tip]
-> all the [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods of the official driver are available for use as shown above.
+> All the [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods of the official driver are available for use as shown above.
 
 ## Find by 2D coordinates
 
@@ -32,7 +32,7 @@ var cafes = await db.Find<Cafe>()
                     .ExecuteAsync();
 ```
 
-> see [_this tutorial_](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd) for a detailed walkthrough.
+> See [_this tutorial_](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd) for a detailed walkthrough.
 
 ## Find by aggregation expression ($expr)
 
@@ -43,7 +43,7 @@ var authors = await db.Find<Author>()
 ```
 
 > [!tip]
-> aggregation [_expressions_](https://docs.mongodb.com/manual/reference/operator/query/expr/) lets you refer to properties of the same entity using the $ notation as well as enable you to use aggregation framework operators in find queries.
+> Aggregation [_expressions_](https://docs.mongodb.com/manual/reference/operator/query/expr/) lets you refer to properties of the same entity using the $ notation as well as enable you to use aggregation framework operators in find queries.
 
 # Advanced find
 

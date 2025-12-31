@@ -46,7 +46,7 @@ var result = await db.Find<Book>()
                      .ExecuteAsync();
 ```
 
-the resulting query sent to mongodb is this:
+The resulting query sent to mongodb is this:
 
 ```java
 db.Book.find(

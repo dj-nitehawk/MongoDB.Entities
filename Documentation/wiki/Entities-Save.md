@@ -45,10 +45,10 @@ await db.SaveExceptAsync(book, x => new { x.AuthorName });
 This will save all other properties of the entity **except** the `AuthorName` property.
 
 > [!note]
-> you should only specify root level properties with the **New** expression. i.e. **x => x.Author.Name** is not valid.
+> You should only specify root level properties with the **New** expression. i.e. **x => x.Author.Name** is not valid.
 
 > [!tip]
-> if the `ID` value of the entity being saved is `null`, a new document will be created in the database. if the `ID` has a value, then the matching document will be updated instead.
+> If the `ID` value of the entity being saved is `null`, a new document will be created in the database. If the `ID` has a value, then the matching document will be updated instead.
 
 ## Partial save with attributes
 
@@ -59,7 +59,7 @@ Simply decorate the properties you want to omit with the \[[Preserve](xref:Mongo
 You can also do the opposite with the use of \[[DontPreserve](xref:MongoDB.Entities.DontPreserveAttribute)\] attribute. If you decorate properties with `[DontPreserve]`, only the values of those properties are written to the database and all other properties are implicitly ignored when calling `SavePreservingAsync()`.
 
 > [!note]
-> both **[DontPreserve]** and **[Preserve]** cannot be used together on the same entity type due to the conflicting nature of what they do.
+> Both **[DontPreserve]** and **[Preserve]** cannot be used together on the same entity type due to the conflicting nature of what they do.
 
 ## Inserts
 

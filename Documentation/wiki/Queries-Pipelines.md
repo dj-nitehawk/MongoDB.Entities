@@ -13,7 +13,7 @@ var author = await db.Fluent<Author>()
 ```
 
 > [!tip]
-> you'll have to add **using MongoDB.Driver;** import statement for the async extension methods such as **SingleOrDefaultAsync()** to work.
+> You'll have to add **using MongoDB.Driver;** import statement for the async extension methods such as **SingleOrDefaultAsync()** to work.
 
 # GeoNear aggregation pipelines
 

@@ -58,7 +58,7 @@ await db.Find<Book>()
 ```
 
 > [!note]
-> fuzzy text searching requires a bit of special handling, please see [_here_](Indexes-Fuzzy-Text-Search.md) for detailed information.
+> Fuzzy text searching requires a bit of special handling, please see [_here_](Indexes-Fuzzy-Text-Search.md) for detailed information.
 
 ## Other index types
 

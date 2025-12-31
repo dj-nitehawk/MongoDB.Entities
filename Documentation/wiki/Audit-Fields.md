@@ -81,4 +81,4 @@ using (var tn = db.Transaction())
 ```
 
 > [!NOTE]
-> please refer to the [transactions page](Transactions.md) for a detailed explanation of how transactions work.
+> Please refer to the [transactions page](Transactions.md) for a detailed explanation of how transactions work.
