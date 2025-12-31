@@ -1,6 +1,6 @@
 # Delete entities
 
-deleting entities can be achieved in any of the following ways:
+Deleting entities can be achieved in any of the following ways:
 
 ## Delete a single entity
 

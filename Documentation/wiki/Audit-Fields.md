@@ -1,10 +1,10 @@
 # Automatic audit fields
 
-rather than setting audit values manually for every save/update operation, you can obtain a `DB` instance initialized with the current user’s audit data. The library will then populate audit fields on entities automatically during write operations.
+Rather than setting audit values manually for every save/update operation, you can obtain a `DB` instance initialized with the current user’s audit data. The library will then populate audit fields on entities automatically during write operations.
 
 ## Enable audit fields
 
-simply add a property of type `ModifiedBy` to the entity class where you'd like to enable audit fields. The `ModifiedBy` type is provided by the library. It can be inherited and other properties can be added to it as you please.
+Simply add a property of type `ModifiedBy` to the entity class where you'd like to enable audit fields. The `ModifiedBy` type is provided by the library. It can be inherited and other properties can be added to it as you please.
 
 ```csharp
 public class Book : Entity
@@ -16,7 +16,7 @@ public class Book : Entity
 
 ## Obtain a DB instance
 
-retrieve a database instance by providing it a `ModifiedBy` instance with the current user's details filled in.
+Retrieve a database instance by providing it a `ModifiedBy` instance with the current user's details filled in.
 
 ```csharp
 var currentUser = new ModifiedBy
@@ -34,7 +34,7 @@ db = db.WithModifiedBy(currentUser);
 
 ## Perform entity operations
 
-in order for the auto audit fields to work, you must use the exact `DB` instance that was enriched with the audit values to perform the operations.
+In order for the auto audit fields to work, you must use the exact `DB` instance that was enriched with the audit values to perform the operations.
 
 ```csharp
 db = db.WithModifiedBy(currentUser);
@@ -45,7 +45,7 @@ await db.Update<Book>()
         .ExecuteAsync();
 ```
 
-doing so will result in the following document in mongodb:
+Doing so will result in the following document in mongodb:
 
 ```
 {
@@ -60,7 +60,7 @@ doing so will result in the following document in mongodb:
 
 ## Get audit values
 
-the audit values of a `DB` instance can be read like so:
+The audit values of a `DB` instance can be read like so:
 
 ```csharp
 var currentUser = db.ModifiedBy;
@@ -68,7 +68,7 @@ var currentUser = db.ModifiedBy;
 
 ## Transaction support
 
-a transaction can be started with audit field support by creating a transaction on an instance that already has the audit values set.
+A transaction can be started with audit field support by creating a transaction on an instance that already has the audit values set.
 
 ```csharp
 var db = DB.Instance("SomeDatabase").WithModifiedBy(currentUser);
@@ -81,4 +81,4 @@ using (var tn = db.Transaction())
 ```
 
 > [!NOTE]
-> please refer to the [transactions page](Transactions.md) for a detailed explanation of how transactions work.
+> Please refer to the [transactions page](Transactions.md) for a detailed explanation of how transactions work.

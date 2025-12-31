@@ -1,6 +1,6 @@
 # Find queries
 
-several overloads are available for finding entities as shown below.
+Several overloads are available for finding entities as shown below.
 
 ## Find one by ID
 
@@ -22,7 +22,7 @@ var authors = await db.Find<Author>()
 ```
 
 > [!tip]
-> all the [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods of the official driver are available for use as shown above.
+> All the [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods of the official driver are available for use as shown above.
 
 ## Find by 2D coordinates
 
@@ -32,7 +32,7 @@ var cafes = await db.Find<Cafe>()
                     .ExecuteAsync();
 ```
 
-> see [_this tutorial_](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd) for a detailed walkthrough.
+> See [_this tutorial_](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd) for a detailed walkthrough.
 
 ## Find by aggregation expression ($expr)
 
@@ -43,7 +43,7 @@ var authors = await db.Find<Author>()
 ```
 
 > [!tip]
-> aggregation [_expressions_](https://docs.mongodb.com/manual/reference/operator/query/expr/) lets you refer to properties of the same entity using the $ notation as well as enable you to use aggregation framework operators in find queries.
+> Aggregation [_expressions_](https://docs.mongodb.com/manual/reference/operator/query/expr/) lets you refer to properties of the same entity using the $ notation as well as enable you to use aggregation framework operators in find queries.
 
 # Advanced find
 
@@ -59,26 +59,26 @@ var authors = await db.Find<Author>()
                       .ExecuteAsync();
 ```
 
-the search criteria is specified using `.Match()` which takes either an **ID**, **lambda expression**, **filter expression**, **geospatial**, or **full/fuzzy text search query**.
+The search criteria is specified using `.Match()` which takes either an **ID**, **lambda expression**, **filter expression**, **geospatial**, or **full/fuzzy text search query**.
 
-sorting is specified using `.Sort()` which takes in a lambda for the property to sort by and in which order. `.Sort()` can be used multiple times in order to specify multiple sorting stages. when doing text queries, you can sort the results by mongodb's 'meta text score' by using the `.SortByTextScore()` method.
+Sorting is specified using `.Sort()` which takes in a lambda for the property to sort by and in which order. `.Sort()` can be used multiple times in order to specify multiple sorting stages. When doing text queries, you can sort the results by mongodb's 'meta text score' by using the `.SortByTextScore()` method.
 
-how many items to skip and take are specified using `.Skip()` and `.Limit()`
+How many items to skip and take are specified using `.Skip()` and `.Limit()`
 
 ## Projections
 
-to avoid the complete entity being returned, you can use `.Project()` with a lambda expression to get back only the properties you need as shown above. it is also possible to use projection builder methods like so:
+To avoid the complete entity being returned, you can use `.Project()` with a lambda expression to get back only the properties you need as shown above. It is also possible to use projection builder methods like so:
 
 ```csharp
 .Project(p => p.Include("Name").Exclude("Surname"))
 ```
 
 > [!tip]
-> to be able to chain projection builder methods like above, please add the import statement **using MongoDB.Driver;** to your class.
+> To be able to chain projection builder methods like above, please add the import statement **using MongoDB.Driver;** to your class.
 
 ### Projection with exclusions
 
-it is also possible to specify an exclusion projection with a `new` expression like so:
+It is also possible to specify an exclusion projection with a `new` expression like so:
 
 ```csharp
 var res = await db.Find<Author>()
@@ -87,11 +87,11 @@ var res = await db.Find<Author>()
                   .ExecuteSingleAsync();
 ```
 
-doing so will return an Author entity with all the properties populated except for the Age and Name properties.
+Doing so will return an Author entity with all the properties populated except for the Age and Name properties.
 
 ### Project to a different type
 
-in order to project to a different result type than the input entity type, simply use the generic overload like so:
+In order to project to a different result type than the input entity type, simply use the generic overload like so:
 
 ```csharp
 var name = await db.Find<Author,string>()
@@ -102,14 +102,14 @@ var name = await db.Find<Author,string>()
 
 ## Execute
 
-no command is sent over the wire to mongodb until you call one of the following `Execute*()` methods:
+No command is sent over the wire to mongodb until you call one of the following `Execute*()` methods:
 
-**ExecuteCursorAsync():** gets a cursor you can iterate over instead of a list of entities.
+**ExecuteCursorAsync():** Gets a cursor you can iterate over instead of a list of entities.
 
-**ExecuteAsync():** gets a list of matched entities or default value if nothing matched.
+**ExecuteAsync():** Gets a list of matched entities or default value if nothing matched.
 
-**ExecuteSingleAsync():** gets only 1 matched entity and will throw an exception if more than 1 entity is matched, or default value if nothing matched.
+**ExecuteSingleAsync():** Gets only 1 matched entity and will throw an exception if more than 1 entity is matched, or default value if nothing matched.
 
-**ExecuteFirstAsync():** gets the first of the matched entities, or default value if nothing matched.
+**ExecuteFirstAsync():** Gets the first of the matched entities, or default value if nothing matched.
 
-**ExecuteAnyAsync():** gets a boolean indicating whether there were any matches.
+**ExecuteAnyAsync():** Gets a boolean indicating whether there were any matches.

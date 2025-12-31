@@ -1,6 +1,6 @@
 # Fluent aggregation pipelines
 
-most querying requirements can be catered to with the [_Find_](Queries-Find.md) & [_Queryable_](Queries-Linq.md) APIs. in case you need to build fluent aggregation pipelines, use the `Fluent` method for getting access to the `IAggregateFluent<T>` interface for a given entity type like so:
+Most querying requirements can be catered to with the [_Find_](Queries-Find.md) & [_Queryable_](Queries-Linq.md) APIs. In case you need to build fluent aggregation pipelines, use the `Fluent` method for getting access to the `IAggregateFluent<T>` interface for a given entity type like so:
 
 ```csharp
 var author = await db.Fluent<Author>()
@@ -13,11 +13,11 @@ var author = await db.Fluent<Author>()
 ```
 
 > [!tip]
-> you'll have to add **using MongoDB.Driver;** import statement for the async extension methods such as **SingleOrDefaultAsync()** to work.
+> You'll have to add **using MongoDB.Driver;** import statement for the async extension methods such as **SingleOrDefaultAsync()** to work.
 
 # GeoNear aggregation pipelines
 
-in order to start a fluent aggregation pipeline with a `GeoNear` query, simply do the following:
+In order to start a fluent aggregation pipeline with a `GeoNear` query, simply do the following:
 
 ```csharp
 var query = db.GeoNear<Place>(
@@ -26,13 +26,13 @@ var query = db.GeoNear<Place>(
     MaxDistance: 20000);
 ```
 
-the above code builds an aggregation pipeline that will find all the documents tagged with locations within 20Km from the eiffel tower in paris.
+The above code builds an aggregation pipeline that will find all the documents tagged with locations within 20Km from the eiffel tower in paris.
 
-you can then add more pipeline stages to the above query in order to do further processing. you can specify all the supported options for `$geoNear` using the constructor above.
+You can then add more pipeline stages to the above query in order to do further processing. You can specify all the supported options for `$geoNear` using the constructor above.
 
 ## Other fluent interfaces
 
-there are also fluent counterparts of other methods such as:
+There are also fluent counterparts of other methods such as:
 
 ```csharp
 Many<T>.ChildrenFluent()         //pre-filtered children of the parent

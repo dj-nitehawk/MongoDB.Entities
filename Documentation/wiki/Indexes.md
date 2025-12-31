@@ -1,11 +1,11 @@
 # Index creation
 
-use the `Index<T>()` method to define indexes as shown below. specify index keys by chaining calls to the `.Key()` method. compound indexes are created by calling the `.Key()` method multiple times.
+Use the `Index<T>()` method to define indexes as shown below. Specify index keys by chaining calls to the `.Key()` method. Compound indexes are created by calling the `.Key()` method multiple times.
 
-first parameter of the method is a lambda pointing to the property on your entity. second parameter specifies the type of key. finally chain in a call to `.CreateAsync()` to finish defining the index.
+First parameter of the method is a lambda pointing to the property on your entity. Second parameter specifies the type of key. Finally chain in a call to `.CreateAsync()` to finish defining the index.
 
 > [!tip]
-> you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes. if an index exists for the specified config, your commands will just be ignored by the server.
+> You should define your indexes at the startup of your application so they only run once at launch. Alternatively you can define indexes in the static constructor of your entity classes. If an index exists for the specified config, your commands will just be ignored by the server.
 
 ## Text indexes
 
@@ -16,13 +16,13 @@ await db.Index<Author>()
         .CreateAsync();
 ```
 
-if the field you want to index is nested within arrays or lists, specify an expression with a `[0]` index position like so:
+If the field you want to index is nested within arrays or lists, specify an expression with a `[0]` index position like so:
 
 ```csharp
 .Key(a => a.Books[0].Reviews[0].Content, KeyType.Text)
 ```
 
-in order to index all text properties of an entity, you can create a wildcard text index as follows:
+In order to index all text properties of an entity, you can create a wildcard text index as follows:
 
 ```csharp
 .Key(a => a, KeyType.Text)
@@ -30,7 +30,7 @@ in order to index all text properties of an entity, you can create a wildcard te
 
 ## Full-text search
 
-you can do full text searches after defining a text index as described above with the following:
+You can do full text searches after defining a text index as described above with the following:
 
 ```csharp
 await db.Find<Book>()
@@ -38,7 +38,7 @@ await db.Find<Book>()
         .ExecuteAsync();
 ```
 
-you can also start a fluent aggregation pipeline with a $text stage as follows:
+You can also start a fluent aggregation pipeline with a $text stage as follows:
 
 ```csharp
 db.FluentTextSearch<Book>(Search.Full, "search term");
@@ -49,7 +49,7 @@ db.FluentTextSearch<Book>(Search.Full, "search term");
 
 ## Fuzzy-text search
 
-in order to run a fuzzy text match, simply change the first parameter to `Search.Fuzzy` as shown here:
+In order to run a fuzzy text match, simply change the first parameter to `Search.Fuzzy` as shown here:
 
 ```csharp
 await db.Find<Book>()
@@ -58,11 +58,11 @@ await db.Find<Book>()
 ```
 
 > [!note]
-> fuzzy text searching requires a bit of special handling, please see [_here_](Indexes-Fuzzy-Text-Search.md) for detailed information.
+> Fuzzy text searching requires a bit of special handling, please see [_here_](Indexes-Fuzzy-Text-Search.md) for detailed information.
 
 ## Other index types
 
-use the same `Index<T>()` method as above but with the type parameters of the keys set to one of the following enum values:
+Use the same `Index<T>()` method as above but with the type parameters of the keys set to one of the following enum values:
 
 - Ascending
 - Descending

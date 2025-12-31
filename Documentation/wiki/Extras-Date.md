@@ -1,8 +1,8 @@
 # The 'Date' Type
-there's a special `Date` type you can use to store date/time values in mongodb instead of the regular **System.DateTime** type. the benefits of using it would be:
-- preserves date/time precision
-- can query using ticks
-- can extend it by inheriting
+There's a special `Date` type you can use to store date/time values in mongodb instead of the regular **System.DateTime** type. The benefits of using it would be:
+- Preserves date/time precision
+- Can query using ticks
+- Can extend it by inheriting
 
 ## Examples
 ```csharp

@@ -1,6 +1,6 @@
 # ACID compliant transactions
 
-multi-document transactions are performed like the following:
+Multi-document transactions are performed like the following:
 
 ```csharp
 var book1 = new Book { Title = "book one" };
@@ -21,17 +21,17 @@ using (var t = db.Transaction())
 }
 ```
 
-in the above code, book1 and book2 are saved before the transaction begins. author1 and author2 are created within the transaction and book1 and book2 are deleted within the transaction.
+In the above code, book1 and book2 are saved before the transaction begins. Author1 and author2 are created within the transaction and book1 and book2 are deleted within the transaction.
 
-a transaction is started when you instantiate a `Transaction` object via `db.Transaction()`. you then perform all transaction logic using the methods supplied by that class such as `.SaveAsync()`, `.DeleteAsync()`, `.Update()`, `.Find()` instead of the `db` instance that created the transaction.
+A transaction is started when you instantiate a `Transaction` object via `db.Transaction()`. You then perform all transaction logic using the methods supplied by that class such as `.SaveAsync()`, `.DeleteAsync()`, `.Update()`, `.Find()` instead of the `db` instance that created the transaction.
 
-whatever transactional operations you do are only saved to the database once you call the `.CommitAsync()` method. if you do not call .CommitAsync(), then nothing changes in the database.
+Whatever transactional operations you do are only saved to the database once you call the `.CommitAsync()` method. If you do not call .CommitAsync(), then nothing changes in the database.
 
-if an exception occurs before the .CommitAsync() line is reached, all changes are rolled back and the transaction is implicitly terminated.
+If an exception occurs before the .CommitAsync() line is reached, all changes are rolled back and the transaction is implicitly terminated.
 
-it is best to always wrap the transaction in a `using statement` because reaching the end of the using statement will automatically end the transaction and dispose the underlying session. if no using statement is used, you will have to manually dispose the transaction object you created in order to finalize things.
+It is best to always wrap the transaction in a `using statement` because reaching the end of the using statement will automatically end the transaction and dispose the underlying session. If no using statement is used, you will have to manually dispose the transaction object you created in order to finalize things.
 
-you can also call `.AbortAsync()` to abort a transaction prematurely if needed at which point all changes will be rolled back.
+You can also call `.AbortAsync()` to abort a transaction prematurely if needed at which point all changes will be rolled back.
 
 ## Relationship Manipulation
 
