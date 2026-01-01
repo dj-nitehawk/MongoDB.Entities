@@ -22,6 +22,8 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+    # Using localhost:27017 because the API runs on the host, not in Docker
+    # This allows the host-based app to connect to the exposed port
     command: >
       mongosh --host mongodb -u admin -p password --authenticationDatabase admin --eval "
         rs.initiate({
