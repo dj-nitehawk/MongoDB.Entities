@@ -4,7 +4,8 @@ using Xunit;
 
 namespace BookShop.Tests.Features;
 
-public class BookTests : IClassFixture<BookShopFixture>
+[Collection("BookShop")]
+public class BookTests
 {
     private readonly HttpClient _client;
 
@@ -51,7 +52,7 @@ public class BookTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<BookResponse>();
 
         // Act
-        var response = await _client.GetAsync($"/api/books/{createResult!.ID}");
+        var response = await _client.GetAsync($"/api/books/{createResult!.Id}");
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -102,7 +103,7 @@ public class BookTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<BookResponse>();
 
         // Act
-        var response = await _client.PutAsJsonAsync($"/api/books/{createResult!.ID}", new
+        var response = await _client.PutAsJsonAsync($"/api/books/{createResult!.Id}", new
         {
             Title = "Updated Book Title",
             Price = 19.99m
@@ -129,11 +130,11 @@ public class BookTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<BookResponse>();
 
         // Act
-        var response = await _client.DeleteAsync($"/api/books/{createResult!.ID}");
+        var response = await _client.DeleteAsync($"/api/books/{createResult!.Id}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
     }
 
-    record BookResponse(string ID, string Title, string Description, decimal Price, int Stock, int PageCount);
+    record BookResponse(string Id, string Title, string Description, decimal Price, int Stock, int PageCount);
 }

@@ -390,7 +390,7 @@ app.Run();
 // ==================== MAPPING FUNCTIONS ====================
 static object MapBook(Book b) => new
 {
-    b.ID,
+    Id = b.ID,
     Title = b.Title.Value,
     b.ISBN,
     b.Description,
@@ -403,11 +403,11 @@ static object MapBook(Book b) => new
     b.ModifiedOn
 };
 
-static object MapAuthor(Author a) => new { a.ID, a.Name, a.Biography, a.Website, a.CreatedOn, a.ModifiedOn };
-static object MapGenre(Genre g) => new { g.ID, g.Name, g.Description, g.CreatedOn, g.ModifiedOn };
+static object MapAuthor(Author a) => new { Id = a.ID, a.Name, a.Biography, a.Website, a.CreatedOn, a.ModifiedOn };
+static object MapGenre(Genre g) => new { Id = g.ID, g.Name, g.Description, g.CreatedOn, g.ModifiedOn };
 static object MapOrder(ShopOrder o) => new
 {
-    o.ID,
+    Id = o.ID,
     o.OrderNumber,
     CustomerId = o.Customer?.ID,
     Items = o.Items.Select(i => new { i.BookId, i.BookTitle, i.Quantity, i.UnitPrice, i.TotalPrice }).ToList(),
@@ -418,7 +418,7 @@ static object MapOrder(ShopOrder o) => new
 };
 static object MapCustomer(Customer c) => new
 {
-    c.ID,
+    Id = c.ID,
     c.CustomerId,
     c.FirstName,
     c.LastName,

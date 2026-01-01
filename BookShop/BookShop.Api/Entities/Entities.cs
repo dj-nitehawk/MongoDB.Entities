@@ -64,7 +64,6 @@ public class Book : Entity, ICreatedOn, IModifiedOn
     [OwnerSide]
     public Many<Genre, Book> Genres { get; set; }
 
-    public ModifiedBy? ModifiedBy { get; set; }
     public DateTime CreatedOn { get; set; }
     public DateTime ModifiedOn { get; set; }
 

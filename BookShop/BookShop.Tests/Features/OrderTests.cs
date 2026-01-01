@@ -5,7 +5,8 @@ using Xunit;
 
 namespace BookShop.Tests.Features;
 
-public class OrderTests : IClassFixture<BookShopFixture>
+[Collection("BookShop")]
+public class OrderTests
 {
     private readonly HttpClient _client;
 
@@ -36,7 +37,7 @@ public class OrderTests : IClassFixture<BookShopFixture>
         });
         var book = await bookResponse.Content.ReadFromJsonAsync<BookResponse>();
 
-        return (customer!.ID, book!.ID);
+        return (customer!.Id, book!.Id);
     }
 
     [Fact]
@@ -78,7 +79,7 @@ public class OrderTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<OrderResponse>();
 
         // Act
-        var response = await _client.GetAsync($"/api/orders/{createResult!.ID}");
+        var response = await _client.GetAsync($"/api/orders/{createResult!.Id}");
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -115,7 +116,7 @@ public class OrderTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<OrderResponse>();
 
         // Act
-        var response = await _client.PatchAsJsonAsync($"/api/orders/{createResult!.ID}/status", new
+        var response = await _client.PatchAsJsonAsync($"/api/orders/{createResult!.Id}/status", new
         {
             Status = OrderStatus.Confirmed
         });
@@ -139,7 +140,7 @@ public class OrderTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<OrderResponse>();
 
         // Act
-        var response = await _client.PostAsync($"/api/orders/{createResult!.ID}/cancel", null);
+        var response = await _client.PostAsync($"/api/orders/{createResult!.Id}/cancel", null);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -147,7 +148,7 @@ public class OrderTests : IClassFixture<BookShopFixture>
         Assert.Equal(OrderStatus.Cancelled, cancelResult!.Status);
     }
 
-    record CustomerResponse(string ID, string CustomerId, string FirstName, string LastName, string Email);
-    record BookResponse(string ID, string Title, decimal Price, int Stock);
-    record OrderResponse(string ID, string OrderNumber, OrderStatus Status, decimal TotalAmount);
+    record CustomerResponse(string Id, string CustomerId, string FirstName, string LastName, string Email);
+    record BookResponse(string Id, string Title, decimal Price, int Stock);
+    record OrderResponse(string Id, string OrderNumber, OrderStatus Status, decimal TotalAmount);
 }

@@ -8,12 +8,13 @@ namespace BookShop.Tests;
 
 /// <summary>
 /// Test fixture that uses TestContainers for MongoDB
+/// Shared across all tests using collection fixture
 /// </summary>
 public class BookShopFixture : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private MongoDbContainer? _mongoContainer;
+    private readonly MongoDbContainer _mongoContainer;
 
-    public async Task InitializeAsync()
+    public BookShopFixture()
     {
         // Start MongoDB container with replica set
         _mongoContainer = new MongoDbBuilder()
@@ -21,7 +22,10 @@ public class BookShopFixture : WebApplicationFactory<Program>, IAsyncLifetime
             .WithPassword("password")
             .WithReplicaSet()
             .Build();
+    }
 
+    public async Task InitializeAsync()
+    {
         await _mongoContainer.StartAsync();
     }
 
@@ -32,17 +36,22 @@ public class BookShopFixture : WebApplicationFactory<Program>, IAsyncLifetime
             // Override connection string with test container
             config.AddInMemoryCollection(new Dictionary<string, string?>
             {
-                ["ConnectionStrings:MongoDB"] = _mongoContainer!.GetConnectionString()
+                ["ConnectionStrings:MongoDB"] = _mongoContainer.GetConnectionString()
             });
         });
     }
 
     public new async Task DisposeAsync()
     {
-        if (_mongoContainer is not null)
-        {
-            await _mongoContainer.DisposeAsync();
-        }
+        await _mongoContainer.DisposeAsync();
         await base.DisposeAsync();
     }
+}
+
+/// <summary>
+/// Collection definition for sharing the fixture across all tests
+/// </summary>
+[CollectionDefinition("BookShop")]
+public class BookShopCollection : ICollectionFixture<BookShopFixture>
+{
 }

@@ -4,7 +4,8 @@ using Xunit;
 
 namespace BookShop.Tests.Features;
 
-public class AuthorTests : IClassFixture<BookShopFixture>
+[Collection("BookShop")]
+public class AuthorTests
 {
     private readonly HttpClient _client;
 
@@ -46,7 +47,7 @@ public class AuthorTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<AuthorResponse>();
 
         // Act
-        var response = await _client.GetAsync($"/api/authors/{createResult!.ID}");
+        var response = await _client.GetAsync($"/api/authors/{createResult!.Id}");
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -81,7 +82,7 @@ public class AuthorTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<AuthorResponse>();
 
         // Act
-        var response = await _client.PutAsJsonAsync($"/api/authors/{createResult!.ID}", new
+        var response = await _client.PutAsJsonAsync($"/api/authors/{createResult!.Id}", new
         {
             Name = "Updated Author Name"
         });
@@ -104,11 +105,11 @@ public class AuthorTests : IClassFixture<BookShopFixture>
         var createResult = await createResponse.Content.ReadFromJsonAsync<AuthorResponse>();
 
         // Act
-        var response = await _client.DeleteAsync($"/api/authors/{createResult!.ID}");
+        var response = await _client.DeleteAsync($"/api/authors/{createResult!.Id}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
     }
 
-    record AuthorResponse(string ID, string Name, string Biography, string? Website);
+    record AuthorResponse(string Id, string Name, string Biography, string? Website);
 }
