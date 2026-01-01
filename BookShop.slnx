@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="BookShop/BookShop.Api/BookShop.Api.csproj" />
+  <Project Path="BookShop/BookShop.Tests/BookShop.Tests.csproj" />
+  <Project Path="MongoDB.Entities/MongoDB.Entities.csproj" />
+</Solution>

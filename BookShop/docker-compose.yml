@@ -1,0 +1,34 @@
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: bookshop-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongodb_data:/data/db
+    command: ["mongod", "--replSet", "rs0"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  mongodb-init:
+    image: mongo:8.0
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    command: >
+      mongosh --host mongodb -u admin -p password --authenticationDatabase admin --eval "
+        rs.initiate({
+          _id: 'rs0',
+          members: [{ _id: 0, host: 'localhost:27017' }]
+        });
+      "
+
+volumes:
+  mongodb_data:
