@@ -8,16 +8,16 @@ var book2 = new Book { Title = "book two" };
 
 await db.SaveAsync(new[] { book1, book2 });
 
-using (var t = db.Transaction())
+using (var tx = db.Transaction())
 {
     var author1 = new Author { Name = "one" };
     var author2 = new Author { Name = "two" };
 
-    await t.SaveAsync(new[] { author1, author2 });
+    await tx.SaveAsync(new[] { author1, author2 });
 
-    await t.DeleteAsync<Book>(new[] { book1.ID, book2.ID });
+    await tx.DeleteAsync<Book>(new[] { book1.ID, book2.ID });
 
-    await t.CommitAsync();
+    await tx.CommitAsync();
 }
 ```
 
@@ -38,18 +38,18 @@ You can also call `.AbortAsync()` to abort a transaction prematurely if needed a
 [relationships](Relationships-Referenced.md) within a transaction requires passing down the session to the `.Add()` and `.Remove()` methods as shown below.
 
 ```csharp
-using (var t = db.Transaction())
+using (var tx = db.Transaction())
 {
     var author = new Author { Name = "author one" };
-    await t.SaveAsync(author);
+    await tx.SaveAsync(author);
 
     var book = new Book { Title = "book one" };
-    await t.SaveAsync(book);
+    await tx.SaveAsync(book);
 
-    await author.Books.AddAsync(book, t.Session);
-    await author.Books.RemoveAsync(book, t.Session);
+    await author.Books.AddAsync(book, tx.Session);
+    await author.Books.RemoveAsync(book, tx.Session);
 
-    await t.CommitAsync();
+    await tx.CommitAsync();
 }
 ```
 
@@ -58,19 +58,19 @@ using (var t = db.Transaction())
 [file storage](File-Storage.md) within a transaction also requires passing down the session like so:
 
 ```csharp
-using (var t = db.Transaction())
+using (var tx = db.Transaction())
 {
     var picture = new Picture { Title = "my picture" };
-    await t.SaveAsync(picture);
+    await tx.SaveAsync(picture);
 
     var streamTask = new HttpClient()
         .GetStreamAsync("https://placekitten.com/g/4000/4000");
 
     using (var stream = await streamTask)
     {
-        await picture.Data(db).UploadAsync(stream, session: t.Session);
+        await picture.Data(db).UploadAsync(stream, session: tx.Session);
     }
 
-    await t.CommitAsync();
+    await tx.CommitAsync();
 }
 ```
