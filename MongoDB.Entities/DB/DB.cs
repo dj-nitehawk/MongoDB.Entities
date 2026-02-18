@@ -34,6 +34,8 @@ public partial class DB
     }
 
     internal IServiceProvider? ServiceProvider { get; private set; }
+    internal Func<Type, IMigration>? MigrationActivator { get; private set; }
+
 
     static readonly ConcurrentDictionary<MongoClientSettings, MongoClient> _clients = new();
     static readonly ConcurrentDictionary<MongoClient, ConcurrentDictionary<string, DB>> _clientInstances = new();
@@ -257,6 +259,14 @@ public partial class DB
     /// <param name="serviceProvider">The <see cref="IServiceProvider" /> instance</param>
     public void SetServiceProvider(IServiceProvider serviceProvider)
         => ServiceProvider = serviceProvider;
+    
+    /// <summary>
+    /// Allows providing a custom activator for migration classes.
+    /// Setting MigrationActivator supercedes calling the service provider if provided.
+    /// </summary>
+    /// <param name="activator">A function that creates an IMigration instance from a Type</param>
+    public void SetMigrationActivator(Func<Type, IMigration> activator)
+        => MigrationActivator = activator;
 
     // ReSharper disable once VirtualMemberNeverOverridden.Global
     /// <summary>
