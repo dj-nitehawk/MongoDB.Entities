@@ -72,6 +72,9 @@ public partial class DB
                        types.Select(
                            t =>
                            {
+                               if (MigrationActivator != null)
+                                   return MigrationActivator(t);
+                               
                                if (ServiceProvider != null)
                                    return (IMigration)ServiceProvider.GetService(t);
 
