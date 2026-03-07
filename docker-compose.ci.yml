@@ -1,0 +1,41 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb-data:/data/db
+      - ./Tests/.mongo-keyfile:/data/keyfile/key:ro
+    command: >-
+      mongod --replSet rs0
+             --directoryperdb
+             --auth
+             --keyFile /data/keyfile/key
+             --bind_ip_all
+
+  mongodb-init:
+    image: mongo:7.0
+    depends_on:
+      - mongodb
+    restart: on-failure
+    command: >-
+      mongosh --host mongodb -u admin -p password --authenticationDatabase admin --eval "
+        try {
+          rs.initiate({
+            _id: 'rs0',
+            members: [{ _id: 0, host: 'localhost:27017' }]
+          });
+        } catch (e) {
+          if (e.codeName === 'AlreadyInitialized') {
+            console.log('Replica set already initialized.');
+          } else {
+            throw e;
+          }
+        }
+      "
+
+volumes:
+  mongodb-data:

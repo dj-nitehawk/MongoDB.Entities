@@ -16,32 +16,14 @@ steps:
   - script: |
       set -e
 
-      docker rm -f mongodb-test >/dev/null 2>&1 || true
-      docker run -d \
-        --name mongodb-test \
-        -p 27017:27017 \
-        -e MONGO_INITDB_ROOT_USERNAME=admin \
-        -e MONGO_INITDB_ROOT_PASSWORD=password \
-        mongo:8.0 \
-        mongod --replSet rs0 --bind_ip_all
+      mkdir -p Tests
+      openssl rand -base64 756 > Tests/.mongo-keyfile
+      chmod 600 Tests/.mongo-keyfile
 
-      CONTAINER_ID=mongodb-test
+      docker compose -f docker-compose.ci.yml up -d
 
-      for i in $(seq 1 30); do
-        if [ "$(docker inspect -f '{{.State.Running}}' "$CONTAINER_ID" 2>/dev/null || true)" = "true" ]; then
-          break
-        fi
-        sleep 1
-      done
-
-      if [ "$(docker inspect -f '{{.State.Running}}' "$CONTAINER_ID" 2>/dev/null || true)" != "true" ]; then
-        echo "MongoDB container failed to stay running"
-        docker logs "$CONTAINER_ID" || true
-        exit 1
-      fi
-
-      for i in $(seq 1 30); do
-        if docker exec "$CONTAINER_ID" mongosh \
+      for i in $(seq 1 60); do
+        if docker compose -f docker-compose.ci.yml exec -T mongodb mongosh \
           -u admin \
           -p password \
           --authenticationDatabase admin \
@@ -52,23 +34,19 @@ steps:
         sleep 1
       done
 
-      docker exec "$CONTAINER_ID" mongosh \
-        -u admin \
-        -p password \
-        --authenticationDatabase admin \
-        --quiet \
-        --eval "try { rs.status(); } catch (e) { rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]}); }"
-
-      docker exec "$CONTAINER_ID" mongosh \
+      docker compose -f docker-compose.ci.yml exec -T mongodb mongosh \
         -u admin \
         -p password \
         --authenticationDatabase admin \
         --quiet \
         --eval "while (!db.hello().isWritablePrimary) { sleep(1000); }"
-    displayName: "Initialize ReplicaSet"
+    displayName: "Start MongoDB Test Services"
 
-  - script: docker logs mongodb-test
-    displayName: "MongoDB Logs"
+  - script: docker compose -f docker-compose.ci.yml ps
+    displayName: "Show Service Status"
+
+  - script: docker compose -f docker-compose.ci.yml logs --no-color
+    displayName: "Service Logs"
     condition: failed()
 
   - task: UseDotNet@2
@@ -84,3 +62,9 @@ steps:
       projects: "**/*[Tt]ests/*.csproj"
       arguments: "--configuration $(buildConfiguration)"
       workingDirectory: "Tests"
+
+  - script: |
+      docker compose -f docker-compose.ci.yml down -v
+      rm -f Tests/.mongo-keyfile
+    displayName: "Stop Test Services"
+    condition: always()
