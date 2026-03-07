@@ -21,7 +21,11 @@ resources:
       env:
         MONGO_INITDB_ROOT_USERNAME: admin
         MONGO_INITDB_ROOT_PASSWORD: password
-      command: ["--replSet", "rs0", "--bind_ip_all"]
+      options: >-
+        --name mongodb
+        --hostname mongodb
+      entrypoint: mongod
+      args: --replSet rs0 --bind_ip_all
 
 services:
   mongodb: mongodb
