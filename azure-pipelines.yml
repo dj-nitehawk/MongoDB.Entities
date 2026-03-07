@@ -12,21 +12,9 @@ pool:
 variables:
   buildConfiguration: "Release"
 
-resources:
-  containers:
-    - container: mongodb
-      image: mongo:8.0
-      ports:
-        - 27017:27017
-
-services:
-  mongodb: mongodb
-
 steps:
   - script: |
       set -e
-
-      docker ps -a
 
       docker rm -f mongodb-test >/dev/null 2>&1 || true
       docker run -d \
@@ -66,6 +54,10 @@ steps:
         --quiet \
         --eval "while (!db.hello().isWritablePrimary) { sleep(1000); }"
     displayName: "Initialize ReplicaSet"
+
+  - script: docker logs mongodb-test
+    displayName: "MongoDB Logs"
+    condition: failed()
 
   - task: UseDotNet@2
     displayName: "Use .Net SDK"
