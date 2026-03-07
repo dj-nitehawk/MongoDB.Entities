@@ -19,14 +19,26 @@ steps:
       docker rm -f mongodb-test >/dev/null 2>&1 || true
       docker run -d \
         --name mongodb-test \
-        --hostname localhost \
         -p 27017:27017 \
         -e MONGO_INITDB_ROOT_USERNAME=admin \
         -e MONGO_INITDB_ROOT_PASSWORD=password \
         mongo:8.0 \
-        --replSet rs0 --bind_ip_all
+        mongod --replSet rs0 --bind_ip_all
 
       CONTAINER_ID=mongodb-test
+
+      for i in $(seq 1 30); do
+        if [ "$(docker inspect -f '{{.State.Running}}' "$CONTAINER_ID" 2>/dev/null || true)" = "true" ]; then
+          break
+        fi
+        sleep 1
+      done
+
+      if [ "$(docker inspect -f '{{.State.Running}}' "$CONTAINER_ID" 2>/dev/null || true)" != "true" ]; then
+        echo "MongoDB container failed to stay running"
+        docker logs "$CONTAINER_ID" || true
+        exit 1
+      fi
 
       for i in $(seq 1 30); do
         if docker exec "$CONTAINER_ID" mongosh \
