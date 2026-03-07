@@ -18,7 +18,8 @@ steps:
 
       mkdir -p Tests
       openssl rand -base64 756 > Tests/.mongo-keyfile
-      chmod 600 Tests/.mongo-keyfile
+      sudo chown 999:999 Tests/.mongo-keyfile
+      sudo chmod 600 Tests/.mongo-keyfile
 
       docker compose -f docker-compose.ci.yml up -d
 
@@ -65,6 +66,6 @@ steps:
 
   - script: |
       docker compose -f docker-compose.ci.yml down -v
-      rm -f Tests/.mongo-keyfile
+      sudo rm -f Tests/.mongo-keyfile
     displayName: "Stop Test Services"
     condition: always()
