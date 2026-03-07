@@ -44,15 +44,6 @@ public static class InitTest
             return await DB.InitAsync(databaseName, ClientSettings1);
         }
 
-        return await DB.InitAsync(
-                   databaseName,
-                   new()
-                   {
-                       Server = new("localhost", 27017),
-                       Credential = MongoCredential.CreateCredential("admin", "admin", "password"),
-                       DirectConnection = true
-                   });
-
-        ;
+        return await DB.InitAsync(databaseName, MongoClientSettings.FromConnectionString("mongodb://admin:password@localhost:27017/?replicaSet=rs0&authSource=admin"));
     }
 }

@@ -12,19 +12,44 @@ pool:
 variables:
   buildConfiguration: "Release"
 
+resources:
+  containers:
+    - container: mongodb
+      image: mongo:8.0
+      ports:
+        - 27017:27017
+      env:
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: password
+      command: ["--replSet", "rs0", "--bind_ip_all"]
+
+services:
+  mongodb: mongodb
+
 steps:
   - script: |
-      apt-get install gnupg curl
-      curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
-      echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
-      sudo apt-get update
-      sudo apt-get install -y mongodb-org
-      mkdir $(System.DefaultWorkingDirectory)/mongodb
-      mkdir $(System.DefaultWorkingDirectory)/mongodb/log
-      mongod --fork --replSet 'MyRep' --dbpath $(System.DefaultWorkingDirectory)/mongodb --logpath $(System.DefaultWorkingDirectory)/mongodb/log/mongod.log
-      mongosh --eval "rs.initiate()"
-    workingDirectory: "$(System.DefaultWorkingDirectory)"
-    displayName: "Install MongoDB 8.0"
+      set -e
+
+      CONTAINER_ID=$(docker ps --filter "name=mongodb" --format "{{.ID}}" | head -1)
+      if [ -z "$CONTAINER_ID" ]; then
+        echo "MongoDB service container not found"
+        exit 1
+      fi
+
+      docker exec "$CONTAINER_ID" mongosh \
+        -u admin \
+        -p password \
+        --authenticationDatabase admin \
+        --quiet \
+        --eval "try { rs.status(); } catch (e) { rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]}); }"
+
+      docker exec "$CONTAINER_ID" mongosh \
+        -u admin \
+        -p password \
+        --authenticationDatabase admin \
+        --quiet \
+        --eval "while (!db.hello().isWritablePrimary) { sleep(1000); }"
+    displayName: "Initialize ReplicaSet"
 
   - task: UseDotNet@2
     displayName: "Use .Net SDK"
@@ -37,21 +62,5 @@ steps:
     inputs:
       command: "test"
       projects: "**/*[Tt]ests/*.csproj"
-      arguments: "--configuration $(BuildConfiguration)"
+      arguments: "--configuration $(buildConfiguration)"
       workingDirectory: "Tests"
-
-  # - task: DotNetCoreCLI@2
-  #   displayName: "Make Nuget Package"
-  #   inputs:
-  #     command: "pack"
-  #     packagesToPack: "MongoDB.Entities/MongoDB.Entities.csproj"
-  #     versioningScheme: "off"
-  #     verbosityPack: "Minimal"
-
-  # - task: NuGetCommand@2
-  #   displayName: "Publish To Nuget"
-  #   inputs:
-  #     command: "push"
-  #     packagesToPush: "$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg"
-  #     nuGetFeedType: "external"
-  #     publishFeedCredentials: "nuget-djnitehawk"
