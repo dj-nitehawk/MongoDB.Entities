@@ -23,9 +23,9 @@ resources:
         MONGO_INITDB_ROOT_PASSWORD: password
       options: >-
         --name mongodb
-        --hostname mongodb
-      entrypoint: mongod
-      args: --replSet rs0 --bind_ip_all
+        --hostname localhost
+        --entrypoint mongod
+        mongo:8.0 --replSet rs0 --bind_ip_all
 
 services:
   mongodb: mongodb
@@ -33,6 +33,8 @@ services:
 steps:
   - script: |
       set -e
+
+      docker inspect mongodb --format '{{json .Config.Entrypoint}} {{json .Config.Cmd}}'
 
       CONTAINER_ID=$(docker ps --filter "name=mongodb" --format "{{.ID}}" | head -1)
       if [ -z "$CONTAINER_ID" ]; then
