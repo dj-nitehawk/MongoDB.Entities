@@ -18,13 +18,6 @@ resources:
       image: mongo:8.0
       ports:
         - 27017:27017
-      env:
-        MONGO_INITDB_ROOT_USERNAME: admin
-        MONGO_INITDB_ROOT_PASSWORD: password
-      options: >-
-        --hostname localhost
-        --entrypoint mongod
-        mongo:8.0 --replSet rs0 --bind_ip_all
 
 services:
   mongodb: mongodb
@@ -35,13 +28,29 @@ steps:
 
       docker ps -a
 
-      CONTAINER_ID=$(docker ps -q --filter "ancestor=mongo:8.0" | head -1)
-      if [ -z "$CONTAINER_ID" ]; then
-        echo "MongoDB service container not found"
-        exit 1
-      fi
+      docker rm -f mongodb-test >/dev/null 2>&1 || true
+      docker run -d \
+        --name mongodb-test \
+        --hostname localhost \
+        -p 27017:27017 \
+        -e MONGO_INITDB_ROOT_USERNAME=admin \
+        -e MONGO_INITDB_ROOT_PASSWORD=password \
+        mongo:8.0 \
+        --replSet rs0 --bind_ip_all
 
-      docker inspect "$CONTAINER_ID" --format '{{json .Config.Entrypoint}} {{json .Config.Cmd}}'
+      CONTAINER_ID=mongodb-test
+
+      for i in $(seq 1 30); do
+        if docker exec "$CONTAINER_ID" mongosh \
+          -u admin \
+          -p password \
+          --authenticationDatabase admin \
+          --quiet \
+          --eval "db.runCommand({ ping: 1 }).ok" >/dev/null 2>&1; then
+          break
+        fi
+        sleep 1
+      done
 
       docker exec "$CONTAINER_ID" mongosh \
         -u admin \
