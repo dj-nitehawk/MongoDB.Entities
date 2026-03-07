@@ -22,7 +22,6 @@ resources:
         MONGO_INITDB_ROOT_USERNAME: admin
         MONGO_INITDB_ROOT_PASSWORD: password
       options: >-
-        --name mongodb
         --hostname localhost
         --entrypoint mongod
         mongo:8.0 --replSet rs0 --bind_ip_all
@@ -34,13 +33,15 @@ steps:
   - script: |
       set -e
 
-      docker inspect mongodb --format '{{json .Config.Entrypoint}} {{json .Config.Cmd}}'
+      docker ps -a
 
-      CONTAINER_ID=$(docker ps --filter "name=mongodb" --format "{{.ID}}" | head -1)
+      CONTAINER_ID=$(docker ps -q --filter "ancestor=mongo:8.0" | head -1)
       if [ -z "$CONTAINER_ID" ]; then
         echo "MongoDB service container not found"
         exit 1
       fi
+
+      docker inspect "$CONTAINER_ID" --format '{{json .Config.Entrypoint}} {{json .Config.Cmd}}'
 
       docker exec "$CONTAINER_ID" mongosh \
         -u admin \
