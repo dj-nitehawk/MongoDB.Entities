@@ -5,6 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace MongoDB.Entities;
@@ -15,7 +18,7 @@ public partial class DB
     const int DeleteBatchSize = 100000;
 
     // ReSharper disable once InconsistentNaming
-    async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation) where T : IEntity
+    async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation, bool idsAreStoredValues = false) where T : IEntity
     {
         // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
         //       and premature cancellation could cause data inconsistencies.
@@ -25,17 +28,21 @@ public partial class DB
         ThrowIfCancellationNotSupported(SessionHandle, cancellation);
 
         var tasks = new List<Task>();
+        var ids = IDs.ToArray();
+        var joinRecordFilter = Builders<JoinRecord>.Filter.Or(
+            Builders<JoinRecord>.Filter.In(r => r.ChildID, ids),
+            Builders<JoinRecord>.Filter.In(r => r.ParentID, ids));
 
         foreach (var refCollection in Cache<T>.ReferenceCollections.Values)
         {
             // ReSharper disable once MethodSupportsCancellation
             tasks.Add(
                 SessionHandle == null
-                    ? refCollection.DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                    : refCollection.DeleteManyAsync(SessionHandle, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
+                    ? refCollection.DeleteManyAsync(joinRecordFilter)
+                    : refCollection.DeleteManyAsync(SessionHandle, joinRecordFilter, null, cancellation));
         }
 
-        var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, Builders<T>.Filter.In(Cache<T>.IdPropName, IDs));
+        var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(ids, idsAreStoredValues));
 
         // ReSharper disable once MethodSupportsCancellation
         var delResTask = SessionHandle == null
@@ -48,17 +55,69 @@ public partial class DB
 
         if (baseType is { IsGenericType: true } && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
         {
+            var fileIDs = ids.Select(id => id?.ToString()).OfType<string>().ToArray();
+            var fileChunkFilter = Builders<FileChunk>.Filter.In(x => x.FileID, fileIDs);
+
             // ReSharper disable once MethodSupportsCancellation
             tasks.Add(
                 SessionHandle == null
-                    ? _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
+                    ? _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(fileChunkFilter)
                     : _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>())
-                              .DeleteManyAsync(SessionHandle, x => IDs.Contains(x.FileID), null, cancellation));
+                              .DeleteManyAsync(SessionHandle, fileChunkFilter, null, cancellation));
         }
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
 
         return await delResTask.ConfigureAwait(false);
+    }
+
+    static FilterDefinition<T> IDInFilter<T>(IEnumerable<object?> ids, bool idsAreStoredValues) where T : IEntity
+    {
+        var idMap = Cache<T>.BsonClassMap.IdMemberMap;
+        var idValues = new BsonArray();
+
+        foreach (var id in ids)
+        {
+            idValues.Add(idsAreStoredValues
+                             ? id as BsonValue ?? BsonValue.Create(id)
+                             : ToBsonValue(idMap, id));
+        }
+
+        return new BsonDocumentFilterDefinition<T>(new(idMap.ElementName, new BsonDocument("$in", idValues)));
+    }
+
+    static BsonValue ToBsonValue(BsonMemberMap memberMap, object? value)
+    {
+        var document = new BsonDocument();
+        var memberValue = ToMemberValue(memberMap, value);
+
+        using (var writer = new BsonDocumentWriter(document))
+        {
+            var context = BsonSerializationContext.CreateRoot(writer);
+
+            writer.WriteStartDocument();
+            writer.WriteName(memberMap.ElementName);
+            memberMap.GetSerializer().Serialize(context, new() { NominalType = memberMap.MemberType }, memberValue);
+            writer.WriteEndDocument();
+        }
+
+        return document[memberMap.ElementName];
+    }
+
+    static object? ToMemberValue(BsonMemberMap memberMap, object? value)
+    {
+        if (value == null || memberMap.MemberType.IsInstanceOfType(value))
+            return value;
+
+        var document = new BsonDocument(memberMap.ElementName, value as BsonValue ?? BsonValue.Create(value));
+
+        using var reader = new BsonDocumentReader(document);
+        var context = BsonDeserializationContext.CreateRoot(reader);
+
+        reader.ReadStartDocument();
+        reader.ReadName(memberMap.ElementName);
+
+        return memberMap.GetSerializer().Deserialize(context, new() { NominalType = memberMap.MemberType });
     }
 
     /// <summary>
@@ -186,7 +245,7 @@ public partial class DB
                     continue;
 
                 var idObjects = ValidateCursor((List<object>)cursor.Current);
-                res = await DeleteCascadingAsync<T>(idObjects, cancellation).ConfigureAwait(false);
+                res = await DeleteCascadingAsync<T>(idObjects, cancellation, idsAreStoredValues: true).ConfigureAwait(false);
                 deletedCount += res.DeletedCount;
             }
         }

@@ -41,6 +41,28 @@ public class DeletingEntity
     }
 
     [TestMethod]
+    public async Task delete_by_null_id_returns_zeroAsync()
+    {
+        var result = await _db.DeleteAsync<AuthorEntity>((object)null!);
+
+        Assert.IsTrue(result.IsAcknowledged);
+        Assert.AreEqual(0, result.DeletedCount);
+    }
+
+    [TestMethod]
+    public async Task delete_by_stored_object_id_value_removes_string_id_entityAsync()
+    {
+        var author = new AuthorEntity { Name = "auth-objectid" };
+
+        await _db.SaveAsync(author);
+
+        var result = await _db.DeleteAsync<AuthorEntity>(ObjectId.Parse(author.ID));
+
+        Assert.AreEqual(1, result.DeletedCount);
+        Assert.IsNull(await _db.Find<AuthorEntity>().OneAsync(author.ID));
+    }
+
+    [TestMethod]
     public async Task deleting_entity_removes_all_refs_to_itselfAsync()
     {
         var author = new AuthorEntity { Name = "author" };

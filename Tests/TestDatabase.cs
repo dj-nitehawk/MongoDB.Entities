@@ -26,7 +26,7 @@ public static class TestDatabase
 
     private static async Task<MongoDbContainer> CreateTestDatabase()
     {
-        _testContainer = new MongoDbBuilder()
+        _testContainer = new MongoDbBuilder("mongo:7.0")
                          .WithPortBinding(_port++)
                          .WithPassword("username")
                          .WithUsername("password")

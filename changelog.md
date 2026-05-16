@@ -4,4 +4,6 @@
 
 ### IMPROVEMENTS
 
-### FIXES
+- Upgrade mongodb driver to latest.
+
+[//]: # (### FIXES)

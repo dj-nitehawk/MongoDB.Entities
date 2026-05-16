@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>25.0.1-beta.2</Version>
+        <Version>25.1.0</Version>
 
         <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
@@ -30,8 +30,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MongoDB.Driver" Version="3.5.2"/>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+        <PackageReference Include="MongoDB.Driver" Version="3.8.1"/>
+        <PackageReference Include="SharpCompress" Version="0.48.1"/> <!-- remove when mongo driver upgrades to a non-vulnerable version -->
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All"/>
     </ItemGroup>
 
     <ItemGroup>
