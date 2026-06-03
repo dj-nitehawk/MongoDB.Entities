@@ -329,3 +329,5 @@ ASALocalRun/
 .mfractor/
 Documentation/_site
 Documentation/api
+
+.serena/
