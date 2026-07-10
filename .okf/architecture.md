@@ -1,83 +1,64 @@
 ---
 type: Architecture
 title: Architecture
-description: High-level library architecture, module boundaries, persistence model, and invariants.
-tags: [architecture, boundaries, persistence]
+description: Partial DB facade over MongoDB.Driver with entity contracts, builders, and relationship helpers.
+tags: [architecture]
 ---
 
 # Architecture
 
 ## Style
-
-MongoDB.Entities is a single .NET library package. The public API is concentrated in the `MongoDB.Entities` namespace and organized as small partial classes, builders, extension methods, base entities, and relationship abstractions over `MongoDB.Driver`.
-
-```text
-consumer app
-  -> MongoDB.Entities public API (`DB`, builders, entities, relationships)
-      -> MongoDB.Driver / BSON serialization
-          -> MongoDB server
-```
+Library-style data-access layer: thin facade + fluent builders over official driver types (`IMongoDatabase`, `IMongoCollection`, filter/update builders). No application host. Async-only public data APIs.
 
 ## Components
-
-| Component | Location | Role |
-| --- | --- | --- |
-| `DB` facade | `MongoDB.Entities/DB/` | Initialization, database instance lookup, collections, CRUD, query, migrations, transactions, change streams, files, and helper factories. |
-| Builders | `MongoDB.Entities/Builders/` | Fluent command/query builders such as `Find`, `Update`, `Replace`, `PagedSearch`, and `Index`. |
-| Core entities and utilities | `MongoDB.Entities/Core/` | `Entity`, `IEntity`, `FileEntity<T>`, serializers, attributes, transactions, templates, watchers, audit helpers, and utility logic. |
-| Relationships | `MongoDB.Entities/Relationships/` | `One<T>`, `Many<TChild,TParent>`, join records, and relationship manipulation extensions. |
-| Migrations | `MongoDB.Entities/Migrations/` and `DB/DB.Migrate.cs` | Migration contracts, metadata, discovery, ordering, and execution. |
-| Extensions | `MongoDB.Entities/Extensions/` | Extension methods for collections, entities, dates, delete/update helpers, identity, reflection, and relationships. |
-| Documentation | `Documentation/wiki/`, `Documentation/api/` | User docs and DocFX API metadata/site output. |
-| Tests | `Tests/` | MSTest coverage against MongoDB local service or Testcontainers. |
+| Component | Role |
+| --- | --- |
+| `DB` (partial) | Connection cache, default instance, ops entrypoints (`Save`, `Find`, …) |
+| `Core/` | Entities, attributes, serializers, cache, transactions, watchers, templates |
+| `Builders/` | Fluent query/update/index/paged-search builders returned by `DB` methods |
+| `Relationships/` | `One<>`, `Many<>`, `JoinRecord` |
+| `Extensions/` | Entity/collection/relationship helpers (e.g. `InitOneToMany`) |
+| `Migrations/` | `IMigration` + history entity `Migration` → collection `_migration_history_` |
+| `Tests/` | MSTest integration suite against real MongoDB |
+| `Benchmark/` | BenchmarkDotNet microbenchmarks |
+| `Documentation/` | DocFX wiki + API docs |
 
 ## Dependency rules
+- Library depends only on `MongoDB.Driver` (+ transitive; `SharpCompress` pinned for vulnerability workaround).
+- `Tests` → library; `Benchmark` → library + `Tests` (reuses test models/helpers).
+- Do not add reverse deps from library to Tests/Benchmark/Documentation.
+- Prefer extending `DB` via new partial files under `MongoDB.Entities/DB/` and builders under `Builders/` rather than unrelated namespaces.
 
-- Library code depends on `MongoDB.Driver` and BSON APIs; do not introduce unrelated runtime dependencies without a clear package need.
-- Public APIs should stay in the `MongoDB.Entities` namespace unless existing layout says otherwise.
-- `DB` is intentionally partial by capability. Add new database facade behavior in the relevant `DB/DB.*.cs` file rather than growing unrelated files.
-- Builders encapsulate fluent operation construction; avoid duplicating builder logic in tests or docs-only samples.
-- Tests and benchmarks may reference the library project; the library project must not reference test or benchmark projects.
+## Communication / runtime model
+```
+App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
+     → DB.Save/Find/Update/… → IMongoCollection / sessions
+     → Transaction() → client session + multi-doc txn
+```
+- Clients keyed by `MongoClientSettings`; DB instances keyed by client + database name (`ConcurrentDictionary` caches).
+- First successful init for default client settings becomes `_defaultInstance` (`DB.Default`).
+- Optional ASP.NET DI: `SetServiceProvider` / `SetMigrationActivator` for migration construction.
 
-## Persistence model
+## Persistence
+- One MongoDB collection per entity type (name from type or `[Collection]`).
+- Relationships: referenced IDs (`One<>`) or join collections (`Many<>` / `JoinRecord`).
+- File storage: `FileEntity<T>` metadata + `[BINARY_CHUNKS]` chunk docs (not GridFS API).
+- Conventions registered in `DB` static ctor: ignore extra elements; ignore many-props; custom `Date` / `FuzzyString` / decimal serializers.
 
-- Entities are MongoDB documents; the base `Entity` supplies string `ID` values generated from MongoDB `ObjectId` by default.
-- Custom IDs are supported through `IEntity`/`GenerateNewID`, but referenced relationships only support selected ID types documented in `Documentation/wiki/Entities.md`.
-- `ICreatedOn` and `IModifiedOn` are opt-in audit interfaces that the library updates automatically.
-- Referenced one-to-many and many-to-many relationships use separate join collections, not embedded child mutation.
-- File storage writes metadata to the file entity document and binary data to chunk records managed by `DataStreamer<T>`.
-- Migrations persist migration state and run numbered migration classes in order.
+## Security / auth (library surface)
+- Auth is caller-supplied via `MongoClientSettings` / connection string. Library does not manage credentials.
+- CI compose uses root user + keyfile replica set (test-only; see `operations.md`).
 
-## Communication and runtime model
-
-- APIs are async-first; documentation describes async-only use for scalable applications.
-- `DB.InitAsync` creates/reuses `MongoClient` instances keyed by `MongoClientSettings` and `DB` instances keyed by database name.
-- The first initialized database for the default client settings becomes `DB.Default`.
-- Transactions wrap MongoDB client sessions. Transactional relationship and file operations require the session to be passed to lower-level calls where documented.
-
-## Security/auth model
-
-- The library delegates authentication and authorization to MongoDB connection settings supplied by consumers.
-- Repository test infrastructure uses local/test MongoDB credentials in `docker-compose.ci.yml` and `Tests/Init.cs`; do not copy credential values into documentation beyond pointing to those files.
-
-## Invariants to preserve
-
-- Keep the library package compatible with `netstandard2.1` unless the project intentionally changes its public support matrix.
-- Preserve async APIs and `ConfigureAwait(false)` patterns where already used in library internals.
-- Preserve public API compatibility unless a breaking change is intentional and documented.
-- Keep generated documentation/API output separate from source edits; update source XML/docs and regenerate generated docs when required by the docs workflow.
-- Do not bypass MongoDB driver serialization conventions with ad-hoc string/BSON manipulation unless existing builders or docs require it.
+## Invariants
+- Types persisted through library APIs implement `IEntity` (typically inherit `Entity`).
+- New entities without ID: `GenerateNewID()` when `HasDefaultID()` is true.
+- `Many<>` must be initialized on parent (`InitOneToMany` / `InitManyToMany`) before use.
+- Migrations ordered by numeric prefix in type name; history in `_migration_history_`.
+- `ChangeDefaultDatabase` is concurrency-sensitive; cancel watchers first (documented warning on API).
+- Public API is async; keep new surface async.
 
 ## Sources
-
-- `MongoDB.Entities/MongoDB.Entities.csproj`
-- `MongoDB.Entities/DB/`
-- `MongoDB.Entities/Builders/`
-- `MongoDB.Entities/Core/`
-- `MongoDB.Entities/Relationships/`
-- `MongoDB.Entities/Migrations/`
-- `Documentation/wiki/Entities.md`
-- `Documentation/wiki/Relationships-Referenced.md`
-- `Documentation/wiki/File-Storage.md`
-- `Documentation/wiki/Transactions.md`
-- `Tests/Init.cs`
+- `MongoDB.Entities/DB/DB.cs`
+- `MongoDB.Entities/Core/Entities/Entity.cs`
+- `MongoDB.Entities/Relationships/Many.cs`
+- `MongoDB.Entities/DB/DB.Migrate.cs`

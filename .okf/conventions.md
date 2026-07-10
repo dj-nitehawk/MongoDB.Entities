@@ -1,75 +1,49 @@
 ---
 type: Reference
 title: Conventions
-description: Coding style, API design, documentation, and repository conventions to preserve.
-tags: [conventions, style]
+description: Coding, API, and entity design conventions used in this repository.
+tags: [conventions]
 ---
 
 # Conventions
 
-## Formatting and style
-
-- Follow `.editorconfig`.
-- Use UTF-8, CRLF line endings, spaces, 4-space indentation for most files.
-- JSON/HAR files use 2-space indentation.
-- C# nullable reference types are enabled in library, tests, and benchmark projects.
-- C# language version for the library is `13` because DocFX does not yet support C# 14 in this repo.
-- Prefer `var` where `.editorconfig` suggests it.
-- Accessibility modifiers are not required by style (`dotnet_style_require_accessibility_modifiers = never:error`).
-- ReSharper settings prefer expression-bodied methods/operators and target-typed object creation when the type is evident.
-
 ## Naming
+- Namespace: `MongoDB.Entities` for library; tests `MongoDB.Entities.Tests` / `…Tests.Models`.
+- `DB` partial class name kept (ReSharper inconsistent-naming suppressed).
+- Entity types often suffix `Entity` in tests (`BookEntity`); library base is `Entity`.
+- Migration classes: `_NNN_snake_description` implementing `IMigration`.
+- Private fields: editorconfig/ReSharper lean camelCase with `_` prefix for private static readonly; parameters camelCase.
+- Prefer PascalCase for public members; avoid `this.` qualification (editorconfig suggestions).
 
-- Parameters use lower camel case.
-- Private constants use PascalCase.
-- Private static readonly fields use lower camel case with `_` prefix.
-- Keep public API names aligned with existing API vocabulary: `DB`, `Entity`, `Find`, `Update`, `Many`, `One`, `Migration`, `Transaction`.
+## Style
+- `.editorconfig`: UTF-8, **CRLF**, spaces, indent 4 for C#.
+- `LangVersion` 13 on library (DocFX C# 14 support lag noted in csproj comment).
+- Nullable enabled on library and tests.
+- Accessibility modifiers: editorconfig sets `dotnet_style_require_accessibility_modifiers = never:error` — match existing file style.
+- `DB` feature surface: new file `DB/<Area>.cs` as `public partial class DB`, not a separate service class.
+- XML docs on public API (`GenerateDocumentationFile`); `CS1591` suppressed at project level.
 
-## API design
+## Errors and validation
+- Fail fast on empty database names, uninitialized `DB.Instance`/`Default`, bad migration naming.
+- `InitAsync` pings unless `skipNetworkPing: true`; failed init removes partial cache entries.
+- Prefer `InvalidOperationException` / `ArgumentNullException` consistent with existing methods.
 
-- Public library APIs live under `MongoDB.Entities`.
-- Async methods should use `Async` suffix and return `Task`/`Task<T>`.
-- Preserve async-first API behavior; avoid adding sync database I/O wrappers.
-- Add database facade methods to the relevant partial `DB/DB.*.cs` file.
-- Add fluent operation state/behavior to the appropriate builder under `Builders/`.
-- Keep consumer-facing examples simple and entity-oriented; avoid exposing raw `BsonDocument` or magic strings unless the feature requires it.
-- Preserve access to MongoDB driver constructs where existing APIs accept them (`MongoClientSettings`, `MongoDatabaseSettings`, sessions, filters, projections, pipelines).
+## APIs and data
+- Async methods named `*Async`; accept `CancellationToken cancellation = default` where I/O occurs.
+- Generic entity constraints: `where T : IEntity` (sometimes `new()`).
+- Fluent builders returned from `DB` methods; execution methods on builders (`ExecuteAsync`, etc.).
+- Default ID: string ObjectId via `[BsonId, AsObjectId]` on `Entity.ID`.
+- Collection name: type name or `[Collection("name")]`.
+- Ignore persistence: `[Ignore]`, `[IgnoreDefault]`; field rename/order: `[Field]`.
+- Relationships: initialize in entity constructor with `InitOneToMany` / `InitManyToMany`; sides via `[OwnerSide]` / `[InverseSide]` where needed.
+- Subclass `DB` for hooks: `OnBeforeSave`, `OnBeforeUpdate`, global filters (`SetGlobalFilter*`).
 
-## Error handling and validation
-
-- Validate obvious invalid inputs early with clear exceptions, matching existing patterns such as `ArgumentNullException` for empty database names.
-- Let MongoDB driver exceptions surface when they convey the authoritative server/driver failure.
-- In transaction flows, commit explicitly with `CommitAsync`; disposal/abort should leave no partial writes.
-
-## Persistence and model conventions
-
-- Prefer inheriting `Entity` for standard string IDs generated from MongoDB `ObjectId`.
-- Use `IEntity` only when inheritance is not possible or custom ID handling is required.
-- Use attributes for persistence customization: collection names, field names, ignore/default-ignore, ID treatment, reference sides, and preserve/don't-preserve behavior.
-- Use `ICreatedOn`/`IModifiedOn` for auto-managed audit fields rather than ad-hoc timestamp handling.
-- For referenced relationships, initialize `Many<TChild,TParent>` properties in entity constructors using the existing `InitOneToMany`/`InitManyToMany` helpers.
-
-## Documentation conventions
-
-- User docs live in `Documentation/wiki/*.md` and are included by `Documentation/docfx.json`.
-- Update `Documentation/toc.yml` when adding pages that should appear in navigation.
-- API reference YAML in `Documentation/api/` is generated from the library project.
-- Keep README concise; it points users to the official docs site.
-
-## Dependency and simplicity rules
-
-- Keep the runtime library small. New dependencies should have direct value for the NuGet package, not just implementation convenience.
-- Preserve public API compatibility unless a breaking change is intentional and documented.
-- Prefer existing builders/extensions over new abstraction layers.
+## Config and DI
+- No appsettings in library; all connection config via `MongoClientSettings` / connection strings.
+- Optional: `db.SetServiceProvider(IServiceProvider)` and `db.SetMigrationActivator(Func<Type,IMigration>)` (activator wins over SP).
 
 ## Sources
-
 - `.editorconfig`
 - `MongoDB.Entities/MongoDB.Entities.csproj`
 - `MongoDB.Entities/DB/DB.cs`
-- `MongoDB.Entities/Builders/`
-- `MongoDB.Entities/Extensions/`
-- `Documentation/docfx.json`
-- `Documentation/toc.yml`
 - `Documentation/wiki/Entities.md`
-- `Documentation/wiki/Relationships-Referenced.md`

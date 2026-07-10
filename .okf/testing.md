@@ -1,84 +1,59 @@
 ---
-type: Reference
+type: Playbook
 title: Testing
-description: Test framework, layout, MongoDB dependencies, and validation expectations.
-tags: [testing, mstest, mongodb]
+description: MSTest integration tests against MongoDB 7 (compose or Testcontainers).
+tags: [test]
 ---
 
 # Testing
 
-## Framework and target
-
-- Test project: `Tests/Tests.csproj`.
-- Framework: MSTest (`MSTest.TestFramework`, `MSTest.TestAdapter`) with `Microsoft.NET.Test.Sdk`.
-- Target framework: `net10.0`.
-- Coverage collector: `coverlet.collector`.
-- Integration database options: local MongoDB from `docker-compose.ci.yml` or Testcontainers MongoDB.
-
-## Initialization
-
-`Tests/Init.cs` runs once for the assembly:
-
-- registers a standard `GuidSerializer`;
-- checks `MONGODB_ENTITIES_TESTCONTAINERS`;
-- if set, starts two MongoDB Testcontainers instances;
-- otherwise connects to the local replica-set service on port 27017;
-- initializes the `mongodb-entities-test` database through `DB.InitAsync`.
-
-## Test layout
-
-| Path | Purpose |
-| --- | --- |
-| `Tests/EntityTests/` | Main feature suites: counting, date, default DB, delete, distinct, fuzzy string, geospatial, indexes, modified-by, multi-db, paging, props, relationships, replace, save, sort, tag replacement, transactions, update/update-and-get, watcher. |
-| `Tests/Models/` | Entity models and sample images used by tests. |
-| `Tests/Migrations/` | Migration classes used by migration tests. |
-| `Tests/TestDatabase.cs` | Testcontainers MongoDB builder/helper. |
-| `Tests/TestMigrations.cs` | Migration-system tests. |
-| `Tests/TestMultiClient.cs` | Multi-client tests. |
-| `Tests/TestFileEntity.cs` | File storage tests. |
-| `Tests/CappedCollection.cs` | Capped collection tests. |
+## Frameworks and layout
+- **MSTest** (`MSTest.TestFramework` / adapter) + `Microsoft.NET.Test.Sdk`
+- Project: `Tests/Tests.csproj` → `net10.0`, references library
+- **Do not parallelize:** `[assembly: DoNotParallelize]` in `Tests/Init.cs`
+- Assembly init: `InitTest.Init` registers Guid serializer, chooses Mongo mode, calls `InitTestDatabase("mongodb-entities-test")`
+- Feature tests: `Tests/EntityTests/Test*.cs`
+- Models: `Tests/Models/**`
+- Extra: `TestFileEntity.cs`, `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
+- Fixture migrations: `Tests/Migrations/_001_rename_field.cs`, `_002_undo_field_rename.cs`
+- Binary fixtures: `Tests/Models/test.jpg`, `test.png` (copy to output)
+- Coverage collector: coverlet (package present; no mandated coverage gate in pipeline)
 
 ## Commands
-
-Run all tests with local docker-compose MongoDB after creating the keyfile and starting the service:
-
 ```bash
+# Requires Mongo reachable (compose default) unless Testcontainers env set
 dotnet test Tests/Tests.csproj -c Release
-```
 
-Run all tests with Testcontainers:
-
-```bash
+# Testcontainers path (Docker required)
 MONGODB_ENTITIES_TESTCONTAINERS=1 dotnet test Tests/Tests.csproj -c Release
+
+# Filter example
+dotnet test Tests/Tests.csproj --filter FullyQualifiedName~SavingEntity
 ```
 
-Run targeted tests with MSTest filters:
+Azure pipeline: `dotnet test` on `**/*[Tt]ests/*.csproj` with workingDirectory `Tests`, after compose healthy.
 
-```bash
-dotnet test Tests/Tests.csproj -c Release --filter FullyQualifiedName~TestRelationships
-```
+## Integration and data
+| Mode | When | Connection |
+| --- | --- | --- |
+| Compose / local | default (env unset) | `mongodb://admin:password@localhost:27017/?replicaSet=rs0&authSource=admin` |
+| Testcontainers | `MONGODB_ENTITIES_TESTCONTAINERS` set | `TestDatabase.CreateDatabase()` — image `mongo:7.0`, replica set, ports from 27017++ |
 
-## Database dependencies
+Compose stack (`docker-compose.ci.yml`): `mongo:7.0`, auth, keyfile at `Tests/.mongo-keyfile`, replica set `rs0`. Pipeline generates keyfile (openssl), `chown 999:999`, mode `600`.
 
-- Tests need a MongoDB replica set because transactions and change streams require replica-set behavior.
-- `docker-compose.ci.yml` defines a MongoDB 7.0 service, a replica-set init container, and persistent test volume.
-- CI creates and removes `Tests/.mongo-keyfile` around the run. Treat it as generated local test material.
+Replica set required for transaction tests.
 
-## What to test when changing behavior
+Custom `DB` subclasses in tests (`MyDbEntity`, etc.) exercise global filters and `OnBeforeSave` / `OnBeforeUpdate` hooks.
 
-- Public CRUD/query/builder changes: add or update a focused test under `Tests/EntityTests/`.
-- Relationship behavior: update `TestRelationships` and relevant model classes.
-- Migrations: update `Tests/Migrations/` plus `TestMigrations`.
-- File storage: update `TestFileEntity` and sample data expectations.
-- Initialization/default/multi-client logic: update `TestDefaultDbChange`, `TestMultiDb`, or `TestMultiClient` as applicable.
-- Transactions/change streams: validate against a replica-set-backed database, not a standalone MongoDB instance.
+## Expectations
+- New public behavior: add/adjust MSTest methods under `EntityTests` (or sibling test classes); extend `Tests/Models` if new entity shapes needed.
+- Prefer real Mongo assertions over mocks.
+- Keep tests sequential-safe; avoid introducing assembly-level parallelization.
+- Migration tests drop `_migration_history_` when done.
 
 ## Sources
-
-- `Tests/Tests.csproj`
 - `Tests/Init.cs`
 - `Tests/TestDatabase.cs`
-- `Tests/EntityTests/`
-- `Tests/Migrations/`
+- `Tests/Tests.csproj`
 - `docker-compose.ci.yml`
 - `azure-pipelines.yml`
