@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
@@ -23,6 +24,7 @@ static class Cache<T> where T : IEntity
     internal static string IdPropName { get; private set; } = null!;
     internal static string IdBsonName { get; private set; } = null!;
     internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
+    internal static Expression<Func<T, BsonValue>> BsonValueIdExpression { get; private set; } = null!;
     internal static Func<T, object?> IdSelector { get; private set; } = null!;
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
@@ -51,6 +53,7 @@ static class Cache<T> where T : IEntity
             IdPropName = idMap.MemberName;
             IdBsonName = idMap.ElementName;
             IdExpression = SelectIdExpression(idMap.MemberInfo);
+            BsonValueIdExpression = SelectBsonValueIdExpression(idMap.MemberInfo);
             IdSelector = IdExpression.Compile();
             IdGetter = idMap.Getter;
             IdSetter = idMap.Setter;
@@ -146,6 +149,25 @@ static class Cache<T> where T : IEntity
 
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
     }
+
+    // used as a server-side join/lookup key against JoinRecord's BsonValue fields.
+    // the double conversion never executes; the driver only translates the ID member path.
+    static Expression<Func<T, BsonValue>> SelectBsonValueIdExpression(MemberInfo idProp)
+    {
+        var parameter = Expression.Parameter(typeof(T), "t");
+        var property = Expression.Property(parameter, idProp.Name);
+        Expression conversion = Expression.Convert(Expression.Convert(property, typeof(object)), typeof(BsonValue));
+
+        return Expression.Lambda<Func<T, BsonValue>>(conversion, parameter);
+    }
+
+    /// <summary>
+    /// Converts a CLR ID value to the representation it would be stored as in the database, by running it
+    /// through the serializer of the ID property of the entity. i.e. a string decorated with an ObjectId
+    /// representation attribute yields a BsonObjectId, a plain string yields a BsonString, etc.
+    /// </summary>
+    internal static BsonValue IdToBsonValue(object? id)
+        => DB.ToBsonValue(BsonClassMap.IdMemberMap, id);
 
     static BsonClassMap MapBsonClass(Type type)
     {

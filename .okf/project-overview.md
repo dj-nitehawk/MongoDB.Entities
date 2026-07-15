@@ -16,7 +16,7 @@ resource: README.md
 - **Out:** Host applications, server provisioning, ODM for non-Mongo stores.
 
 ## Capabilities
-- Entity model via `IEntity` / `Entity` / `FileEntity<T>` with ObjectId-as-string IDs by default
+- Entity model via `IEntity` / `Entity` / `FileEntity<T>`; default IDs are ObjectId-formatted strings stored as plain strings, but any ID type/representation is supported (incl. relationships)
 - Fluent ops: `Save`/`Insert`/`Find`/`Update`/`UpdateAndGet`/`Replace`/`Delete`/`PagedSearch`/`Distinct`/`Count`
 - LINQ (`Queryable`), aggregation pipelines + string `Template`s, GeoNear
 - Relationships: `One<T>`, `Many<TChild,TParent>` (1-1 / 1-N / N-N via join collections)

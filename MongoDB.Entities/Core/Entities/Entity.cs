@@ -11,7 +11,7 @@ public abstract class Entity : IEntity
     /// <summary>
     /// This property is auto managed. A new ID will be assigned for new entities upon saving.
     /// </summary>
-    [BsonId, AsObjectId]
+    [BsonId]
     public string ID { get; set; } = null!;
 
     /// <summary>

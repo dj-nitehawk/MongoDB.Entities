@@ -50,12 +50,17 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
         _parent.ThrowIfUnsaved();
 
         var models = new List<WriteModel<JoinRecord>>(childIDs.Count());
+        var parentBsonId = _parent.GetBsonId();
 
         foreach (var cid in childIDs)
         {
             cid.ThrowIfUnsaved();
-            var parentID = _isInverse ? cid : _parent.GetId();
-            var childID = _isInverse ? _parent.GetId() : cid;
+
+            //store IDs in join records exactly as they are stored in the entity's own _id field,
+            //otherwise children/parent queries would silently match nothing for custom-represented IDs
+            var childBsonId = Cache<TChild>.IdToBsonValue(cid);
+            var parentID = _isInverse ? childBsonId : parentBsonId;
+            var childID = _isInverse ? parentBsonId : childBsonId;
 
             var filter = Builders<JoinRecord>.Filter.Where(
                 j => j.ParentID == parentID &&

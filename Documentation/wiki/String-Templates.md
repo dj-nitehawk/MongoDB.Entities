@@ -136,7 +136,7 @@ var pipeline = new Template<Book, Author>(
                        }
                    ]
                    """)
-               .Tag("book_id", "ObjectId('5e572df44467000021005692')")
+               .Tag("book_id", "'5e572df44467000021005692'")
                .Tag("author_collection", db.CollectionName<Author>())
                .Path(b => b.AuthorID)
                .PathOfResult(a => a.Age);

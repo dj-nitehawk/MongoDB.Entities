@@ -96,11 +96,7 @@ public class Book : IEntity
 ```
 
 > [!note]
-> The type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). However, due to a technical constraint, only the following types are supported with the [referenced relationship](Relationships-Referenced.md) functionality:
->
-> - string
-> - long
-> - ObjectId
+> The type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver), and any ID type/representation works with the [referenced relationship](Relationships-Referenced.md) functionality — including `string`, `long`, `ObjectId`, `Guid` and custom-represented IDs such as `[BsonRepresentation(BsonType.ObjectId)] string`. Relationship join records always store the ID exactly as it is stored in the entity's own `_id` field. When using `Guid` IDs, register a Guid serializer before initializing the library, e.g. `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));`
 
 > [!warning]
 > It is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).

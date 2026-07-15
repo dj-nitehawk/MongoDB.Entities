@@ -376,7 +376,7 @@ public class TemplatesEntity
                     {
                         $set: { <Surname> : '$<Name>' }
                     }
-                ]").Tag("book_id", $"ObjectId('{book.ID}')")
+                ]").Tag("book_id", $"'{book.ID}'")
                    .Tag("author_collection", db.CollectionName<AuthorEntity>())
                    .Path(b => b.MainAuthor.ID)
                    .PathOfResult(a => a.Surname)

@@ -6,7 +6,7 @@ namespace MongoDB.Entities.Tests;
 [Collection("GenreEntity")]
 public class GenreEntity : Genre
 {
-    [BsonId, AsObjectId]
+    [BsonId]
     public string ID { get; set; }
 
     public override object GenerateNewID()

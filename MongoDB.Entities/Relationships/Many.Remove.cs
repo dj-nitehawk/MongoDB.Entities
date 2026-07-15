@@ -43,14 +43,17 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="cancellation">An optional cancellation token</param>
     public Task RemoveAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
+        var parentId = _parent.GetBsonId();
+        var childIds = childIDs.Select(Cache<TChild>.IdToBsonValue);
+
         var filter =
             _isInverse
                 ? Builders<JoinRecord>.Filter.And(
-                    Builders<JoinRecord>.Filter.Eq(j => j.ChildID, _parent.GetId()),
-                    Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
+                    Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parentId),
+                    Builders<JoinRecord>.Filter.In(j => j.ParentID, childIds))
                 : Builders<JoinRecord>.Filter.And(
-                    Builders<JoinRecord>.Filter.Eq(j => j.ParentID, _parent.GetId()),
-                    Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
+                    Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parentId),
+                    Builders<JoinRecord>.Filter.In(j => j.ChildID, childIds));
 
         return session == null
                    ? JoinCollection.DeleteManyAsync(filter, null, cancellation)

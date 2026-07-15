@@ -59,7 +59,6 @@ sealed class FileChunk : IEntity
     [BsonId, ObjectId]
     public string ID { get; set; } = null!;
 
-    [AsObjectId]
     public string FileID { get; set; } = null!;
 
     public byte[] Data { get; set; } = [];

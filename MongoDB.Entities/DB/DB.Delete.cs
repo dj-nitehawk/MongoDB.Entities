@@ -29,9 +29,18 @@ public partial class DB
 
         var tasks = new List<Task>();
         var ids = IDs.ToArray();
+
+        //join records hold the stored representation of entity IDs, so raw CLR values must be
+        //converted through the ID member's serializer before matching against them
+        var storedIds = ids.Select(
+                                id => idsAreStoredValues
+                                          ? id as BsonValue ?? BsonValue.Create(id)
+                                          : Cache<T>.IdToBsonValue(id))
+                           .ToArray();
+
         var joinRecordFilter = Builders<JoinRecord>.Filter.Or(
-            Builders<JoinRecord>.Filter.In(r => r.ChildID, ids),
-            Builders<JoinRecord>.Filter.In(r => r.ParentID, ids));
+            Builders<JoinRecord>.Filter.In(r => r.ChildID, storedIds),
+            Builders<JoinRecord>.Filter.In(r => r.ParentID, storedIds));
 
         foreach (var refCollection in Cache<T>.ReferenceCollections.Values)
         {
@@ -42,7 +51,7 @@ public partial class DB
                     : refCollection.DeleteManyAsync(SessionHandle, joinRecordFilter, null, cancellation));
         }
 
-        var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(ids, idsAreStoredValues));
+        var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(storedIds));
 
         // ReSharper disable once MethodSupportsCancellation
         var delResTask = SessionHandle == null
@@ -71,22 +80,10 @@ public partial class DB
         return await delResTask.ConfigureAwait(false);
     }
 
-    static FilterDefinition<T> IDInFilter<T>(IEnumerable<object?> ids, bool idsAreStoredValues) where T : IEntity
-    {
-        var idMap = Cache<T>.BsonClassMap.IdMemberMap;
-        var idValues = new BsonArray();
+    static FilterDefinition<T> IDInFilter<T>(IEnumerable<BsonValue> storedIds) where T : IEntity
+        => new BsonDocumentFilterDefinition<T>(new(Cache<T>.IdBsonName, new BsonDocument("$in", new BsonArray(storedIds))));
 
-        foreach (var id in ids)
-        {
-            idValues.Add(idsAreStoredValues
-                             ? id as BsonValue ?? BsonValue.Create(id)
-                             : ToBsonValue(idMap, id));
-        }
-
-        return new BsonDocumentFilterDefinition<T>(new(idMap.ElementName, new BsonDocument("$in", idValues)));
-    }
-
-    static BsonValue ToBsonValue(BsonMemberMap memberMap, object? value)
+    internal static BsonValue ToBsonValue(BsonMemberMap memberMap, object? value)
     {
         var document = new BsonDocument();
         var memberValue = ToMemberValue(memberMap, value);

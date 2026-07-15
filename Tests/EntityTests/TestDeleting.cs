@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
@@ -52,14 +53,15 @@ public class DeletingEntity
     [TestMethod]
     public async Task delete_by_stored_object_id_value_removes_string_id_entityAsync()
     {
-        var author = new AuthorEntity { Name = "auth-objectid" };
+        //RepStringIdParent has a string ID stored as ObjectId, so deleting by the stored ObjectId value must work
+        var parent = new RepStringIdParent { Name = "del-objectid" };
 
-        await _db.SaveAsync(author);
+        await _db.SaveAsync(parent);
 
-        var result = await _db.DeleteAsync<AuthorEntity>(ObjectId.Parse(author.ID));
+        var result = await _db.DeleteAsync<RepStringIdParent>(ObjectId.Parse(parent.ID));
 
         Assert.AreEqual(1, result.DeletedCount);
-        Assert.IsNull(await _db.Find<AuthorEntity>().OneAsync(author.ID));
+        Assert.IsNull(await _db.Find<RepStringIdParent>().OneAsync(parent.ID));
     }
 
     [TestMethod]

@@ -42,6 +42,7 @@ App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
 ## Persistence
 - One MongoDB collection per entity type (name from type or `[Collection]`).
 - Relationships: referenced IDs (`One<>`) or join collections (`Many<>` / `JoinRecord`).
+- Join records store `ParentID`/`ChildID` as `BsonValue` holding the *stored representation* of the entity's `_id` (via `GetBsonId()` / `Cache<T>.IdToBsonValue`); queryable joins/lookups key entities with `Cache<T>.BsonValueIdExpression`. Never write raw CLR ID values into join records — custom-represented IDs would silently match nothing.
 - File storage: `FileEntity<T>` metadata + `[BINARY_CHUNKS]` chunk docs (not GridFS API).
 - Conventions registered in `DB` static ctor: ignore extra elements; ignore many-props; custom `Date` / `FuzzyString` / decimal serializers.
 

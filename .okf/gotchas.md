@@ -12,6 +12,8 @@ tags: [gotcha]
 - **`Tests/.mongo-keyfile`:** compose mounts it; CI creates with `chmod 600` and `chown 999:999`. Wrong perms → container auth/keyfile errors.
 - **`[assembly: DoNotParallelize]`** — do not enable parallel MSTest without redesigning shared DB usage.
 - **`Many<>` uninitialized** → runtime failures; must `InitOneToMany` / `InitManyToMany` in entity ctor (see relationship wiki/tests).
+- **`JoinRecord` `_id` is server-generated** (upsert writes never set it), so it's a BSON ObjectId — hence `JoinRecord : ObjectIdEntity`. Don't rebase it on `Entity` (plain string ID can't deserialize ObjectId `_id`).
+- **`Guid` entity IDs** need `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard))` before init (tests do this in `Tests/Init.cs`); the library does not register one.
 - **`DB.Default` / `Instance`** throw if `InitAsync` never ran for that client/name.
 - **`ChangeDefaultDatabase`** is explicitly unsafe under concurrency; cancel watchers first.
 - **Migration discovery** excludes many assembly name prefixes; test assembly name `MongoDB.Entities.Tests` is special-cased. Prefer `MigrateAsync<T>()` or `MigrationsAsync` when discovery is ambiguous.

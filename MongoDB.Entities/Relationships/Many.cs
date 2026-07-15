@@ -54,13 +54,15 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     {
         _parent.ThrowIfUnsaved();
 
+        var parentId = _parent.GetBsonId();
+
         return _isInverse
                    ? session == null
-                         ? JoinCollection.CountDocumentsAsync(j => j.ChildID == _parent.GetId(), options, cancellation)
-                         : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == _parent.GetId(), options, cancellation)
+                         ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parentId, options, cancellation)
+                         : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parentId, options, cancellation)
                    : session == null
-                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == _parent.GetId(), options, cancellation)
-                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == _parent.GetId(), options, cancellation);
+                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parentId, options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parentId, options, cancellation);
     }
 
     /// <summary>
