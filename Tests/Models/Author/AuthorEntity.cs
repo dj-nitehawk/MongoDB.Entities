@@ -12,9 +12,6 @@ public class AuthorEntity : Author
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
 
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
-
     [BsonIgnoreIfDefault]
     public One<BookEntity> BestSeller { get; set; }
 

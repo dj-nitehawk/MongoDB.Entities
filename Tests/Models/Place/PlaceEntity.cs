@@ -11,7 +11,4 @@ public class PlaceEntity : Place
 
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(Id);
 }

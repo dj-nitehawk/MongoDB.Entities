@@ -65,9 +65,6 @@ sealed class FileChunk : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 /// <summary>

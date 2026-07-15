@@ -15,7 +15,4 @@ class SequenceCounter : IEntity
 
     public object GenerateNewID()
         => throw new NotImplementedException();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }

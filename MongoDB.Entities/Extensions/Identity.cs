@@ -36,7 +36,11 @@ public static partial class Extensions
     internal static void SetId<T>(this T entity, object id) where T : IEntity
         => Cache<T>.IdSetter(entity, id);
 
+    /// <summary>
+    /// Determines whether the entity's ID property still holds the default value of its type
+    /// (i.e. the entity hasn't been saved yet and needs a new ID generated on save).
+    /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-    internal static bool HasDefaultID<T>(this T entity) where T : IEntity
+    public static bool HasDefaultID<T>(this T entity) where T : IEntity
         => Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
 }

@@ -16,7 +16,4 @@ public abstract class ObjectIdEntity : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId();
-
-    public bool HasDefaultID()
-        => Id == ObjectId.Empty;
 }

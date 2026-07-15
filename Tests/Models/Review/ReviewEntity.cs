@@ -13,8 +13,5 @@ public class ReviewEntity : Review
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
 
-    public override bool HasDefaultID()
-      => string.IsNullOrEmpty(Id);
-
     public Collection<BookEntity> Books { get; set; }
 }

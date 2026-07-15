@@ -31,9 +31,6 @@ public class StringIdParent : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 [Collection("StringIdChild")]
@@ -54,9 +51,6 @@ public class StringIdChild : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 #endregion
@@ -84,9 +78,6 @@ public class CustomStringIdParent : IEntity
 
     public object GenerateNewID()
         => $"parent-{Guid.NewGuid():N}";
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 [Collection("CustomStringIdChild")]
@@ -107,9 +98,6 @@ public class CustomStringIdChild : IEntity
 
     public object GenerateNewID()
         => $"child-{Guid.NewGuid():N}";
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 #endregion
@@ -139,9 +127,6 @@ public class LongIdParent : IEntity
 
     public object GenerateNewID()
         => Interlocked.Increment(ref _idCounter);
-
-    public bool HasDefaultID()
-        => ID == 0;
 }
 
 [Collection("LongIdChild")]
@@ -164,9 +149,6 @@ public class LongIdChild : IEntity
 
     public object GenerateNewID()
         => Interlocked.Increment(ref _idCounter);
-
-    public bool HasDefaultID()
-        => ID == 0;
 }
 
 #endregion
@@ -229,9 +211,6 @@ public class GuidIdParent : IEntity
 
     public object GenerateNewID()
         => Guid.NewGuid();
-
-    public bool HasDefaultID()
-        => ID == Guid.Empty;
 }
 
 [Collection("GuidIdChild")]
@@ -252,9 +231,6 @@ public class GuidIdChild : IEntity
 
     public object GenerateNewID()
         => Guid.NewGuid();
-
-    public bool HasDefaultID()
-        => ID == Guid.Empty;
 }
 
 #endregion
@@ -282,9 +258,6 @@ public class RepStringIdParent : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 [Collection("RepStringIdChild")]
@@ -305,9 +278,6 @@ public class RepStringIdChild : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
 
 #endregion

@@ -12,9 +12,6 @@ public class GenreEntity : Genre
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
 
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
-
     [InverseSide]
     public Many<BookEntity, GenreEntity> Books { get; set; } = null!;
 

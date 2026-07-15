@@ -52,7 +52,7 @@ App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
 
 ## Invariants
 - Types persisted through library APIs implement `IEntity` (typically inherit `Entity`).
-- New entities without ID: `GenerateNewID()` when `HasDefaultID()` is true.
+- New entities without ID: `GenerateNewID()` when the ID equals its type's default value (`HasDefaultID()` extension comparing against `Cache<T>.IdDefaultValue`; `IEntity` itself only declares `GenerateNewID`).
 - `Many<>` must be initialized on parent (`InitOneToMany` / `InitManyToMany`) before use.
 - Migrations ordered by numeric prefix in type name; history in `_migration_history_`.
 - `ChangeDefaultDatabase` is concurrency-sensitive; cancel watchers first (documented warning on API).

@@ -4,6 +4,7 @@
 - **`[AsObjectId]` is no longer applied by the library.** The attribute still exists for opt-in use on your own properties, but it has been removed from `Entity.ID`, `One<T>.ID`, `ModifiedBy.UserID` and the internal file chunk reference. String IDs are now stored in MongoDB as plain strings unless you decorate them yourself (e.g. with `[AsObjectId]` or `[BsonRepresentation(BsonType.ObjectId)]`).
 - `Many<TChild,TParent>.ParentsQueryable(...)` now accepts `object`/`IEnumerable<object>` child IDs instead of `string`/`IEnumerable<string>`.
 - **Guid IDs:** entities with `Guid` ID properties require a Guid serializer to be registered before `DB.InitAsync`, e.g. `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));`
+- **`HasDefaultID()` instance methods removed** from `Entity`, `ObjectIdEntity` and internal types — entities only need to provide `GenerateNewID()` now. Unsaved-entity detection compares the ID property against the default value of its type via the (now public) `HasDefaultID()` extension method. Remove your own implementations/overrides; note that overrides were already ignored by the library internally, so behavior does not change.
 
 #### Data migration for existing databases
 
