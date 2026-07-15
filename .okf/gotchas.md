@@ -14,6 +14,8 @@ tags: [gotcha]
 - **`Many<>` uninitialized** → runtime failures; must `InitOneToMany` / `InitManyToMany` in entity ctor (see relationship wiki/tests).
 - **`JoinRecord` `_id` is server-generated** (upsert writes never set it), so it's a BSON ObjectId — hence `JoinRecord : ObjectIdEntity`. Don't rebase it on `Entity` (plain string ID can't deserialize ObjectId `_id`).
 - **`Guid` entity IDs** need `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard))` before init (tests do this in `Tests/Init.cs`); the library does not register one.
+- **Custom ID generation** = registering an `IIdGenerator` (per entity via `DB.RegisterIdGenerator<T>()` — works for `Entity` subclasses too; or per ID type via `BsonSerializer.RegisterIdGenerator`) — there is no `GenerateNewID()` to override anymore. Without a resolvable generator, string IDs silently get ObjectId-format values and other ID types throw on save.
+- **Global conventions register via module initializer** (`Core/LibraryInitializer.cs`, not a `DB` static ctor), so user class maps/serializers/generators registered before `DB.InitAsync` can't race them. The `ModuleInitializerAttribute` shim exists because netstandard2.1 lacks it.
 - **`DB.Default` / `Instance`** throw if `InitAsync` never ran for that client/name.
 - **`ChangeDefaultDatabase`** is explicitly unsafe under concurrency; cancel watchers first.
 - **Migration discovery** excludes many assembly name prefixes; test assembly name `MongoDB.Entities.Tests` is special-cased. Prefer `MigrateAsync<T>()` or `MigrationsAsync` when discovery is ambiguous.

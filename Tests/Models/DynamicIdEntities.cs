@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -28,9 +27,6 @@ public class StringIdParent : IEntity
         this.InitOneToMany(() => Children);
         this.InitManyToMany(() => AllChildren, c => c.AllParents);
     }
-
-    public object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
 }
 
 [Collection("StringIdChild")]
@@ -48,9 +44,6 @@ public class StringIdChild : IEntity
     {
         this.InitManyToMany(() => AllParents, p => p.AllChildren);
     }
-
-    public object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
 }
 
 #endregion
@@ -75,9 +68,6 @@ public class CustomStringIdParent : IEntity
         this.InitOneToMany(() => Children);
         this.InitManyToMany(() => AllChildren, c => c.AllParents);
     }
-
-    public object GenerateNewID()
-        => $"parent-{Guid.NewGuid():N}";
 }
 
 [Collection("CustomStringIdChild")]
@@ -95,9 +85,6 @@ public class CustomStringIdChild : IEntity
     {
         this.InitManyToMany(() => AllParents, p => p.AllChildren);
     }
-
-    public object GenerateNewID()
-        => $"child-{Guid.NewGuid():N}";
 }
 
 #endregion
@@ -107,8 +94,6 @@ public class CustomStringIdChild : IEntity
 [Collection("LongIdParent")]
 public class LongIdParent : IEntity
 {
-    static long _idCounter = DateTime.UtcNow.Ticks;
-
     [BsonId]
     public long ID { get; set; }
 
@@ -124,16 +109,11 @@ public class LongIdParent : IEntity
         this.InitOneToMany(() => Children);
         this.InitManyToMany(() => AllChildren, c => c.AllParents);
     }
-
-    public object GenerateNewID()
-        => Interlocked.Increment(ref _idCounter);
 }
 
 [Collection("LongIdChild")]
 public class LongIdChild : IEntity
 {
-    static long _idCounter = DateTime.UtcNow.Ticks;
-
     [BsonId]
     public long ID { get; set; }
 
@@ -146,9 +126,6 @@ public class LongIdChild : IEntity
     {
         this.InitManyToMany(() => AllParents, p => p.AllChildren);
     }
-
-    public object GenerateNewID()
-        => Interlocked.Increment(ref _idCounter);
 }
 
 #endregion
@@ -208,9 +185,6 @@ public class GuidIdParent : IEntity
         this.InitOneToMany(() => Children);
         this.InitManyToMany(() => AllChildren, c => c.AllParents);
     }
-
-    public object GenerateNewID()
-        => Guid.NewGuid();
 }
 
 [Collection("GuidIdChild")]
@@ -228,9 +202,6 @@ public class GuidIdChild : IEntity
     {
         this.InitManyToMany(() => AllParents, p => p.AllChildren);
     }
-
-    public object GenerateNewID()
-        => Guid.NewGuid();
 }
 
 #endregion
@@ -255,9 +226,6 @@ public class RepStringIdParent : IEntity
         this.InitOneToMany(() => Children);
         this.InitManyToMany(() => AllChildren, c => c.AllParents);
     }
-
-    public object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
 }
 
 [Collection("RepStringIdChild")]
@@ -275,9 +243,6 @@ public class RepStringIdChild : IEntity
     {
         this.InitManyToMany(() => AllParents, p => p.AllChildren);
     }
-
-    public object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
 }
 
 #endregion

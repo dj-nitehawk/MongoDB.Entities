@@ -13,7 +13,4 @@ public abstract class ObjectIdEntity : IEntity
     /// </summary>
     [BsonId]
     public ObjectId Id { get; set; }
-
-    public object GenerateNewID()
-        => ObjectId.GenerateNewId();
 }

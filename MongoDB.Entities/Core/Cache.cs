@@ -7,6 +7,7 @@ using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
 
 namespace MongoDB.Entities;
@@ -29,6 +30,7 @@ static class Cache<T> where T : IEntity
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
     internal static object IdDefaultValue { get; private set; } = null!;
+    internal static IIdGenerator IdGenerator { get; private set; }
 
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
@@ -58,10 +60,14 @@ static class Cache<T> where T : IEntity
             IdGetter = idMap.Getter;
             IdSetter = idMap.Setter;
             IdDefaultValue = idMap.DefaultValue;
+            IdGenerator = ResolveIdGenerator(idMap);
         }
         else
             throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
 
+        if (IdGenerator == null)
+            throw new InvalidOperationException($"Type {type.FullName} must specify an IdGenerator.");
+        
         var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
         CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
@@ -168,6 +174,25 @@ static class Cache<T> where T : IEntity
     /// </summary>
     internal static BsonValue IdToBsonValue(object? id)
         => DB.ToBsonValue(BsonClassMap.IdMemberMap, id);
+
+    // explicit registration for this entity type via DB.RegisterIdGenerator<T>() overrides the resolved generator.
+    // works regardless of where the ID property is declared and regardless of registration order vs. first use.
+    internal static void SetIdGenerator(IIdGenerator generator)
+        => IdGenerator = generator;
+
+    // the generator set on the class map (via SetIdGenerator or driver conventions) wins, then any
+    // generator registered with BsonSerializer.RegisterIdGenerator for the ID's CLR type, then
+    // library defaults matching the ID formats generated for the well-known ID types.
+    static IIdGenerator? ResolveIdGenerator(BsonMemberMap idMap)
+        => idMap.IdGenerator
+           ?? BsonSerializer.LookupIdGenerator(idMap.MemberType)
+           ?? (idMap.MemberType == typeof(string)
+                   ? StringObjectIdGenerator.Instance
+                   : idMap.MemberType == typeof(ObjectId)
+                       ? ObjectIdGenerator.Instance
+                       : idMap.MemberType == typeof(Guid)
+                           ? GuidGenerator.Instance
+                           : null);
 
     static BsonClassMap MapBsonClass(Type type)
     {

@@ -27,5 +27,4 @@ public abstract class Author : IEntity, IModifiedOn, ICreatedOn
 
     public DateTime CreatedOn { get; set; }
 
-    public abstract object GenerateNewID();
 }

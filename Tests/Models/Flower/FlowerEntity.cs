@@ -10,9 +10,6 @@ public class FlowerEntity : Flower
     [BsonId]
     public string Id { get; set; }
 
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
     public FlowerEntity NestedFlower { get; set; }
     public Many<CustomerWithCustomID, FlowerEntity> Customers { get; set; }
 

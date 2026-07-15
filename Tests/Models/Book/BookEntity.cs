@@ -10,9 +10,6 @@ public class BookEntity : Book
     [BsonId]
     public string ID { get; set; }
 
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
     public ReviewEntity Review { get; set; }
     public ReviewEntity[] ReviewArray { get; set; }
     public IList<ReviewEntity> ReviewList { get; set; }

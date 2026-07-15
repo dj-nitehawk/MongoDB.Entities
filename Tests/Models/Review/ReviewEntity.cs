@@ -10,8 +10,5 @@ public class ReviewEntity : Review
     [BsonId]
     public string Id { get; set; }
 
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
     public Collection<BookEntity> Books { get; set; }
 }

@@ -9,9 +9,6 @@ public class GenreEntity : Genre
     [BsonId]
     public string ID { get; set; }
 
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
     [InverseSide]
     public Many<BookEntity, GenreEntity> Books { get; set; } = null!;
 

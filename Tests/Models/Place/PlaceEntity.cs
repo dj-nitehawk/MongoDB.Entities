@@ -8,7 +8,4 @@ public class PlaceEntity : Place
 {
     [BsonId]
     public string? Id { get; set; }
-
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
 }

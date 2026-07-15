@@ -9,9 +9,6 @@ public class AuthorEntity : Author
     [BsonId]
     public string ID { get; set; } = null!;
 
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
     [BsonIgnoreIfDefault]
     public One<BookEntity> BestSeller { get; set; }
 

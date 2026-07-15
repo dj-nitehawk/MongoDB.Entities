@@ -16,23 +16,6 @@ namespace MongoDB.Entities;
 /// </summary>
 public partial class DB
 {
-    static DB()
-    {
-        BsonSerializer.RegisterSerializer(new DateSerializer());
-        BsonSerializer.RegisterSerializer(new FuzzyStringSerializer());
-        BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
-        BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
-
-        ConventionRegistry.Register(
-            "DefaultConventions",
-            new ConventionPack
-            {
-                new IgnoreExtraElementsConvention(true),
-                new IgnoreManyPropsConvention()
-            },
-            _ => true);
-    }
-
     internal IServiceProvider? ServiceProvider { get; private set; }
     internal Func<Type, IMigration>? MigrationActivator { get; private set; }
 

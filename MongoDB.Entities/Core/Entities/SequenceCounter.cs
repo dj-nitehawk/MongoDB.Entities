@@ -12,7 +12,4 @@ class SequenceCounter : IEntity
 
     [BsonRepresentation(BsonType.Int64)]
     public ulong Count { get; set; }
-
-    public object GenerateNewID()
-        => throw new NotImplementedException();
 }
