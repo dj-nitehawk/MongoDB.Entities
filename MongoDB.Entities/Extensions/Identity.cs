@@ -34,12 +34,16 @@ public static partial class Extensions
         => Cache<T>.IdSetter(entity, id);
 
     /// <summary>
-    /// Determines whether the entity's ID property still holds the default value of its type
-    /// (i.e. the entity hasn't been saved yet and needs a new ID generated on save).
+    /// Determines whether the entity's ID is considered empty/unset (i.e. the entity hasn't been saved yet
+    /// and needs a new ID generated on save). When an <see cref="MongoDB.Bson.Serialization.IIdGenerator"/> is
+    /// resolved for the entity, that generator's <c>IsEmpty</c> is used; otherwise the ID is compared to the
+    /// default value of its CLR type.
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
     public static bool HasDefaultID<T>(this T entity) where T : IEntity
-        => Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
+        => Cache<T>.IdGenerator is { } generator
+               ? generator.IsEmpty(Cache<T>.IdGetter(entity))
+               : Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
 
     /// <summary>
     /// Generates a new ID value for the entity using the IIdGenerator resolved for the entity's ID property.

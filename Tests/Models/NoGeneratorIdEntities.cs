@@ -22,3 +22,18 @@ public class EntityLevelOnlyIdEntity : IEntity
 
     public string Name { get; set; } = null!;
 }
+
+[Collection("SentinelIdEntity")]
+public class SentinelIdEntity : IEntity
+{
+    [BsonId]
+    public string ID { get; set; } = null!;
+
+    public string Name { get; set; } = null!;
+}
+
+[Collection("PlainStringEntity")]
+public class PlainStringEntity : Entity
+{
+    public string Name { get; set; } = null!;
+}

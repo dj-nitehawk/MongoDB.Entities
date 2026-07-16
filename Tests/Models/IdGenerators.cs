@@ -68,3 +68,19 @@ public class DuplicateIdGenerator : IIdGenerator
     public bool IsEmpty(object id)
         => string.IsNullOrEmpty(id as string);
 }
+
+
+/// <summary>
+/// treats the sentinel value "EMPTY" (and null/blank) as empty; generates prefixed IDs.
+/// used to verify HasDefaultID honors IIdGenerator.IsEmpty for custom empty sentinels.
+/// </summary>
+public class SentinelStringIdGenerator : IIdGenerator
+{
+    public const string EmptySentinel = "EMPTY";
+
+    public object GenerateId(object container, object document)
+        => $"sentinel-{Guid.NewGuid():N}";
+
+    public bool IsEmpty(object id)
+        => id is not string value || string.IsNullOrEmpty(value) || value == EmptySentinel;
+}

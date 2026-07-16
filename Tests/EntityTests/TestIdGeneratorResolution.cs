@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Entities.Tests.Models;
@@ -57,6 +58,61 @@ public class IdGeneratorResolution
         Assert.IsNotNull(loaded);
         Assert.AreEqual("entity-level", loaded!.Name);
     }
+
+    [TestMethod]
+    public async Task string_empty_id_is_treated_as_default_and_regenerated()
+    {
+        var entity = new PlainStringEntity
+        {
+            Name = "empty-string-id",
+            ID = string.Empty
+        };
+
+        Assert.IsTrue(entity.HasDefaultID());
+        await _db.SaveAsync(entity);
+
+        Assert.IsFalse(string.IsNullOrEmpty(entity.ID));
+        Assert.IsTrue(ObjectId.TryParse(entity.ID, out _));
+    }
+
+    [TestMethod]
+    public async Task custom_isempty_sentinel_is_regenerated_on_save()
+    {
+        DB.RegisterIdGenerator<SentinelIdEntity>(new SentinelStringIdGenerator());
+
+        var entity = new SentinelIdEntity
+        {
+            ID = SentinelStringIdGenerator.EmptySentinel,
+            Name = "sentinel"
+        };
+
+        Assert.IsTrue(entity.HasDefaultID());
+        await _db.SaveAsync(entity);
+
+        Assert.AreNotEqual(SentinelStringIdGenerator.EmptySentinel, entity.ID);
+        StringAssert.StartsWith(entity.ID, "sentinel-");
+
+        var loaded = await _db.Find<SentinelIdEntity>().OneAsync(entity.ID);
+        Assert.IsNotNull(loaded);
+        Assert.AreEqual("sentinel", loaded!.Name);
+    }
+
+    [TestMethod]
+    public async Task custom_isempty_non_empty_value_is_preserved()
+    {
+        DB.RegisterIdGenerator<SentinelIdEntity>(new SentinelStringIdGenerator());
+
+        var entity = new SentinelIdEntity
+        {
+            ID = "manual-sentinel-id",
+            Name = "kept"
+        };
+
+        Assert.IsFalse(entity.HasDefaultID());
+        await _db.SaveAsync(entity);
+        Assert.AreEqual("manual-sentinel-id", entity.ID);
+    }
+
 }
 
 /// <summary>
@@ -64,7 +120,7 @@ public class IdGeneratorResolution
 /// </summary>
 file class SequentialIntIdGenerator : MongoDB.Bson.Serialization.IIdGenerator
 {
-    static int _counter;
+    static int _counter = unchecked((int)DateTime.UtcNow.Ticks);
 
     public object GenerateId(object container, object document)
         => System.Threading.Interlocked.Increment(ref _counter);

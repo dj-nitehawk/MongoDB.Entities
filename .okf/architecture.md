@@ -52,7 +52,7 @@ App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
 
 ## Invariants
 - Types persisted through library APIs implement `IEntity` (typically inherit `Entity`).
-- New entities without ID (ID equals its type's default value per the `HasDefaultID()` extension / `Cache<T>.IdDefaultValue`) get one from `Cache<T>.IdGenerator` via the `GenerateNewID()` extension. `IEntity` is a marker interface. Generator resolution: `DB.RegisterIdGenerator<T>()` (overrides, any time via `Cache.SetIdGenerator`) → class map `IdGenerator` → `BsonSerializer.LookupIdGenerator(idType)` → library defaults (string→ObjectId-string, ObjectId, Guid) → null. Missing generator is allowed on `Cache<T>` init so query/delete/manual-ID use works; generation fails only in `GenerateNewID()` when save actually needs a new ID.
+- New entities without ID (`HasDefaultID()`: generator `IsEmpty(id)` when a generator is resolved, else compare to `Cache<T>.IdDefaultValue`) get one from `Cache<T>.IdGenerator` via the `GenerateNewID()` extension. `IEntity` is a marker interface. Generator resolution: `DB.RegisterIdGenerator<T>()` (overrides, any time via `Cache.SetIdGenerator`) → class map `IdGenerator` → `BsonSerializer.LookupIdGenerator(idType)` → library defaults (string→ObjectId-string, ObjectId, Guid) → null. Missing generator is allowed on `Cache<T>` init so query/delete/manual-ID use works; generation fails only in `GenerateNewID()` when save actually needs a new ID.
 - `Many<>` must be initialized on parent (`InitOneToMany` / `InitManyToMany`) before use.
 - Migrations ordered by numeric prefix in type name; history in `_migration_history_`.
 - `ChangeDefaultDatabase` is concurrency-sensitive; cancel watchers first (documented warning on API).
