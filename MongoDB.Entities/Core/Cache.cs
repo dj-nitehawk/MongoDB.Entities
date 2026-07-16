@@ -30,7 +30,7 @@ static class Cache<T> where T : IEntity
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
     internal static object IdDefaultValue { get; private set; } = null!;
-    internal static IIdGenerator IdGenerator { get; private set; }
+    internal static IIdGenerator? IdGenerator { get; private set; }
 
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
@@ -65,9 +65,6 @@ static class Cache<T> where T : IEntity
         else
             throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
 
-        if (IdGenerator == null)
-            throw new InvalidOperationException($"Type {type.FullName} must specify an IdGenerator.");
-        
         var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
         CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
