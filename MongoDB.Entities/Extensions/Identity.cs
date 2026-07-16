@@ -47,9 +47,11 @@ public static partial class Extensions
 
     /// <summary>
     /// Generates a new ID value for the entity using the IIdGenerator resolved for the entity's ID property.
-    /// The generator is taken from the entity's BsonClassMap (settable via cm.IdMemberMap.SetIdGenerator()),
-    /// falling back to a generator registered with BsonSerializer.RegisterIdGenerator() for the ID's CLR type,
-    /// and finally to the library defaults for string (ObjectId format), ObjectId and Guid IDs.
+    /// Resolution order: a generator registered with <c>DB.RegisterIdGenerator&lt;T&gt;()</c> (highest precedence,
+    /// order-independent), then the entity's BsonClassMap IdGenerator (settable via
+    /// <c>cm.IdMemberMap.SetIdGenerator()</c>), then a generator registered with
+    /// <c>BsonSerializer.RegisterIdGenerator()</c> for the ID's CLR type, and finally the library defaults
+    /// for string (ObjectId format), ObjectId and Guid IDs.
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
     /// <exception cref="InvalidOperationException">thrown when no IIdGenerator could be resolved for the ID property</exception>
@@ -58,5 +60,5 @@ public static partial class Extensions
                ? generator.GenerateId(null, entity)
                : throw new InvalidOperationException(
                      $"No IdGenerator could be resolved for the ID property of '{typeof(T).Name}'. Either register one via " +
-                     "BsonSerializer.RegisterIdGenerator()/BsonClassMap SetIdGenerator(), or set the ID value manually before saving.");
+                     "DB.RegisterIdGenerator()/BsonSerializer.RegisterIdGenerator()/BsonClassMap SetIdGenerator(), or set the ID value manually before saving.");
 }
