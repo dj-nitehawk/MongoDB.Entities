@@ -32,7 +32,7 @@ tags: [conventions]
 - Async methods named `*Async`; accept `CancellationToken cancellation = default` where I/O occurs.
 - Generic entity constraints: `where T : IEntity` (sometimes `new()`).
 - Fluent builders returned from `DB` methods; execution methods on builders (`ExecuteAsync`, etc.).
-- Default ID: ObjectId-formatted plain string via `[BsonId]` on `Entity.ID` (stored as BSON string). Any ID type/representation works (`long`, `Guid`, `ObjectId`, `[BsonRepresentation]`/`[AsObjectId]` strings); relationships store/query the ID's stored representation (`BsonValue` join records, `Cache<T>.IdToBsonValue` / `GetBsonId()`).
+- Default ID: ObjectId-formatted plain string via `[BsonId]` on `Entity.ID` (stored as BSON string). Any ID type/representation works (`long`, `Guid`, `ObjectId`, `[BsonRepresentation]`/`[AsObjectId]` strings); relationships store/query the ID's stored representation (`BsonValue` join records, `Cache<T>.IdToBsonValue` / `GetBsonId()`). Inherited `Entity.ID` cannot be re-attributed — use a class map or implement `IEntity` to keep BSON ObjectId storage. Internal `[BINARY_CHUNKS].FileID` retains `[AsObjectId]` for legacy file data.
 - Collection name: type name or `[Collection("name")]`.
 - Ignore persistence: `[Ignore]`, `[IgnoreDefault]`; field rename/order: `[Field]`.
 - Relationships: initialize in entity constructor with `InitOneToMany` / `InitManyToMany`; sides via `[OwnerSide]` / `[InverseSide]` where needed.

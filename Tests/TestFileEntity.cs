@@ -225,4 +225,30 @@ public class FileEntities
                   .DownloadAsync(stream).GetAwaiter().GetResult();
             });
     }
+
+    [TestMethod]
+    public async Task legacy_objectid_fileid_chunks_still_match_string_parent_id()
+    {
+        // pre-upgrade chunk docs stored FileID as BSON ObjectId while file entity IDs were AsObjectId strings.
+        // FileChunk.FileID keeps [AsObjectId] so filters with ObjectId-format parent string IDs still match.
+        var db = await InitTest.InitTestDatabase(DbName);
+        var parentId = ObjectId.GenerateNewId().ToString();
+        var chunkId = ObjectId.GenerateNewId().ToString();
+
+        var chunkDoc = new BsonDocument
+        {
+            { "_id", ObjectId.Parse(chunkId) },
+            { "FileID", ObjectId.Parse(parentId) },
+            { "Data", new BsonBinaryData(new byte[] { 1, 2, 3 }) }
+        };
+        await db.Database().GetCollection<BsonDocument>("[BINARY_CHUNKS]").InsertOneAsync(chunkDoc);
+
+        var matched = await db.Collection<FileChunk>().AsQueryable()
+                              .Where(c => c.FileID == parentId)
+                              .ToListAsync();
+
+        Assert.HasCount(1, matched);
+        Assert.AreEqual(parentId, matched[0].FileID);
+        CollectionAssert.AreEqual(new byte[] { 1, 2, 3 }, matched[0].Data);
+    }
 }
