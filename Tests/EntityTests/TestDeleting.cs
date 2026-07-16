@@ -257,4 +257,70 @@ public class DeletingEntity
         var oidRes = await _db.DeleteAsync<ObjectIdIdParent, ObjectId>(oidIds);
         Assert.AreEqual(2, oidRes.DeletedCount);
     }
+
+    [TestMethod]
+    public async Task delete_by_id_with_global_filter_preserves_join_records_for_filtered_out_entity()
+    {
+        var db = new MyDbEntity();
+
+        var author = new AuthorEntity { Name = "filtered-join-author", Age = 10 };
+        var book = new BookEntity { Title = "filtered-join-book" };
+
+        await db.SaveAsync(author);
+        await db.SaveAsync(book);
+        await author.Books.AddAsync(book);
+
+        Assert.AreEqual(1, await author.Books.ChildrenCountAsync());
+
+        var res = await db.DeleteAsync<AuthorEntity>(author.ID);
+
+        Assert.AreEqual(0, res.DeletedCount);
+        Assert.IsNotNull(await _db.Find<AuthorEntity>().OneAsync(author.ID));
+        Assert.AreEqual(1, await author.Books.ChildrenCountAsync());
+    }
+
+    [TestMethod]
+    public async Task delete_by_id_list_with_global_filter_cascades_only_matching_join_records()
+    {
+        var db = new MyDbEntity();
+
+        var keepAuthor = new AuthorEntity { Name = "keep-join-author", Age = 10 };
+        var delAuthor = new AuthorEntity { Name = "del-join-author", Age = 111 };
+        var book = new BookEntity { Title = "mixed-join-book" };
+
+        await db.SaveAsync([keepAuthor, delAuthor]);
+        await db.SaveAsync(book);
+        await keepAuthor.Books.AddAsync(book);
+        await delAuthor.Books.AddAsync(book);
+
+        Assert.AreEqual(1, await keepAuthor.Books.ChildrenCountAsync());
+        Assert.AreEqual(1, await delAuthor.Books.ChildrenCountAsync());
+
+        var res = await db.DeleteAsync<AuthorEntity>([keepAuthor.ID, delAuthor.ID]);
+
+        Assert.AreEqual(1, res.DeletedCount);
+        Assert.IsNotNull(await _db.Find<AuthorEntity>().OneAsync(keepAuthor.ID));
+        Assert.IsNull(await _db.Find<AuthorEntity>().OneAsync(delAuthor.ID));
+        Assert.AreEqual(1, await keepAuthor.Books.ChildrenCountAsync());
+        Assert.AreEqual(0, await delAuthor.Books.ChildrenCountAsync());
+    }
+
+    [TestMethod]
+    public async Task delete_by_id_with_ignore_global_filters_cascades_join_records()
+    {
+        var db = new MyDbEntity { IgnoreGlobalFilters = true };
+
+        var author = new AuthorEntity { Name = "ignore-filter-join-author", Age = 10 };
+        var book = new BookEntity { Title = "ignore-filter-join-book" };
+
+        await db.SaveAsync(author);
+        await db.SaveAsync(book);
+        await author.Books.AddAsync(book);
+
+        var res = await db.DeleteAsync<AuthorEntity>(author.ID);
+
+        Assert.AreEqual(1, res.DeletedCount);
+        Assert.IsNull(await _db.Find<AuthorEntity>().OneAsync(author.ID));
+        Assert.AreEqual(0, await author.Books.ChildrenCountAsync());
+    }
 }

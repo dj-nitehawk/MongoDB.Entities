@@ -26,7 +26,6 @@ public partial class DB
 
         ThrowIfCancellationNotSupported(SessionHandle, cancellation);
 
-        var tasks = new List<Task>();
         var ids = IDs.ToArray();
 
         //join records hold the stored representation of entity IDs, so raw CLR values must be
@@ -36,6 +35,28 @@ public partial class DB
                                           ? id as BsonValue ?? BsonValue.Create(id)
                                           : Cache<T>.IdToBsonValue(id))
                            .ToArray();
+
+        // Direct-ID deletes must not cascade join/file side-effects for entities excluded by a
+        // global filter. Resolve the eligible ID set first (raw BSON projection) and use only that.
+        if (!IgnoreGlobalFilters && _globalFilters?.Count > 0 && _globalFilters.ContainsKey(typeof(T)))
+        {
+            var eligibilityFilter = Logic.MergeWithGlobalFilter(false, _globalFilters, IDInFilter<T>(storedIds));
+
+            var matched = await new Find<T, BsonDocument>(SessionHandle, null, this)
+                                .Match(eligibilityFilter)
+                                .Project(p => p.Include(Cache<T>.IdPropName))
+                                .ExecuteAsync(cancellation)
+                                .ConfigureAwait(false);
+
+            if (matched.Count == 0)
+                return new DeleteResult.Acknowledged(0);
+
+            var idElement = Cache<T>.IdBsonName;
+            storedIds = matched.Select(doc => doc[idElement]).ToArray();
+            ids = matched.Select(doc => (object)doc[idElement]).ToArray();
+        }
+
+        var tasks = new List<Task>();
 
         var joinRecordFilter = Builders<JoinRecord>.Filter.Or(
             Builders<JoinRecord>.Filter.In(r => r.ChildID, storedIds),
@@ -50,6 +71,7 @@ public partial class DB
                     : refCollection.DeleteManyAsync(SessionHandle, joinRecordFilter, null, cancellation));
         }
 
+        // Keep merging the global filter on the entity delete for defense-in-depth (e.g. races).
         var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(storedIds));
 
         // ReSharper disable once MethodSupportsCancellation

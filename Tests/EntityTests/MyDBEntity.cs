@@ -66,3 +66,12 @@ public class MyBaseEntityDb : DB
         SetGlobalFilterForBaseClass<BaseEntity>(be => be.CreatedBy == "xyz");
     }
 }
+
+public class MyDbProtectedFile : DB
+{
+    public MyDbProtectedFile() : base(Default)
+    {
+        ModifiedBy = new();
+        SetGlobalFilter<ProtectedFile>(f => f.Tenant == "tenant-a");
+    }
+}

@@ -81,4 +81,6 @@ Databases written by previous versions store ObjectId-parseable string IDs as **
 
 - Upgrade mongodb driver to latest.
 
-[//]: # (### FIXES)
+### FIXES
+
+- Direct-ID deletes now apply global filters before cascade side effects. Join records and file chunks are only deleted for entities that pass the filter; filtered-out IDs return `DeletedCount == 0` without touching side collections.
