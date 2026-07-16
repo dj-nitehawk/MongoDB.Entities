@@ -35,7 +35,7 @@ static class Cache<T> where T : IEntity
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
-    internal static ConcurrentDictionary<string, IMongoCollection<JoinRecord>> ReferenceCollections { get; } = new();
+    internal static ConcurrentDictionary<string, byte> ReferenceCollectionNames { get; } = new();
 
     static Cache()
     {
@@ -208,6 +208,6 @@ static class Cache<T> where T : IEntity
         return BsonClassMap.LookupClassMap(type);
     }
 
-    internal static bool AddReferenceCollection(string name, IMongoCollection<JoinRecord> collection)
-        => ReferenceCollections.TryAdd(name, collection);
+    internal static bool AddReferenceCollection(string name)
+        => ReferenceCollectionNames.TryAdd(name, default);
 }

@@ -62,8 +62,10 @@ public partial class DB
             Builders<JoinRecord>.Filter.In(r => r.ChildID, storedIds),
             Builders<JoinRecord>.Filter.In(r => r.ParentID, storedIds));
 
-        foreach (var refCollection in Cache<T>.ReferenceCollections.Values)
+        foreach (var collectionName in Cache<T>.ReferenceCollectionNames.Keys)
         {
+            var refCollection = GetRefCollection(collectionName);
+
             // ReSharper disable once MethodSupportsCancellation
             tasks.Add(
                 SessionHandle == null

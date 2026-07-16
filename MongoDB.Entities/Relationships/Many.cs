@@ -93,7 +93,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         var collectionName = $"[{_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({property})]";
         JoinCollection = _db.GetRefCollection(collectionName);
         CreateIndexesAsync(JoinCollection);
-        Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
+        Cache<TParent>.AddReferenceCollection(collectionName);
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         JoinCollection = _db.GetRefCollection(collectionName);
 
         CreateIndexesAsync(JoinCollection);
-        Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
+        Cache<TParent>.AddReferenceCollection(collectionName);
     }
 
     /// <summary>
