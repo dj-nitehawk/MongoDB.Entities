@@ -10,7 +10,7 @@
 
 #### Data migration for existing databases
 
-Databases written by previous versions store ObjectId-parseable string IDs as **BSON ObjectId** in entity `_id` fields, join record `ParentID`/`ChildID` values, `One<T>.ID`/`ModifiedBy.UserID` references, and `[BINARY_CHUNKS].FileID`. After this upgrade, plain string ID properties can no longer read those values and new writes store plain strings. Choose one of:
+Databases written by previous versions store ObjectId-parseable string IDs as **BSON ObjectId** in entity `_id` fields, join record `ParentID`/`ChildID` values, `One<T>.ID`/`ModifiedBy.UserID` references, and `[BINARY_CHUNKS].FileID`. After this upgrade, public plain string ID/reference properties can no longer read those values and new writes store plain strings. `[BINARY_CHUNKS].FileID` is the compatibility exception described below. Choose one of:
 
 1. **Keep ObjectId storage for entity `_id`s (recommended when you have data):** you cannot put an attribute on the inherited `Entity.ID` property, so use one of:
    - **Class map** (before first use of the entity type / `DB.InitAsync`):
@@ -40,14 +40,14 @@ Databases written by previous versions store ObjectId-parseable string IDs as **
      db.MyCollection.insertOne({ ...d, _id: String(d._id) });
      db.MyCollection.deleteOne({ _id: d._id });
    });
-   // also convert join collections ([Parent~Child(Prop)]) ParentID/ChildID,
-   // One<T> / ModifiedBy.UserID reference fields, and [BINARY_CHUNKS].FileID
-   // from objectId to string when those documents still store ObjectIds.
+   // also convert join collections ([Parent~Child(Prop)]) ParentID/ChildID
+   // and One<T> / ModifiedBy.UserID reference fields from objectId to string.
+   // Do not convert [BINARY_CHUNKS].FileID; see the compatibility note below.
    ```
 
 **Always convert (or accept string storage for) library-owned string reference fields:** `One<T>.ID` and `ModifiedBy.UserID` no longer use `[AsObjectId]` and always store/read plain strings.
 
-**File chunks:** `[BINARY_CHUNKS].FileID` still uses `[AsObjectId]`, so ObjectId-format parent IDs keep matching existing chunk docs. File entity metadata `_id` still follows your entity ID mapping (option 1 or 2). If you convert file entity `_id`s to strings, also convert matching `[BINARY_CHUNKS].FileID` values to strings (or keep parent IDs ObjectId-represented so `FileID` continues to store ObjectIds).
+**File chunks:** `[BINARY_CHUNKS].FileID` still uses `[AsObjectId]`, so retain existing BSON ObjectId values for ObjectId-format file IDs. This remains true even if file entity metadata `_id` values are converted to BSON strings: the chunk serializer converts an ObjectId-format parent ID string to BSON ObjectId when querying, so existing chunks continue to match. Do **not** convert those `FileID` values to BSON strings; current library filters would not match them. Non-ObjectId-format file IDs are stored as strings automatically.
 
 ### NEW
 
