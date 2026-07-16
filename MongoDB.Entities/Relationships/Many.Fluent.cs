@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -99,13 +100,29 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+        => ParentsFluentByIds(childIDs, session, options);
+
+    /// <summary>
+    /// Get an IAggregateFluent of parents matching multiple child IDs of any CLR type
+    /// (including value types such as Guid, long, and ObjectId) for this relationship.
+    /// </summary>
+    /// <typeparam name="TId">The CLR type of the child IDs</typeparam>
+    /// <param name="childIDs">An IEnumerable of child IDs</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="options">An optional AggregateOptions object</param>
+    public IAggregateFluent<TParent> ParentsFluent<TId>(IReadOnlyList<TId> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TId : struct
+        => ParentsFluentByIds(BoxIds(childIDs), session, options);
+
+    IAggregateFluent<TParent> ParentsFluentByIds(IEnumerable<object?> childIDs, IClientSessionHandle? session, AggregateOptions? options)
     {
+        var childIds = (childIDs as object?[] ?? childIDs.ToArray()).Select(Cache<TChild>.IdToBsonValue).ToArray();
+
         return typeof(TParent) == typeof(TChild)
                    ? throw new InvalidOperationException("Both parent and child types cannot be the same")
                    : _isInverse
                        ? JoinFluent(session, options)
-                         .Match(f => f.In(j => j.ParentID, childIDs))
+                         .Match(f => f.In(j => j.ParentID, childIds))
                          .Lookup<JoinRecord, TParent, Joined<TParent>>(
                              _db.Collection<TParent>(),
                              j => j.ChildID,
@@ -114,7 +131,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                          .ReplaceRoot(j => j.Results[0])
                          .Distinct()
                        : JoinFluent(session, options)
-                         .Match(f => f.In(j => j.ChildID, childIDs))
+                         .Match(f => f.In(j => j.ChildID, childIds))
                          .Lookup<JoinRecord, TParent, Joined<TParent>>(
                              _db.Collection<TParent>(),
                              r => r.ParentID,
@@ -133,9 +150,11 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     {
         _parent.ThrowIfUnsaved();
 
+        var parentId = _parent.GetBsonId();
+
         return _isInverse
                    ? JoinFluent(session, options)
-                     .Match(f => f.Eq(r => r.ChildID, _parent.GetId()))
+                     .Match(f => f.Eq(r => r.ChildID, parentId))
                      .Lookup<JoinRecord, TChild, Joined<TChild>>(
                          _db.Collection<TChild>(),
                          r => r.ParentID,
@@ -143,7 +162,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                          j => j.Results)
                      .ReplaceRoot(j => j.Results[0])
                    : JoinFluent(session, options)
-                     .Match(f => f.Eq(r => r.ParentID, _parent.GetId()))
+                     .Match(f => f.Eq(r => r.ParentID, parentId))
                      .Lookup<JoinRecord, TChild, Joined<TChild>>(
                          _db.Collection<TChild>(),
                          r => r.ChildID,

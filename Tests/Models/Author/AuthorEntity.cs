@@ -6,14 +6,8 @@ namespace MongoDB.Entities.Tests;
 [Collection("AuthorEntity")]
 public class AuthorEntity : Author
 {
-    [BsonId, AsObjectId]
+    [BsonId]
     public string ID { get; set; } = null!;
-
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 
     [BsonIgnoreIfDefault]
     public One<BookEntity> BestSeller { get; set; }

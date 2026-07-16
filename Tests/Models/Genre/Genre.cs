@@ -10,6 +10,4 @@ public abstract class Genre : IEntity
     public double SortScore { get; set; }
     public Review Review { get; set; }
 
-    public abstract object GenerateNewID();
-    public abstract bool HasDefaultID();
 }

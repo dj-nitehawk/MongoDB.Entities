@@ -903,7 +903,9 @@ public class SavingEntity
     [TestMethod]
     public async Task custom_id_used_in_a_relationship()
     {
-        var db = DB.Default;
+        // BookEntity has a ModifiedBy property; set audit data so the test is self-contained
+        // and does not depend on other tests mutating DB.Default.ModifiedBy first.
+        var db = DB.Default.WithModifiedBy(new UpdatedBy());
         var customer = new CustomerWithCustomID();
         await db.SaveAsync(customer);
 

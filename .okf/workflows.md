@@ -13,7 +13,7 @@ tags: [build]
 - MongoDB for tests: either local compose stack or Testcontainers (see `testing.md`).
 
 ```bash
-# Local MongoDB 7 replica set (matches CI)
+# Local MongoDB 8.2 replica set (matches CI)
 # Creates Tests/.mongo-keyfile first — see testing.md / azure-pipelines.yml
 docker compose -f docker-compose.ci.yml up -d
 ```

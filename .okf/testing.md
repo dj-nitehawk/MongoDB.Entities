@@ -1,7 +1,7 @@
 ---
 type: Playbook
 title: Testing
-description: MSTest integration tests against MongoDB 7 (compose or Testcontainers).
+description: MSTest integration tests against MongoDB 8.2 (compose or Testcontainers).
 tags: [test]
 ---
 
@@ -12,9 +12,9 @@ tags: [test]
 - Project: `Tests/Tests.csproj` → `net10.0`, references library
 - **Do not parallelize:** `[assembly: DoNotParallelize]` in `Tests/Init.cs`
 - Assembly init: `InitTest.Init` registers Guid serializer, chooses Mongo mode, calls `InitTestDatabase("mongodb-entities-test")`
-- Feature tests: `Tests/EntityTests/Test*.cs`
-- Models: `Tests/Models/**`
-- Extra: `TestFileEntity.cs`, `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
+- Feature tests: `Tests/EntityTests/Test*.cs` (incl. `TestDeleting` global-filter cascade/join coverage, `TestDynamicIdRelationships`, `TestEntityClassMap` for filter-delete/Guid IDs, typed value-ID lists, Entity class-map migration shape)
+- Models: `Tests/Models/**` (incl. `DynamicIdEntities.cs` ID-shape pairs, `ProtectedFile` tenant-filtered file entity)
+- Extra: `TestFileEntity.cs` (global-filter chunk cascade), `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
 - Fixture migrations: `Tests/Migrations/_001_rename_field.cs`, `_002_undo_field_rename.cs`
 - Binary fixtures: `Tests/Models/test.jpg`, `test.png` (copy to output)
 - Coverage collector: coverlet (package present; no mandated coverage gate in pipeline)
@@ -37,9 +37,9 @@ Azure pipeline: `dotnet test` on `**/*[Tt]ests/*.csproj` with workingDirectory `
 | Mode | When | Connection |
 | --- | --- | --- |
 | Compose / local | default (env unset) | `mongodb://admin:password@localhost:27017/?replicaSet=rs0&authSource=admin` |
-| Testcontainers | `MONGODB_ENTITIES_TESTCONTAINERS` set | `TestDatabase.CreateDatabase()` — image `mongo:7.0`, replica set, ports from 27017++ |
+| Testcontainers | `MONGODB_ENTITIES_TESTCONTAINERS` set | `TestDatabase.CreateDatabase()` — image `mongo:8.2`, replica set, ports from 27017++ |
 
-Compose stack (`docker-compose.ci.yml`): `mongo:7.0`, auth, keyfile at `Tests/.mongo-keyfile`, replica set `rs0`. Pipeline generates keyfile (openssl), `chown 999:999`, mode `600`.
+Compose stack (`docker-compose.ci.yml`): `mongo:8.2`, auth, keyfile at `Tests/.mongo-keyfile`, replica set `rs0`. Pipeline generates keyfile (openssl), `chown 999:999`, mode `600`.
 
 Replica set required for transaction tests.
 

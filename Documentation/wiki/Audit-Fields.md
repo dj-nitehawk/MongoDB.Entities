@@ -49,7 +49,7 @@ Doing so will result in the following document in mongodb:
 
 ```
 {
-	"_id" : ObjectId("xxxxxxxxxxxx"),
+	"_id" : "xxxxxxxxxxxx",
 	"Title" : "updated title", //this will initially be 'test book'
 	"ModifiedBy" : {
 		"UserID" : "xxxxxxxxxxxx",

@@ -25,7 +25,7 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IQueryable<TParent> ParentsQueryable(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IQueryable<TParent> ParentsQueryable(object childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
         => ParentsQueryable([childID], session, options);
 
     /// <summary>
@@ -34,25 +34,41 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IQueryable<TParent> ParentsQueryable(IEnumerable<string> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IQueryable<TParent> ParentsQueryable(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+        => ParentsQueryableByIds(childIDs, session, options);
+
+    /// <summary>
+    /// Get an IQueryable of parents matching multiple child IDs of any CLR type
+    /// (including value types such as Guid, long, and ObjectId) for this relationship.
+    /// </summary>
+    /// <typeparam name="TId">The CLR type of the child IDs</typeparam>
+    /// <param name="childIDs">An IEnumerable of child IDs</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="options">An optional AggregateOptions object</param>
+    public IQueryable<TParent> ParentsQueryable<TId>(IReadOnlyList<TId> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TId : struct
+        => ParentsQueryableByIds(BoxIds(childIDs), session, options);
+
+    IQueryable<TParent> ParentsQueryableByIds(IEnumerable<object?> childIDs, IClientSessionHandle? session, AggregateOptions? options)
     {
+        var childIds = (childIDs as object?[] ?? childIDs.ToArray()).Select(Cache<TChild>.IdToBsonValue).ToArray();
+
         return typeof(TParent) == typeof(TChild)
                    ? throw new InvalidOperationException("Both parent and child types cannot be the same")
                    : _isInverse
                        ? JoinQueryable(session, options)
-                         .Where(j => childIDs.Contains(j.ParentID))
+                         .Where(j => childIds.Contains(j.ParentID))
                          .Join(
                              _db.Queryable<TParent>(),
                              j => j.ChildID,
-                             Cache<TParent>.IdExpression,
+                             Cache<TParent>.BsonValueIdExpression,
                              (_, p) => p)
                          .Distinct()
                        : JoinQueryable(session, options)
-                         .Where(j => childIDs.Contains(j.ChildID))
+                         .Where(j => childIds.Contains(j.ChildID))
                          .Join(
                              _db.Queryable<TParent>(),
                              j => j.ParentID,
-                             Cache<TParent>.IdExpression,
+                             Cache<TParent>.BsonValueIdExpression,
                              (_, p) => p)
                          .Distinct();
     }
@@ -66,20 +82,22 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     {
         _parent.ThrowIfUnsaved();
 
+        var parentId = _parent.GetBsonId();
+
         return _isInverse
                    ? JoinQueryable(session, options)
-                     .Where(j => Equals(j.ChildID, _parent.GetId()))
+                     .Where(j => j.ChildID == parentId)
                      .Join(
                          _db.Collection<TChild>(),
                          j => j.ParentID,
-                         Cache<TChild>.IdExpression,
+                         Cache<TChild>.BsonValueIdExpression,
                          (_, c) => c)
                    : JoinQueryable(session, options)
-                     .Where(j => Equals(j.ParentID, _parent.GetId()))
+                     .Where(j => j.ParentID == parentId)
                      .Join(
                          _db.Collection<TChild>(),
                          j => j.ChildID,
-                         Cache<TChild>.IdExpression,
+                         Cache<TChild>.BsonValueIdExpression,
                          (_, c) => c);
     }
 

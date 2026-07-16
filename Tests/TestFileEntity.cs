@@ -225,4 +225,152 @@ public class FileEntities
                   .DownloadAsync(stream).GetAwaiter().GetResult();
             });
     }
+
+    [TestMethod]
+    public async Task legacy_objectid_fileid_chunks_still_match_string_parent_id()
+    {
+        // pre-upgrade chunk docs stored FileID as BSON ObjectId while file entity IDs were AsObjectId strings.
+        // FileChunk.FileID keeps [AsObjectId] so filters with ObjectId-format parent string IDs still match.
+        var db = await InitTest.InitTestDatabase(DbName);
+        var parentId = ObjectId.GenerateNewId().ToString();
+        var chunkId = ObjectId.GenerateNewId().ToString();
+
+        var chunkDoc = new BsonDocument
+        {
+            { "_id", ObjectId.Parse(chunkId) },
+            { "FileID", ObjectId.Parse(parentId) },
+            { "Data", new BsonBinaryData(new byte[] { 1, 2, 3 }) }
+        };
+        await db.Database().GetCollection<BsonDocument>("[BINARY_CHUNKS]").InsertOneAsync(chunkDoc);
+
+        var matched = await db.Collection<FileChunk>().AsQueryable()
+                              .Where(c => c.FileID == parentId)
+                              .ToListAsync();
+
+        Assert.HasCount(1, matched);
+        Assert.AreEqual(parentId, matched[0].FileID);
+        CollectionAssert.AreEqual(new byte[] { 1, 2, 3 }, matched[0].Data);
+    }
+
+    [TestMethod]
+    public async Task delete_by_id_with_global_filter_preserves_chunks_for_filtered_out_file()
+    {
+        var db = new MyDbProtectedFile();
+
+        var file = new ProtectedFile { Tenant = "tenant-b", Name = "other-tenant-file" };
+        await db.SaveAsync(file);
+
+        using (var stream = File.OpenRead("Models/test.jpg"))
+            await file.Data(db).UploadAsync(stream);
+
+        var countBefore = await db.Collection<FileChunk>().AsQueryable()
+                                  .Where(c => c.FileID == file.ID)
+                                  .CountAsync();
+        Assert.IsTrue(countBefore > 0);
+        Assert.AreEqual(file.ChunkCount, countBefore);
+
+        var res = await db.DeleteAsync<ProtectedFile>(file.ID);
+
+        Assert.IsTrue(res.IsAcknowledged);
+        Assert.AreEqual(0, res.DeletedCount);
+        Assert.IsNotNull(await DB.Default.Find<ProtectedFile>().OneAsync(file.ID));
+
+        var countAfter = await db.Collection<FileChunk>().AsQueryable()
+                                 .Where(c => c.FileID == file.ID)
+                                 .CountAsync();
+        Assert.AreEqual(countBefore, countAfter);
+    }
+
+    [TestMethod]
+    public async Task delete_entity_with_global_filter_preserves_chunks_for_filtered_out_file()
+    {
+        var db = new MyDbProtectedFile();
+
+        var file = new ProtectedFile { Tenant = "tenant-b", Name = "other-tenant-entity-delete" };
+        await db.SaveAsync(file);
+
+        using (var stream = File.OpenRead("Models/test.jpg"))
+            await file.Data(db).UploadAsync(stream);
+
+        var countBefore = await db.Collection<FileChunk>().AsQueryable()
+                                  .Where(c => c.FileID == file.ID)
+                                  .CountAsync();
+        Assert.IsTrue(countBefore > 0);
+
+        var res = await db.DeleteAsync(file);
+
+        Assert.AreEqual(0, res.DeletedCount);
+        Assert.IsNotNull(await DB.Default.Find<ProtectedFile>().OneAsync(file.ID));
+
+        var countAfter = await db.Collection<FileChunk>().AsQueryable()
+                                 .Where(c => c.FileID == file.ID)
+                                 .CountAsync();
+        Assert.AreEqual(countBefore, countAfter);
+    }
+
+    [TestMethod]
+    public async Task delete_by_id_list_with_global_filter_cascades_only_matching_file_chunks()
+    {
+        var db = new MyDbProtectedFile();
+
+        var keep = new ProtectedFile { Tenant = "tenant-b", Name = "keep-file" };
+        var del = new ProtectedFile { Tenant = "tenant-a", Name = "delete-file" };
+        await db.SaveAsync([keep, del]);
+
+        using (var stream = File.OpenRead("Models/test.jpg"))
+            await keep.Data(db).UploadAsync(stream);
+        using (var stream = File.OpenRead("Models/test.jpg"))
+            await del.Data(db).UploadAsync(stream);
+
+        var keepBefore = await db.Collection<FileChunk>().AsQueryable()
+                                 .Where(c => c.FileID == keep.ID)
+                                 .CountAsync();
+        var delBefore = await db.Collection<FileChunk>().AsQueryable()
+                                .Where(c => c.FileID == del.ID)
+                                .CountAsync();
+        Assert.IsTrue(keepBefore > 0);
+        Assert.IsTrue(delBefore > 0);
+
+        var res = await db.DeleteAsync<ProtectedFile>([keep.ID, del.ID]);
+
+        Assert.AreEqual(1, res.DeletedCount);
+        Assert.IsNotNull(await DB.Default.Find<ProtectedFile>().OneAsync(keep.ID));
+        Assert.IsNull(await DB.Default.Find<ProtectedFile>().OneAsync(del.ID));
+
+        var keepAfter = await db.Collection<FileChunk>().AsQueryable()
+                                .Where(c => c.FileID == keep.ID)
+                                .CountAsync();
+        var delAfter = await db.Collection<FileChunk>().AsQueryable()
+                               .Where(c => c.FileID == del.ID)
+                               .CountAsync();
+        Assert.AreEqual(keepBefore, keepAfter);
+        Assert.AreEqual(0, delAfter);
+    }
+
+    [TestMethod]
+    public async Task delete_by_id_with_ignore_global_filters_cascades_file_chunks()
+    {
+        var db = new MyDbProtectedFile { IgnoreGlobalFilters = true };
+
+        var file = new ProtectedFile { Tenant = "tenant-b", Name = "ignore-filter-file" };
+        await db.SaveAsync(file);
+
+        using (var stream = File.OpenRead("Models/test.jpg"))
+            await file.Data(db).UploadAsync(stream);
+
+        var countBefore = await db.Collection<FileChunk>().AsQueryable()
+                                  .Where(c => c.FileID == file.ID)
+                                  .CountAsync();
+        Assert.IsTrue(countBefore > 0);
+
+        var res = await db.DeleteAsync<ProtectedFile>(file.ID);
+
+        Assert.AreEqual(1, res.DeletedCount);
+        Assert.IsNull(await DB.Default.Find<ProtectedFile>().OneAsync(file.ID));
+
+        var countAfter = await db.Collection<FileChunk>().AsQueryable()
+                                 .Where(c => c.FileID == file.ID)
+                                 .CountAsync();
+        Assert.AreEqual(0, countAfter);
+    }
 }

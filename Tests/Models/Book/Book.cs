@@ -22,8 +22,6 @@ public abstract class Book : IEntity, IModifiedOn
     [Ignore]
     public int DontSaveThis { get; set; }
 
-    public abstract object GenerateNewID();
-    public abstract bool HasDefaultID();
 }
 
 public class UpdatedBy : ModifiedBy

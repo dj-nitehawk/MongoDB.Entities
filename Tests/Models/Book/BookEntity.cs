@@ -7,14 +7,8 @@ namespace MongoDB.Entities.Tests;
 [Collection("BookEntity")]
 public class BookEntity : Book
 {
-    [BsonId, AsObjectId]
+    [BsonId]
     public string ID { get; set; }
-
-    public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
-
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 
     public ReviewEntity Review { get; set; }
     public ReviewEntity[] ReviewArray { get; set; }

@@ -200,7 +200,7 @@ public class UpdateEntity
         var filter = new Template(
                 """
                 {
-                    _id: ObjectId('<ID>')
+                    _id: '<ID>'
                 }
                 """)
             .Tag("ID", author.ID);

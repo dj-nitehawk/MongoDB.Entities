@@ -65,6 +65,32 @@ public class MultiDbEntity
     }
 
     [TestMethod]
+    public async Task deleting_relationships_is_scoped_to_current_database()
+    {
+        var dbA = await InitTest.InitTestDatabase("mongodb-entities-test-multi-delete-a");
+        var dbB = await InitTest.InitTestDatabase("mongodb-entities-test-multi-delete-b");
+        var parentId = Guid.NewGuid().ToString();
+        var parentA = new MultiDbCascadeParent(dbA) { ID = parentId };
+        var parentB = new MultiDbCascadeParent(dbB) { ID = parentId };
+        var childA = new MultiDbCascadeChild();
+        var childB = new MultiDbCascadeChild();
+
+        await dbA.SaveAsync(parentA);
+        await dbA.SaveAsync(childA);
+        await parentA.Children.AddAsync(childA);
+        await dbB.SaveAsync(parentB);
+        await dbB.SaveAsync(childB);
+        await parentB.Children.AddAsync(childB);
+
+        await dbB.DeleteAsync(parentB);
+
+        Assert.IsNotNull(await dbA.Find<MultiDbCascadeParent>().OneAsync(parentId));
+        Assert.IsNull(await dbB.Find<MultiDbCascadeParent>().OneAsync(parentId));
+        Assert.AreEqual(1, await parentA.Children.ChildrenQueryable().CountAsync());
+        Assert.AreEqual(0, await parentB.Children.ChildrenQueryable().CountAsync());
+    }
+
+    [TestMethod]
     public async Task get_instance_by_db_name()
     {
         //var db1 = await DB.InitAsync("test1");
@@ -141,4 +167,16 @@ public class MultiDbEntity
 
         Assert.AreEqual(author.ID, res!.ID);
     }
+
+    sealed class MultiDbCascadeParent : Entity
+    {
+        public Many<MultiDbCascadeChild, MultiDbCascadeParent> Children { get; set; }
+
+        public MultiDbCascadeParent(DB db)
+        {
+            this.InitOneToMany(() => Children, db);
+        }
+    }
+
+    sealed class MultiDbCascadeChild : Entity;
 }

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
 
 namespace MongoDB.Entities;
@@ -23,15 +25,17 @@ static class Cache<T> where T : IEntity
     internal static string IdPropName { get; private set; } = null!;
     internal static string IdBsonName { get; private set; } = null!;
     internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
+    internal static Expression<Func<T, BsonValue>> BsonValueIdExpression { get; private set; } = null!;
     internal static Func<T, object?> IdSelector { get; private set; } = null!;
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
     internal static object IdDefaultValue { get; private set; } = null!;
+    internal static IIdGenerator? IdGenerator { get; private set; }
 
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
-    internal static ConcurrentDictionary<string, IMongoCollection<JoinRecord>> ReferenceCollections { get; } = new();
+    internal static ConcurrentDictionary<string, byte> ReferenceCollectionNames { get; } = new();
 
     static Cache()
     {
@@ -51,10 +55,12 @@ static class Cache<T> where T : IEntity
             IdPropName = idMap.MemberName;
             IdBsonName = idMap.ElementName;
             IdExpression = SelectIdExpression(idMap.MemberInfo);
+            BsonValueIdExpression = SelectBsonValueIdExpression(idMap.MemberInfo);
             IdSelector = IdExpression.Compile();
             IdGetter = idMap.Getter;
             IdSetter = idMap.Setter;
             IdDefaultValue = idMap.DefaultValue;
+            IdGenerator = ResolveIdGenerator(idMap);
         }
         else
             throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
@@ -147,6 +153,44 @@ static class Cache<T> where T : IEntity
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
     }
 
+    // used as a server-side join/lookup key against JoinRecord's BsonValue fields.
+    // the double conversion never executes; the driver only translates the ID member path.
+    static Expression<Func<T, BsonValue>> SelectBsonValueIdExpression(MemberInfo idProp)
+    {
+        var parameter = Expression.Parameter(typeof(T), "t");
+        var property = Expression.Property(parameter, idProp.Name);
+        Expression conversion = Expression.Convert(Expression.Convert(property, typeof(object)), typeof(BsonValue));
+
+        return Expression.Lambda<Func<T, BsonValue>>(conversion, parameter);
+    }
+
+    /// <summary>
+    /// Converts a CLR ID value to the representation it would be stored as in the database, by running it
+    /// through the serializer of the ID property of the entity. i.e. a string decorated with an ObjectId
+    /// representation attribute yields a BsonObjectId, a plain string yields a BsonString, etc.
+    /// </summary>
+    internal static BsonValue IdToBsonValue(object? id)
+        => DB.ToBsonValue(BsonClassMap.IdMemberMap, id);
+
+    // explicit registration for this entity type via DB.RegisterIdGenerator<T>() overrides the resolved generator.
+    // works regardless of where the ID property is declared and regardless of registration order vs. first use.
+    internal static void SetIdGenerator(IIdGenerator generator)
+        => IdGenerator = generator;
+
+    // the generator set on the class map (via SetIdGenerator or driver conventions) wins, then any
+    // generator registered with BsonSerializer.RegisterIdGenerator for the ID's CLR type, then
+    // library defaults matching the ID formats generated for the well-known ID types.
+    static IIdGenerator? ResolveIdGenerator(BsonMemberMap idMap)
+        => idMap.IdGenerator
+           ?? BsonSerializer.LookupIdGenerator(idMap.MemberType)
+           ?? (idMap.MemberType == typeof(string)
+                   ? StringObjectIdGenerator.Instance
+                   : idMap.MemberType == typeof(ObjectId)
+                       ? ObjectIdGenerator.Instance
+                       : idMap.MemberType == typeof(Guid)
+                           ? GuidGenerator.Instance
+                           : null);
+
     static BsonClassMap MapBsonClass(Type type)
     {
         if (type.BaseType != typeof(object) && !BsonClassMap.IsClassMapRegistered(type.BaseType!))
@@ -164,6 +208,6 @@ static class Cache<T> where T : IEntity
         return BsonClassMap.LookupClassMap(type);
     }
 
-    internal static bool AddReferenceCollection(string name, IMongoCollection<JoinRecord> collection)
-        => ReferenceCollections.TryAdd(name, collection);
+    internal static bool AddReferenceCollection(string name)
+        => ReferenceCollectionNames.TryAdd(name, default);
 }

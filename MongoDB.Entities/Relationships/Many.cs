@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Linq.Expressions;
@@ -44,6 +45,9 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// </summary>
     public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null!;
 
+    static object?[] BoxIds<TId>(IEnumerable<TId> ids)
+        => ids as object?[] ?? ids.Select(id => (object?)id).ToArray();
+
     /// <summary>
     /// Get the number of children for a relationship
     /// </summary>
@@ -54,13 +58,15 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     {
         _parent.ThrowIfUnsaved();
 
+        var parentId = _parent.GetBsonId();
+
         return _isInverse
                    ? session == null
-                         ? JoinCollection.CountDocumentsAsync(j => j.ChildID == _parent.GetId(), options, cancellation)
-                         : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == _parent.GetId(), options, cancellation)
+                         ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parentId, options, cancellation)
+                         : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parentId, options, cancellation)
                    : session == null
-                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == _parent.GetId(), options, cancellation)
-                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == _parent.GetId(), options, cancellation);
+                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parentId, options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parentId, options, cancellation);
     }
 
     /// <summary>
@@ -87,7 +93,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         var collectionName = $"[{_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({property})]";
         JoinCollection = _db.GetRefCollection(collectionName);
         CreateIndexesAsync(JoinCollection);
-        Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
+        Cache<TParent>.AddReferenceCollection(collectionName);
     }
 
     /// <summary>
@@ -120,7 +126,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         JoinCollection = _db.GetRefCollection(collectionName);
 
         CreateIndexesAsync(JoinCollection);
-        Cache<TParent>.AddReferenceCollection(collectionName, JoinCollection);
+        Cache<TParent>.AddReferenceCollection(collectionName);
     }
 
     /// <summary>

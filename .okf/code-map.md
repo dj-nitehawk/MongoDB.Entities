@@ -25,14 +25,14 @@ tags: [layout]
 | `Documentation/` | DocFX (`docfx.json`, `wiki/`, `api/`, `_site/`) |
 | `Artwork/` | Package icon |
 | `azure-pipelines.yml` | Tag-triggered Azure DevOps test pipeline |
-| `docker-compose.ci.yml` | MongoDB 7 replica set for CI/local tests |
+| `docker-compose.ci.yml` | MongoDB 8.2 replica set for CI/local tests |
 | `.github/workflows/` | NuGet publish + GitHub Pages docs |
 
 Solution file: `MongoDB.Entities.slnx` (projects: library, Tests, Benchmark).
 
 ## Modules (library)
 - **Init / multi-DB:** `DB/DB.cs` — `InitAsync`, `Default`, `Instance`, `ChangeDefaultDatabase`
-- **CRUD:** `DB.Save`, `DB.Insert`, `DB.Delete`, `DB.Replace`, `DB.Update` + matching builders
+- **CRUD:** `DB.Save`, `DB.Insert`, `DB.Delete` (filter delete and direct-ID cascade eligibility → `Find<T,BsonDocument>` ID projection + cascade), `DB.Replace`, `DB.Update` + matching builders
 - **Query:** `DB.Find`, `DB.Queryable`, `DB.PagedSearch`, `DB.Distinct`, `DB.Count`, `DB.Pipeline`, `DB.Fluent`, `DB.GeoNear`
 - **Meta:** `DB.Collection`, `DB.Index`, `DB.Sequence`, `DB.GlobalFilters`, `DB.File`, `DB.Watcher`, `DB.Transaction`, `DB.Migrate`
 - **Entity base:** `Core/Entities/Entity.cs`, `FileEntity.cs`, `ObjectIdEntity.cs`

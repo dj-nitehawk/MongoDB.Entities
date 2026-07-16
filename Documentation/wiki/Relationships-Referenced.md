@@ -43,7 +43,7 @@ A reference can be assigned in any of the following two ways:
 ```csharp
 book.MainAuthor = author.ToReference(); //call ToReference on a child
 book.MainAuthor = new(author);          //assign a child instance
-book.MainAuthor = new("AuthorID");      //assign just the ID value of a child
+book.MainAuthor = new("AuthorID");      //assign just the ID value of a child (One<T>.ID is a plain string)
 
 await db.SaveAsync(book);               //call save on parent to store
 ```
@@ -92,7 +92,7 @@ Alternatively when you don't have access to the parent entity and you only have 
 await DB.Entity<Book>("BookID").Authors.AddAsync(author);
 ```
 
-there are other *[overloads](xref:MongoDB.Entities.Many`1#methods)* for adding relationships with multiple entities or just the string IDs.
+there are other *[overloads](xref:MongoDB.Entities.Many`2#methods)* for adding relationships with multiple entities or raw child IDs (including value-type sequences such as `Guid[]`, `long[]`, and `ObjectId[]`).
 
 > [click here](https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714) to see a full example of a referenced one-to-many relationship.
 
@@ -105,7 +105,7 @@ await book.Genres.RemoveAsync(genre);
 
 The original `author` in the `Authors` collection is unaffected. Also the `genre` entity in the `Genres` collection is unaffected. Only the relationship between entities are deleted.
 
-There are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for removing relationships with multiple entities or just the string IDs.
+There are other *[overloads](xref:MongoDB.Entities.Many`2#methods)* for removing relationships with multiple entities or raw child IDs (including value-type sequences such as `Guid[]`, `long[]`, and `ObjectId[]`).
 
 ### Entity deletion
 

@@ -17,7 +17,7 @@ This repo does not deploy a long-running app service.
 ## Services and ports
 | Service | Port | Notes |
 | --- | --- | --- |
-| MongoDB (compose CI) | `27017` | `mongo:7.0`, replSet `rs0`, auth on |
+| MongoDB (compose CI) | `27017` | `mongo:8.2`, replSet `rs0`, auth on |
 | Testcontainers Mongo | host ports from 27017 upward | Started per `TestDatabase` |
 
 Compose services: `mongodb`, `mongodb-init` (replica initiate). Volume `mongodb-data`.

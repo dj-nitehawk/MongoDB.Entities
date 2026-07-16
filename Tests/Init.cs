@@ -5,6 +5,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using MongoDB.Entities.Tests.Models;
 
 [assembly: DoNotParallelize]
 
@@ -21,6 +22,16 @@ public static class InitTest
     public static async Task Init(TestContext _)
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+        //ID type level generator: all entities with long ID properties
+        BsonSerializer.RegisterIdGenerator(typeof(long), new SequentialLongIdGenerator());
+
+        //entity level generators
+        DB.RegisterIdGenerator<CustomerWithCustomID>(new CustomerIdGenerator());
+        DB.RegisterIdGenerator<CustomIDOverride>(new TicksIdGenerator());
+        DB.RegisterIdGenerator<CustomIDDuplicate>(new DuplicateIdGenerator());
+        DB.RegisterIdGenerator<CustomStringIdParent>(new PrefixedStringIdGenerator("parent"));
+        DB.RegisterIdGenerator<CustomStringIdChild>(new PrefixedStringIdGenerator("child"));
 
         UseTestContainers = Environment.GetEnvironmentVariable("MONGODB_ENTITIES_TESTCONTAINERS") != null;
 

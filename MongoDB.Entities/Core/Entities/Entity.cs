@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities;
 
@@ -11,16 +10,6 @@ public abstract class Entity : IEntity
     /// <summary>
     /// This property is auto managed. A new ID will be assigned for new entities upon saving.
     /// </summary>
-    [BsonId, AsObjectId]
+    [BsonId]
     public string ID { get; set; } = null!;
-
-    /// <summary>
-    /// Override this method in order to control the generation of IDs for new entities.
-    /// </summary>
-    public virtual object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString()!;
-
-    // ReSharper disable once VirtualMemberNeverOverridden.Global
-    public virtual bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }
