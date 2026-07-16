@@ -25,7 +25,7 @@ tags: [layout]
 | `Documentation/` | DocFX (`docfx.json`, `wiki/`, `api/`, `_site/`) |
 | `Artwork/` | Package icon |
 | `azure-pipelines.yml` | Tag-triggered Azure DevOps test pipeline |
-| `docker-compose.ci.yml` | MongoDB 7 replica set for CI/local tests |
+| `docker-compose.ci.yml` | MongoDB 8.2 replica set for CI/local tests |
 | `.github/workflows/` | NuGet publish + GitHub Pages docs |
 
 Solution file: `MongoDB.Entities.slnx` (projects: library, Tests, Benchmark).
