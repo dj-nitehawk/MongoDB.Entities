@@ -24,11 +24,7 @@ public static partial class Extensions
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
     internal static BsonValue GetBsonId<T>(this T entity) where T : IEntity
-    {
-        var bsonEntity = entity.ToBsonDocument();
-
-        return bsonEntity.GetValue(Cache<T>.IdBsonName);
-    }
+        => Cache<T>.IdToBsonValue(entity.GetId());
 
     /// <summary>
     /// Sets the Identity object
