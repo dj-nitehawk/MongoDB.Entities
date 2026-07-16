@@ -120,32 +120,6 @@ BsonSerializer.RegisterIdGenerator(typeof(long), new MySequentialLongIdGenerator
 >
 >So you're better off sticking with `ObjectId` because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.
 
-## Keeping BSON ObjectId storage for string IDs
-
-By default, `Entity.ID` is a plain string in MongoDB. Existing databases that stored those values as BSON ObjectIds need either a data conversion or an ObjectId representation on the ID member. You cannot add an attribute to the inherited `Entity.ID` property; use a class map or own the ID via `IEntity`:
-
-```csharp
-// per concrete entity type, before first use / DB.InitAsync()
-// usings: MongoDB.Bson, MongoDB.Bson.Serialization, MongoDB.Bson.Serialization.Serializers
-BsonClassMap.RegisterClassMap<Book>(cm =>
-{
-    cm.AutoMap();
-    cm.SetIgnoreExtraElements(true);
-    cm.MapIdProperty(b => b.ID)
-      .SetSerializer(new StringSerializer(BsonType.ObjectId));
-});
-```
-
-```csharp
-public class Book : IEntity
-{
-    [BsonId, AsObjectId] // or [ObjectId] / [BsonRepresentation(BsonType.ObjectId)]
-    public string ID { get; set; } = null!;
-}
-```
-
-See the package changelog migration notes for join records, `One<>` / `ModifiedBy` references, and `[BINARY_CHUNKS].FileID`.
-
 ## Create a collection explicitly
 
 ```csharp
