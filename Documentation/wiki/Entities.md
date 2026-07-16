@@ -103,7 +103,7 @@ BsonSerializer.RegisterIdGenerator(typeof(long), new MySequentialLongIdGenerator
 ```
 
 > [!note]
-> Do your registrations at application startup, before initializing database connections with `DB.InitAsync()`. Entity-level generators registered with `DB.RegisterIdGenerator<T>()` take precedence over class-map generators and ID-type-level generators.
+> Do your registrations at application startup, before initializing database connections with `DB.InitAsync()`. Entity-level generators registered with `DB.RegisterIdGenerator<T>()` take precedence over class-map generators and ID-type-level generators, and can be registered any time (even after first use of the entity type). Class-map and `BsonSerializer.RegisterIdGenerator` registrations are only read when the entity type is first used, so they must be in place beforehand.
 
 > [!note]
 > The type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). `Many<>` one-to-many / many-to-many relationships support any ID type/representation — including `string`, `long`, `ObjectId`, `Guid` and custom-represented IDs such as `[BsonRepresentation(BsonType.ObjectId)] string` — and join records always store the ID exactly as it is stored in the entity's own `_id` field. `One<TEntity>` one-to-one references still use a `string` `ID`; for non-string IDs use the typed `One<TEntity, TIdentity>` instead. When using `Guid` IDs, register a Guid serializer before initializing the library, e.g. `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));`
