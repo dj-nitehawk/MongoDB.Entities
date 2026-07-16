@@ -46,13 +46,30 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AddAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        => AddByIdsAsync(childIDs, session, cancellation);
+
+    /// <summary>
+    /// Adds multiple child references in a single bulk operation using IDs of any CLR type
+    /// (including value types such as Guid, long, and ObjectId).
+    /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+    /// </summary>
+    /// <typeparam name="TId">The CLR type of the child IDs</typeparam>
+    /// <param name="childIDs">The IDs of the child Entities to add.</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task AddAsync<TId>(IReadOnlyList<TId> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where TId : struct
+        => AddByIdsAsync(BoxIds(childIDs), session, cancellation);
+
+    Task AddByIdsAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session, CancellationToken cancellation)
     {
         _parent.ThrowIfUnsaved();
 
-        var models = new List<WriteModel<JoinRecord>>(childIDs.Count());
+        // materialize once so Count and the write-model loop never re-enumerate a live source
+        var ids = childIDs as object?[] ?? childIDs.ToArray();
+        var models = new List<WriteModel<JoinRecord>>(ids.Length);
         var parentBsonId = _parent.GetBsonId();
 
-        foreach (var cid in childIDs)
+        foreach (var cid in ids)
         {
             cid.ThrowIfUnsaved();
 

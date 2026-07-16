@@ -100,9 +100,23 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+        => ParentsFluentByIds(childIDs, session, options);
+
+    /// <summary>
+    /// Get an IAggregateFluent of parents matching multiple child IDs of any CLR type
+    /// (including value types such as Guid, long, and ObjectId) for this relationship.
+    /// </summary>
+    /// <typeparam name="TId">The CLR type of the child IDs</typeparam>
+    /// <param name="childIDs">An IEnumerable of child IDs</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="options">An optional AggregateOptions object</param>
+    public IAggregateFluent<TParent> ParentsFluent<TId>(IReadOnlyList<TId> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TId : struct
+        => ParentsFluentByIds(BoxIds(childIDs), session, options);
+
+    IAggregateFluent<TParent> ParentsFluentByIds(IEnumerable<object?> childIDs, IClientSessionHandle? session, AggregateOptions? options)
     {
-        var childIds = childIDs.Select(Cache<TChild>.IdToBsonValue).ToArray();
+        var childIds = (childIDs as object?[] ?? childIDs.ToArray()).Select(Cache<TChild>.IdToBsonValue).ToArray();
 
         return typeof(TParent) == typeof(TChild)
                    ? throw new InvalidOperationException("Both parent and child types cannot be the same")

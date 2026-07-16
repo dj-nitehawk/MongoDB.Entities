@@ -43,6 +43,7 @@ App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
 - One MongoDB collection per entity type (name from type or `[Collection]`).
 - Relationships: referenced IDs (`One<>`) or join collections (`Many<>` / `JoinRecord`).
 - Join records store `ParentID`/`ChildID` as `BsonValue` holding the *stored representation* of the entity's `_id` (via `GetBsonId()` / `Cache<T>.IdToBsonValue`); queryable joins/lookups key entities with `Cache<T>.BsonValueIdExpression`. Never write raw CLR ID values into join records — custom-represented IDs would silently match nothing.
+- Filter/expression `DeleteAsync<T>` loads matched IDs via `Find<T, BsonDocument>` (raw BSON), then cascade-deletes with `idsAreStoredValues: true` — never project IDs through `object`/`ObjectSerializer` (breaks Guid Standard representation).
 - File storage: `FileEntity<T>` metadata + `[BINARY_CHUNKS]` chunk docs (not GridFS API).
 - Global serializers/conventions register in module init (`Core/LibraryInitializer.cs`, not a `DB` static ctor): ignore extra elements; ignore many-props; custom `Date` / `FuzzyString` / decimal via `IBsonSerializationProvider` (lazy; user `RegisterSerializer` before first lookup wins).
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -157,15 +156,33 @@ public partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation = default) where T : IEntity
+    public Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation = default) where T : IEntity
+        => DeleteByIdsAsync<T>(IDs, cancellation);
+
+    /// <summary>
+    /// Deletes entities using a collection of IDs of any CLR type (including value types such as <see cref="Guid"/>, <see cref="long"/>, and <see cref="ObjectId"/>).
+    /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
+    /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <typeparam name="TId">The CLR type of the entity IDs</typeparam>
+    /// <param name="IDs">An IEnumerable of entity IDs</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<DeleteResult> DeleteAsync<T, TId>(IReadOnlyList<TId> IDs, CancellationToken cancellation = default) where T : IEntity where TId : struct
+        => DeleteByIdsAsync<T>(BoxIds(IDs), cancellation);
+
+    async Task<DeleteResult> DeleteByIdsAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation) where T : IEntity
     {
-        if (IDs.Count() <= DeleteBatchSize)
-            return await DeleteCascadingAsync<T>(IDs, cancellation).ConfigureAwait(false);
+        // materialize once so Count/batching/cascade never re-enumerate a live source sequence
+        var ids = IDs as object?[] ?? IDs.ToArray();
+
+        if (ids.Length <= DeleteBatchSize)
+            return await DeleteCascadingAsync<T>(ids, cancellation).ConfigureAwait(false);
 
         long deletedCount = 0;
         DeleteResult res = DeleteResult.Unacknowledged.Instance;
 
-        foreach (var batch in IDs.ToBatches(DeleteBatchSize))
+        foreach (var batch in ids.ToBatches(DeleteBatchSize))
         {
             res = await DeleteCascadingAsync<T>(batch, cancellation).ConfigureAwait(false);
             deletedCount += res.DeletedCount;
@@ -176,6 +193,9 @@ public partial class DB
 
         return res;
     }
+
+    static object?[] BoxIds<TId>(IEnumerable<TId> ids)
+        => ids as object?[] ?? ids.Select(id => (object?)id).ToArray();
 
     /// <summary>
     /// Deletes matching entities with an expression
@@ -223,7 +243,9 @@ public partial class DB
         if (jsonFilter?.Json.StartsWith("{") is false)
             filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
 
-        var cursor = await new Find<T, object>(SessionHandle, null, this)
+        // project IDs as raw BSON documents so Guid/ObjectId/custom-represented values are not
+        // re-deserialized through ObjectSerializer (which rejects GuidRepresentation.Standard).
+        var cursor = await new Find<T, BsonDocument>(SessionHandle, null, this)
                            .Match(_ => filter)
                            .Project(p => p.Include(Cache<T>.IdPropName))
                            .Option(o => o.BatchSize = DeleteBatchSize)
@@ -233,6 +255,7 @@ public partial class DB
 
         long deletedCount = 0;
         DeleteResult res = DeleteResult.Unacknowledged.Instance;
+        var idElement = Cache<T>.IdBsonName;
 
         using (cursor)
         {
@@ -241,8 +264,8 @@ public partial class DB
                 if (!cursor.Current.Any())
                     continue;
 
-                var idObjects = ValidateCursor((List<object>)cursor.Current);
-                res = await DeleteCascadingAsync<T>(idObjects, cancellation, idsAreStoredValues: true).ConfigureAwait(false);
+                var storedIds = cursor.Current.Select(doc => (object)doc[idElement]).ToArray();
+                res = await DeleteCascadingAsync<T>(storedIds, cancellation, idsAreStoredValues: true).ConfigureAwait(false);
                 deletedCount += res.DeletedCount;
             }
         }
@@ -251,22 +274,6 @@ public partial class DB
             res = new DeleteResult.Acknowledged(deletedCount);
 
         return res;
-    }
-
-    static IEnumerable<object> ValidateCursor(IReadOnlyList<object> idObjects)
-    {
-        if (!idObjects.Any() || idObjects[0] is not ExpandoObject)
-            return idObjects;
-
-        List<object> ids = [];
-
-        for (var i = 0; i < idObjects.Count; i++)
-        {
-            var item = (IDictionary<string, object>)idObjects[i];
-            ids.Add(item["_id"]);
-        }
-
-        return ids;
     }
 
     static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)

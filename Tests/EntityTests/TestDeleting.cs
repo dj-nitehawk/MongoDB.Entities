@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -189,5 +190,71 @@ public class DeletingEntity
 
         Assert.AreEqual(2, res.DeletedCount);
         Assert.AreEqual(a1.ID, notDeletedIDs.Single());
+    }
+
+    [TestMethod]
+    public async Task delete_by_expression_removes_guid_id_parent_and_join_records()
+    {
+        var parent = new GuidIdParent { Name = "guid-del-parent" };
+        var child = new GuidIdChild { Name = "guid-del-child" };
+
+        await _db.SaveAsync(parent);
+        await _db.SaveAsync(child);
+        await parent.Children.AddAsync(child);
+
+        Assert.AreEqual(1, await parent.Children.ChildrenCountAsync());
+
+        var res = await _db.DeleteAsync<GuidIdParent>(p => p.Name == "guid-del-parent");
+
+        Assert.AreEqual(1, res.DeletedCount);
+        Assert.IsNull(await _db.Find<GuidIdParent>().OneAsync(parent.ID));
+        Assert.AreEqual(0, await child.AllParents.ChildrenCountAsync());
+    }
+
+    [TestMethod]
+    public async Task delete_by_filter_removes_custom_represented_string_id_parent_and_join_records()
+    {
+        var parent = new RepStringIdParent { Name = "rep-del-parent" };
+        var child = new RepStringIdChild { Name = "rep-del-child" };
+
+        await _db.SaveAsync(parent);
+        await _db.SaveAsync(child);
+        await parent.Children.AddAsync(child);
+
+        Assert.AreEqual(1, await parent.Children.ChildrenCountAsync());
+
+        var res = await _db.DeleteAsync<RepStringIdParent>(f => f.Eq(p => p.Name, "rep-del-parent"));
+
+        Assert.AreEqual(1, res.DeletedCount);
+        Assert.IsNull(await _db.Find<RepStringIdParent>().OneAsync(parent.ID));
+        Assert.AreEqual(0, await child.AllParents.ChildrenCountAsync());
+    }
+
+    [TestMethod]
+    public async Task delete_by_typed_value_id_sequences()
+    {
+        var guidParent1 = new GuidIdParent { Name = "guid-batch-1" };
+        var guidParent2 = new GuidIdParent { Name = "guid-batch-2" };
+        await _db.SaveAsync([guidParent1, guidParent2]);
+
+        Guid[] guidIds = [guidParent1.ID, guidParent2.ID];
+        var guidRes = await _db.DeleteAsync<GuidIdParent, Guid>(guidIds);
+        Assert.AreEqual(2, guidRes.DeletedCount);
+
+        var longParent1 = new LongIdParent { Name = "long-batch-1" };
+        var longParent2 = new LongIdParent { Name = "long-batch-2" };
+        await _db.SaveAsync([longParent1, longParent2]);
+
+        long[] longIds = [longParent1.ID, longParent2.ID];
+        var longRes = await _db.DeleteAsync<LongIdParent, long>(longIds);
+        Assert.AreEqual(2, longRes.DeletedCount);
+
+        var oidParent1 = new ObjectIdIdParent { Name = "oid-batch-1" };
+        var oidParent2 = new ObjectIdIdParent { Name = "oid-batch-2" };
+        await _db.SaveAsync([oidParent1, oidParent2]);
+
+        ObjectId[] oidIds = [oidParent1.Id, oidParent2.Id];
+        var oidRes = await _db.DeleteAsync<ObjectIdIdParent, ObjectId>(oidIds);
+        Assert.AreEqual(2, oidRes.DeletedCount);
     }
 }

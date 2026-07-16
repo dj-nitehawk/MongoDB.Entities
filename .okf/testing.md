@@ -12,8 +12,8 @@ tags: [test]
 - Project: `Tests/Tests.csproj` → `net10.0`, references library
 - **Do not parallelize:** `[assembly: DoNotParallelize]` in `Tests/Init.cs`
 - Assembly init: `InitTest.Init` registers Guid serializer, chooses Mongo mode, calls `InitTestDatabase("mongodb-entities-test")`
-- Feature tests: `Tests/EntityTests/Test*.cs`
-- Models: `Tests/Models/**`
+- Feature tests: `Tests/EntityTests/Test*.cs` (incl. `TestDeleting`, `TestDynamicIdRelationships`, `TestEntityClassMap` for filter-delete/Guid IDs, typed value-ID lists, Entity class-map migration shape)
+- Models: `Tests/Models/**` (incl. `DynamicIdEntities.cs` ID-shape pairs)
 - Extra: `TestFileEntity.cs`, `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
 - Fixture migrations: `Tests/Migrations/_001_rename_field.cs`, `_002_undo_field_rename.cs`
 - Binary fixtures: `Tests/Models/test.jpg`, `test.png` (copy to output)

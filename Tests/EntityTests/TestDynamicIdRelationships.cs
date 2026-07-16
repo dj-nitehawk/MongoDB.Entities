@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -188,5 +188,78 @@ public class DynamicIdRelationships
         Assert.AreEqual(ObjectId.Parse(child.ID), join.ChildID.AsObjectId);
 
         await _db.DeleteAsync(parent);
+    }
+
+    [TestMethod]
+    public async Task typed_value_id_sequences_work_for_add_remove_and_parent_lookups()
+    {
+        // Guid
+        var gParent = new GuidIdParent { Name = "g-parent" };
+        var gChild1 = new GuidIdChild { Name = "g-child1" };
+        var gChild2 = new GuidIdChild { Name = "g-child2" };
+        await _db.SaveAsync(gParent);
+        await _db.SaveAsync(gChild1);
+        await _db.SaveAsync(gChild2);
+
+        Guid[] gChildIds = [gChild1.ID, gChild2.ID];
+        await gParent.Children.AddAsync(gChildIds);
+        Assert.AreEqual(2, await gParent.Children.ChildrenCountAsync());
+
+        var gParents = await gParent.Children.ParentsQueryable(gChildIds).ToListAsync();
+        Assert.HasCount(1, gParents);
+        Assert.AreEqual(gParent.ID, gParents[0].ID);
+
+        var gFluentParents = await gParent.Children.ParentsFluent(gChildIds).ToListAsync();
+        Assert.HasCount(1, gFluentParents);
+        Assert.AreEqual(gParent.ID, gFluentParents[0].ID);
+
+        await gParent.Children.RemoveAsync(gChildIds);
+        Assert.AreEqual(0, await gParent.Children.ChildrenCountAsync());
+
+        // long
+        var lParent = new LongIdParent { Name = "l-parent" };
+        var lChild1 = new LongIdChild { Name = "l-child1" };
+        var lChild2 = new LongIdChild { Name = "l-child2" };
+        await _db.SaveAsync(lParent);
+        await _db.SaveAsync(lChild1);
+        await _db.SaveAsync(lChild2);
+
+        long[] lChildIds = [lChild1.ID, lChild2.ID];
+        await lParent.Children.AddAsync(lChildIds);
+        Assert.AreEqual(2, await lParent.Children.ChildrenCountAsync());
+
+        var lParents = await lParent.Children.ParentsQueryable(lChildIds).ToListAsync();
+        Assert.HasCount(1, lParents);
+        Assert.AreEqual(lParent.ID, lParents[0].ID);
+
+        var lFluentParents = await lParent.Children.ParentsFluent(lChildIds).ToListAsync();
+        Assert.HasCount(1, lFluentParents);
+        Assert.AreEqual(lParent.ID, lFluentParents[0].ID);
+
+        await lParent.Children.RemoveAsync(lChildIds);
+        Assert.AreEqual(0, await lParent.Children.ChildrenCountAsync());
+
+        // ObjectId
+        var oParent = new ObjectIdIdParent { Name = "o-parent" };
+        var oChild1 = new ObjectIdIdChild { Name = "o-child1" };
+        var oChild2 = new ObjectIdIdChild { Name = "o-child2" };
+        await _db.SaveAsync(oParent);
+        await _db.SaveAsync(oChild1);
+        await _db.SaveAsync(oChild2);
+
+        ObjectId[] oChildIds = [oChild1.Id, oChild2.Id];
+        await oParent.Children.AddAsync(oChildIds);
+        Assert.AreEqual(2, await oParent.Children.ChildrenCountAsync());
+
+        var oParents = await oParent.Children.ParentsQueryable(oChildIds).ToListAsync();
+        Assert.HasCount(1, oParents);
+        Assert.AreEqual(oParent.Id, oParents[0].Id);
+
+        var oFluentParents = await oParent.Children.ParentsFluent(oChildIds).ToListAsync();
+        Assert.HasCount(1, oFluentParents);
+        Assert.AreEqual(oParent.Id, oFluentParents[0].Id);
+
+        await oParent.Children.RemoveAsync(oChildIds);
+        Assert.AreEqual(0, await oParent.Children.ChildrenCountAsync());
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Linq.Expressions;
@@ -43,6 +44,9 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <para>TIP: Try never to use this unless really necessary.</para>
     /// </summary>
     public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null!;
+
+    static object?[] BoxIds<TId>(IEnumerable<TId> ids)
+        => ids as object?[] ?? ids.Select(id => (object?)id).ToArray();
 
     /// <summary>
     /// Get the number of children for a relationship
