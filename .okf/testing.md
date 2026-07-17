@@ -12,8 +12,8 @@ tags: [test]
 - Project: `Tests/Tests.csproj` → `net10.0`, references library
 - **Do not parallelize:** `[assembly: DoNotParallelize]` in `Tests/Init.cs`
 - Assembly init: `InitTest.Init` registers Guid serializer, chooses Mongo mode, calls `InitTestDatabase("mongodb-entities-test")`
-- Feature tests: `Tests/EntityTests/Test*.cs` (incl. `TestDeleting` global-filter cascade/join coverage, `TestDynamicIdRelationships`, `TestEntityClassMap` for filter-delete/Guid IDs, typed value-ID lists, Entity class-map migration shape)
-- Models: `Tests/Models/**` (incl. `DynamicIdEntities.cs` ID-shape pairs, `ProtectedFile` tenant-filtered file entity)
+- Feature tests: `Tests/EntityTests/Test*.cs` (notable: `TestDeleting` global-filter cascade/join, `TestDynamicIdRelationships`, `TestEntityClassMap` filter-delete/Guid/value-ID lists, `TestIdGeneratorResolution`, `TestSerializerRegistration`, `TestMultiDb`, `TestDefaultDbChange`, `TestRelationships`, `TestTransactions`, `TestWatcher`)
+- Models: `Tests/Models/**` (incl. `DynamicIdEntities.cs`, `NoGeneratorIdEntities.cs`, `IdGenerators.cs`, `ProtectedFile` tenant-filtered file entity)
 - Extra: `TestFileEntity.cs` (global-filter chunk cascade), `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
 - Fixture migrations: `Tests/Migrations/_001_rename_field.cs`, `_002_undo_field_rename.cs`
 - Binary fixtures: `Tests/Models/test.jpg`, `test.png` (copy to output)

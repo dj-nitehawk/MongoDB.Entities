@@ -7,10 +7,12 @@ tags: [maintain]
 
 # Maintenance
 
+Day-to-day finish gate and reading budget: repo `AGENTS.md`. This file is the detailed trigger inventory and conformance checklist.
+
 ## Conformance
 - OKF v0.1: non-reserved `.md` files need YAML frontmatter with non-empty `type` (allowed list), `title`, and `description`.
 - Bundle-root `index.md` is a listing; only it may set `okf_version: "0.1"`.
-- Do not invent `type` values; use `Reference` if unsure.
+- Allowed types: `Reference`, `Architecture`, `Playbook`, `API Endpoint`, `Database`, `Service`, `Event`, `Security`, `Deployment`, `Generated`, `ADR`. Do not invent types; use `Reference` if unsure.
 - No empty placeholders; omit inapplicable files rather than stubbing.
 - Optional `log.md` is append-only notes — not a concept file; do not create unless requested.
 

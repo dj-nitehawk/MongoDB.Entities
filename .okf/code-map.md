@@ -32,7 +32,8 @@ Solution file: `MongoDB.Entities.slnx` (projects: library, Tests, Benchmark).
 
 ## Modules (library)
 - **Init / multi-DB:** `DB/DB.cs` — `InitAsync`, `Default`, `Instance`, `ChangeDefaultDatabase`
-- **CRUD:** `DB.Save`, `DB.Insert`, `DB.Delete` (filter delete and direct-ID cascade eligibility → `Find<T,BsonDocument>` ID projection + cascade), `DB.Replace`, `DB.Update` + matching builders
+- **ID generators:** `DB/DB.IdGenerators.cs` — `RegisterIdGenerator<T>`; resolution/helpers in `Extensions/Identity.cs` + `Core/Cache.cs`
+- **CRUD:** `DB.Save`, `DB.Insert`, `DB.Delete` (filter delete and direct-ID cascade eligibility → `Find<T,BsonDocument>` ID projection + cascade), `DB.Replace`, `DB.Update` / `UpdateAndGet` + matching builders (`Builders/` incl. `UpdateAndGet.cs`)
 - **Query:** `DB.Find`, `DB.Queryable`, `DB.PagedSearch`, `DB.Distinct`, `DB.Count`, `DB.Pipeline`, `DB.Fluent`, `DB.GeoNear`
 - **Meta:** `DB.Collection`, `DB.Index`, `DB.Sequence`, `DB.GlobalFilters`, `DB.File`, `DB.Watcher`, `DB.Transaction`, `DB.Migrate`
 - **Entity base:** `Core/Entities/Entity.cs`, `FileEntity.cs`, `ObjectIdEntity.cs`
