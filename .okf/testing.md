@@ -37,7 +37,7 @@ Azure pipeline: `dotnet test` on `**/*[Tt]ests/*.csproj` with workingDirectory `
 | Mode | When | Connection |
 | --- | --- | --- |
 | Compose / local | default (env unset) | `mongodb://admin:password@localhost:27017/?replicaSet=rs0&authSource=admin` |
-| Testcontainers | `MONGODB_ENTITIES_TESTCONTAINERS` set | `TestDatabase.CreateDatabase()` — image `mongo:8.2`, replica set, ports from 27017++ |
+| Testcontainers | `MONGODB_ENTITIES_TESTCONTAINERS` set | `TestDatabase.CreateDatabase()` (image `mongo:8.2`, replica set, ports from 27017++) |
 
 Compose stack (`docker-compose.ci.yml`): `mongo:8.2`, auth, keyfile at `Tests/.mongo-keyfile`, replica set `rs0`. Pipeline generates keyfile (openssl), `chown 999:999`, mode `600`.
 

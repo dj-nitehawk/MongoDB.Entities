@@ -19,7 +19,7 @@ tags: [conventions]
 - `.editorconfig`: UTF-8, **CRLF**, spaces, indent 4 for C#.
 - `LangVersion` 13 on library (DocFX C# 14 support lag noted in csproj comment).
 - Nullable enabled on library and tests.
-- Accessibility modifiers: editorconfig sets `dotnet_style_require_accessibility_modifiers = never:error` — match existing file style.
+- Accessibility modifiers: editorconfig sets `dotnet_style_require_accessibility_modifiers = never:error`; match existing file style.
 - `DB` feature surface: new file `DB/<Area>.cs` as `public partial class DB`, not a separate service class.
 - XML docs on public API (`GenerateDocumentationFile`); `CS1591` suppressed at project level.
 
@@ -32,7 +32,7 @@ tags: [conventions]
 - Async methods named `*Async`; accept `CancellationToken cancellation = default` where I/O occurs.
 - Generic entity constraints: `where T : IEntity` (sometimes `new()`).
 - Fluent builders returned from `DB` methods; execution methods on builders (`ExecuteAsync`, etc.).
-- Default ID: ObjectId-formatted plain string via `[BsonId]` on `Entity.ID` (stored as BSON string). Any ID type/representation works (`long`, `Guid`, `ObjectId`, `[BsonRepresentation]`/`[AsObjectId]` strings); relationships store/query the ID's stored representation (`BsonValue` join records, `Cache<T>.IdToBsonValue` / `GetBsonId()`). Batch raw-ID APIs expose `IReadOnlyList<TId> where TId : struct` overloads for value-type ID arrays (avoid `IEnumerable<TId>` — `string` is `IEnumerable<char>`). Inherited `Entity.ID` cannot be re-attributed — use a class map or implement `IEntity` to keep BSON ObjectId storage. Internal `[BINARY_CHUNKS].FileID` retains `[AsObjectId]` for legacy file data.
+- Default ID: ObjectId-formatted plain string via `[BsonId]` on `Entity.ID` (stored as BSON string). Any ID type/representation works (`long`, `Guid`, `ObjectId`, `[BsonRepresentation]`/`[AsObjectId]` strings); relationships store/query the ID's stored representation (`BsonValue` join records, `Cache<T>.IdToBsonValue` / `GetBsonId()`). Batch raw-ID APIs expose `IReadOnlyList<TId> where TId : struct` overloads for value-type ID arrays (avoid `IEnumerable<TId>`; `string` is `IEnumerable<char>`). Inherited `Entity.ID` cannot be re-attributed; use a class map or implement `IEntity` to keep BSON ObjectId storage. Internal `[BINARY_CHUNKS].FileID` retains `[AsObjectId]` for legacy file data.
 - Collection name: type name or `[Collection("name")]`.
 - Ignore persistence: `[Ignore]`, `[IgnoreDefault]`; field rename/order: `[Field]`.
 - Relationships: initialize in entity constructor with `InitOneToMany` / `InitManyToMany`; sides via `[OwnerSide]` / `[InverseSide]` where needed.

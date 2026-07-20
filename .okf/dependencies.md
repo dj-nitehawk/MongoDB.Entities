@@ -25,7 +25,7 @@ tags: [deps]
 | Package | Where | Role |
 | --- | --- | --- |
 | `MongoDB.Driver` | library | Official driver (version pinned in csproj; upgrade carefully) |
-| `SharpCompress` | library | Explicit pin — comment: remove when driver ships non-vulnerable transitive |
+| `SharpCompress` | library | Explicit pin (comment: remove when driver ships non-vulnerable transitive) |
 | `Microsoft.SourceLink.GitHub` | library (private) | Source link |
 | `MSTest.*`, `Microsoft.NET.Test.Sdk` | Tests | Test host |
 | `Testcontainers.MongoDb` | Tests, Benchmark | Optional containerized Mongo |

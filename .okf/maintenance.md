@@ -14,7 +14,7 @@ Day-to-day finish gate and reading budget: repo `AGENTS.md`. This file is the de
 - Bundle-root `index.md` is a listing; only it may set `okf_version: "0.1"`.
 - Allowed types: `Reference`, `Architecture`, `Playbook`, `API Endpoint`, `Database`, `Service`, `Event`, `Security`, `Deployment`, `Generated`, `ADR`. Do not invent types; use `Reference` if unsure.
 - No empty placeholders; omit inapplicable files rather than stubbing.
-- Optional `log.md` is append-only notes — not a concept file; do not create unless requested.
+- Optional `log.md` is append-only notes, not a concept file; do not create unless requested.
 
 ## Update triggers
 Sync `.okf/` when changes affect:

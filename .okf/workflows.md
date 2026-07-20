@@ -14,7 +14,7 @@ tags: [build]
 
 ```bash
 # Local MongoDB 8.2 replica set (matches CI)
-# Creates Tests/.mongo-keyfile first — see testing.md / azure-pipelines.yml
+# Creates Tests/.mongo-keyfile first; see testing.md / azure-pipelines.yml
 docker compose -f docker-compose.ci.yml up -d
 ```
 
@@ -32,7 +32,7 @@ dotnet run --project Benchmark/Benchmark.csproj -c Release
 ```
 
 ## Lint and format
-- Style enforced via `.editorconfig` + ReSharper/Rider (`.DotSettings` present). No dedicated `dotnet format` CI step observed — match surrounding code and editorconfig.
+- Style enforced via `.editorconfig` + ReSharper/Rider (`.DotSettings` present). No dedicated `dotnet format` CI step observed; match surrounding code and editorconfig.
 
 ## Docs
 ```bash
@@ -45,7 +45,7 @@ Wiki markdown source: `Documentation/wiki/`. Site CNAME / pages deploy on tags `
 
 ## Codegen and migrations
 - No codegen step for the library.
-- **User** data migrations: implement `IMigration`, name `_NNN_…`, call `db.MigrateAsync()` / `MigrateAsync<T>()` / `MigrationsAsync(...)` at app startup — not a repo build step.
+- **User** data migrations: implement `IMigration`, name `_NNN_…`, call `db.MigrateAsync()` / `MigrateAsync<T>()` / `MigrationsAsync(...)` at app startup, not a repo build step.
 
 ## Release (observed automation)
 | Trigger | Pipeline | Action |

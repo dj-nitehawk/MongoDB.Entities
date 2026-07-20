@@ -13,9 +13,9 @@ Normative OKF use/update gates live in this file. `.okf/index.md` and `.okf/main
 Match OKF depth to blast radius:
 
 - Local/small change: `.okf/index.md` + conventions/gotchas (and the matching task file if the surface is already documented).
-- Cross-cutting, public API, persistence, auth, contracts, or new surface: core set first — overview, architecture, code-map, conventions — then task-specific files (testing/workflows/dependencies/operations/gotchas and any expanded files present).
+- Cross-cutting, public API, persistence, auth, contracts, or new surface: core set first (overview, architecture, code-map, conventions), then task-specific files (testing/workflows/dependencies/operations/gotchas and any expanded files present).
 
-OKF guides—it does not replace checking source, tests, or manifests for exact behavior.
+OKF guides; it does not replace checking source, tests, or manifests for exact behavior.
 
 ### During work
 
@@ -32,5 +32,6 @@ If no update needed, state why (pure comment/typo/formatting: `OKF unaffected (n
 Subject to project conventions in OKF/`conventions.md` (and architecture when present) and this file:
 
 - Focused, minimal changes; prefer existing patterns.
+- Do not use em or en dashes as prose punctuation. Use commas, parentheses, or separate sentences instead. Hyphens remain valid in compound words, bullets, code, commands, CLI flags, identifiers, paths, versions, ranges, quotations, and exact terms.
 - Do not hand-edit generated artifacts listed in code-map/gotchas; regenerate via project commands instead. If a path is not listed but is clearly generated output, leave it alone and regenerate.
 - If behavior changes, run the smallest relevant command from workflows/testing. If not run, state the blocker.

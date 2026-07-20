@@ -29,13 +29,13 @@ Compose services: `mongodb`, `mongodb-init` (replica initiate). Volume `mongodb-
 
 ## Config and observability
 - Connection/auth entirely via driver settings / connection string (no library env config file).
-- CI secrets: `NUGET_API_KEY` (Actions). Compose test credentials are local/CI fixtures only — never treat as production.
+- CI secrets: `NUGET_API_KEY` (Actions). Compose test credentials are local/CI fixtures only; never treat as production.
 - Keyfile path for compose: `Tests/.mongo-keyfile` (generated in pipeline; local setup must match permissions for container user).
 - No first-class metrics/tracing hooks in the library beyond what the driver exposes.
 
 ## Caveats
 - Tag-only CI: pushing to a branch does not run the Azure test pipeline as configured.
-- NuGet publish and Azure tests both react to `v*` tags — coordinate version/changelog before tagging.
+- NuGet publish and Azure tests both react to `v*` tags; coordinate version/changelog before tagging.
 - Docs toolchain SDK (8.x in workflow) may lag main SDK (10.x).
 
 ## Sources
