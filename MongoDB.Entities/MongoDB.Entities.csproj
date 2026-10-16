@@ -30,9 +30,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MongoDB.Driver" Version="3.8.1"/>
-        <PackageReference Include="SharpCompress" Version="0.48.1"/> <!-- remove when mongo driver upgrades to a non-vulnerable version -->
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All"/>
+        <PackageReference Include="MongoDB.Driver" Version="3.12.0" />
+        <PackageReference Include="SharpCompress" Version="0.50.5" /> <!-- remove when mongo driver upgrades to a non-vulnerable version -->
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.402" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
