@@ -48,6 +48,7 @@ Solution file: `MongoDB.Entities.slnx` (projects: library, Tests, Benchmark).
 | Migration framework | `DB.Migrate.cs`, `Migrations/` |
 | Test for feature | `Tests/EntityTests/Test*.cs` + models under `Tests/Models/` |
 | User-facing docs | `Documentation/wiki/*.md` |
+| v26 upgrade and data compatibility | `Documentation/wiki/Upgrade-to-v26.md` (linked from `changelog.md` and the wiki TOC) |
 | Package version / deps | `MongoDB.Entities/MongoDB.Entities.csproj` |
 
 ## Generated code

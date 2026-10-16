@@ -13,6 +13,9 @@
         -   name: Code Samples
             href: Code-Samples.md
 
+-   name: Upgrade to v26
+    href: Upgrade-to-v26.md
+
 -   name: Entities
     href: Entities.md
     items:

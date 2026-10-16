@@ -55,6 +55,7 @@ Wiki markdown source: `Documentation/wiki/`. Site CNAME / pages deploy on tags `
 | Git tag `doc-*` | `publish-gh-pages.yml` | DocFX → GitHub Pages |
 
 Bump package version in `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`) and maintain root `changelog.md` for release notes.
+Keep release notes reader-focused. The v26 compatibility details and migration examples live in `Documentation/wiki/Upgrade-to-v26.md`; preserve its data/reference/file-chunk warnings when updating the summary. The changelog links to the repository copy so GitHub releases do not depend on a separate docs-site publish.
 
 ## Env vars (names only)
 | Name | Use |
