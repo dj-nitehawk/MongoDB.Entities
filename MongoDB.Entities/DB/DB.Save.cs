@@ -48,9 +48,10 @@ public partial class DB
     /// <param name="cancellation">And optional cancellation token</param>
     public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
     {
-        var models = new List<WriteModel<T>>(entities.Count());
+        var entityList = entities.ToArray();
+        var models = new List<WriteModel<T>>(entityList.Length);
 
-        foreach (var ent in entities)
+        foreach (var ent in entityList)
         {
             if (PrepAndCheckIfInsert(ent))
                 models.Add(new InsertOneModel<T>(ent));
@@ -277,9 +278,10 @@ public partial class DB
     Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation, bool excludeMode = false)
         where T : IEntity
     {
-        var models = new List<WriteModel<T>>(entities.Count());
+        var entityList = entities.ToArray();
+        var models = new List<WriteModel<T>>(entityList.Length);
 
-        foreach (var ent in entities)
+        foreach (var ent in entityList)
         {
             PrepAndCheckIfInsert(ent); //just prep. we don't care about inserts here
             SetModifiedBySingle(ent);

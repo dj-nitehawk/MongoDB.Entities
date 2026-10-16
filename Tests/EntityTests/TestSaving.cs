@@ -65,6 +65,49 @@ public class SavingEntity
     }
 
     [TestMethod]
+    public async Task batch_save_enumerates_input_once()
+    {
+        var db = DB.Default;
+        var title = Guid.NewGuid().ToString();
+        var enumerations = 0;
+
+        IEnumerable<BookEntity> Books()
+        {
+            if (++enumerations > 1)
+                throw new InvalidOperationException("The input can only be enumerated once.");
+
+            yield return new BookEntity { Title = title };
+        }
+
+        await db.SaveAsync(Books());
+        var saved = await db.Find<BookEntity>().Match(b => b.Title == title).ExecuteAsync();
+
+        Assert.HasCount(1, saved);
+    }
+
+    [TestMethod]
+    public async Task partial_batch_save_enumerates_input_once()
+    {
+        var db = DB.Default;
+        var title = Guid.NewGuid().ToString();
+        var enumerations = 0;
+
+        IEnumerable<BookEntity> Books()
+        {
+            if (++enumerations > 1)
+                throw new InvalidOperationException("The input can only be enumerated once.");
+
+            yield return new BookEntity { Title = title, Price = 100 };
+        }
+
+        await db.SaveOnlyAsync(Books(), b => new { b.Title });
+        var saved = await db.Find<BookEntity>().Match(b => b.Title == title).ExecuteAsync();
+
+        Assert.HasCount(1, saved);
+        Assert.AreEqual(0, saved[0].Price);
+    }
+
+    [TestMethod]
     public async Task created_on_property_works()
     {
         var db = DB.Default;
