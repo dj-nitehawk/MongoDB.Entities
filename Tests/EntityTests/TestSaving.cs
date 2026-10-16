@@ -67,7 +67,7 @@ public class SavingEntity
     [TestMethod]
     public async Task batch_save_enumerates_input_once()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new UpdatedBy());
         var title = Guid.NewGuid().ToString();
         var enumerations = 0;
 
@@ -88,7 +88,7 @@ public class SavingEntity
     [TestMethod]
     public async Task partial_batch_save_enumerates_input_once()
     {
-        var db = DB.Default;
+        var db = DB.Default.WithModifiedBy(new UpdatedBy());
         var title = Guid.NewGuid().ToString();
         var enumerations = 0;
 
