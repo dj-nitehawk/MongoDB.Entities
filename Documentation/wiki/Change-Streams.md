@@ -58,9 +58,13 @@ watcher.OnChangesCSD += changes =>
 {
     foreach (var csd in changes)
     {
-        Console.WriteLine(
-            "Removed Fields: " +
-            string.Join(", ", csd.UpdateDescription.RemovedFields));
+        if (csd.OperationType == ChangeStreamOperationType.Update &&
+            csd.UpdateDescription is not null)
+        {
+            Console.WriteLine(
+                "Removed Fields: " +
+                string.Join(", ", csd.UpdateDescription.RemovedFields));
+        }
     }
 };
 ```
@@ -155,7 +159,7 @@ watcher.OnChangesCSDAsync += async csDocs =>
     {
         if (csd.OperationType == ChangeStreamOperationType.Insert)
         {
-            Console.WriteLine("created: " + csd.FullDocument.Title);
+            Console.WriteLine("created: " + csd.FullDocument.Name);
         }
         await StoreResumeTokenAsync(csd.ResumeToken);
     }
@@ -185,19 +189,19 @@ foreach (var w in watchers)
 }
 ```
 > [!note]
-> There's a watcher registry per entity type and the watcher names need only be unique to each registry.
+> Each `DB` instance has a watcher registry per entity type. The same name on the same instance and entity type retrieves the same watcher; another `DB` instance has its own registry, even if it targets the same database. Names are trimmed and converted to lowercase.
 
 ## Notes on resource usage
-Each watcher/change-stream you create opens a long-running cursor on the database server, which also means a persistent network connection between your application and the database. If you create more than a handful of watchers in your application, you should consider increasing the size of the mongodb driver thread-pool size as shown below:
+Each watcher opens a long-running cursor and uses a connection while waiting for changes. Many watchers can compete with ordinary queries for connections. If measurements show connection-pool contention, consider increasing the MongoDB client's connection-pool limit:
 
 ```csharp
 await DB.InitAsync("DatabaseName", new MongoClientSettings()
 {
-    ...
-    MaxConnectionPoolSize = 100 + NumberOfWatchers,
-    ...
+    MaxConnectionPoolSize = 150
 });
 ```
+
+This setting controls database connections, not the .NET thread pool. Choose a limit appropriate for your workload and server capacity; it is not a requirement to allocate one application thread per watcher.
 
 In addition to persistent network connections/cursors, each watcher will use a small amount of memory for an async/await state machine that does the actual work of iterating the change-stream cursor and emitting events without blocking threads during IO.
 

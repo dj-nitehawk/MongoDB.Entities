@@ -1,61 +1,58 @@
 # Migration system
 
-There's a simple data migration system similar to that of EntityFramework where you can write migration classes with logic for transforming the database and content in order to bring it up-to-date with the current shape of your c# entity schema.
+Write migration classes to transform stored documents when your application's schema changes. Each class implements `IMigration.UpgradeAsync()` and has a name starting with a numeric prefix, such as `_001_merge_author_names` or `_002_rename_author_name`.
 
-### Migration classes
+## Run migrations
 
-Create migration classes that has names starting with `_number_` followed by anything you'd like and implement the interface `IMigration`.
-
-Here are a couple of valid migration class definitions:
-
-```csharp
-public class _001_i_will_be_run_first : IMigration { }
-public class _002_i_will_be_run_second : IMigration { }
-public class _003_i_will_be_run_third : IMigration { }
-```
-
-Next implement the `UpgradeAsync()` method of IMigration and place your migration logic there.
-
-### Run Migrations
-
-In order to execute the migrations, simply call `db.MigrateAsync()` whenever you need the database brought up to date. The library keeps track of the last migration run and will execute all newer migrations in the order of their number. In most cases, you'd place the following line of code in the startup of your app right after initializing the database.
+The library records completed migrations in `_migration_history_` and runs migrations whose numbers are greater than the last completed number, in numeric order. Run them after database initialization, before accepting application traffic:
 
 ```csharp
 await db.MigrateAsync();
 ```
 
-The above will try to discover all migrations from all assemblies of the application if it's a multi-project solution. You can speed things up a bit by specifying a type so that migrations will only be discovered from the same assembly/project as the specified type, like so:
+This discovers migrations in loaded application assemblies, excluding framework and other known assembly prefixes. Restrict discovery to a particular assembly by supplying one of its types:
 
 ```csharp
 await db.MigrateAsync<SomeType>();
 ```
 
-It's also possible to have more control by supplying a collection of migration class instances, which comes in handy if your migrations require other dependencies.
+By default, discovered classes need parameterless constructors. To supply dependencies, either configure `db.SetMigrationActivator(...)` or `db.SetServiceProvider(...)`, or pass constructed instances to `db.MigrationsAsync(...)`. The activator takes precedence over the service provider.
+
+The examples below accept a `DB` in their constructors. Run them explicitly so they target the same database that records their completion:
 
 ```csharp
 await db.MigrationsAsync(new IMigration[]
 {
-    new _001_seed_data(someDependency),
-    new _002_transform_data(someDependency)
+    new _001_merge_author_names(db),
+    new _002_rename_author_name(db),
+    new _003_rename_author_collection(db)
 });
 ```
 
-### Examples
+Migration execution is not automatically transactional. Back up data, test on a restored copy, and coordinate startup so multiple application instances do not run migrations concurrently. Make migration steps safe to retry if a process stops before completion is recorded.
 
-#### Merge two properties
+## Examples
 
-Let's take the scenario of having the first and last names of an Author entity stored in two separate properties and later on deciding to merge them into a single property called "FullName".
+These examples assume an existing `Author` collection with the following model:
 
 ```csharp
-public class _001_merge_first_and_last_name_to_fullname_field : IMigration
+public class Author : Entity
 {
-    private class Author : Entity
-    {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string FullName { get; set; }
-    }
+    public string Name { get; set; } = "";
+    public string Surname { get; set; } = "";
+    public string FullName { get; set; } = "";
+}
+```
 
+Include `using MongoDB.Entities;`, `using MongoDB.Driver;`, and `using System.Threading.Tasks;` for the examples below.
+
+### Merge two properties
+
+This version reads each author's first and last name and updates only that author's document:
+
+```csharp
+public class _001_merge_author_names(DB db) : IMigration
+{
     public async Task UpgradeAsync()
     {
         await db.Fluent<Author>()
@@ -63,7 +60,7 @@ public class _001_merge_first_and_last_name_to_fullname_field : IMigration
                 .ForEachAsync(async a =>
                 {
                     await db.Update<Author>()
-                            .Match(_ => true)
+                            .MatchID(a.id)
                             .Modify(x => x.FullName, a.fullname)
                             .ExecuteAsync();
                 });
@@ -71,45 +68,46 @@ public class _001_merge_first_and_last_name_to_fullname_field : IMigration
 }
 ```
 
-If your collection has many thousands of documents, the above code will be less efficient. Below is another more efficient way to achieve the same result using a single mongodb command if your server version is v4.2 or newer.
+For large collections, use the following alternative to compute the value on the server with a single update pipeline (MongoDB 4.2 or newer). Choose one implementation of `_001_merge_author_names`, not both:
 
 ```csharp
-public class _001_merge_first_and_last_name_to_fullname_field : IMigration
+public class _001_merge_author_names(DB db) : IMigration
 {
     public Task UpgradeAsync()
     {
-      return db.Update<Author>()
-               .Match(_ => true)
-               .WithPipelineStage("{$set:{FullName:{$concat:['$Name',' ','$Surname']}}}")
-               .ExecutePipelineAsync();
+        return db.Update<Author>()
+                 .Match(_ => true)
+                 .WithPipelineStage("{$set:{FullName:{$concat:['$Name',' ','$Surname']}}}")
+                 .ExecutePipelineAsync();
     }
 }
 ```
 
-#### Rename a property
+### Rename a property
 
 ```csharp
-public class _002_rename_fullname_to_authorname : IMigration
+public class _002_rename_author_name(DB db) : IMigration
 {
     public Task UpgradeAsync()
     {
-      return db.Update<Author>()
-                .Match(_ => true)
-                .Modify(b => b.Rename("FullName", "AuthorName"))
-                .ExecuteAsync();
+        return db.Update<Author>()
+                 .Match(_ => true)
+                 .Modify(b => b.Rename("FullName", "AuthorName"))
+                 .ExecuteAsync();
     }
 }
 ```
 
-#### Rename a collection
+### Rename a collection
 
 ```csharp
-public class _003_rename_author_collection_to_writer : IMigration
+public class _003_rename_author_collection(DB db) : IMigration
 {
     public Task UpgradeAsync()
     {
-      return db.Database()
-               .RenameCollectionAsync("Author", "Writer");
+        return db.Database().RenameCollectionAsync("Author", "Writer");
     }
 }
 ```
+
+After renaming, map your application model to `Writer` with `[Collection("Writer")]`, or rename the entity type accordingly. The simple rename example is not safe to rerun after the collection has already been renamed; check source/destination collection state before retrying it.

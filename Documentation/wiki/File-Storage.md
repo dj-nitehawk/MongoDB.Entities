@@ -9,7 +9,7 @@ Inherit from `FileEntity<T>` abstract class instead of the usual `Entity` class 
 ```csharp
 public class Picture : FileEntity<Picture>
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
     public int Width { get; set; }
     public int Height { get; set; }
 }
@@ -43,7 +43,7 @@ In addition to the properties you added, there will also be `FileSize`, `ChunkCo
 
 ### Data integrity verification
 
-You have the option of specifying an MD5 hash when uploading and get mongodb to throw an `InvalidDataException` in case the data stream has got corrupted during the upload/transfer process. Typically you'd calculate an MD5 hash value in your front-end/ui app before initiating the file upload and set it as a property value on the file entity like so:
+You can set the `Md5` property before uploading to have the library verify the stream's checksum. The library throws an `InvalidDataException` if the calculated hash does not match. For example, calculate the expected hash before initiating the upload and set it on the file entity:
 
 ```csharp
 var kitty = new Picture
@@ -51,11 +51,11 @@ var kitty = new Picture
     Title = "NiceKitty.jpg",
     Width = 4000,
     Height = 4000,
-    MD5 = "cccfa116f0acf41a217cbefbe34cd599"
+    Md5 = "cccfa116f0acf41a217cbefbe34cd599"
 };
 ```
 
-The `MD5` property comes from the base `FileEntity`. If a value has been set before calling `.Data().UploadAsync()` an MD5 hash will be calculated at the end of the upload process and matched against the MD5 hash you specified. If they don't match, an exception is thrown. So if specifying an MD5 for verification, you should always wrap your upload code in a try/catch block. If verification fails, the uploaded data is discarded and you'll have to re-attempt the upload.
+The `Md5` property comes from `FileEntity<T>`. Set it before calling `.Data(db).UploadAsync()`. If verification fails, the uploaded data is discarded and you'll need to handle the exception and retry the upload. This checksum detects accidental corruption, not malicious tampering.
 
 ### Download data
 
@@ -63,6 +63,9 @@ The `MD5` property comes from the base `FileEntity`. If a value has been set bef
 var picture = await db.Find<Picture>()
                       .Match(p => p.Title == "NiceKitty.jpg")
                       .ExecuteSingleAsync();
+
+if (picture is null)
+    throw new InvalidOperationException("Picture not found.");
 
 using (var stream = File.OpenWrite("kitty.jpg"))
 {

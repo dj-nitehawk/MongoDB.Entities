@@ -36,6 +36,8 @@ The next method takes 2 parameters. First is the property to initialize. Second 
 
 Also note that you specify which side of the relationship a property is using the attributes `[OwnerSide]` or `[InverseSide]` for defining many-to-many relationships.
 
+The examples initialize relationships against `DB.Default`. For another database, pass it explicitly to the initializer and rebind relationships after loading entities. See [multiple database relationships](Multiple-Databases.md#referenced-relationships).
+
 ## One-to-one
 
 A reference can be assigned in any of the following two ways:
@@ -78,7 +80,7 @@ await bookC.MainAuthor.ToEntityAsync(db) //returns null
 ## One-to-many & many-to-many
 
 ```csharp
-await book.Authors.AddAsync(author); //one-to-many
+await book.CoAuthors.AddAsync(author); //one-to-many
 await book.Genres.AddAsync(genre);   //many-to-many
 ```
 
@@ -89,7 +91,7 @@ However, do note that both the parent entity (book) and child (author/genre) bei
 Alternatively when you don't have access to the parent entity and you only have the parent `ID` value, you can use the following to access the relationship:
 
 ```csharp
-await DB.Entity<Book>("BookID").Authors.AddAsync(author);
+await DB.Entity<Book>("BookID").CoAuthors.AddAsync(author);
 ```
 
 there are other *[overloads](xref:MongoDB.Entities.Many`2#methods)* for adding relationships with multiple entities or raw child IDs (including value-type sequences such as `Guid[]`, `long[]`, and `ObjectId[]`).
@@ -99,7 +101,7 @@ there are other *[overloads](xref:MongoDB.Entities.Many`2#methods)* for adding r
 ### Reference removal
 
 ```csharp
-await book.Authors.RemoveAsync(author);
+await book.CoAuthors.RemoveAsync(author);
 await book.Genres.RemoveAsync(genre);
 ```
 

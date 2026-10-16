@@ -21,7 +21,7 @@ In order to start a fluent aggregation pipeline with a `GeoNear` query, simply d
 
 ```csharp
 var query = db.GeoNear<Place>(
-    NearCoordinates: new Coordinates2D(48.857908, 2.295243),
+    NearCoordinates: new Coordinates2D(longitude: 2.295243, latitude: 48.857908),
     DistanceField: x => x.DistanceMeters,
     MaxDistance: 20000);
 ```

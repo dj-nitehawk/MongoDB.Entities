@@ -27,7 +27,7 @@ Task.Run(async () =>
 If for whatever reason you refuse to go the async/await route and don't really care about application performance, you can add the [this utility class](https://gist.github.com/dj-nitehawk/43a7de03da03ae42a3bc8a44070b1ac4) to your project and use that to wrap any async methods you'd want to call like so:
 
 ```csharp
-Run.Sync(() => book.SaveAsync());
+Run.Sync(() => db.SaveAsync(book));
 
 var allBooks = Run.Sync(
     () =>

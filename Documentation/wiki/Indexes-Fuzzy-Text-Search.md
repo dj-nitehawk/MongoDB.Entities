@@ -11,7 +11,7 @@ Here's how you'd typically get the fuzzy search to work:
 ```csharp
 public class Book : Entity
 {
-    public FuzzyString AuthorName { get; set; }
+    public FuzzyString AuthorName { get; set; } = new("");
 }
 ```
 
@@ -26,7 +26,7 @@ await db.Index<Book>()
 ### 3. Store the entity
 
 ```csharp
-await new Book { AuthorName = "Eckhart Tolle" }.SaveAsync();
+await db.SaveAsync(new Book { AuthorName = "Eckhart Tolle".ToFuzzy() });
 ```
 
 ### 4. Do a fuzzy search on the index
@@ -67,7 +67,7 @@ The text is stored in both the original form and also a hash consisting of doubl
 If you'd like to sort the results by relevance (closeness to the original search term) you can use the following utility method:
 
 ```csharp
-var sortedResults = results.SortByRelevance("ekard tole", b => b.AuthorName);
+var sortedResults = results.SortByRelevance("ekard tole", b => b.AuthorName.Value);
 ```
 
 This sorting is done client-side after the fuzzy search retrieves the entities from mongodb. What this extension method does is; it will compare your search term with the value of the property you specify as the second argument to see how close it is using [levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm. Then it will return a new list with the closest matches at the top.
@@ -75,7 +75,7 @@ This sorting is done client-side after the fuzzy search retrieves the entities f
 You can also exclude items from the resulting list that has a greater edit distance than a given value by specifying the `maxDistance` optional parameter like so:
 
 ```csharp
-var sortedResults = results.SortByRelevance("ekard tole", b => b.AuthorName, 10);
+var sortedResults = results.SortByRelevance("ekard tole", b => b.AuthorName.Value, 10);
 ```
 
 ## Performance considerations:

@@ -42,6 +42,7 @@ docfx Documentation/docfx.json
 ```
 
 Wiki markdown source: `Documentation/wiki/`. Site CNAME / pages deploy on tags `doc-*`.
+DocFX validates documentation structure and links, not whether C# snippets compile. When changing examples, compile representative complete snippets against the current library and verify behavioral examples separately. Keep validation output outside tracked generated directories (for example, `docfx build Documentation/docfx.json --output /tmp/mongodb-entities-docs`).
 
 ## Codegen and migrations
 - No codegen step for the library.

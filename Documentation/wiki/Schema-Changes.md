@@ -24,7 +24,7 @@ The data stored in mongodb under `Price` will be lost upon saving if you do not 
 
 ### Renaming entities
 
-If you for example rename the `Book` entity to `Test` when you run you app, a new collection called "Test" will be created and the old collection called "Book" will be orphaned. Any new entities you save will be added to the "Test" collection. To avoid that, you can simply rename the collection called "Book" to "Test" before running your app. Or you can tie down the name of the collection using the [\[Name\]](Entities.md#customize-collection-names) attribute
+If you for example rename the `Book` entity to `Test` when you run you app, a new collection called "Test" will be created and the old collection called "Book" will be orphaned. Any new entities you save will be added to the "Test" collection. To avoid that, you can simply rename the collection called "Book" to "Test" before running your app. Or you can tie down the name of the collection using the [\[Collection\]](Entities.md#customize-collection-names) attribute.
 
 ### Reference collections
 
@@ -51,7 +51,7 @@ If you rename an entity, simply rename the corresponding collection in mongodb b
 After running the app with changed property names or modified index definitions, new indexes will be automatically created to match the current shape of index definitions in your code. You should manually drop indexes that have old schema in order to get rid of redundant/ orphaned indexes.
 
 > [!note]
-> The only exception to the above is text indexes. Text indexes don't require any manual handling. Since there can only be one text index per collection, the library automatically drops and re-creates text indexes when a schema change is detected.
+> When MongoDB reports an index options/key conflict (error 85 or 86), the index builder drops and recreates the index with the requested name. This applies to ordinary indexes as well as text indexes. Text indexes use the default name `[TEXT]`; changing their keys therefore replaces that index. Review custom index names and obsolete indexes yourself.
 
 ### Migration system
 

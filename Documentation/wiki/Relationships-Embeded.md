@@ -13,7 +13,7 @@ book.Author = author;
 await db.SaveAsync(book);
 ```
 
-As mentioned earlier, calling `SaveAsync()` persists `author` to the "Authors" collection in the database. It is also stored in `book.Author` property. So, the `author` entity now lives in two locations (in the collection and also inside the `book` entity) and will have the same `ID`. If the goal is to embed something as an independent document, it is best to use a class that does not inherit from the `Entity` class or simply use the `.ToDocument()` method of an entity as explained earlier.
+As mentioned earlier, calling `SaveAsync()` persists `author` to the "Author" collection by default (or the name configured with `[Collection]`). It is also stored in `book.Author` property. So, the `author` entity now lives in two locations (in the collection and also inside the `book` entity) and will have the same `ID`. If the goal is to embed something as an independent document, it is best to use a class that does not inherit from the `Entity` class or simply use the `.ToDocument()` method of an entity as explained earlier.
 
 ### Embed removal
 
@@ -24,7 +24,7 @@ book.Author = null!;
 await db.SaveAsync(book);
 ```
 
-The original `author` in the `Authors` collection is unaffected.
+The original `author` in its own collection is unaffected.
 
 ## One-to-many
 
@@ -40,4 +40,4 @@ book.OtherAuthors = null!;
 await db.SaveAsync(book);
 ```
 
-The original `author1, author2` entities in the `Authors` collection are unaffected.
+The original `author1, author2` entities in their own collection are unaffected.

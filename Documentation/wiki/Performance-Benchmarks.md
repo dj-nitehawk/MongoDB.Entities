@@ -1,4 +1,8 @@
 # Performance Benchmarks
+
+> [!note]
+> These are historical measurements using .NET 5 and MongoDB.Driver 2.13, not v26 benchmark results. They illustrate past workloads and must not be used as current performance guarantees. Run the current benchmark project against your own environment to measure v26.
+
 Source code of the benchmarks can be found on [github](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Benchmark/Benchmarks).
 More benchmarks will be added as time permits. Please feel free to add your own and submit a PR, or join our [discord server](https://discord.com/invite/CM5mw2G) and request a particular benchmark you're interested in.
 

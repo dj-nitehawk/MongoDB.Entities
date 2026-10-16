@@ -37,7 +37,7 @@
 ```csharp
   var hemmingway = new Author { Name = "Ernest Hemmingway" };
   await db.SaveAsync(hemmingway);
-  book.MainAuthor = hemmingway;
+  book.MainAuthor = hemmingway.ToReference();
   await db.SaveAsync(book);
 ```
 
@@ -46,7 +46,7 @@
 ```csharp
   var tolle = new Author { Name = "Eckhart Tolle" };
   await db.SaveAsync(tolle);
-  await book.Authors.AddAsync(tolle, db);
+  await book.Authors.AddAsync(tolle);
 ```
 
 ## Many-To-Many relationship
@@ -54,8 +54,8 @@
 ```csharp
   var genre = new Genre { Name = "Self Help" };
   await db.SaveAsync(genre);
-  await book.AllGenres.AddAsync(genre, db);
-  await genre.AllBooks.AddAsync(book, db);
+  await book.AllGenres.AddAsync(genre);
+  await genre.AllBooks.AddAsync(book);
 ```        
 
 ## Queries
@@ -73,12 +73,15 @@
 ## Delete
 
 ```csharp
-  await book.MainAuthor.DeleteAsync(db);
-  await book.AllAuthors.DeleteAllAsync(db);
+  await db.DeleteAsync<Author>(book.MainAuthor.ID);
+  var coAuthors = await book.Authors.ChildrenQueryable().ToListAsync();
+  await db.DeleteAsync(coAuthors);
   await db.DeleteAsync(book);
   await db.DeleteAsync<Genre>("ID");
   await db.DeleteAsync<Book>(b => b.Title == "The Power Of Now");
 ```
+
+These delete the related entities themselves, not just their references. To unlink entities without deleting them, use the [relationship removal methods](Relationships-Referenced.md#reference-removal-1).
 
 ---
 

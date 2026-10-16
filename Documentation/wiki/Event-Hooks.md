@@ -1,65 +1,51 @@
 # Custom event hooks
 
-There are two hooks you can tap into: `OnBeforeSave` and `OnBeforeUpdate`. Use them to modify the incoming operation just before it executes. These hooks can also replace the built-in audit fields for finer-grained control. Override both methods to ensure inserts and updates are consistently handled.
-
-Say for example, you have a `Flower` entity like the following, and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.
+Override `OnBeforeSave` and `OnBeforeUpdate` on a derived `DB` to modify entities and update definitions before writes. For example, record the last editor and save time:
 
 ```csharp
 public class Flower : Entity
 {
-    public string Name { get; set; }
-
-    public string CreatedBy { get; set; }
-    public DateTime CreatedDate { get; set; }
-
-    public string UpdatedBy { get; set; }
+    public string Name { get; set; } = "";
+    public string UpdatedBy { get; set; } = "";
     public DateTime UpdateDate { get; set; }
 }
 ```
 
-To be able to tap in to the hooks, create a derived `DB` class and override the two methods as follows:
-
 ```csharp
-public class MyDatabase() : DB(Default) //example of using the default database
+public class MyDatabase() : DB(Default)
 {
     protected override Action<T>? OnBeforeSave<T>()
     {
-        return ModifyFlowerEntities as Action<T>;
-
-        void ModifyFlowerEntities(Flower f)
+        return entity =>
         {
-            if (string.IsNullOrEmpty(f.ID))
+            if (entity is Flower flower)
             {
-                f.CreatedBy = "God";
-                f.CreatedDate = DateTime.MinValue;
+                flower.UpdatedBy = "Human";
+                flower.UpdateDate = DateTime.UtcNow;
             }
-            else
-            {
-                f.UpdatedBy = "Human";
-                f.UpdateDate = DateTime.UtcNow;
-            }
-        }
+        };
     }
 
     protected override Action<UpdateBase<T>>? OnBeforeUpdate<T>()
     {
-        return ModifyFlowerEntities as Action<UpdateBase<T>>;
-
-        void ModifyFlowerEntities(UpdateBase<Flower> update)
+        return update =>
         {
-            update.AddModification(f => f.UpdatedBy, "Human");
-            update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
-        }
+            if (update is UpdateBase<Flower> flowers)
+            {
+                flowers.AddModification(f => f.UpdatedBy, "Human");
+                flowers.AddModification(f => f.UpdateDate, DateTime.UtcNow);
+            }
+        };
     }
 }
 ```
 
-After that, simply create new instances of `MyDatabase` when you need the above functionality and perform operations as usual:
+Use the derived instance to perform the operations:
 
 ```csharp
 var db = new MyDatabase();
 
-await db.SaveAsync(new Flower() { Name = "Red Rose" });
+await db.SaveAsync(new Flower { Name = "Red Rose" });
 
 await db.Update<Flower>()
         .Match(f => f.Name == "Red Rose")
@@ -67,30 +53,42 @@ await db.Update<Flower>()
         .ExecuteAsync();
 ```
 
+## Detecting new entities
+
+Do not use an empty ID inside `OnBeforeSave` as a general insert detector. Single-entity `SaveAsync` invokes the hook before preparing the ID, while batch saves, partial saves, and `InsertAsync` prepare IDs first. A new entity can therefore already have its ID when the hook runs.
+
+For creation timestamps, use [`ICreatedOn`](Entities.md#optional-auto-managed-properties). For creation-only business logic, track creation explicitly in your application and set the values before saving, rather than inferring it from hook timing.
+
 ## Handling multiple entity types
 
-It's possible to handle more than one type of entity inside the hooks like below:
+Use type checks inside the returned action. For example, given this additional entity:
+
+```csharp
+public class Book : Entity
+{
+    public string SavedBy { get; set; } = "";
+    public DateTime SavedOn { get; set; }
+}
+```
+
+Replace the save hook with:
 
 ```csharp
 protected override Action<T>? OnBeforeSave<T>()
 {
-    return typeof(T) switch
+    return entity =>
     {
-        Type t when t == typeof(Book) => BookModifier as Action<T>,
-        Type t when t == typeof(Flower) => FlowerModifier as Action<T>,
-        _ => null
+        switch (entity)
+        {
+            case Book book:
+                book.SavedBy = "Author";
+                book.SavedOn = DateTime.UtcNow;
+                break;
+            case Flower flower:
+                flower.UpdatedBy = "Human";
+                flower.UpdateDate = DateTime.UtcNow;
+                break;
+        }
     };
-
-    void BookModifier(Book b)
-    {
-        b.SavedBy = "Author";
-        b.SavedOn = DateTime.UtcNow;
-    }
-
-    void FlowerModifier(Flower f)
-    {
-        f.SavedBy = "Human";
-        f.SavedOn = DateTime.MinValue;
-    }
 }
 ```

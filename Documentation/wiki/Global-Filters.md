@@ -1,6 +1,6 @@
 # Global filters
 
-With the use of global filters you can set up a set of criteria to be applied to all operations performed by a `DB` instance in order to save the trouble of having to specify the same criteria in each and every operation you perform. I.e. you specify common criteria in one place, and all **retrieval, update and delete** operations will have the common filters automatically applied to them before execution.
+Global filters let you define common criteria once for a `DB` instance. The library applies them to its filter-aware retrieval, update, count, and delete APIs. They are not a database-level access-control boundary: saves, raw collection access, and some relationship operations bypass them. See the limitations below.
 
 To be able to specify common criteria, you need to create a derived `DB` class so:
 
@@ -65,8 +65,24 @@ await db.Find<Book>()
         .ExecuteAsync();
 
 //with direct methods:
-db.IgnoreGlobalFilters = true; //all operations ignore global filters until changed
-await db.DeleteAsync<Book>(b => b.Title == "Power Of Tomorrow");
+var previouslyIgnored = db.IgnoreGlobalFilters;
+try
+{
+    db.IgnoreGlobalFilters = true;
+    await db.DeleteAsync<Book>(b => b.Title == "Power Of Tomorrow");
+}
+finally
+{
+    db.IgnoreGlobalFilters = previouslyIgnored;
+}
+```
+
+The instance flag affects APIs that honor it. It changes shared state on that instance, so do not toggle it while other operations use the same instance concurrently.
+
+`CountAsync` uses its own per-call argument rather than the instance flag:
+
+```csharp
+var count = await db.CountAsync<Book>(_ => true, ignoreGlobalFilters: true);
 ```
 
 ## Limitations
@@ -93,4 +109,6 @@ You can however switch the order of registration so that the base class registra
                b.IsDeleted == false);
 ``` 
 
-3. Only delete, update and retrieval operations will use global filters. The `Save*()` operations will ignore any registered global filters as they will only match on the `ID` field.
+3. `Save*()` operations ignore global filters and match on the ID field. Inserts, raw `Collection<T>()` access, and `CountEstimatedAsync` also bypass global filters. Relationship APIs do not uniformly apply entity filters, so do not rely on them to enforce tenant isolation or authorization.
+
+4. Direct-ID deletes apply the entity's global filter before deleting join records or file chunks. An excluded entity is left intact, together with its related records and chunks.

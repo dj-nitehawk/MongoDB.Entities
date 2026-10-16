@@ -32,7 +32,7 @@ public class Book : Entity
 You can set the field names of the documents stored in mongodb using the `FieldAttribute` like so:
 
 ```csharp
-public class Book
+public class Book : Entity
 {
     [Field("book_name")]
     public string Title { get; set; }
@@ -106,19 +106,12 @@ BsonSerializer.RegisterIdGenerator(typeof(long), new MySequentialLongIdGenerator
 > Do your registrations at application startup, before initializing database connections with `DB.InitAsync()`. Entity-level generators registered with `DB.RegisterIdGenerator<T>()` take precedence over class-map generators and ID-type-level generators, and can be registered any time (even after first use of the entity type). Class-map and `BsonSerializer.RegisterIdGenerator` registrations are only read when the entity type is first used, so they must be in place beforehand.
 
 > [!note]
-> The type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). `Many<>` one-to-many / many-to-many relationships support any ID type/representation — including `string`, `long`, `ObjectId`, `Guid` and custom-represented IDs such as `[BsonRepresentation(BsonType.ObjectId)] string` — and join records always store the ID exactly as it is stored in the entity's own `_id` field. `One<TEntity>` one-to-one references still use a `string` `ID`; for non-string IDs use the typed `One<TEntity, TIdentity>` instead. When using `Guid` IDs, register a Guid serializer before initializing the library, e.g. `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));`
+> The type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). `Many<>` one-to-many / many-to-many relationships support any ID type/representation, including `string`, `long`, `ObjectId`, `Guid` and custom-represented IDs such as `[BsonRepresentation(BsonType.ObjectId)] string`. Join records always store the ID exactly as it is stored in the entity's own `_id` field. `One<TEntity>` one-to-one references still use a `string` `ID`; for non-string IDs use the typed `One<TEntity, TIdentity>` instead. When using `Guid` IDs, register a Guid serializer before initializing the library, e.g. `BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));`
 
 > [!warning]
-> It is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).
->
->
->If you choose something like `Guid`, there's a possibility for duplicates to be generated and data loss could occur when using the [partial entity saving](Entities-Save.md#save-entities-partially) operations. Reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.
->
->
->The normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.
->
->
->So you're better off sticking with `ObjectId` because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.
+> Choose an ID generator that produces unique values. `SaveAsync` inserts when the entity has an empty ID and the library generates one, but uses a replacement upsert when the ID is already populated. Partial saves use update upserts. Reusing an existing ID can therefore overwrite data, regardless of the ID type. Use `InsertAsync` when an existing ID must cause a duplicate-key error rather than an update.
+
+In v26, `Entity.ID` is an ObjectId-formatted **string stored as a BSON string**, not a BSON ObjectId. Existing databases using the old representation need compatibility mapping or data migration. See the [v26 upgrade guide](Upgrade-to-v26.md) before deploying against existing data.
 
 ## Create a collection explicitly
 
@@ -127,6 +120,7 @@ await db.CreateCollectionAsync<Book>(o =>
 {
     o.Collation = new Collation("es");
     o.Capped = true;
+    o.MaxSize = 1024 * 1024; // Required size limit in bytes for a capped collection.
     o.MaxDocuments = 10000;
 });
 ```

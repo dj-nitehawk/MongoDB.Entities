@@ -16,7 +16,7 @@ Databases written by previous versions store ObjectId-parseable string IDs as **
 
 1. **Keep ObjectId storage for entity `_id`s (recommended when you have data):** you cannot put an attribute on the inherited `Entity.ID` property, and you also cannot remap that inherited member on each concrete type (`BsonClassMap.RegisterClassMap<Book>(...).MapIdProperty(b => b.ID)` throws because `ID` is declared on `Entity`, not `Book`). Use one of:
 
-   - **Class map on the `Entity` base** (before first use of any `Entity` subclass / before `DB.InitAsync`). This affects **every** type that inherits `Entity`, including nested/embedded entities that use the same base:
+   - **Class map on the `Entity` base for ObjectId-formatted IDs only** (before first use of any `Entity` subclass / before `DB.InitAsync`). This affects **every** type that inherits `Entity`, including nested/embedded entities that use the same base. The strict serializer below cannot write arbitrary custom-format string IDs. It is not a drop-in replacement for the former `[AsObjectId]` serializer, which accepted both BSON strings and ObjectIds. For mixed/custom ID formats, use the per-entity option below or migrate to string storage:
      ```csharp
      // usings: MongoDB.Bson, MongoDB.Bson.Serialization,
      //         MongoDB.Bson.Serialization.IdGenerators, MongoDB.Bson.Serialization.Serializers
@@ -47,16 +47,17 @@ Databases written by previous versions store ObjectId-parseable string IDs as **
    db.MyCollection.find({ _id: { $type: "objectId" } }).forEach(d => {
      const oldId = d._id;
      const newId = String(oldId);
-     // skip if a string-id document already exists (partial re-run safety)
+     // Stop for manual reconciliation rather than silently leaving two versions.
      if (db.MyCollection.findOne({ _id: newId })) {
-       print(`skip existing string id ${newId}`);
-       return;
+       throw new Error(`destination string id already exists: ${newId}`);
      }
      const copy = Object.assign({}, d, { _id: newId });
      db.MyCollection.insertOne(copy);
      db.MyCollection.deleteOne({ _id: oldId });
    });
    ```
+
+   This is a migration sketch, not a complete migration tool. An interruption between insert and delete can leave both versions; reconcile them before rerunning. Secondary unique indexes can also prevent inserting a copy while the original exists. Plan how to preserve and validate those constraints, or migrate through a separate collection, before using this approach.
 
    Apply the same ObjectId-to-string rewrite to every affected field:
 

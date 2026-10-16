@@ -28,7 +28,7 @@ var authors = await db.Find<Author>()
 
 ```csharp
 var cafes = await db.Find<Cafe>()
-                    .Match(c => c.Location, new Coordinates2D(48.857908, 2.295243), 1000)
+                    .Match(c => c.Location, new Coordinates2D(longitude: 2.295243, latitude: 48.857908), 1000)
                     .ExecuteAsync();
 ```
 
@@ -70,11 +70,13 @@ How many items to skip and take are specified using `.Skip()` and `.Limit()`
 To avoid the complete entity being returned, you can use `.Project()` with a lambda expression to get back only the properties you need as shown above. It is also possible to use projection builder methods like so:
 
 ```csharp
-.Project(p => p.Include("Name").Exclude("Surname"))
+.Project(p => p.Include(a => a.Name).Include(a => a.Surname))
 ```
 
 > [!tip]
 > To be able to chain projection builder methods like above, please add the import statement **using MongoDB.Driver;** to your class.
+
+Use either an inclusion projection or an exclusion projection. MongoDB does not allow mixing the two for ordinary fields; excluding `_id` from an inclusion projection is the exception.
 
 ### Projection with exclusions
 
@@ -106,7 +108,7 @@ No command is sent over the wire to mongodb until you call one of the following 
 
 **ExecuteCursorAsync():** Gets a cursor you can iterate over instead of a list of entities.
 
-**ExecuteAsync():** Gets a list of matched entities or default value if nothing matched.
+**ExecuteAsync():** Gets a list of matched entities, or an empty list if nothing matched.
 
 **ExecuteSingleAsync():** Gets only 1 matched entity and will throw an exception if more than 1 entity is matched, or default value if nothing matched.
 

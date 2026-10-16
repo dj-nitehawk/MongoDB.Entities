@@ -6,32 +6,32 @@ There's a special `Date` type you can use to store date/time values in mongodb i
 
 ## Examples
 ```csharp
-// define the entity
-    public class Book : Entity
-    {
-        public Date PublishedOn { get; set; }
-    }
+public class Book : Entity
+{
+    public Date PublishedOn { get; set; } = new();
+}
+```
 
-// save the entity
-    new Book
-    {
-        PublishedOn = DateTime.UtcNow
-    }
-    .Save();
+```csharp
+// Save an entity. DateTime is not implicitly converted to Date.
+var book = new Book { PublishedOn = new Date(DateTime.UtcNow) };
+await db.SaveAsync(book);
+// DateTime.UtcNow.ToDate() is another way to create a Date.
 
-// query with 'Ticks'
-    var book = await db.Find<Book>()
-                       .Match(b => b.PublishedOn.Ticks < DateTime.UtcNow.Ticks)
-                       .ExecuteFirstAsync();
+// Query with ticks.
+var byTicks = await db.Find<Book>()
+                      .Match(b => b.PublishedOn.Ticks < DateTime.UtcNow.Ticks)
+                      .ExecuteFirstAsync();
 
-// query with 'DateTime'
-    var book = await db.Find<Book>()
-                       .Match(b => b.PublishedOn.DateTime < DateTime.UtcNow)
-                       .ExecuteFirstAsync();
+// Query with DateTime.
+var byDate = await db.Find<Book>()
+                     .Match(b => b.PublishedOn.DateTime < DateTime.UtcNow)
+                     .ExecuteFirstAsync();
 
-// set/change value with 'Ticks'
-    date.Ticks = DateTime.UtcNow.Ticks;
+// Either setter keeps the Date object's two representations in sync.
+book.PublishedOn.Ticks = DateTime.UtcNow.Ticks;
+book.PublishedOn.DateTime = DateTime.UtcNow;
 
-// set/change value with 'DateTime'
-    date.DateTime = DateTime.UtcNow;
+// Persist changes explicitly.
+await db.SaveAsync(book);
 ```
