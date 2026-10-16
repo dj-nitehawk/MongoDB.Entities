@@ -48,6 +48,7 @@ Custom `DB` subclasses in tests (`MyDbEntity`, etc.) exercise global filters and
 ## Expectations
 - New public behavior: add/adjust MSTest methods under `EntityTests` (or sibling test classes); extend `Tests/Models` if new entity shapes needed.
 - Prefer real Mongo assertions over mocks.
+- `SavingEntity` batch-save regressions use single-pass inputs for full and partial saves. Each sets `WithModifiedBy(new UpdatedBy())` explicitly because `BookEntity` requires audit data; do not rely on another test initializing it.
 - Keep tests sequential-safe; avoid introducing assembly-level parallelization.
 - Migration tests drop `_migration_history_` when done.
 
