@@ -47,9 +47,13 @@ public partial class DB
     /// Gets a DB instance with it's <see cref="ModifiedBy" /> property set to the supplied value. Any operations performed with the returned instance will use the
     /// supplied audit data when storing/updating entities.
     /// </summary>
+    /// <remarks>
+    /// When called on a transaction, the returned instance shares its session. The originating transaction remains responsible for committing, aborting,
+    /// and disposing the session. Use the returned instance only while that session is alive.
+    /// </remarks>
     /// <param name="modifiedBy">the audit data to use</param>
     public DB WithModifiedBy(ModifiedBy modifiedBy)
-        => new(this) { ModifiedBy = modifiedBy };
+        => new(this) { ModifiedBy = modifiedBy, SessionHandle = SessionHandle };
 
     /// <summary>
     /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.

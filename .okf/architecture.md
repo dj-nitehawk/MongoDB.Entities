@@ -53,6 +53,7 @@ App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
 - CI compose uses root user + keyfile replica set (test-only; see `operations.md`).
 
 ## Invariants
+- `WithModifiedBy()` creates an audit view that preserves the source session, database, and global filters without changing the source audit data. Audit views share, but do not own, a transaction session; only the originating `Transaction` commits, aborts, and disposes it. Creating a new `Transaction` always starts its own session, including from an audit view.
 - Types persisted through library APIs implement `IEntity` (typically inherit `Entity`).
 - New entities without ID (`HasDefaultID()`: generator `IsEmpty(id)` when a generator is resolved, else compare to `Cache<T>.IdDefaultValue`) get one from `Cache<T>.IdGenerator` via the `GenerateNewID()` extension. `IEntity` is a marker interface. Generator resolution: `DB.RegisterIdGenerator<T>()` (overrides, any time via `Cache.SetIdGenerator`) → class map `IdGenerator` → `BsonSerializer.LookupIdGenerator(idType)` → library defaults (string→ObjectId-string, ObjectId, Guid) → null. Missing generator is allowed on `Cache<T>` init so query/delete/manual-ID use works; generation fails only in `GenerateNewID()` when save actually needs a new ID.
 - `Many<>` must be initialized on parent (`InitOneToMany` / `InitManyToMany`) before use.

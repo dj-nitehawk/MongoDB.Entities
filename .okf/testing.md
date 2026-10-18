@@ -51,9 +51,10 @@ Custom `DB` subclasses in tests (`MyDbEntity`, etc.) exercise global filters and
 ## Expectations
 - New public behavior: add/adjust MSTest methods under `EntityTests` (or sibling test classes); extend `Tests/Models` if new entity shapes needed.
 - Prefer real Mongo assertions over mocks.
+- `TransactionsEntity` audit-wrapper regressions create and drop isolated databases, pre-create collections, and explicitly supply audit metadata. They cover commit, abort, disposal, session-bound reads/updates/deletes, chained wrappers and filters, disposed-session failures, non-transactional audit views, and new-transaction session ownership.
 - `SavingEntity` batch-save regressions use single-pass inputs for full and partial saves. Each sets `WithModifiedBy(new UpdatedBy())` explicitly because `BookEntity` requires audit data; do not rely on another test initializing it.
 - Keep tests sequential-safe; avoid introducing assembly-level parallelization.
-- Some existing relationship/transaction tests rely on earlier tests setting `DB.Default.WithModifiedBy(new UpdatedBy())`. A filtered run omitting that setup can fail with missing `[ModifiedBy]`/`[UpdatedBy]` exceptions even when the full suite passes. New regressions should be self-contained.
+- Some existing relationship tests omit required audit metadata. A filtered run can fail with missing `[ModifiedBy]`/`[UpdatedBy]` exceptions. `WithModifiedBy()` returns a new view, not a mutation of `DB.Default`, so callers must use the returned instance. Transaction tests explicitly configure their audit views and can run independently. New regressions should be self-contained.
 - Migration tests drop `_migration_history_` when done.
 
 ## Sources
