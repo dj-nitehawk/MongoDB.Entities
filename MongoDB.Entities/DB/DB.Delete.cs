@@ -56,13 +56,21 @@ public partial class DB
             ids = matched.Select(doc => (object)doc[idElement]).ToArray();
         }
 
-        var baseType = typeof(T).BaseType;
-        var isFile = baseType is { IsGenericType: true } && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>);
+        // Keep merging the global filter on the entity delete for defense-in-depth (e.g. races).
+        var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(storedIds));
+        Task<DeleteResult>? delResTask = null;
+        var isFile = typeof(IFileEntity).IsAssignableFrom(typeof(T));
         if (isFile)
         {
             // Validate the entire batch before starting any entity, relationship, or chunk deletes.
             foreach (var id in ids)
                 FileChunk.ValidateFileID(id?.ToString());
+            // A concurrent upload can make a conditional file delete skip metadata.
+            // Only cascade relationships for files whose metadata was actually deleted.
+            storedIds = await FileStorage.DeleteAsync(this, filter, SessionHandle, cancellation).ConfigureAwait(false);
+            if (storedIds.Length == 0)
+                return new DeleteResult.Acknowledged(0);
+            delResTask = Task.FromResult<DeleteResult>(new DeleteResult.Acknowledged(storedIds.Length));
         }
 
         var tasks = new List<Task>();
@@ -88,28 +96,12 @@ public partial class DB
                     : refCollection.DeleteManyAsync(SessionHandle, joinRecordFilter, null, cancellation));
         }
 
-        // Keep merging the global filter on the entity delete for defense-in-depth (e.g. races).
-        var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(storedIds));
-
         // ReSharper disable once MethodSupportsCancellation
-        var delResTask = SessionHandle == null
-                             ? Collection<T>().DeleteManyAsync(filter)
-                             : Collection<T>().DeleteManyAsync(SessionHandle, filter, null, cancellation);
+        delResTask ??= SessionHandle == null
+                          ? Collection<T>().DeleteManyAsync(filter)
+                          : Collection<T>().DeleteManyAsync(SessionHandle, filter, null, cancellation);
 
         tasks.Add(delResTask);
-
-        if (isFile)
-        {
-            var fileIDs = ids.Select(id => id?.ToString()).OfType<string>().ToArray();
-            var fileChunkFilter = Builders<FileChunk>.Filter.In(x => x.FileID, fileIDs);
-
-            // ReSharper disable once MethodSupportsCancellation
-            tasks.Add(
-                SessionHandle == null
-                    ? _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(fileChunkFilter)
-                    : _mongoDb.GetCollection<FileChunk>(CollectionName<FileChunk>())
-                              .DeleteManyAsync(SessionHandle, fileChunkFilter, null, cancellation));
-        }
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
 

@@ -33,7 +33,7 @@ public class FileEntities
         await img.Data(db).UploadWithTimeoutAsync(stream, 30, 128).ConfigureAwait(false);
 
         var count = await db.Collection<FileChunk>().AsQueryable()
-                            .Where(c => c.FileID == img.ID)
+                            .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                             .CountAsync();
 
         Assert.AreEqual(1097221, img.FileSize);
@@ -52,7 +52,7 @@ public class FileEntities
         await img.Data(db).UploadAsync(stream).ConfigureAwait(false);
 
         var count = await db.Collection<FileChunk>().AsQueryable()
-                            .Where(c => c.FileID == img.ID)
+                            .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                             .CountAsync();
 
         Assert.AreEqual(2047524, img.FileSize);
@@ -84,7 +84,7 @@ public class FileEntities
         await img.Data(db).UploadAsync(stream).ConfigureAwait(false);
 
         var count = await db.Collection<FileChunk>().AsQueryable()
-                            .Where(c => c.FileID == img.ID)
+                            .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                             .CountAsync();
 
         Assert.AreEqual(2047524, img.FileSize);
@@ -103,7 +103,7 @@ public class FileEntities
         await img.Data(db).UploadAsync(stream, 4096).ConfigureAwait(false);
 
         var count = await db.Collection<FileChunk>().AsQueryable()
-                            .Where(c => c.FileID == img.ID)
+                            .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                             .CountAsync();
 
         Assert.AreEqual(2047524, img.FileSize);
@@ -123,7 +123,7 @@ public class FileEntities
 
         var countBefore =
             await db.Collection<FileChunk>().AsQueryable()
-                    .Where(c => c.FileID == img.ID)
+                    .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                     .CountAsync();
 
         Assert.AreEqual(img.ChunkCount, countBefore);
@@ -134,7 +134,7 @@ public class FileEntities
         Assert.AreEqual(1, deleteResult.DeletedCount);
 
         var countAfter = await db.Collection<FileChunk>().AsQueryable()
-                                 .Where(c => c.FileID == img.ID)
+                                 .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                                  .CountAsync();
 
         Assert.AreEqual(0, countAfter);
@@ -153,7 +153,7 @@ public class FileEntities
 
         var countBefore =
             await db.Collection<FileChunk>().AsQueryable()
-                    .Where(c => c.FileID == img.ID)
+                    .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                     .CountAsync();
 
         Assert.AreEqual(img.ChunkCount, countBefore);
@@ -164,7 +164,7 @@ public class FileEntities
 
         var countAfter =
             await db.Collection<FileChunk>().AsQueryable()
-                    .Where(c => c.FileID == img.ID)
+                    .Where(c => c.BinaryStorageID == img.BinaryStorageID)
                     .CountAsync();
 
         Assert.AreEqual(0, countAfter);
@@ -251,8 +251,11 @@ public class FileEntities
         Assert.AreEqual(parentId, matched[0].FileID);
         CollectionAssert.AreEqual(new byte[] { 1, 2, 3 }, matched[0].Data);
 
-        var image = new Image { ID = parentId, UploadSuccessful = true, FileSize = 3, ChunkCount = 1 };
-        await db.SaveAsync(image);
+        // Seed persisted legacy metadata directly. SaveAsync intentionally resets upload state for new identities.
+        await db.Database().GetCollection<BsonDocument>(db.CollectionName<Image>()).InsertOneAsync(new BsonDocument
+        {
+            { "_id", parentId }, { "FileSize", 3L }, { "ChunkCount", 1 }, { "UploadSuccessful", true }
+        });
         using var output = new MemoryStream();
         await db.File<Image>(parentId).DownloadAsync(output);
         CollectionAssert.AreEqual(new byte[] { 1, 2, 3 }, output.ToArray());
@@ -261,57 +264,34 @@ public class FileEntities
     }
 
     [TestMethod]
-    public async Task delete_by_id_with_global_filter_preserves_chunks_for_filtered_out_file()
+    [DataRow("id")]
+    [DataRow("entity")]
+    public async Task delete_with_global_filter_preserves_chunks_for_filtered_out_file(string entrypoint)
     {
         var db = new MyDbProtectedFile();
 
-        var file = new ProtectedFile { Tenant = "tenant-b", Name = "other-tenant-file" };
+        var file = new ProtectedFile { Tenant = "tenant-b", Name = "other-tenant-" + entrypoint + "-delete" };
         await db.SaveAsync(file);
 
         using (var stream = File.OpenRead("Models/test.jpg"))
             await file.Data(db).UploadAsync(stream);
 
         var countBefore = await db.Collection<FileChunk>().AsQueryable()
-                                  .Where(c => c.FileID == file.ID)
+                                  .Where(c => c.BinaryStorageID == file.BinaryStorageID)
                                   .CountAsync();
         Assert.IsTrue(countBefore > 0);
         Assert.AreEqual(file.ChunkCount, countBefore);
 
-        var res = await db.DeleteAsync<ProtectedFile>(file.ID);
+        var res = entrypoint == "id"
+                      ? await db.DeleteAsync<ProtectedFile>(file.ID)
+                      : await db.DeleteAsync(file);
 
         Assert.IsTrue(res.IsAcknowledged);
         Assert.AreEqual(0, res.DeletedCount);
         Assert.IsNotNull(await DB.Default.Find<ProtectedFile>().OneAsync(file.ID));
 
         var countAfter = await db.Collection<FileChunk>().AsQueryable()
-                                 .Where(c => c.FileID == file.ID)
-                                 .CountAsync();
-        Assert.AreEqual(countBefore, countAfter);
-    }
-
-    [TestMethod]
-    public async Task delete_entity_with_global_filter_preserves_chunks_for_filtered_out_file()
-    {
-        var db = new MyDbProtectedFile();
-
-        var file = new ProtectedFile { Tenant = "tenant-b", Name = "other-tenant-entity-delete" };
-        await db.SaveAsync(file);
-
-        using (var stream = File.OpenRead("Models/test.jpg"))
-            await file.Data(db).UploadAsync(stream);
-
-        var countBefore = await db.Collection<FileChunk>().AsQueryable()
-                                  .Where(c => c.FileID == file.ID)
-                                  .CountAsync();
-        Assert.IsTrue(countBefore > 0);
-
-        var res = await db.DeleteAsync(file);
-
-        Assert.AreEqual(0, res.DeletedCount);
-        Assert.IsNotNull(await DB.Default.Find<ProtectedFile>().OneAsync(file.ID));
-
-        var countAfter = await db.Collection<FileChunk>().AsQueryable()
-                                 .Where(c => c.FileID == file.ID)
+                                 .Where(c => c.BinaryStorageID == file.BinaryStorageID)
                                  .CountAsync();
         Assert.AreEqual(countBefore, countAfter);
     }
@@ -331,10 +311,10 @@ public class FileEntities
             await del.Data(db).UploadAsync(stream);
 
         var keepBefore = await db.Collection<FileChunk>().AsQueryable()
-                                 .Where(c => c.FileID == keep.ID)
+                                 .Where(c => c.BinaryStorageID == keep.BinaryStorageID)
                                  .CountAsync();
         var delBefore = await db.Collection<FileChunk>().AsQueryable()
-                                .Where(c => c.FileID == del.ID)
+                                .Where(c => c.BinaryStorageID == del.BinaryStorageID)
                                 .CountAsync();
         Assert.IsTrue(keepBefore > 0);
         Assert.IsTrue(delBefore > 0);
@@ -346,10 +326,10 @@ public class FileEntities
         Assert.IsNull(await DB.Default.Find<ProtectedFile>().OneAsync(del.ID));
 
         var keepAfter = await db.Collection<FileChunk>().AsQueryable()
-                                .Where(c => c.FileID == keep.ID)
+                                .Where(c => c.BinaryStorageID == keep.BinaryStorageID)
                                 .CountAsync();
         var delAfter = await db.Collection<FileChunk>().AsQueryable()
-                               .Where(c => c.FileID == del.ID)
+                               .Where(c => c.BinaryStorageID == del.BinaryStorageID)
                                .CountAsync();
         Assert.AreEqual(keepBefore, keepAfter);
         Assert.AreEqual(0, delAfter);
@@ -367,7 +347,7 @@ public class FileEntities
             await file.Data(db).UploadAsync(stream);
 
         var countBefore = await db.Collection<FileChunk>().AsQueryable()
-                                  .Where(c => c.FileID == file.ID)
+                                  .Where(c => c.BinaryStorageID == file.BinaryStorageID)
                                   .CountAsync();
         Assert.IsTrue(countBefore > 0);
 
@@ -377,7 +357,7 @@ public class FileEntities
         Assert.IsNull(await DB.Default.Find<ProtectedFile>().OneAsync(file.ID));
 
         var countAfter = await db.Collection<FileChunk>().AsQueryable()
-                                 .Where(c => c.FileID == file.ID)
+                                 .Where(c => c.BinaryStorageID == file.BinaryStorageID)
                                  .CountAsync();
         Assert.AreEqual(0, countAfter);
     }

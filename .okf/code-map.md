@@ -37,6 +37,7 @@ Solution file: `MongoDB.Entities.slnx` (projects: library, Tests, Benchmark).
 - **Query:** `DB.Find`, `DB.Queryable`, `DB.PagedSearch`, `DB.Distinct`, `DB.Count`, `DB.Pipeline`, `DB.Fluent`, `DB.GeoNear`
 - **Meta:** `DB.Collection`, `DB.Index`, `DB.Sequence`, `DB.GlobalFilters`, `DB.File`, `DB.Watcher`, `DB.Transaction`, `DB.Migrate`
 - **Entity base:** `Core/Entities/Entity.cs`, `FileEntity.cs`, `ObjectIdEntity.cs`
+- **Binary storage:** `Core/Entities/FileEntity.cs` streaming/metadata, `Core/FileMetadata.cs` pure managed-property policy, inherited managed-member BSON-name resolution, and managed-save updates, `Core/FileStorage.cs` shared chunk-delete execution, reference-aware cascading deletion, legacy conflict checks, and awaited index initialization. File cascade deletion accepts the merged entity filter and owns reference projection, whole-batch legacy preflight, and conditional metadata/chunk deletion. `DB.DeleteCascadingAsync` retains stored-ID conversion, global-filter eligibility, whole-batch ID validation, and relationship cleanup using only successfully deleted IDs. Callers retain database/session binding and cancellation policy.
 - **Contracts:** `Core/Interfaces/IEntity.cs`, `ICreatedOn`, `IModifiedOn`
 
 ## Entry points

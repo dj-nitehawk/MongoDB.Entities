@@ -17,9 +17,7 @@ public partial class DB
     /// <param name="cancellation">And optional cancellation token</param>
     public Task InsertAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
     {
-        PrepAndCheckIfInsert(entity);
-        SetModifiedBySingle(entity);
-        OnBeforeSave<T>()?.Invoke(entity);
+        PrepForSave(entity, insertOnly: true);
 
         return SessionHandle == null
                    ? Collection<T>().InsertOneAsync(entity, null, cancellation)
@@ -38,9 +36,7 @@ public partial class DB
 
         foreach (var ent in entities)
         {
-            PrepAndCheckIfInsert(ent);
-            SetModifiedBySingle(ent);
-            OnBeforeSave<T>()?.Invoke(ent);
+            PrepForSave(ent, insertOnly: true);
             models.Add(new InsertOneModel<T>(ent));
         }
 

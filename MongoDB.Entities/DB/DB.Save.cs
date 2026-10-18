@@ -29,8 +29,15 @@ public partial class DB
         OnBeforeSave<T>()?.Invoke(entity);
 
         var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
+        var isInsert = PrepAndCheckIfInsert(entity);
+        if (isInsert && entity is IFileEntity file)
+            file.ResetUpload();
+        if (!isInsert && entity is IFileEntity)
+            return SessionHandle == null
+                       ? Collection<T>().UpdateOneAsync(filter, FileMetadata.SaveUpdate(entity), _updateOptions, cancellation)
+                       : Collection<T>().UpdateOneAsync(SessionHandle, filter, FileMetadata.SaveUpdate(entity), _updateOptions, cancellation);
 
-        return PrepAndCheckIfInsert(entity)
+        return isInsert
                    ? SessionHandle == null
                          ? Collection<T>().InsertOneAsync(entity, null, cancellation)
                          : Collection<T>().InsertOneAsync(SessionHandle, entity, null, cancellation)
@@ -53,8 +60,11 @@ public partial class DB
 
         foreach (var ent in entityList)
         {
-            if (PrepAndCheckIfInsert(ent))
+            var isInsert = PrepForSave(ent);
+            if (isInsert)
                 models.Add(new InsertOneModel<T>(ent));
+            else if (ent is IFileEntity)
+                models.Add(new UpdateOneModel<T>(Builders<T>.Filter.Eq(ent.GetIdName(), ent.GetId()), FileMetadata.SaveUpdate(ent)) { IsUpsert = true });
             else
             {
                 models.Add(
@@ -63,8 +73,6 @@ public partial class DB
                             replacement: ent)
                         { IsUpsert = true });
             }
-            SetModifiedBySingle(ent);
-            OnBeforeSave<T>()?.Invoke(ent);
         }
 
         return SessionHandle == null
@@ -254,9 +262,7 @@ public partial class DB
 
     Task<UpdateResult> SavePartial<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
     {
-        PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
-        SetModifiedBySingle(entity);
-        OnBeforeSave<T>()?.Invoke(entity);
+        PrepAfterId(entity);
 
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
 
@@ -283,9 +289,7 @@ public partial class DB
 
         foreach (var ent in entityList)
         {
-            PrepAndCheckIfInsert(ent); //just prep. we don't care about inserts here
-            SetModifiedBySingle(ent);
-            OnBeforeSave<T>()?.Invoke(ent);
+            PrepAfterId(ent);
             models.Add(
                 new UpdateOneModel<T>(
                         filter: Builders<T>.Filter.Eq(ent.GetIdName(), ent.GetId()),
@@ -296,6 +300,25 @@ public partial class DB
         return SessionHandle == null
                    ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
                    : Collection<T>().BulkWriteAsync(SessionHandle, models, _unOrdBlkOpts, cancellation);
+    }
+
+    // Unlike single saves, batch saves and explicit inserts run the hook after ID preparation.
+    bool PrepForSave<T>(T entity, bool insertOnly = false) where T : IEntity
+    {
+        var isInsert = PrepAfterId(entity);
+        if ((insertOnly || isInsert) && entity is IFileEntity file)
+            file.ResetUpload();
+
+        return isInsert;
+    }
+
+    bool PrepAfterId<T>(T entity) where T : IEntity
+    {
+        var isInsert = PrepAndCheckIfInsert(entity);
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
+
+        return isInsert;
     }
 
     static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity

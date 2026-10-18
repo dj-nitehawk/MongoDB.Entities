@@ -12,7 +12,5 @@ public partial class DB
     /// <typeparam name="T">The file entity type</typeparam>
     /// <param name="ID">The ID of the file entity</param>
     public DataStreamer<T> File<T>(string ID) where T : FileEntity<T>, new()
-        => !ObjectId.TryParse(ID, out _)
-               ? throw new ArgumentException("The ID passed in is not of the correct format!")
-               : new DataStreamer<T>(new T { ID = ID, UploadSuccessful = true }, this);
+        => new(new T { ID = ID }, this);
 }

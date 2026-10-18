@@ -115,12 +115,15 @@ static class Cache<T> where T : IEntity
 
     internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
     {
+        var props = entity is IFileEntity
+                        ? _updatableProps.Where(p => !FileMetadata.ManagedProperties.Contains(p.Name))
+                        : _updatableProps;
         return HasIgnoreIfDefaultProps
-                   ? _updatableProps.Where(
+                   ? props.Where(
                        p =>
                            !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == null) &&
                            !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null))
-                   : _updatableProps;
+                   : props;
     }
 
     internal static ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)

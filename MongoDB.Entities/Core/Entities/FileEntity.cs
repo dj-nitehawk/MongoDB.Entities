@@ -16,18 +16,20 @@ namespace MongoDB.Entities;
 /// <summary>
 /// Inherit this base class in order to create your own File Entities
 /// </summary>
-public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
+public abstract class FileEntity<T> : Entity, IFileEntity where T : FileEntity<T>, new()
 {
-    DataStreamer<T>? _streamer;
+    /// <summary>The library-managed reference to this file's binary upload.</summary>
+    [BsonElement, BsonIgnoreIfNull]
+    public string? BinaryStorageID { get; internal set; }
 
     /// <summary>
-    /// The total amount of data in bytes that has been uploaded so far
+    /// The total size in bytes of the completed upload
     /// </summary>
     [BsonElement]
     public long FileSize { get; internal set; }
 
     /// <summary>
-    /// The number of chunks that have been created so far
+    /// The number of chunks in the completed upload
     /// </summary>
     [BsonElement]
     public int ChunkCount { get; internal set; }
@@ -45,12 +47,20 @@ public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
     [IgnoreDefault]
     public string? Md5 { get; set; }
 
+    void IFileEntity.ResetUpload()
+    {
+        BinaryStorageID = null;
+        FileSize = 0;
+        ChunkCount = 0;
+        UploadSuccessful = false;
+    }
+
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
     /// <param name="database">The database instance to use for this operation</param>
     public DataStreamer<T> Data(DB database)
-        => _streamer ??= new(this, database);
+        => new(this, database);
 }
 
 [Collection("[BINARY_CHUNKS]")]
@@ -59,8 +69,8 @@ sealed class FileChunk : IEntity
     [BsonId, ObjectId]
     public string ID { get; set; } = null!;
 
-    [AsObjectId]
-    public string FileID { get; set; } = null!;
+    [AsObjectId, BsonIgnoreIfNull]
+    public string? FileID { get; set; }
 
     internal static void ValidateFileID(string? fileID)
     {
@@ -70,6 +80,9 @@ sealed class FileChunk : IEntity
             throw new ArgumentException("ObjectId-format file IDs must use lowercase hexadecimal characters to avoid sharing binary chunks with another file.", nameof(fileID));
     }
 
+    [BsonIgnoreIfNull]
+    public string? BinaryStorageID { get; set; }
+
     public byte[] Data { get; set; } = [];
 }
 
@@ -78,10 +91,7 @@ sealed class FileChunk : IEntity
 /// </summary>
 public class DataStreamer<T> where T : FileEntity<T>, new()
 {
-    static readonly HashSet<string> _indexedDBs = [];
-
     readonly FileEntity<T> _parent;
-    readonly IMongoDatabase _mongoDatabase;
     readonly DB _db;
     readonly IMongoCollection<FileChunk> _chunkCollection;
 
@@ -89,16 +99,7 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     {
         _parent = parent;
         _db = db;
-        _mongoDatabase = _db.Database();
-        _chunkCollection = _db.Collection<FileChunk>();
-
-        if (_indexedDBs.Add(_mongoDatabase.DatabaseNamespace.DatabaseName))
-        {
-            _ = _chunkCollection.Indexes.CreateOneAsync(
-                new CreateIndexModel<FileChunk>(
-                    Builders<FileChunk>.IndexKeys.Ascending(c => c.FileID),
-                    new() { Background = true, Name = $"{nameof(FileChunk.FileID)}(Asc)" }));
-        }
+        _chunkCollection = db.Collection<FileChunk>();
     }
 
     /// <summary>
@@ -123,12 +124,13 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
         _parent.ThrowIfUnsaved();
         FileChunk.ValidateFileID(_parent.ID);
 
-        if (!_parent.UploadSuccessful)
-            throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
         if (!stream.CanWrite)
             throw new NotSupportedException("The supplied stream is not writable!");
 
-        var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, _parent.ID);
+        var metadata = await ReadMetadataAsync(session, cancellation).ConfigureAwait(false);
+        if (!metadata.UploadSuccessful)
+            throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
+        var filter = FileStorage.ChunkFilter(_parent.ID, metadata.BinaryStorageID);
         var options = new FindOptions<FileChunk, byte[]>
         {
             BatchSize = batchSize,
@@ -179,62 +181,54 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     {
         _parent.ThrowIfUnsaved();
         FileChunk.ValidateFileID(_parent.ID);
-
         if (chunkSizeKb is < 128 or > 4096)
             throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
         if (!stream.CanRead)
             throw new NotSupportedException("The supplied stream is not readable!");
 
-        // ReSharper disable once MethodSupportsCancellation
-        await CleanUpAsync(session).ConfigureAwait(false);
-
-        var chunkSize = chunkSizeKb * 1024;
-        var streamInfo = new StreamInfo(
-            new() { FileID = _parent.ID },
-            chunkSize,
-            0,
-            new byte[64 * 1024],
-            new(chunkSize));
-
+        await FileStorage.EnsureIndexesAsync(_chunkCollection).ConfigureAwait(false);
+        var previous = await ReadMetadataAsync(session, cancellation).ConfigureAwait(false);
+        var storageID = Guid.NewGuid().ToString("N");
+        var info = new StreamInfo(new() { BinaryStorageID = storageID },
+                                  chunkSizeKb * 1024, 0, new byte[64 * 1024], new(chunkSizeKb * 1024));
         if (!string.IsNullOrEmpty(_parent.Md5))
-            streamInfo.Md5 = MD5.Create();
-
+            info.Md5 = MD5.Create();
+        var published = false;
         try
         {
             if (stream is { CanSeek: true, Position: > 0 })
                 stream.Position = 0;
-
-            while ((streamInfo.ReadCount = await stream.ReadAsync(streamInfo.Buffer, 0, streamInfo.Buffer.Length, cancellation).ConfigureAwait(false)) > 0)
+            while ((info.ReadCount = await stream.ReadAsync(info.Buffer, 0, info.Buffer.Length, cancellation).ConfigureAwait(false)) > 0)
             {
-                streamInfo.Md5?.TransformBlock(streamInfo.Buffer, 0, streamInfo.ReadCount, null, 0);
-                await FlushToDbAsync(session, streamInfo, isLastChunk: false, cancellation).ConfigureAwait(false);
+                info.Md5?.TransformBlock(info.Buffer, 0, info.ReadCount, null, 0);
+                await FlushToDbAsync(session, info, false, cancellation).ConfigureAwait(false);
             }
-
-            if (_parent.FileSize > 0)
-            {
-                streamInfo.Md5?.TransformFinalBlock(streamInfo.Buffer, 0, streamInfo.ReadCount);
-
-                if (streamInfo.Md5 != null &&
-                    !BitConverter.ToString(streamInfo.Md5.Hash).Replace("-", "").Equals(_parent.Md5, StringComparison.OrdinalIgnoreCase))
-                    throw new InvalidDataException("MD5 of uploaded data doesn't match with file entity MD5.");
-
-                await FlushToDbAsync(session, streamInfo, isLastChunk: true, cancellation).ConfigureAwait(false);
-                _parent.UploadSuccessful = true;
-            }
-            else
+            if (info.FileSize == 0)
                 throw new InvalidOperationException("The supplied stream had no data to read (probably closed)");
+            info.Md5?.TransformFinalBlock(info.Buffer, 0, 0);
+            if (info.Md5 != null && !BitConverter.ToString(info.Md5.Hash).Replace("-", "").Equals(_parent.Md5, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException("MD5 of uploaded data doesn't match with file entity MD5.");
+            await FlushToDbAsync(session, info, true, cancellation).ConfigureAwait(false);
+            // A transport failure can leave the outcome unknown. Never delete a possibly published upload.
+            published = true;
+            if (!await SwitchMetadataAsync(previous.BinaryStorageID, storageID, info.FileSize, info.ChunkCount, true, session, cancellation).ConfigureAwait(false))
+            {
+                published = false;
+                throw new InvalidOperationException("The file was deleted or its binary data changed concurrently. Reload and retry.");
+            }
+            // Legacy chunks may have other owners. Retain them when moving to isolated storage.
+            if (previous.BinaryStorageID != null)
+                await DeleteChunksAsync(previous.BinaryStorageID, session).ConfigureAwait(false);
         }
-        catch (Exception)
+        catch
         {
-            // ReSharper disable once MethodSupportsCancellation
-            await CleanUpAsync(session).ConfigureAwait(false);
-
+            if (!published)
+                await DeleteChunksAsync(storageID, session).ConfigureAwait(false);
             throw;
         }
         finally
         {
-            await UpdateMetaDataAsync(session).ConfigureAwait(false);
-            streamInfo.Md5?.Dispose();
+            info.Md5?.Dispose();
         }
     }
 
@@ -253,15 +247,15 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
                    : CleanUpAsync(session, cancellation);
     }
 
-    Task CleanUpAsync(IClientSessionHandle? session, CancellationToken cancellation = default)
+    async Task CleanUpAsync(IClientSessionHandle? session, CancellationToken cancellation = default)
     {
-        _parent.FileSize = 0;
-        _parent.ChunkCount = 0;
-        _parent.UploadSuccessful = false;
-
-        return session == null
-                   ? _chunkCollection.DeleteManyAsync(c => c.FileID == _parent.ID, cancellation)
-                   : _chunkCollection.DeleteManyAsync(session, c => c.FileID == _parent.ID, null, cancellation);
+        var previous = await ReadMetadataAsync(session, cancellation).ConfigureAwait(false);
+        if (previous.BinaryStorageID == null)
+            await FileStorage.EnsureLegacyOwnershipAsync(_db, _db.CollectionName<T>(), new[] { _parent.ID }, session, cancellation).ConfigureAwait(false);
+        // A tombstone storage key prevents stale uploads from publishing after explicit deletion.
+        if (!await SwitchMetadataAsync(previous.BinaryStorageID, Guid.NewGuid().ToString("N"), 0, 0, false, session, cancellation).ConfigureAwait(false))
+            throw new InvalidOperationException("The binary data changed concurrently. Reload and retry.");
+        await DeleteChunksAsync(previous.BinaryStorageID, session, cancellation).ConfigureAwait(false);
     }
 
     Task FlushToDbAsync(IClientSessionHandle? session, StreamInfo streamInfo, bool isLastChunk = false, CancellationToken cancellation = default)
@@ -269,38 +263,72 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
         if (!isLastChunk)
         {
             streamInfo.DataChunk.AddRange(new ArraySegment<byte>(streamInfo.Buffer, 0, streamInfo.ReadCount));
-            _parent.FileSize += streamInfo.ReadCount;
+            streamInfo.FileSize += streamInfo.ReadCount;
         }
 
-        if (streamInfo.DataChunk.Count < streamInfo.ChunkSize && !isLastChunk)
+        if (streamInfo.DataChunk.Count == 0 || (streamInfo.DataChunk.Count < streamInfo.ChunkSize && !isLastChunk))
             return Task.CompletedTask;
 
         streamInfo.Doc.ID = (string)streamInfo.Doc.GenerateNewID();
         streamInfo.Doc.Data = streamInfo.DataChunk.ToArray();
         streamInfo.DataChunk.Clear();
-        _parent.ChunkCount++;
+        streamInfo.ChunkCount++;
 
         return session == null
                    ? _chunkCollection.InsertOneAsync(streamInfo.Doc, null, cancellation)
                    : _chunkCollection.InsertOneAsync(session, streamInfo.Doc, null, cancellation);
     }
 
-    Task UpdateMetaDataAsync(IClientSessionHandle? session)
+    async Task<bool> SwitchMetadataAsync(string? previousID, string storageID, long size, int count, bool successful,
+                                         IClientSessionHandle? session, CancellationToken cancellation)
     {
-        var collection = _mongoDatabase.GetCollection<FileEntity<T>>(_db.CollectionName<T>());
-        var filter = Builders<FileEntity<T>>.Filter.Eq(e => e.ID, _parent.ID);
-        var update = Builders<FileEntity<T>>.Update
-                                            .Set(e => e.FileSize, _parent.FileSize)
-                                            .Set(e => e.ChunkCount, _parent.ChunkCount)
-                                            .Set(e => e.UploadSuccessful, _parent.UploadSuccessful);
-
-        return session == null
-                   ? collection.UpdateOneAsync(filter, update)
-                   : collection.UpdateOneAsync(session, filter, update);
+        var collection = _db.Collection<T>();
+        var filter = Builders<T>.Filter.Eq(e => e.ID, _parent.ID) & Builders<T>.Filter.Eq(e => e.BinaryStorageID, previousID);
+        var update = Builders<T>.Update.Set(e => e.BinaryStorageID, storageID)
+                               .Set(e => e.FileSize, size).Set(e => e.ChunkCount, count).Set(e => e.UploadSuccessful, successful);
+        var result = session == null
+                         ? await collection.UpdateOneAsync(filter, update, cancellationToken: cancellation).ConfigureAwait(false)
+                         : await collection.UpdateOneAsync(session, filter, update, cancellationToken: cancellation).ConfigureAwait(false);
+        if (result.MatchedCount != 1)
+            return false;
+        _parent.BinaryStorageID = storageID;
+        _parent.FileSize = size;
+        _parent.ChunkCount = count;
+        _parent.UploadSuccessful = successful;
+        return true;
     }
 
-    struct StreamInfo(FileChunk doc, int chunkSize, int readCount, byte[] buffer, List<byte> dataChunk, MD5? md5 = null)
+    async Task<StorageMetadata> ReadMetadataAsync(IClientSessionHandle? session, CancellationToken cancellation)
     {
+        var filter = Builders<T>.Filter.Eq(e => e.ID, _parent.ID);
+        var options = new FindOptions<T, StorageMetadata>
+        {
+            Projection = Builders<T>.Projection.Expression(e => new StorageMetadata
+            {
+                BinaryStorageID = e.BinaryStorageID,
+                UploadSuccessful = e.UploadSuccessful
+            })
+        };
+        using var cursor = session == null
+                               ? await _db.Collection<T>().FindAsync(filter, options, cancellation).ConfigureAwait(false)
+                               : await _db.Collection<T>().FindAsync(session, filter, options, cancellation).ConfigureAwait(false);
+        return await cursor.FirstOrDefaultAsync(cancellation).ConfigureAwait(false)
+               ?? throw new InvalidOperationException("The file metadata no longer exists.");
+    }
+
+    Task DeleteChunksAsync(string? storageID, IClientSessionHandle? session, CancellationToken cancellation = default)
+        => FileStorage.DeleteChunksAsync(_chunkCollection, _parent.ID, storageID, session, cancellation);
+
+    sealed class StorageMetadata
+    {
+        public string? BinaryStorageID { get; set; }
+        public bool UploadSuccessful { get; set; }
+    }
+
+    sealed class StreamInfo(FileChunk doc, int chunkSize, int readCount, byte[] buffer, List<byte> dataChunk, MD5? md5 = null)
+    {
+        public long FileSize { get; set; }
+        public int ChunkCount { get; set; }
         public FileChunk Doc { get; } = doc;
         public int ChunkSize { get; } = chunkSize;
         public int ReadCount { get; set; } = readCount;
