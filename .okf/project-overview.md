@@ -25,7 +25,7 @@ resource: README.md
 - Ordered data migrations (`IMigration`), multi-client / multi-DB (`DB.InitAsync` / `DB.Instance` / `DB.Default`)
 
 ## Status
-- Published NuGet package; library version from `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`, currently 26.0.0-beta.1)
+- Published NuGet package; library version from `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`, currently 26.0.0)
 - TFM: library `netstandard2.1`; tests/benchmarks `net10.0`
 - Canonical user docs: https://mongodb-entities.com (built from `Documentation/`)
 

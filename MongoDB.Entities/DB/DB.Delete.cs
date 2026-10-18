@@ -56,6 +56,15 @@ public partial class DB
             ids = matched.Select(doc => (object)doc[idElement]).ToArray();
         }
 
+        var baseType = typeof(T).BaseType;
+        var isFile = baseType is { IsGenericType: true } && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>);
+        if (isFile)
+        {
+            // Validate the entire batch before starting any entity, relationship, or chunk deletes.
+            foreach (var id in ids)
+                FileChunk.ValidateFileID(id?.ToString());
+        }
+
         var tasks = new List<Task>();
 
         var parentFilter = Builders<JoinRecord>.Filter.In(r => r.ParentID, storedIds);
@@ -89,9 +98,7 @@ public partial class DB
 
         tasks.Add(delResTask);
 
-        var baseType = typeof(T).BaseType;
-
-        if (baseType is { IsGenericType: true } && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
+        if (isFile)
         {
             var fileIDs = ids.Select(id => id?.ToString()).OfType<string>().ToArray();
             var fileChunkFilter = Builders<FileChunk>.Filter.In(x => x.FileID, fileIDs);

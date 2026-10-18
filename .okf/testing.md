@@ -16,6 +16,7 @@ tags: [test]
 - Models: `Tests/Models/**` (incl. `DynamicIdEntities.cs`, `NoGeneratorIdEntities.cs`, `IdGenerators.cs`, `ProtectedFile` tenant-filtered file entity)
 - `TestCascadeRelationshipRoles.cs` covers overlapping numeric/plain-string/custom-represented IDs, owner/inverse deletes, one-to-many child cleanup, entity/direct-ID/ID-list/predicate paths, transaction commit/abort, and self-references with repeated initialization.
 - `TestReferenceCollectionRoles.cs` covers concurrent opposite-role registrations, repeated subset/superset registrations, and additions of missing flags. It uses a dedicated entity cache so synthetic metadata does not affect cascade integration tests.
+- `TestFileIdValidation.cs` verifies uppercase/mixed-case hex rejection before side effects across upload/download/chunk deletion, entity/direct-ID/mixed-list/predicate deletion, and transaction commit/abort. Generated lowercase and non-hex custom file IDs remain supported; `TestFileEntity.cs` verifies public download/delete of legacy BSON ObjectId chunks without migration.
 - Extra: `TestFileEntity.cs` (global-filter chunk cascade), `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
 - Fixture migrations: `Tests/Migrations/_001_rename_field.cs`, `_002_undo_field_rename.cs`
 - Binary fixture: `Tests/Models/test.jpg` (copy to output; used by file-entity tests). `Tests.csproj` still lists `Models\test.png` but that file is absent and unused.

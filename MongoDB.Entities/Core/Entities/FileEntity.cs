@@ -62,6 +62,14 @@ sealed class FileChunk : IEntity
     [AsObjectId]
     public string FileID { get; set; } = null!;
 
+    internal static void ValidateFileID(string? fileID)
+    {
+        // ObjectId conversion discards hex letter case, unlike string metadata IDs.
+        if (ObjectId.TryParse(fileID, out var objectId) &&
+            !string.Equals(fileID, objectId.ToString(), StringComparison.Ordinal))
+            throw new ArgumentException("ObjectId-format file IDs must use lowercase hexadecimal characters to avoid sharing binary chunks with another file.", nameof(fileID));
+    }
+
     public byte[] Data { get; set; } = [];
 }
 
@@ -113,6 +121,7 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancellation = default, IClientSessionHandle? session = null)
     {
         _parent.ThrowIfUnsaved();
+        FileChunk.ValidateFileID(_parent.ID);
 
         if (!_parent.UploadSuccessful)
             throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
@@ -169,6 +178,7 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     public async Task UploadAsync(Stream stream, int chunkSizeKb = 256, CancellationToken cancellation = default, IClientSessionHandle? session = null)
     {
         _parent.ThrowIfUnsaved();
+        FileChunk.ValidateFileID(_parent.ID);
 
         if (chunkSizeKb is < 128 or > 4096)
             throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
@@ -236,6 +246,7 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     public Task DeleteBinaryChunks(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         _parent.ThrowIfUnsaved();
+        FileChunk.ValidateFileID(_parent.ID);
 
         return cancellation != CancellationToken.None && session == null
                    ? throw new NotSupportedException("Cancellation is only supported within transactions for deleting binary chunks!")

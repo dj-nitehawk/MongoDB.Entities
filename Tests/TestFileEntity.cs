@@ -250,6 +250,14 @@ public class FileEntities
         Assert.HasCount(1, matched);
         Assert.AreEqual(parentId, matched[0].FileID);
         CollectionAssert.AreEqual(new byte[] { 1, 2, 3 }, matched[0].Data);
+
+        var image = new Image { ID = parentId, UploadSuccessful = true, FileSize = 3, ChunkCount = 1 };
+        await db.SaveAsync(image);
+        using var output = new MemoryStream();
+        await db.File<Image>(parentId).DownloadAsync(output);
+        CollectionAssert.AreEqual(new byte[] { 1, 2, 3 }, output.ToArray());
+        await db.DeleteAsync<Image>(parentId);
+        Assert.AreEqual(0, await db.Collection<FileChunk>().CountDocumentsAsync(c => c.FileID == parentId));
     }
 
     [TestMethod]
