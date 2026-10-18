@@ -12,6 +12,14 @@ using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+[Flags]
+enum JoinRecordRole
+{
+    Parent = 1,
+    Child = 2,
+    Both = Parent | Child
+}
+
 static class Cache<T> where T : IEntity
 {
     internal static BsonClassMap BsonClassMap { get; private set; } = null!;
@@ -35,7 +43,7 @@ static class Cache<T> where T : IEntity
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
-    internal static ConcurrentDictionary<string, byte> ReferenceCollectionNames { get; } = new();
+    internal static ConcurrentDictionary<string, JoinRecordRole> ReferenceCollections { get; } = new();
 
     static Cache()
     {
@@ -208,6 +216,12 @@ static class Cache<T> where T : IEntity
         return BsonClassMap.LookupClassMap(type);
     }
 
-    internal static bool AddReferenceCollection(string name)
-        => ReferenceCollectionNames.TryAdd(name, default);
+    internal static void AddReferenceCollection(string name, JoinRecordRole role)
+    {
+        // Roles only accumulate, so an existing superset needs no update.
+        if (ReferenceCollections.TryGetValue(name, out var existing) && (existing & role) == role)
+            return;
+
+        ReferenceCollections.AddOrUpdate(name, static (_, added) => added, static (_, current, added) => current | added, role);
+    }
 }

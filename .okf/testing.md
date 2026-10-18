@@ -14,6 +14,8 @@ tags: [test]
 - Assembly init: `InitTest.Init` registers Guid serializer, chooses Mongo mode, calls `InitTestDatabase("mongodb-entities-test")`
 - Feature tests: `Tests/EntityTests/Test*.cs` (notable: `TestDeleting` global-filter cascade/join, `TestDynamicIdRelationships`, `TestEntityClassMap` filter-delete/Guid/value-ID lists, `TestIdGeneratorResolution`, `TestSerializerRegistration`, `TestMultiDb`, `TestDefaultDbChange`, `TestRelationships`, `TestTransactions`, `TestWatcher`)
 - Models: `Tests/Models/**` (incl. `DynamicIdEntities.cs`, `NoGeneratorIdEntities.cs`, `IdGenerators.cs`, `ProtectedFile` tenant-filtered file entity)
+- `TestCascadeRelationshipRoles.cs` covers overlapping numeric/plain-string/custom-represented IDs, owner/inverse deletes, one-to-many child cleanup, entity/direct-ID/ID-list/predicate paths, transaction commit/abort, and self-references with repeated initialization.
+- `TestReferenceCollectionRoles.cs` covers concurrent opposite-role registrations, repeated subset/superset registrations, and additions of missing flags. It uses a dedicated entity cache so synthetic metadata does not affect cascade integration tests.
 - Extra: `TestFileEntity.cs` (global-filter chunk cascade), `TestMigrations.cs`, `TestMultiClient.cs`, `CappedCollection.cs`, `TestDatabase.cs`
 - Fixture migrations: `Tests/Migrations/_001_rename_field.cs`, `_002_undo_field_rename.cs`
 - Binary fixture: `Tests/Models/test.jpg` (copy to output; used by file-entity tests). `Tests.csproj` still lists `Models\test.png` but that file is absent and unused.
@@ -50,6 +52,7 @@ Custom `DB` subclasses in tests (`MyDbEntity`, etc.) exercise global filters and
 - Prefer real Mongo assertions over mocks.
 - `SavingEntity` batch-save regressions use single-pass inputs for full and partial saves. Each sets `WithModifiedBy(new UpdatedBy())` explicitly because `BookEntity` requires audit data; do not rely on another test initializing it.
 - Keep tests sequential-safe; avoid introducing assembly-level parallelization.
+- Some existing relationship/transaction tests rely on earlier tests setting `DB.Default.WithModifiedBy(new UpdatedBy())`. A filtered run omitting that setup can fail with missing `[ModifiedBy]`/`[UpdatedBy]` exceptions even when the full suite passes. New regressions should be self-contained.
 - Migration tests drop `_migration_history_` when done.
 
 ## Sources

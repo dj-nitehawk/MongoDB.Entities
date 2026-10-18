@@ -93,7 +93,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         var collectionName = $"[{_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({property})]";
         JoinCollection = _db.GetRefCollection(collectionName);
         CreateIndexesAsync(JoinCollection);
-        Cache<TParent>.AddReferenceCollection(collectionName);
+        Cache<TParent>.AddReferenceCollection(collectionName, JoinRecordRole.Parent);
+        Cache<TChild>.AddReferenceCollection(collectionName, JoinRecordRole.Child);
     }
 
     /// <summary>
@@ -126,7 +127,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         JoinCollection = _db.GetRefCollection(collectionName);
 
         CreateIndexesAsync(JoinCollection);
-        Cache<TParent>.AddReferenceCollection(collectionName);
+        Cache<TParent>.AddReferenceCollection(collectionName, isInverse ? JoinRecordRole.Child : JoinRecordRole.Parent);
+        Cache<TChild>.AddReferenceCollection(collectionName, isInverse ? JoinRecordRole.Parent : JoinRecordRole.Child);
     }
 
     /// <summary>

@@ -56,7 +56,15 @@ DocFX validates documentation structure and links, not whether C# snippets compi
 | Git tag `doc-*` | `publish-gh-pages.yml` | DocFX → GitHub Pages |
 
 Bump package version in `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`) and maintain root `changelog.md` for release notes.
-Keep release notes reader-focused. The v26 compatibility details and migration examples live in `Documentation/wiki/Upgrade-to-v26.md`; preserve its data/reference/file-chunk warnings when updating the summary. The changelog links to the repository copy so GitHub releases do not depend on a separate docs-site publish.
+Keep release notes reader-focused. The v26 compatibility details, migration examples, and data/reference/file-chunk warnings live in `Documentation/wiki/Upgrade-to-v26.md`. When release notes need that guidance, link to the repository copy so GitHub releases do not depend on a separate docs-site publish.
+
+## Changelog requirement
+
+- Before finishing any user-visible change or bug fix, add or update an entry in root `changelog.md`. This is required during implementation, not deferred until release preparation.
+- Follow the current release's existing structure, using the appropriate section (for example, `Fixes`, `New features`, or `Breaking changes`). Update an existing entry when it already describes the change instead of duplicating it.
+- Describe the observable behavior and practical impact concisely. Call out compatibility or data-migration requirements when applicable.
+- Do not change historical release notes, invent a release version, or bump the package version unless requested.
+- Internal-only refactors, tests, documentation, and OKF maintenance without user-visible behavior changes do not require an entry. State why the changelog is unaffected when omitting one.
 
 ## Env vars (names only)
 | Name | Use |
@@ -69,3 +77,4 @@ Keep release notes reader-focused. The v26 compatibility details and migration e
 - `.github/workflows/publish-to-nuget.yml`
 - `.github/workflows/publish-gh-pages.yml`
 - `Benchmark/Program.cs`
+- `changelog.md`

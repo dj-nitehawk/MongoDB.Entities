@@ -58,13 +58,19 @@ public partial class DB
 
         var tasks = new List<Task>();
 
-        var joinRecordFilter = Builders<JoinRecord>.Filter.Or(
-            Builders<JoinRecord>.Filter.In(r => r.ChildID, storedIds),
-            Builders<JoinRecord>.Filter.In(r => r.ParentID, storedIds));
+        var parentFilter = Builders<JoinRecord>.Filter.In(r => r.ParentID, storedIds);
+        var childFilter = Builders<JoinRecord>.Filter.In(r => r.ChildID, storedIds);
 
-        foreach (var collectionName in Cache<T>.ReferenceCollectionNames.Keys)
+        foreach (var reference in Cache<T>.ReferenceCollections)
         {
-            var refCollection = GetRefCollection(collectionName);
+            var refCollection = GetRefCollection(reference.Key);
+            var joinRecordFilter = reference.Value switch
+            {
+                JoinRecordRole.Parent => parentFilter,
+                JoinRecordRole.Child => childFilter,
+                JoinRecordRole.Both => Builders<JoinRecord>.Filter.Or(parentFilter, childFilter),
+                _ => throw new InvalidOperationException("Unknown join record role.")
+            };
 
             // ReSharper disable once MethodSupportsCancellation
             tasks.Add(

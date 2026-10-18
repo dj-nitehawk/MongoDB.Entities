@@ -42,6 +42,9 @@ tags: [conventions]
 - No appsettings in library; all connection config via `MongoClientSettings` / connection strings.
 - Optional: `db.SetServiceProvider(IServiceProvider)` and `db.SetMigrationActivator(Func<Type,IMigration>)` (activator wins over SP).
 
+## Changelog
+- Every user-visible change or bug fix must add or update root `changelog.md` before completion. Follow the [changelog requirement](workflows.md#changelog-requirement), including its non-behavioral exceptions.
+
 ## Sources
 - `.editorconfig`
 - `MongoDB.Entities/MongoDB.Entities.csproj`
