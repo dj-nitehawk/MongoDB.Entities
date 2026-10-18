@@ -1,6 +1,13 @@
 ## Bug fixes
 
 <details>
+<summary>Audit views keep your custom write hooks</summary>
+
+Calling `WithModifiedBy()` on a derived database no longer skips your save and update hooks. Your normalization and validation still run, and hooks see the audit user supplied to that view without changing the original instance. Chained views and transactions created from an audited view retain the hooks too.
+
+</details>
+
+<details>
 <summary>Retry file uploads after an index setup failure</summary>
 
 If index setup fails during an upload, you can now retry without restarting your application or recreating the client. Later uploads are no longer stuck behind the failed attempt.

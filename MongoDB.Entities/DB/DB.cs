@@ -24,6 +24,7 @@ public partial class DB
     static MongoClientSettings _defaultClientSettings = null!; // to be set on first InitAsync call
     static DB _defaultInstance = null!;                        // to be set on first InitAsync call
     readonly IMongoDatabase _mongoDb;
+    DB? _hookContext;
 
     protected DB(DB source)
     {
@@ -31,6 +32,7 @@ public partial class DB
         _globalFilters = source._globalFilters;
         IgnoreGlobalFilters = source.IgnoreGlobalFilters;
         ModifiedBy = source.ModifiedBy;
+        _hookContext = source._hookContext?.CloneHookContext();
     }
 
     private DB(IMongoDatabase db)
@@ -50,10 +52,39 @@ public partial class DB
     /// <remarks>
     /// When called on a transaction, the returned instance shares its session. The originating transaction remains responsible for committing, aborting,
     /// and disposing the session. Use the returned instance only while that session is alive.
+    /// Derived save/update hooks are retained and observe this view's audit data and session. Hook state is shallow-copied; reference-type
+    /// dependencies remain shared. The source audit data is not changed.
     /// </remarks>
     /// <param name="modifiedBy">the audit data to use</param>
     public DB WithModifiedBy(ModifiedBy modifiedBy)
-        => new(this) { ModifiedBy = modifiedBy, SessionHandle = SessionHandle };
+    {
+        var view = new DB(this) { ModifiedBy = modifiedBy, SessionHandle = SessionHandle };
+        // Keep derived behavior private, so a transaction view never becomes a second session owner.
+        if (GetType() != typeof(DB) && GetType() != typeof(Transaction))
+            view._hookContext = CloneHookContext();
+
+        return view;
+    }
+
+    DB CloneHookContext()
+    {
+        var clone = (DB)MemberwiseClone();
+        clone._hookContext = _hookContext?.CloneHookContext();
+
+        return clone;
+    }
+
+    DB? GetHookContext()
+    {
+        if (_hookContext is null)
+            return null;
+
+        _hookContext.ModifiedBy = ModifiedBy;
+        _hookContext.SessionHandle = SessionHandle;
+        _hookContext.IgnoreGlobalFilters = IgnoreGlobalFilters;
+
+        return _hookContext;
+    }
 
     /// <summary>
     /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.
@@ -260,7 +291,7 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
     protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
-        => null;
+        => GetHookContext()?.OnBeforeSave<T>();
 
     // ReSharper disable once VirtualMemberNeverOverridden.Global
     /// <summary>
@@ -268,5 +299,5 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
     protected virtual Action<UpdateBase<T>>? OnBeforeUpdate<T>() where T : IEntity
-        => null;
+        => GetHookContext()?.OnBeforeUpdate<T>();
 }
