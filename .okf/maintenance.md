@@ -27,6 +27,7 @@ Sync `.okf/` when changes affect:
 - security/auth connection assumptions
 - config/env/ports/ops
 - conventions, layout, gotchas
+- changelog path/format/voice and GitHub release-note workflow (not individual entry bodies)
 
 If unaffected, state why in the final response (`OKF unaffected (non-behavioral edit)` for pure comment/typo/format).
 

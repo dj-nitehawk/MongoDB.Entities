@@ -43,7 +43,7 @@ tags: [conventions]
 - Optional: `db.SetServiceProvider(IServiceProvider)` and `db.SetMigrationActivator(Func<Type,IMigration>)` (activator wins over SP).
 
 ## Changelog
-- Every user-visible change or bug fix must add or update root `changelog.md` before completion. Follow the [changelog requirement](workflows.md#changelog-requirement), including its non-behavioral exceptions.
+- For user-visible library work, follow the [changelog requirement](workflows.md#changelog-requirement) for root `changelog.md`: rolling release notes, newest-first collapsible entries, consumer-focused conversational voice, and non-behavioral exceptions. The normative finish gate is in `AGENTS.md`.
 
 ## Sources
 - `.editorconfig`

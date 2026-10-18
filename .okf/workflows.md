@@ -52,7 +52,7 @@ DocFX validates documentation structure and links, not whether C# snippets compi
 | Trigger | Pipeline | Action |
 | --- | --- | --- |
 | Git tag `v*` | `azure-pipelines.yml` | Start compose Mongo, `dotnet test` |
-| Git tag `v*` | `.github/workflows/publish-to-nuget.yml` | `dotnet pack` + nuget push + GH release from `changelog.md` (skip release body path for `beta` tags) |
+| Git tag `v*` | `.github/workflows/publish-to-nuget.yml` | `dotnet pack` + nuget push + GH release from `changelog.md` (skip GH release creation for `beta` tags) |
 | Git tag `doc-*` | `publish-gh-pages.yml` | DocFX → GitHub Pages |
 
 Bump package version in `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`) and maintain root `changelog.md` for release notes.
@@ -60,11 +60,31 @@ Keep release notes reader-focused. The v26 compatibility details, migration exam
 
 ## Changelog requirement
 
-- Before finishing any user-visible change or bug fix, add or update an entry in root `changelog.md`. This is required during implementation, not deferred until release preparation.
-- Follow the current release's existing structure, using the appropriate section (for example, `Fixes`, `New features`, or `Breaking changes`). Update an existing entry when it already describes the change instead of duplicating it.
-- Describe the observable behavior and practical impact concisely. Call out compatibility or data-migration requirements when applicable.
-- Do not change historical release notes, invent a release version, or bump the package version unless requested.
-- Internal-only refactors, tests, documentation, and OKF maintenance without user-visible behavior changes do not require an entry. State why the changelog is unaffected when omitting one.
+Root `changelog.md` is rolling current-cycle release notes, not permanent history or a Keep-a-Changelog file. Non-beta tags use the **entire file** as the GitHub release body. Do not add version headers, invent a release version, or bump the package version unless requested. Preserve unrelated entries and any introductory content or banners. Clear entries only when explicitly asked as part of release work; do not rewrite historical release notes.
+
+Update it in the same change as user-visible library work (new public API/package/feature, user-visible bug fix, notable performance/behavior improvement, breaking change). Skip tests-only, OKF, comments, CI, formatting, documentation-only edits, and internal refactors with no consumer effect. State why the changelog is unaffected when omitting an entry. Update an existing entry for the same change instead of duplicating it.
+
+Prepend a new `<details>` immediately under the matching heading (newest first). Use this repository's section names: `## New features`, `## Bug fixes`, `## Improvements`, and `## Breaking changes`. Reuse existing headings; add a missing standard heading only when needed, not a new category. Existing unrelated bullet entries can remain unchanged.
+
+Use HTML `<details><summary>user-facing title</summary>` plus short consumer-facing prose and an optional small code sample:
+
+```html
+<details>
+<summary>User-facing title</summary>
+
+Short explanation of the practical impact.
+
+</details>
+```
+
+**Voice and detail:** Write short, conversational entries in the maintainer's voice, speaking directly to users. Focus on their needs and practical impact, not a technical dump. Summaries state consumer impact, not implementation. Prefer plain language over API inventories. Keep useful code examples, but leave detailed setup, storage contracts, and operational edge cases to public documentation. Add a documentation pointer where appropriate. Retain essential compatibility, safety, and migration warnings. These rules stand on their own; do not rely on temporary changelog entries as tone references.
+
+- **New features:** Introduce the capability, who it helps, and why. A useful shape is: "If you're building [use case], you can now [capability]. [Brief benefit or relevant compatibility note.]" Follow with an optional example and documentation pointer, not a mandatory formula.
+- **Bug fixes:** Describe the user-visible problem and what now works correctly.
+- **Improvements:** State what is better and the practical benefit.
+- **Breaking changes:** Say what changed, who is affected, and what users must do to migrate. Include a small before/after example when useful. Give users enough detail to act safely, while keeping the same conversational voice.
+
+Changelog is release notes. `Documentation/wiki/` and public API XML docs provide detailed usage and API documentation. Update both when both apply.
 
 ## Env vars (names only)
 | Name | Use |

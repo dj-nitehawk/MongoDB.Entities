@@ -27,6 +27,8 @@ Sync `.okf/` when the change hits the update triggers in `.okf/maintenance.md`. 
 
 If no update needed, state why (pure comment/typo/formatting: `OKF unaffected (non-behavioral edit)`). Task is incomplete until OKF is synced or explicitly unaffected.
 
+For user-visible library changes (public APIs, configuration, behavior, breaking changes, new features), also add or update root `changelog.md` in the same change. Follow `.okf/workflows.md#changelog-requirement` for format, voice, and exceptions. Changelog entries are release notes, not a substitute for public documentation; update `Documentation/wiki/` and public API XML docs when applicable.
+
 ### General
 
 Subject to project conventions in OKF/`conventions.md` (and architecture when present) and this file:
