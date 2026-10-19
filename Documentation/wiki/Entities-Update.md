@@ -156,6 +156,8 @@ await db.Update<Author>()
 
 **Note:** Pipeline updates and regular updates cannot be used together in one command as it's not supported by the official c# driver.
 
+Both pipeline execution methods run `OnBeforeUpdate` before writing. If the hook throws, no update is sent. Hook `AddModification` calls cause `ArgumentException` before writing, rather than being ignored. Use regular updates if your hook adds modifications. See [event hooks](Event-Hooks.md#pipeline-updates).
+
 ## Array filter updates
 
 ```csharp

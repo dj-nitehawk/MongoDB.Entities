@@ -10,6 +10,13 @@ Deleting non-file entities with no registered relationships now uses one bulk de
 ## Bug fixes
 
 <details>
+<summary>Pipeline updates no longer skip your update hooks</summary>
+
+Your `OnBeforeUpdate` action now runs before pipeline updates from both update builders, including audit views. A rejecting hook prevents the write. If your hook adds regular modifications, pipeline execution now throws `ArgumentException` instead of silently ignoring them. Use regular updates with modifying hooks. See the [event-hook guidance](Documentation/wiki/Event-Hooks.md#pipeline-updates).
+
+</details>
+
+<details>
 <summary>Entities skipped by a concurrent filter change keep their relationships</summary>
 
 If an entity becomes excluded by a global filter while you are deleting it, its relationships now stay intact. Mixed batches clean up relationships only for entities actually deleted. Filtered non-file deletes with registered relationships use one conditional delete per candidate, so large filtered deletes of related entities may take longer. Use a transaction if entity and relationship deletion must roll back together on failure. See the [global-filter guidance](Documentation/wiki/Global-Filters.md).

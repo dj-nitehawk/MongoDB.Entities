@@ -433,6 +433,8 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <summary>
     /// Run the update command with pipeline stages and retrieve the first document modified
     /// </summary>
+    /// <remarks>Invokes OnBeforeUpdate before writing. Hook-added regular update definitions are not supported.</remarks>
+    /// <exception cref="ArgumentException">OnBeforeUpdate added regular update definitions.</exception>
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<TProjection?> ExecutePipelineAsync(CancellationToken cancellation = default)
     {
@@ -443,8 +445,12 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
         if (_stages.Count == 0)
             throw new ArgumentException("Please use WithPipelineStage() method first!");
 
-        // if (Defs.Count > 0)
-        //     throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+        // Audit definitions may already exist; only hook-added definitions are unsupported.
+        var modificationCount = Defs.Count;
+        _onUpdateAction?.Invoke(this);
+
+        if (Defs.Count != modificationCount)
+            throw new ArgumentException("Pipeline updates cannot be used with modifications added by OnBeforeUpdate!");
 
         if (ShouldSetModDate())
             WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");

@@ -53,6 +53,12 @@ await db.Update<Flower>()
         .ExecuteAsync();
 ```
 
+## Pipeline updates
+
+`ExecutePipelineAsync()` on both `Update` and `UpdateAndGet` invokes the action returned by `OnBeforeUpdate` once before writing, including when using `WithModifiedBy()` views. A hook exception prevents the write.
+
+If your hook calls `AddModification`, pipeline execution throws `ArgumentException` before writing, even when the hook modifies a different field from the pipeline. Hook modifications are never silently discarded or translated into pipeline stages. Use regular updates with modifying hooks. Validation-only hooks that do not add modifications can be used with pipeline updates. This restriction applies to hook-added definitions; existing pipeline handling of library-supplied audit definitions is unchanged.
+
 ## Detecting new entities
 
 Do not use an empty ID inside `OnBeforeSave` as a general insert detector. Single-entity `SaveAsync` invokes the hook before preparing the ID, while batch saves, partial saves, and `InsertAsync` prepare IDs first. A new entity can therefore already have its ID when the hook runs.

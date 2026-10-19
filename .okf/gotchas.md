@@ -46,6 +46,8 @@ tags: [gotcha]
 
 - File index initialization failures are evicted by exact cache entry, allowing later uploads to retry without a late failing caller removing a newer attempt. Successful initialization remains shared per client/database.
 
+- **Pipeline update hooks:** both `ExecutePipelineAsync` builders invoke `OnBeforeUpdate` once before writing. Hook exceptions propagate. Hook `AddModification` calls throw `ArgumentException` before writing, including same-field and different-field combinations. Compare definition counts around the hook, not against zero: `DB.Update` adds audit definitions before execution, and rejecting those breaks existing audited pipelines. Pre-existing definition handling is unchanged. Use regular updates with modifying hooks; validation-only hooks are supported on pipelines. Never silently discard hook definitions or translate update operators into aggregation expressions.
+
 ## Sources
 
 - `Tests/Init.cs`
