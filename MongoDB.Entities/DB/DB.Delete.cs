@@ -31,14 +31,15 @@ public partial class DB
         //join records hold the stored representation of entity IDs, so raw CLR values must be
         //converted through the ID member's serializer before matching against them
         var storedIds = ids.Select(
-                                id => idsAreStoredValues
-                                          ? id as BsonValue ?? BsonValue.Create(id)
-                                          : Cache<T>.IdToBsonValue(id))
+                               id => idsAreStoredValues
+                                         ? id as BsonValue ?? BsonValue.Create(id)
+                                         : Cache<T>.IdToBsonValue(id))
                            .ToArray();
 
         // Direct-ID deletes must not cascade join/file side-effects for entities excluded by a
         // global filter. Resolve the eligible ID set first (raw BSON projection) and use only that.
         var hasGlobalFilter = !IgnoreGlobalFilters && _globalFilters?.Count > 0 && _globalFilters.ContainsKey(typeof(T));
+
         if (hasGlobalFilter)
         {
             var eligibilityFilter = Logic.MergeWithGlobalFilter(false, _globalFilters, IDInFilter<T>(storedIds));
@@ -61,21 +62,35 @@ public partial class DB
         var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(storedIds));
         Task<DeleteResult>? delResTask = null;
         var isFile = typeof(IFileEntity).IsAssignableFrom(typeof(T));
+
         if (isFile)
         {
             // Validate the entire batch before starting any entity, relationship, or chunk deletes.
             foreach (var id in ids)
                 FileChunk.ValidateFileID(id?.ToString());
+
             // A concurrent upload can make a conditional file delete skip metadata.
             // Only cascade relationships for files whose metadata was actually deleted.
             storedIds = await FileStorage.DeleteAsync(this, filter, SessionHandle, cancellation).ConfigureAwait(false);
+
             if (storedIds.Length == 0)
                 return new DeleteResult.Acknowledged(0);
+
             delResTask = Task.FromResult<DeleteResult>(new DeleteResult.Acknowledged(storedIds.Length));
         }
 
         else if (hasGlobalFilter)
         {
+            // Check at operation time, never cache an empty registry. Return directly so
+            // concurrent registration cannot cascade IDs from the eligibility snapshot.
+            if (Cache<T>.ReferenceCollections.IsEmpty)
+            {
+                // ReSharper disable once MethodSupportsCancellation
+                return SessionHandle == null
+                           ? await Collection<T>().DeleteManyAsync(filter).ConfigureAwait(false)
+                           : await Collection<T>().DeleteManyAsync(SessionHandle, filter, null, cancellation).ConfigureAwait(false);
+            }
+
             // Eligibility is only a snapshot. Atomically recheck each entity's filter and
             // retain its stored ID only when the server actually deletes that document.
             var deletedIds = new List<BsonValue>();
@@ -84,10 +99,11 @@ public partial class DB
                 Projection = new BsonDocument(Cache<T>.IdBsonName, 1)
             };
             var collection = Collection<T>();
+
             foreach (var id in storedIds.Distinct())
             {
-                var conditionalFilter = Logic.MergeWithGlobalFilter(
-                    false, _globalFilters, new BsonDocumentFilterDefinition<T>(new(Cache<T>.IdBsonName, id)));
+                var conditionalFilter = Logic.MergeWithGlobalFilter(false, _globalFilters, new BsonDocumentFilterDefinition<T>(new(Cache<T>.IdBsonName, id)));
+
                 // ReSharper disable once MethodSupportsCancellation
                 var deleted = SessionHandle == null
                                   ? await collection.FindOneAndDeleteAsync(conditionalFilter, options).ConfigureAwait(false)
@@ -96,8 +112,10 @@ public partial class DB
                     deletedIds.Add(deleted[Cache<T>.IdBsonName]);
             }
             storedIds = deletedIds.ToArray();
+
             if (storedIds.Length == 0)
                 return new DeleteResult.Acknowledged(0);
+
             delResTask = Task.FromResult<DeleteResult>(new DeleteResult.Acknowledged(storedIds.Length));
         }
 
@@ -126,8 +144,8 @@ public partial class DB
 
         // ReSharper disable once MethodSupportsCancellation
         delResTask ??= SessionHandle == null
-                          ? Collection<T>().DeleteManyAsync(filter)
-                          : Collection<T>().DeleteManyAsync(SessionHandle, filter, null, cancellation);
+                           ? Collection<T>().DeleteManyAsync(filter)
+                           : Collection<T>().DeleteManyAsync(SessionHandle, filter, null, cancellation);
 
         tasks.Add(delResTask);
 
@@ -176,10 +194,16 @@ public partial class DB
     /// <summary>
     /// Deletes a single entity from MongoDB.
     /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to delete</param>
@@ -190,10 +214,16 @@ public partial class DB
     /// <summary>
     /// Deletes a single entity from MongoDB.
     /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The Id of the entity to delete</param>
@@ -205,10 +235,16 @@ public partial class DB
     /// Deletes entities using a collection of IDs
     /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">An IEnumerable of entities</param>
@@ -221,10 +257,16 @@ public partial class DB
     /// Deletes entities using a collection of IDs
     /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="IDs">An IEnumerable of entity IDs</param>
@@ -233,13 +275,19 @@ public partial class DB
         => DeleteByIdsAsync<T>(IDs, cancellation);
 
     /// <summary>
-    /// Deletes entities using a collection of IDs of any CLR type (including value types such as <see cref="Guid"/>, <see cref="long"/>, and <see cref="ObjectId"/>).
+    /// Deletes entities using a collection of IDs of any CLR type (including value types such as <see cref="Guid" />, <see cref="long" />, and <see cref="ObjectId" />).
     /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TId">The CLR type of the entity IDs</typeparam>
@@ -278,10 +326,16 @@ public partial class DB
     /// Deletes matching entities with an expression
     /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -295,10 +349,16 @@ public partial class DB
     /// Deletes matching entities with a filter expression
     /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
@@ -313,10 +373,16 @@ public partial class DB
     /// Deletes matching entities with a filter definition
     /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
-    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
-    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
-    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
+    /// <para>
+    /// With an active global filter, non-file entities with registered relationships are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.
+    /// Without registered relationships, a filtered bulk delete is used per batch. Initialize relationships before concurrent deletes;
+    /// registration after bulk selection does not add cleanup to that in-flight deletion and can leave orphaned joins.
+    /// </para>
+    /// <para>
+    /// Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="filter">A filter definition for matching entities to delete.</param>

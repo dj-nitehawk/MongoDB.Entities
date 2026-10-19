@@ -34,6 +34,13 @@ public class FilteredDeleteRaces
         public Many<Child, GuidParent> Children { get; set; } = null!;
     }
 
+    public class Unrelated : Record { }
+
+    public class LateParent : Record
+    {
+        public Many<Child, LateParent> Children { get; set; } = null!;
+    }
+
     class FilteredDb : DB
     {
         public FilteredDb(DB source) : base(source)
@@ -41,8 +48,155 @@ public class FilteredDeleteRaces
             SetGlobalFilter<Parent>(p => p.Active);
             SetGlobalFilter<Child>(c => c.Active);
             SetGlobalFilter<GuidParent>(p => p.Active);
+            SetGlobalFilter<Unrelated>(p => p.Active);
+            SetGlobalFilter<LateParent>(p => p.Active);
         }
     }
+
+    static async Task<DB> Monitored<T>(DB db, Action<CommandStartedEvent> onDelete) where T : IEntity
+    {
+        var settings = db.Database().Client.Settings.Clone();
+        settings.ClusterConfigurator = builder => builder.Subscribe<CommandStartedEvent>(command =>
+        {
+            if (command.CommandName is "delete" or "findAndModify" &&
+                command.Command[command.CommandName] == db.CollectionName<T>())
+                onDelete(command);
+        });
+        return new FilteredDb(await DB.InitAsync(db.Database().DatabaseNamespace.DatabaseName, settings));
+    }
+
+    [TestMethod]
+    [DataRow(false, false)]
+    [DataRow(true, false)]
+    [DataRow(false, true)]
+    [DataRow(true, true)]
+    public Task unrelated_filtered_batch_uses_one_bulk_delete_and_rechecks_filter(bool predicate, bool allExcluded)
+        => Isolated(async db =>
+        {
+            var survivor = new Unrelated();
+            var removed = new Unrelated();
+            var excluded = new Unrelated { Active = false };
+            await db.SaveAsync(new[] { survivor, removed, excluded });
+            var bulk = 0;
+            var conditional = 0;
+            var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            using var release = new ManualResetEventSlim();
+            var deletingDb = await Monitored<Unrelated>(db, command =>
+            {
+                if (command.CommandName == "delete") Interlocked.Increment(ref bulk);
+                else Interlocked.Increment(ref conditional);
+                entered.TrySetResult();
+                if (!release.Wait(TimeSpan.FromSeconds(30))) throw new TimeoutException("Delete gate was not released.");
+            });
+            var deletion = Task.Run(() => predicate
+                ? deletingDb.DeleteAsync<Unrelated>(e => true)
+                : deletingDb.DeleteAsync<Unrelated>(new object[] { survivor.ID, removed.ID, removed.ID, excluded.ID }));
+            try
+            {
+                await entered.Task.WaitAsync(TimeSpan.FromSeconds(15));
+                await db.Collection<Unrelated>().UpdateOneAsync(e => e.ID == survivor.ID,
+                                                               Builders<Unrelated>.Update.Set(e => e.Active, false));
+                if (allExcluded)
+                    await db.Collection<Unrelated>().UpdateOneAsync(e => e.ID == removed.ID,
+                                                                   Builders<Unrelated>.Update.Set(e => e.Active, false));
+            }
+            finally
+            {
+                release.Set();
+                await deletion;
+            }
+
+            var result = await deletion;
+            Assert.IsTrue(result.IsAcknowledged);
+            Assert.AreEqual(allExcluded ? 0L : 1L, result.DeletedCount);
+            Assert.AreEqual(1, bulk);
+            Assert.AreEqual(0, conditional);
+            Assert.IsNotNull(await db.Find<Unrelated>().OneAsync(survivor.ID));
+            Assert.IsNotNull(await db.Find<Unrelated>().OneAsync(excluded.ID));
+            Assert.AreEqual(allExcluded, await db.Find<Unrelated>().OneAsync(removed.ID) != null);
+        });
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public Task unrelated_filtered_bulk_delete_uses_caller_transaction(bool commit)
+        => Isolated(async db =>
+        {
+            var removed = new Unrelated();
+            var excluded = new Unrelated { Active = false };
+            await db.SaveAsync(new[] { removed, excluded });
+            var bulk = 0;
+            var conditional = 0;
+            var deletingDb = await Monitored<Unrelated>(db, command =>
+            {
+                if (command.CommandName == "delete") Interlocked.Increment(ref bulk);
+                else Interlocked.Increment(ref conditional);
+                Assert.IsTrue(command.Command.Contains("txnNumber"));
+                Assert.IsFalse(command.Command["autocommit"].AsBoolean);
+            });
+            using var transaction = deletingDb.Transaction();
+            using var cancellation = new CancellationTokenSource();
+            var result = await transaction.DeleteAsync<Unrelated>(new object[] { removed.ID, removed.ID, excluded.ID }, cancellation.Token);
+            Assert.IsTrue(result.IsAcknowledged);
+            Assert.AreEqual(1L, result.DeletedCount);
+            Assert.AreEqual(1, bulk);
+            Assert.AreEqual(0, conditional);
+            Assert.IsNull(await transaction.Find<Unrelated>().OneAsync(removed.ID));
+            Assert.IsNotNull(await db.Find<Unrelated>().OneAsync(removed.ID));
+            if (commit) await transaction.CommitAsync();
+            else await transaction.AbortAsync();
+            Assert.AreEqual(!commit, await db.Find<Unrelated>().OneAsync(removed.ID) != null);
+            Assert.IsNotNull(await db.Find<Unrelated>().OneAsync(excluded.ID));
+        });
+
+    [TestMethod]
+    public Task relationship_registration_after_bulk_selection_does_not_clean_survivors_and_is_seen_next_time()
+        => Isolated(async db =>
+        {
+            var survivor = new LateParent();
+            var removed = new LateParent();
+            var child = new Child();
+            await db.SaveAsync(new[] { survivor, removed });
+            await db.SaveAsync(child);
+            var bulk = 0;
+            var conditional = 0;
+            var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            using var release = new ManualResetEventSlim();
+            var deletingDb = await Monitored<LateParent>(db, command =>
+            {
+                if (command.CommandName == "delete") Interlocked.Increment(ref bulk);
+                else Interlocked.Increment(ref conditional);
+                entered.TrySetResult();
+                if (!release.Wait(TimeSpan.FromSeconds(30))) throw new TimeoutException("Delete gate was not released.");
+            });
+            var deletion = Task.Run(() => deletingDb.DeleteAsync<LateParent>(new object[] { survivor.ID, removed.ID }));
+            try
+            {
+                await entered.Task.WaitAsync(TimeSpan.FromSeconds(15));
+                survivor.InitOneToMany(() => survivor.Children, db);
+                await survivor.Children.AddAsync(child);
+                await db.Collection<LateParent>().UpdateOneAsync(e => e.ID == survivor.ID,
+                                                               Builders<LateParent>.Update.Set(e => e.Active, false));
+            }
+            finally
+            {
+                release.Set();
+                await deletion;
+            }
+
+            Assert.AreEqual(1L, (await deletion).DeletedCount);
+            Assert.AreEqual(1, bulk);
+            Assert.AreEqual(0, conditional);
+            Assert.IsNotNull(await db.Find<LateParent>().OneAsync(survivor.ID));
+            Assert.AreEqual(1L, await survivor.Children.ChildrenCountAsync());
+
+            await db.Collection<LateParent>().UpdateOneAsync(e => e.ID == survivor.ID,
+                                                           Builders<LateParent>.Update.Set(e => e.Active, true));
+            Assert.AreEqual(1L, (await deletingDb.DeleteAsync(survivor)).DeletedCount);
+            Assert.AreEqual(1, bulk);
+            Assert.AreEqual(1, conditional);
+            Assert.AreEqual(0L, await survivor.Children.ChildrenCountAsync());
+        });
 
     static async Task Isolated(Func<DB, Task> action)
     {

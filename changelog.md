@@ -1,9 +1,18 @@
+## Improvements
+
+<details>
+<summary>Fewer database requests for filtered batch deletes without relationships</summary>
+
+Deleting non-file entities with no registered relationships now uses one bulk delete per batch instead of a separate delete request for every candidate. Global filters are still checked at deletion time. Initialize relationships before running concurrent deletes; see the [global-filter guidance](Documentation/wiki/Global-Filters.md).
+
+</details>
+
 ## Bug fixes
 
 <details>
 <summary>Entities skipped by a concurrent filter change keep their relationships</summary>
 
-If an entity becomes excluded by a global filter while you are deleting it, its relationships now stay intact. Mixed batches clean up relationships only for entities actually deleted. Filtered non-file deletes now use one conditional delete per candidate, so large filtered deletes may take longer. Use a transaction if entity and relationship deletion must roll back together on failure. See the [global-filter guidance](Documentation/wiki/Global-Filters.md).
+If an entity becomes excluded by a global filter while you are deleting it, its relationships now stay intact. Mixed batches clean up relationships only for entities actually deleted. Filtered non-file deletes with registered relationships use one conditional delete per candidate, so large filtered deletes of related entities may take longer. Use a transaction if entity and relationship deletion must roll back together on failure. See the [global-filter guidance](Documentation/wiki/Global-Filters.md).
 
 </details>
 
