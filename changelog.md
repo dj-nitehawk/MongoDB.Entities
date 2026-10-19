@@ -1,6 +1,13 @@
 ## Bug fixes
 
 <details>
+<summary>Entities skipped by a concurrent filter change keep their relationships</summary>
+
+If an entity becomes excluded by a global filter while you are deleting it, its relationships now stay intact. Mixed batches clean up relationships only for entities actually deleted. Filtered non-file deletes now use one conditional delete per candidate, so large filtered deletes may take longer. Use a transaction if entity and relationship deletion must roll back together on failure. See the [global-filter guidance](Documentation/wiki/Global-Filters.md).
+
+</details>
+
+<details>
 <summary>Audit views keep your custom write hooks</summary>
 
 Calling `WithModifiedBy()` on a derived database no longer skips your save and update hooks. Your normalization and validation still run, and hooks see the audit user supplied to that view without changing the original instance. Chained views and transactions created from an audited view retain the hooks too.

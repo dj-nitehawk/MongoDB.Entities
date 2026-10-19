@@ -38,7 +38,8 @@ public partial class DB
 
         // Direct-ID deletes must not cascade join/file side-effects for entities excluded by a
         // global filter. Resolve the eligible ID set first (raw BSON projection) and use only that.
-        if (!IgnoreGlobalFilters && _globalFilters?.Count > 0 && _globalFilters.ContainsKey(typeof(T)))
+        var hasGlobalFilter = !IgnoreGlobalFilters && _globalFilters?.Count > 0 && _globalFilters.ContainsKey(typeof(T));
+        if (hasGlobalFilter)
         {
             var eligibilityFilter = Logic.MergeWithGlobalFilter(false, _globalFilters, IDInFilter<T>(storedIds));
 
@@ -56,7 +57,7 @@ public partial class DB
             ids = matched.Select(doc => (object)doc[idElement]).ToArray();
         }
 
-        // Keep merging the global filter on the entity delete for defense-in-depth (e.g. races).
+        // File deletes also recheck this filter when conditionally deleting metadata.
         var filter = Logic.MergeWithGlobalFilter(IgnoreGlobalFilters, _globalFilters, IDInFilter<T>(storedIds));
         Task<DeleteResult>? delResTask = null;
         var isFile = typeof(IFileEntity).IsAssignableFrom(typeof(T));
@@ -68,6 +69,33 @@ public partial class DB
             // A concurrent upload can make a conditional file delete skip metadata.
             // Only cascade relationships for files whose metadata was actually deleted.
             storedIds = await FileStorage.DeleteAsync(this, filter, SessionHandle, cancellation).ConfigureAwait(false);
+            if (storedIds.Length == 0)
+                return new DeleteResult.Acknowledged(0);
+            delResTask = Task.FromResult<DeleteResult>(new DeleteResult.Acknowledged(storedIds.Length));
+        }
+
+        else if (hasGlobalFilter)
+        {
+            // Eligibility is only a snapshot. Atomically recheck each entity's filter and
+            // retain its stored ID only when the server actually deletes that document.
+            var deletedIds = new List<BsonValue>();
+            var options = new FindOneAndDeleteOptions<T, BsonDocument>
+            {
+                Projection = new BsonDocument(Cache<T>.IdBsonName, 1)
+            };
+            var collection = Collection<T>();
+            foreach (var id in storedIds.Distinct())
+            {
+                var conditionalFilter = Logic.MergeWithGlobalFilter(
+                    false, _globalFilters, new BsonDocumentFilterDefinition<T>(new(Cache<T>.IdBsonName, id)));
+                // ReSharper disable once MethodSupportsCancellation
+                var deleted = SessionHandle == null
+                                  ? await collection.FindOneAndDeleteAsync(conditionalFilter, options).ConfigureAwait(false)
+                                  : await collection.FindOneAndDeleteAsync(SessionHandle, conditionalFilter, options, cancellation).ConfigureAwait(false);
+                if (deleted != null)
+                    deletedIds.Add(deleted[Cache<T>.IdBsonName]);
+            }
+            storedIds = deletedIds.ToArray();
             if (storedIds.Length == 0)
                 return new DeleteResult.Acknowledged(0);
             delResTask = Task.FromResult<DeleteResult>(new DeleteResult.Acknowledged(storedIds.Length));
@@ -148,6 +176,10 @@ public partial class DB
     /// <summary>
     /// Deletes a single entity from MongoDB.
     /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The entity to delete</param>
@@ -158,6 +190,10 @@ public partial class DB
     /// <summary>
     /// Deletes a single entity from MongoDB.
     /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The Id of the entity to delete</param>
@@ -169,6 +205,10 @@ public partial class DB
     /// Deletes entities using a collection of IDs
     /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entities">An IEnumerable of entities</param>
@@ -181,6 +221,10 @@ public partial class DB
     /// Deletes entities using a collection of IDs
     /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="IDs">An IEnumerable of entity IDs</param>
@@ -192,6 +236,10 @@ public partial class DB
     /// Deletes entities using a collection of IDs of any CLR type (including value types such as <see cref="Guid"/>, <see cref="long"/>, and <see cref="ObjectId"/>).
     /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TId">The CLR type of the entity IDs</typeparam>
@@ -230,6 +278,10 @@ public partial class DB
     /// Deletes matching entities with an expression
     /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -243,6 +295,10 @@ public partial class DB
     /// Deletes matching entities with a filter expression
     /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
@@ -257,6 +313,10 @@ public partial class DB
     /// Deletes matching entities with a filter definition
     /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+    /// <para>With an active global filter, non-file entities are conditionally deleted before their relationships.
+    /// Entities skipped by that filter retain their relationships. This requires one delete round trip per candidate.</para>
+    /// <para>Without a transaction, failures can leave partial deletions or orphaned relationships. Use a transaction
+    /// for atomic cross-collection deletion; cleanup failures are propagated, not automatically rolled back.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="filter">A filter definition for matching entities to delete.</param>
