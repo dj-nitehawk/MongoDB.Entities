@@ -23,11 +23,18 @@ Preserve conventions, boundaries, and workflows from OKF. On conflict with sourc
 
 ### Before finishing
 
-Sync `.okf/` when the change hits the update triggers in `.okf/maintenance.md`. Default trigger inventory: architecture/boundaries; public APIs/routes/schemas/events/contracts; persistence/migrations; deps/runtime; build/run/test/lint/format/generate/deploy; testing strategy; security/auth; config/env/ports/ops; conventions/layout; gotchas.
+Evaluate `.okf/` when the change hits the update triggers in `.okf/maintenance.md`. Sync only when existing guidance becomes incorrect or incomplete, or durable operational knowledge would otherwise need rediscovery. A trigger requires evaluation, not an automatic addition.
 
 If no update needed, state why (pure comment/typo/formatting: `OKF unaffected (non-behavioral edit)`). Task is incomplete until OKF is synced or explicitly unaffected.
 
 For user-visible library changes (public APIs, configuration, behavior, breaking changes, new features), also add or update root `changelog.md` in the same change. Follow `.okf/workflows.md#changelog-requirement` for format, voice, and exceptions. Changelog entries are release notes, not a substitute for public documentation; update `Documentation/wiki/` and public API XML docs when applicable.
+
+### OKF content discipline
+
+- Keep decision-guiding boundaries, contracts, commands, failure modes, and owner-approved policies, not release history or implementation narration.
+- Give each detailed fact one topic owner. Link elsewhere instead of duplicating it, and replace superseded guidance rather than appending another account.
+- Test guidance identifies suites, commands, setup, and isolation, not exhaustive assertion inventories.
+- Check reading cost before finishing an OKF edit; preserve safety, compatibility, persistence, and owner-decision constraints.
 
 ### General
 

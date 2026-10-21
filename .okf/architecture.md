@@ -1,77 +1,64 @@
 ---
 type: Architecture
 title: Architecture
-description: Partial DB facade over MongoDB.Driver with entity contracts, builders, and relationship helpers.
+description: DB facade boundaries, view and session ownership, and persistence contracts.
 tags: [architecture]
 ---
 
 # Architecture
 
-## Style
-Library-style data-access layer: thin facade + fluent builders over official driver types (`IMongoDatabase`, `IMongoCollection`, filter/update builders). No application host. Async-only public data APIs.
+## Boundaries and runtime
 
-## Components
-| Component | Role |
-| --- | --- |
-| `DB` (partial) | Connection cache, default instance, ops entrypoints (`Save`, `Find`, …) |
-| `Core/` | Entities, attributes, serializers, cache, transactions, watchers, templates |
-| `Builders/` | Fluent query/update/index/paged-search builders returned by `DB` methods |
-| `Relationships/` | `One<>`, `Many<>`, `JoinRecord` |
-| `Extensions/` | Entity/collection/relationship helpers (e.g. `InitOneToMany`) |
-| `Migrations/` | `IMigration` + history entity `Migration` → collection `_migration_history_` |
-| `Tests/` | MSTest integration suite against real MongoDB |
-| `Benchmark/` | BenchmarkDotNet microbenchmarks |
-| `Documentation/` | DocFX wiki + API docs |
+Async data-access library over `MongoDB.Driver`, not an application host. `DB` partials create fluent builders over driver collections and sessions. `Core/` owns entity contracts, mapping/cache, serializers, transactions, watchers, templates, and file storage; `Relationships/` owns references and joins.
 
-## Dependency rules
-- Library depends only on `MongoDB.Driver` (+ transitive; `SharpCompress` pinned for vulnerability workaround).
-- `Tests` → library; `Benchmark` → library + `Tests` (reuses test models/helpers).
-- Do not add reverse deps from library to Tests/Benchmark/Documentation.
-- Prefer extending `DB` via new partial files under `MongoDB.Entities/DB/` and builders under `Builders/` rather than unrelated namespaces.
+- Library runtime dependencies are the driver and an explicit `SharpCompress` mitigation pin. Tests depend on the library; Benchmark depends on both. No reverse dependencies or heavy application frameworks.
+- `InitAsync` caches clients by `MongoClientSettings` and DB instances by client/database. The first database selected for default client settings supplies `DB.Default`; initialization normally pings unless `skipNetworkPing` is set.
+- Auth belongs to caller-supplied settings/connection strings. Optional `IServiceProvider` and migration activator support construction, not a framework dependency.
+- Persisted types implement marker `IEntity`, usually via `Entity`. Collection names come from the type or `[Collection]`.
+- Migration names supply numeric ordering; history lives in `_migration_history_`.
 
-## Communication / runtime model
-```
-App → DB.InitAsync(dbName, settings?) → cached MongoClient + DB instance
-     → DB.Save/Find/Update/… → IMongoCollection / sessions
-     → Transaction() → client session + multi-doc txn
-```
-- Clients keyed by `MongoClientSettings`; DB instances keyed by client + database name (`ConcurrentDictionary` caches).
-- First successful init for default client settings becomes `_defaultInstance` (`DB.Default`).
-- Optional ASP.NET DI: `SetServiceProvider` / `SetMigrationActivator` for migration construction.
+## Views, filters, and sessions
 
-## Persistence
-- One MongoDB collection per entity type (name from type or `[Collection]`).
-- Relationships: referenced IDs (`One<>`) or join collections (`Many<>` / `JoinRecord`). Cascade metadata caches join-collection names and each entity type's parent/child roles, not database-bound handles; deletes resolve each name against the current `DB` so multi-database cleanup remains isolated. Initializers register both endpoint types, including one-to-many children without an inverse property. Repeated registrations atomically merge roles; only self-references match both ID fields during cascade cleanup.
-- Join records store `ParentID`/`ChildID` as `BsonValue` holding the *stored representation* of the entity's `_id` (via `GetBsonId()` / `Cache<T>.IdToBsonValue`); queryable joins/lookups key entities with `Cache<T>.BsonValueIdExpression`. Never write raw CLR ID values into join records; custom-represented IDs would silently match nothing.
-- Filter/expression `DeleteAsync<T>` loads matched IDs via `Find<T, BsonDocument>` (raw BSON), then cascade-deletes with `idsAreStoredValues: true`. Never project IDs through `object`/`ObjectSerializer` (breaks Guid Standard representation).
-- Direct-ID cascade deletes (`DeleteCascadingAsync`) also respect global filters: when a filter is active for `T` and not ignored, eligible IDs are resolved first via the same raw-BSON projection path. For non-file entities without registered relationships, an operation-time empty-registry check selects a direct session-aware bulk delete with the merged global filter and no relationship cleanup. Relationship registration must precede concurrent deletes: registration after bulk selection is not retroactive and can leave joins for deleted entities orphaned, but cannot trigger stale-candidate cleanup of surviving entities. Later deletes see registrations. For non-file entities with registered relationships, that snapshot is not sufficient to authorize relationship cleanup: each distinct candidate is deleted with `FindOneAndDeleteAsync`, rechecking the global filter and projecting its stored BSON ID. Only returned IDs cascade to role-aware joins; zero returned IDs means acknowledged zero without side writes. Conditional deletes are sequential and use the caller's session/cancellation policy. This adds one delete round trip per candidate; unfiltered/ignored-filter deletes retain the bulk path. Failures propagate, but without a caller transaction earlier deletes are not rolled back and orphaned joins can remain, including when a later candidate delete fails. A retry need not repair those orphans. Caller transactions retain ownership and provide cross-collection rollback; conflicts must be handled by the caller.
-- File storage: `FileEntity<T>` metadata + `[BINARY_CHUNKS]` chunk docs (not GridFS API). Each completed new upload has an independent `BinaryStorageID` in metadata/chunks; new chunks omit `FileID`. Stream operations reload persisted metadata, including direct-ID access. Replacements stage a fresh key, verify the checksum, then conditionally switch the old reference and statistics atomically. Cleanup deletes only the replaced new key; legacy chunks are retained on replacement. Explicit chunk deletion conditionally publishes a tombstone key and cleared statistics. Cascades retrieve eligible metadata references, conditionally delete each metadata document, then delete only its referenced chunks. FileStorage returns the successfully deleted stored BSON IDs; DB waits for those results before cascading role-aware relationship cleanup, preserving relationships for files skipped after concurrent reference changes, including mixed-result batches. Filtered non-file cascade ordering follows the conditional entity-first path described above; unfiltered ordering is unchanged. Legacy destructive operations inspect other actual collections for conflicting file metadata and fail before cascade writes on established conflicts or inventory errors. This does not prove ownership against concurrent legacy writes or custom legacy schemas.
-- Streaming metadata reads project only `BinaryStorageID` and `UploadSuccessful` into a private `DataStreamer<T>` snapshot, with inherited BSON member mappings resolved by the driver's expression projection. Upload, download, and explicit chunk clearing still reload persisted state with the caller's session and cancellation token, without materializing application metadata.
-- `IFileEntity` marks file entities internally and supports resetting upload state for inserts. `Cache<T>.UpdatableProps` excludes managed file metadata, protecting partial/preserving saves; full single/batch file saves atomically preserve persisted upload fields with empty defaults for missing values, so stale/projected entities do not reset existing storage references or statistics. Generated-ID full saves and all explicit insert paths reset upload state before insertion. Copying a loaded file to a new identity never copies binary ownership. Raw updates and `Replace` bypass these protections.
-- Legacy ownership preflight owns one operation-local collection inventory for all legacy IDs in a cascade batch, retaining per-ID conflict queries and session-bound reads. Explicit chunk clearing uses the same preflight with one ID. Empty legacy batches skip inventory entirely. Inventory is neither cached across operations nor an ownership snapshot; the whole preflight must finish before any cascade writes.
-- `FileMetadata` owns the pure managed-property policy, inherited BSON-member name resolution, and full-save update construction. `Cache<T>` and full-save entrypoints depend on this helper directly; `FileStorage` uses its mapped-name lookup for conditional deletion and retains storage I/O orchestration. Full file saves use an update pipeline with `$replaceWith`/`$mergeObjects`: serialized application metadata is wrapped in `$literal`, while ID and managed upload fields come from the current server document. Missing upload fields use empty defaults. Replacement removes omitted mapped fields and deleted extra-element entries without reading metadata into the application or racing upload reference changes. Partial/preserving saves retain their existing omission behavior.
-- Batch full saves, explicit inserts, and single/batch partial saves share `DB.PrepAfterId`: ID/timestamps, audit assignment, then save hook. `DB.PrepForSave` wraps that sequence with a file upload reset for generated-ID full saves or all explicit inserts. Partial saves do not reset in-memory upload state. Single full saves retain their separate pre-ID hook ordering. Write models, enumeration, and session dispatch stay at the call sites.
-- Global serializers/conventions register in module init (`Core/LibraryInitializer.cs`, not a `DB` static ctor): ignore extra elements; ignore many-props; custom `Date` / `FuzzyString` / decimal via `IBsonSerializationProvider` (lazy; user `RegisterSerializer` before first lookup wins).
+- `DB(source)` snapshots filter registrations and prepend flags into an independent dictionary. Existing builders still observe registrations on their own retained dictionary; builders created before the first registration keep their previous behavior.
+- `WithModifiedBy()` returns an audit view preserving database, filters, and session, without mutating the source audit data. A view shares but never owns a transaction session. Only the originating `Transaction` commits, aborts, and disposes it; a new `Transaction` always starts its own session, even from a transaction view.
+- Audit views and direct-derived transactions retain overridden save/update hooks via independent, private shallow-cloned hook contexts. Dispatch synchronizes audit data, session, ignore state, and the owning view's filter dictionary. Reference-type dependencies remain shared; contexts are not exposed as disposable/session owners.
+- Ordinary `DB(source)` copies do not capture source overrides unless a hook context already exists; filter copying does not alter ordinary wrapper session behavior.
 
-## Security / auth (library surface)
-- Auth is caller-supplied via `MongoClientSettings` / connection string. Library does not manage credentials.
-- CI compose uses root user + keyfile replica set (test-only; see `operations.md`).
+## Relationships and cascading deletes
 
-## Invariants
-- `DB(source)` snapshots existing global filter registrations, retaining entity entries and prepend flags without sharing the mutable dictionary. Audit views and transactions inherit this isolation. Builders retaining an existing dictionary still observe intentional registrations on their own instance; builders created before the first registration retain their previous behavior. Private hook contexts use their owning view's dictionary, synchronized alongside audit/session/ignore state before hook dispatch. Filter isolation does not change session ownership or ordinary derived-wrapper session behavior.
-- `WithModifiedBy()` creates an audit view that preserves the source session, database, and global filters without changing the source audit data. Audit views share, but do not own, a transaction session; only the originating `Transaction` commits, aborts, and disposes it. Creating a new `Transaction` always starts its own session, including from an audit view.
-- Audit views and transactions created directly from a derived `DB` retain derived save/update hooks through a private shallow-cloned hook context. Base hook dispatch synchronizes that context's audit data, session, and filter-ignore flag before resolving hooks. Copies retain independent hook contexts, including chained views and transactions created from an audited view. Reference-type dependencies remain shared; the hook context is never exposed as another disposable/session owner. Ordinary `DB(source)` construction still does not capture source overrides unless an audit hook context already exists.
-- Types persisted through library APIs implement `IEntity` (typically inherit `Entity`).
-- New entities without ID (`HasDefaultID()`: generator `IsEmpty(id)` when a generator is resolved, else compare to `Cache<T>.IdDefaultValue`) get one from `Cache<T>.IdGenerator` via the `GenerateNewID()` extension. `IEntity` is a marker interface. Generator resolution: `DB.RegisterIdGenerator<T>()` (overrides, any time via `Cache.SetIdGenerator`) → class map `IdGenerator` → `BsonSerializer.LookupIdGenerator(idType)` → library defaults (string→ObjectId-string, ObjectId, Guid) → null. Missing generator is allowed on `Cache<T>` init so query/delete/manual-ID use works; generation fails only in `GenerateNewID()` when save actually needs a new ID.
-- `Many<>` must be initialized on parent (`InitOneToMany` / `InitManyToMany`) before use.
-- Migrations ordered by numeric prefix in type name; history in `_migration_history_`.
-- `ChangeDefaultDatabase` is concurrency-sensitive; cancel watchers first (documented warning on API).
-- Public API is async; keep new surface async.
+- `One<>` stores referenced IDs; `Many<>` uses join collections. Join IDs must use the entity ID's **stored BSON representation**, via `GetBsonId()` / `Cache<T>.IdToBsonValue`; queryable joins use `BsonValueIdExpression`. Raw CLR values can silently miss custom-represented IDs.
+- `Cache<T>.ReferenceCollections` stores collection names and monotonically accumulated `JoinRecordRole` flags, never database-bound handles. Register both endpoints, swap inverse roles, and atomically OR missing flags. Cleanup resolves names against the current DB and matches only the endpoint's registered role; only self-references match both fields.
+- Filter/predicate deletes and direct-ID global-filter eligibility project raw `BsonDocument` IDs. Do not project via `object`/`ObjectSerializer`, which breaks Guid Standard IDs.
+- Eligibility reads are snapshots, not permission to clean up joins. Filtered non-file deletes with registered relationships sequentially `FindOneAndDeleteAsync` each distinct candidate with the current filter; only returned stored IDs cascade. Zero returned IDs means no side writes.
+- For filtered non-file deletes without relationships, an operation-time empty-registry check selects a session-aware bulk delete retaining the global filter. Register relationships before concurrent deletion: late registration cannot add cleanup to an in-flight bulk delete and can leave orphaned joins. Later operations see registrations. Unfiltered/ignored-filter deletes retain bulk behavior.
+- File deletes follow the reference-conditional path below. Without a caller transaction, failures can leave earlier deletions and orphaned joins; retries need not repair them. Do not promise cross-collection atomicity. Callers own transaction conflict handling.
+- Cascade deletes reject non-default cancellation tokens without a session, to avoid cancellation between collection writes.
+
+## File storage
+
+`FileEntity<T>` metadata references `[BINARY_CHUNKS]`, not GridFS. `FileMetadata` owns managed-field mapping/save policy; `FileStorage` owns storage I/O and legacy preflight; `DB.DeleteCascadingAsync` owns ID conversion/validation, filter eligibility, and relationship cleanup.
+
+- New uploads use independent `BinaryStorageID` keys; new chunks omit legacy `FileID`. Legacy chunk `FileID` retains `[AsObjectId]`, and legacy queries exclude keyed chunks. Stream operations reload persisted reference/upload status, projecting only those fields through inherited BSON mappings, with the caller's session/token. They do not materialize application metadata. `Data(db)` binds a fresh streamer to that DB; pass transaction sessions explicitly.
+- Replacement stages a fresh key, validates checksum, and conditionally switches reference/statistics atomically. Cleanup targets only the replaced new-format key; legacy chunks remain. Explicit chunk clearing conditionally publishes a tombstone key and empty statistics.
+- Cascades preflight all legacy candidates before writes, conditionally delete metadata with its filter and observed storage reference, then delete only referenced chunks. `DB` waits for successfully deleted stored IDs before relationship cleanup, preserving joins for skipped files, including mixed-result batches.
+- Legacy destructive operations take one operation-local collection inventory per batch (none for empty batches), then session-bound per-ID conflict reads. Conflicts or inventory errors fail before cascade writes. Database-wide listing/read permissions are required. This is not proof of ownership against concurrent legacy writes or custom schemas; reconcile ambiguity offline, never guess.
+- Resolve inherited managed-field BSON names through concrete `AllMemberMaps`, not declared-only `GetMemberMap`. Entity field renames must not alter the separate chunk schema.
+- Full saves atomically replace application metadata while retaining current server upload fields, defaulting missing fields to empty. `FileMetadata.SaveUpdate` uses `$replaceWith`/`$mergeObjects`, wrapping serialized metadata in `$literal`; omitted mapped fields and removed extra elements disappear. Partial/preserving saves retain omission semantics and exclude managed fields. Raw updates and `Replace` bypass these protections.
+- Generated-ID full saves and all explicit inserts reset upload state, so a new identity never copies binary ownership. Existing identities preserve persisted state; partial saves do not reset in-memory state.
+- Index initialization is shared per client/chunk namespace and awaited before upload. Evict only the exact failed cache entry, permitting retry without removing a newer attempt.
+- Upgrade every application instance before new-format uploads; old libraries cannot resolve new keys. No bulk migration is required. Interrupted/uncertain uploads may leave orphans; existing shared-key data needs offline repair with writes frozen and backups, never blind chunk deletion. See [v26 upgrade guidance](../Documentation/wiki/Upgrade-to-v26.md).
+
+## Mapping and write preparation
+
+- `Cache<T>` derives partial-update eligibility from `BsonClassMap.AllMemberMaps`, excluding the ID and relationships. Unmapped/ignored properties stay excluded even when explicitly selected, across partial/preserving saves and both builders' entity modifications. This prevents new writes, not removal of old stored fields. Register mappings before first use.
+- Batch full saves, inserts, and single/batch partial saves share `DB.PrepAfterId`: ID/timestamps, audit, then save hook. `PrepForSave` adds file reset for generated-ID full saves/all inserts. Single full saves intentionally call the hook before ID preparation; empty IDs in hooks are not an insert detector.
+- Pipeline builders invoke `OnBeforeUpdate` once before writing. Throwing hooks propagate; hook-added regular modifications fail before writes. Compare definition counts around the hook, not against zero, because audit definitions can pre-exist. Do not discard hook definitions or translate update operators to pipeline expressions; modifying hooks require regular updates.
+- Global conventions/serializers register in `Core/LibraryInitializer.cs`, not a DB static constructor. Lazy provider defaults for `Date`, `FuzzyString`, and decimal allow caller serializer registration before first lookup. See [identity/serializer timing](gotchas.md#identity-and-serialization).
 
 ## Sources
-- `MongoDB.Entities/DB/DB.cs`
-- `MongoDB.Entities/Core/LibraryInitializer.cs`
-- `MongoDB.Entities/Core/Cache.cs`
-- `MongoDB.Entities/Core/Entities/Entity.cs`
-- `MongoDB.Entities/Relationships/Many.cs`
-- `MongoDB.Entities/DB/DB.Migrate.cs`
+
+- `MongoDB.Entities/DB/` (`DB.cs`, `DB.Transaction.cs`, `DB.Delete.cs`, `DB.Save.cs`)
+- `MongoDB.Entities/Core/` (cache, file metadata/storage/streaming, module initialization)
+- `MongoDB.Entities/Relationships/`
+- `MongoDB.Entities/Builders/` (`Update.cs`, `UpdateAndGet.cs`)
+- `Documentation/wiki/Upgrade-to-v26.md`

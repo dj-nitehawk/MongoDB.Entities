@@ -7,7 +7,7 @@ tags: [maintain]
 
 # Maintenance
 
-Day-to-day finish gate and reading budget: repo `AGENTS.md`. This file is the detailed trigger inventory and conformance checklist.
+Day-to-day reading, content discipline, conflict handling, and finish gates: repo [AGENTS.md](../AGENTS.md). This file owns the trigger inventory and conformance detail.
 
 ## Conformance
 - OKF v0.1: non-reserved `.md` files need YAML frontmatter with non-empty `type` (allowed list), `title`, and `description`.
@@ -17,7 +17,7 @@ Day-to-day finish gate and reading budget: repo `AGENTS.md`. This file is the de
 - Optional `log.md` is append-only notes, not a concept file; do not create unless requested.
 
 ## Update triggers
-Sync `.okf/` when changes affect:
+Evaluate `.okf/` when changes affect:
 - architecture / module boundaries
 - public APIs, entity contracts, builders, migrations framework
 - persistence / collection / relationship behavior
@@ -29,9 +29,17 @@ Sync `.okf/` when changes affect:
 - conventions, layout, gotchas
 - changelog path/format/voice and GitHub release-note workflow (not individual entry bodies)
 
-If unaffected, state why in the final response (`OKF unaffected (non-behavioral edit)` for pure comment/typo/format).
+## Topic ownership
 
-## Conflicts
-1. Prefer source, tests, generated artifacts, lockfiles/manifests over OKF prose.
-2. Fix OKF to match verified behavior.
-3. Mention the correction in the agent’s final response.
+| Topic | Detailed home |
+| --- | --- |
+| Runtime boundaries, views/sessions, persistence and write contracts | `architecture.md` |
+| Where to edit, generated paths | `code-map.md` |
+| Coding/API style | `conventions.md` |
+| Build/docs/release commands and changelog policy | `workflows.md` |
+| Test setup, suite selection, isolation | `testing.md` |
+| Runtime/package compatibility | `dependencies.md` |
+| Deployment/CI services and configuration | `operations.md` |
+| Identity compatibility, environment traps, safety pointers | `gotchas.md` |
+
+Keep safety constraints at their detailed home; link from other topics rather than repeating implementation or assertion inventories. Read package versions from manifests, not copied snapshots.

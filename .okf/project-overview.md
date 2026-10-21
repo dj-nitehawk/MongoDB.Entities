@@ -25,7 +25,7 @@ resource: README.md
 - Ordered data migrations (`IMigration`), multi-client / multi-DB (`DB.InitAsync` / `DB.Instance` / `DB.Default`)
 
 ## Status
-- Published NuGet package; library version from `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`, currently 26.1.0-beta.1)
+- Published NuGet package; read the current version from `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`), not a copied OKF snapshot
 - TFM: library `netstandard2.1`; tests/benchmarks `net10.0`
 - Canonical user docs: https://mongodb-entities.com (built from `Documentation/`)
 
@@ -37,7 +37,7 @@ resource: README.md
 | Term | Meaning |
 | --- | --- |
 | `DB` | Main entry type; partial class split across `MongoDB.Entities/DB/` |
-| Default DB | First `DB.InitAsync` instance for a client; `DB.Default` |
+| Default DB | Default-client database selected during initialization, accessible via `DB.Default` |
 | Join collection | Backing collection for `Many<>` relationships (`JoinRecord`) |
 | Migration | Type implementing `IMigration` named `_NNN_description` |
 

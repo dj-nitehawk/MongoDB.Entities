@@ -8,7 +8,7 @@ Compact operational knowledge for agents working on MongoDB.Entities. Read relev
 
 ## Core reading order
 * [Project Overview](project-overview.md): purpose and scope
-* [Architecture](architecture.md): boundaries and invariants
+* [Architecture](architecture.md): boundaries, view/session ownership, persistence contracts
 * [Code Map](code-map.md): where things live
 * [Conventions](conventions.md): coding/design rules
 
@@ -24,4 +24,4 @@ If OKF conflicts with source, tests, generated artifacts, or manifests: verify t
 
 ## Maintenance
 Normative OKF use/update gates: repo canonical agent instructions (`AGENTS.md`). Reminder + conformance detail: [Maintenance](maintenance.md).
-Before finishing, sync OKF when triggers apply; if not needed, state why (`OKF unaffected (non-behavioral edit)` for pure comment/typo/format).
+Evaluate triggers before finishing; update only guidance that needs it, otherwise state why OKF is unaffected.

@@ -33,11 +33,11 @@ Solution file: `MongoDB.Entities.slnx` (projects: library, Tests, Benchmark).
 ## Modules (library)
 - **Init / multi-DB:** `DB/DB.cs`: `InitAsync`, `Default`, `Instance`, `ChangeDefaultDatabase`
 - **ID generators:** `DB/DB.IdGenerators.cs`: `RegisterIdGenerator<T>`; resolution/helpers in `Extensions/Identity.cs` + `Core/Cache.cs`
-- **CRUD:** `DB.Save`, `DB.Insert`, `DB.Delete` (filter delete and direct-ID cascade eligibility → `Find<T,BsonDocument>` ID projection + cascade), `DB.Replace`, `DB.Update` / `UpdateAndGet` + matching builders (`Builders/` incl. `UpdateAndGet.cs`)
+- **CRUD:** `DB.Save`, `DB.Insert`, `DB.Delete`, `DB.Replace`, `DB.Update` / `UpdateAndGet` + matching builders
 - **Query:** `DB.Find`, `DB.Queryable`, `DB.PagedSearch`, `DB.Distinct`, `DB.Count`, `DB.Pipeline`, `DB.Fluent`, `DB.GeoNear`
 - **Meta:** `DB.Collection`, `DB.Index`, `DB.Sequence`, `DB.GlobalFilters`, `DB.File`, `DB.Watcher`, `DB.Transaction`, `DB.Migrate`
 - **Entity base:** `Core/Entities/Entity.cs`, `FileEntity.cs`, `ObjectIdEntity.cs`
-- **Binary storage:** `Core/Entities/FileEntity.cs` streaming/metadata, `Core/FileMetadata.cs` pure managed-property policy, inherited managed-member BSON-name resolution, and managed-save updates, `Core/FileStorage.cs` shared chunk-delete execution, reference-aware cascading deletion, legacy conflict checks, and awaited index initialization. File cascade deletion accepts the merged entity filter and owns reference projection, whole-batch legacy preflight, and conditional metadata/chunk deletion. `DB.DeleteCascadingAsync` retains stored-ID conversion, global-filter eligibility, whole-batch ID validation, and relationship cleanup using only successfully deleted IDs. Callers retain database/session binding and cancellation policy.
+- **Binary storage:** `Core/Entities/FileEntity.cs` (streaming/metadata), `Core/FileMetadata.cs` (managed-property policy and save updates), `Core/FileStorage.cs` (chunk/cascade I/O, legacy preflight, indexes). [Architecture](architecture.md#file-storage) owns the persistence contracts.
 - **Contracts:** `Core/Interfaces/IEntity.cs`, `ICreatedOn`, `IModifiedOn`
 
 ## Entry points
