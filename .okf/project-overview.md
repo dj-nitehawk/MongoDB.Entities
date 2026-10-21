@@ -15,31 +15,13 @@ resource: README.md
 - **In:** NuGet library `MongoDB.Entities` (library project), MSTest suite, BenchmarkDotNet harness, DocFX site under `Documentation/`.
 - **Out:** Host applications, server provisioning, ODM for non-Mongo stores.
 
-## Capabilities
-- Entity model via `IEntity` / `Entity` / `FileEntity<T>`; default IDs are ObjectId-formatted strings stored as plain strings, but any ID type/representation is supported (incl. relationships)
-- Fluent ops: `Save`/`Insert`/`Find`/`Update`/`UpdateAndGet`/`Replace`/`Delete`/`PagedSearch`/`Distinct`/`Count`
-- LINQ (`Queryable`), aggregation pipelines + string `Template`s, GeoNear
-- Relationships: `One<T>`, `Many<TChild,TParent>` (1-1 / 1-N / N-N via join collections)
-- Indexes (incl. fuzzy text), global filters, audit (`ICreatedOn`/`IModifiedOn`/`ModifiedBy`)
-- Transactions (`Transaction`), change streams (`Watcher`), file chunk streaming
-- Ordered data migrations (`IMigration`), multi-client / multi-DB (`DB.InitAsync` / `DB.Instance` / `DB.Default`)
-
 ## Status
-- Published NuGet package; read the current version from `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`), not a copied OKF snapshot
-- TFM: library `netstandard2.1`; tests/benchmarks `net10.0`
+- Published NuGet package; runtime compatibility and version source: [Dependencies](dependencies.md).
 - Canonical user docs: https://mongodb-entities.com (built from `Documentation/`)
 
 ## Non-goals
 - Not a full EF-style change tracker / unit-of-work beyond explicit save and transactions
 - Not a server or admin tool
-
-## Glossary
-| Term | Meaning |
-| --- | --- |
-| `DB` | Main entry type; partial class split across `MongoDB.Entities/DB/` |
-| Default DB | Default-client database selected during initialization, accessible via `DB.Default` |
-| Join collection | Backing collection for `Many<>` relationships (`JoinRecord`) |
-| Migration | Type implementing `IMigration` named `_NNN_description` |
 
 ## Sources
 - `README.md`

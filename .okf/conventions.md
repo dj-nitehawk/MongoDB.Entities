@@ -17,7 +17,7 @@ tags: [conventions]
 
 ## Style
 - `.editorconfig`: UTF-8, **CRLF**, spaces, indent 4 for C#.
-- `LangVersion` 13 on library (DocFX C# 14 support lag noted in csproj comment).
+- Toolchain compatibility constraints: [Dependencies](dependencies.md#runtime).
 - Nullable enabled on library and tests.
 - Accessibility modifiers: editorconfig sets `dotnet_style_require_accessibility_modifiers = never:error`; match existing file style.
 - `DB` feature surface: new file `DB/DB.<Area>.cs` as `public partial class DB`, not a separate service class.
@@ -25,17 +25,15 @@ tags: [conventions]
 
 ## Errors and validation
 - Fail fast on empty database names, uninitialized `DB.Instance`/`Default`, bad migration naming.
-- `InitAsync` pings unless `skipNetworkPing: true`; failed init removes partial cache entries.
 - Prefer `InvalidOperationException` / `ArgumentNullException` consistent with existing methods.
 
 ## APIs and data
 - Async methods named `*Async`; accept `CancellationToken cancellation = default` where I/O occurs.
 - Generic entity constraints: `where T : IEntity` (sometimes `new()`).
 - Fluent builders returned from `DB` methods; execution methods on builders (`ExecuteAsync`, etc.).
-- Default ID: ObjectId-formatted plain string on `Entity.ID` (BSON string); custom ID types/representations are supported. See [identity gotchas](gotchas.md#identity-and-serialization) before changing mappings, generators, or raw-ID overloads.
-- Collection name: type name or `[Collection("name")]`.
+- See [identity gotchas](gotchas.md#identity-and-serialization) before changing mappings, generators, or raw-ID overloads.
 - Ignore persistence: `[Ignore]`, `[IgnoreDefault]`; field rename/order: `[Field]`.
-- Relationships: initialize in entity constructor with `InitOneToMany` / `InitManyToMany`; sides via `[OwnerSide]` / `[InverseSide]` where needed.
+- Relationships use `[OwnerSide]` / `[InverseSide]` where needed; see [binding traps](gotchas.md#behavioral-traps) for initialization and tenant routing.
 - Subclass `DB` for hooks: `OnBeforeSave`, `OnBeforeUpdate`, global filters (`SetGlobalFilter*`).
 
 ## Config and DI
@@ -43,7 +41,7 @@ tags: [conventions]
 - Optional: `db.SetServiceProvider(IServiceProvider)` and `db.SetMigrationActivator(Func<Type,IMigration>)` (activator wins over SP).
 
 ## Changelog
-- For user-visible library work, follow the [changelog requirement](workflows.md#changelog-requirement) for root `changelog.md`: rolling release notes, newest-first collapsible entries, consumer-focused conversational voice, and non-behavioral exceptions. The normative finish gate is in `AGENTS.md`.
+- Follow the [changelog requirement](workflows.md#changelog-requirement). The normative finish gate is in `AGENTS.md`.
 
 ## Sources
 - `.editorconfig`

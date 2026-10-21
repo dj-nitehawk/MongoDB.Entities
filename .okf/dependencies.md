@@ -14,23 +14,12 @@ tags: [deps]
 | `Tests`, `Benchmark` | `net10.0` |
 
 - SDK: **10.x** for build/test/pack; docs workflow uses **8.x** for DocFX currently.
-- Language: C# 13 on library (`LangVersion`).
+- Language: C# 13 on library (`LangVersion`), deliberately held back because of DocFX C# 14 support lag noted in the csproj.
 
 ## Packages
 - Package manager: NuGet / `PackageReference` in csproj files.
-- Solution: `MongoDB.Entities.slnx`.
-- Library pack id: `MongoDB.Entities` (MIT); symbols `snupkg`; SourceLink GitHub.
-
-## Key libraries
-| Package | Where | Role |
-| --- | --- | --- |
-| `MongoDB.Driver` | library | Official driver (version pinned in csproj; upgrade carefully) |
-| `SharpCompress` | library | Explicit pin (comment: remove when driver ships non-vulnerable transitive) |
-| `Microsoft.SourceLink.GitHub` | library (private) | Source link |
-| `MSTest.*`, `Microsoft.NET.Test.Sdk` | Tests | Test host |
-| `Testcontainers.MongoDb` | Tests, Benchmark | Optional containerized Mongo |
-| `coverlet.collector` | Tests | Coverage |
-| `BenchmarkDotNet` | Benchmark | Perf harness |
+- Read package versions from the project files below, not copied snapshots.
+- The explicit library `SharpCompress` pin is a vulnerability mitigation; remove only when the driver supplies a non-vulnerable transitive version.
 
 ## Constraints
 - Keep library TFM at `netstandard2.1` unless a deliberate breaking platform change.

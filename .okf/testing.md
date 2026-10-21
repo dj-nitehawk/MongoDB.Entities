@@ -9,7 +9,7 @@ tags: [test]
 
 ## Setup and commands
 
-MSTest + `Microsoft.NET.Test.Sdk`, targeting `net10.0`; coverlet is available, with no CI coverage threshold. Tests use real MongoDB 8.2. Assembly initialization registers Guid serializers and ID generators, then initializes `mongodb-entities-test`.
+MSTest with real MongoDB 8.2. Assembly initialization registers Guid serializers and ID generators, then initializes `mongodb-entities-test`. Toolchain: [Dependencies](dependencies.md#runtime).
 
 ```bash
 # Default: local replica set from docker-compose.ci.yml
@@ -28,6 +28,8 @@ dotnet test Tests/Tests.csproj -c Release --filter FullyQualifiedName~GlobalFilt
 | Testcontainers | `Tests/TestDatabase.cs`, `mongo:8.2`, replica set, host ports from 27017 upward |
 
 Transactions require a replica set. Compose keyfile preparation and primary readiness checks are in `azure-pipelines.yml`; see [environment traps](gotchas.md#local-mongo-and-tooling). Azure runs the test project after compose startup.
+
+Before compose startup, create `Tests/.mongo-keyfile` with mode `600` and container ownership `999:999`, as in the pipeline. Wrong permissions cause auth/keyfile startup errors. Compose services are `mongodb` and `mongodb-init`, with persistent volume `mongodb-data`. Fixture credentials are local/CI-only; never commit real credentials.
 
 ## Find the relevant suite
 
@@ -57,7 +59,7 @@ Storage/mapping/session contracts live in [Architecture](architecture.md), not a
 - Make focused runs self-contained: explicitly pass required audit metadata and use the instance returned by `WithModifiedBy()`. It does not mutate `DB.Default`. Some older save/relationship tests omit this setup and can fail independently with missing audit-data errors.
 - Audit/filter/race regressions use isolated databases; pre-create collections before transactions. Keep synthetic relationship-registry tests on dedicated entity caches so metadata cannot contaminate integration tests. Migration tests clean `_migration_history_`.
 - Gate races with command events or controlled streams, not sleeps. Always release gates and observe upload tasks before disposal, including timeout/action-failure paths; `ExpectGatedUploadConflict` is the file-suite pattern. Verify surviving metadata, bytes, and joins, not only delete counts.
-- Seed legacy file metadata using raw collection writes, not library saves/inserts that reset new identities. Reuse `Tests/Models/test.jpg` (copied to output). The csproj's unused `test.png` entry refers to an absent file.
+- Seed legacy file metadata using raw collection writes, not library saves/inserts that reset new identities. Reuse `Tests/Models/test.jpg` (copied to output).
 - Tests deliberately replace namespaces with views to force index/cleanup failures; keep those cases isolated and restore/drop their databases.
 
 ## Sources

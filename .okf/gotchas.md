@@ -31,11 +31,11 @@ tags: [gotcha]
 
 ## Local Mongo and tooling
 
-- **Tests need real MongoDB + replica set.** Use compose or Testcontainers as documented in [Testing](testing.md); standalone Mongo fails transaction cases. Do not enable parallel MSTest or rely on another test's audit setup.
+- **Test setup and isolation:** follow [Testing](testing.md), including replica-set requirements, non-parallel execution, and explicit audit setup.
 - **Advertised replica-set host must be host-reachable.** Compose uses `localhost:27017`; an existing volume advertising `mongodb:27017` causes host clients to time out after discovery. For a local test replica set only, reconfigure its advertised member to `localhost:27017`.
-- **Compose keyfile:** create `Tests/.mongo-keyfile` before startup, with mode `600` and container ownership `999:999`, as in `azure-pipelines.yml`. Wrong permissions cause auth/keyfile startup errors. Fixture credentials are test-only; never commit real credentials.
-- **Toolchain constraints:** `.slnx`, library C# 13 (DocFX lag), and the explicit `SharpCompress` vulnerability mitigation pin are deliberate. See [Dependencies](dependencies.md) before changing them.
-- **Generated docs:** never hand-edit `Documentation/api/` or `_site/`; source is wiki/XML docs. Match `.editorconfig` CRLF when editing. See [Workflows](workflows.md) for generation and snippet validation.
+- **Compose startup errors:** check the [keyfile setup](testing.md#setup-and-commands) before debugging auth failures.
+- **Toolchain changes:** check [Dependencies](dependencies.md) for compatibility and mitigation constraints.
+- **Generated docs:** follow [editable-source boundaries](code-map.md#generated-code) and [generation/snippet validation](workflows.md#docs).
 
 ## Sources
 

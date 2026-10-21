@@ -8,8 +8,7 @@ tags: [build]
 # Workflows
 
 ## Setup
-- .NET SDK **10.x** for library build/tests/pack (CI and GitHub Actions use `10.x`).
-- Docs publish workflow currently uses **8.x** + global `docfx` tool (see `.github/workflows/publish-gh-pages.yml`).
+- Toolchain prerequisites: [Dependencies](dependencies.md#runtime). Docs use the global `docfx` tool.
 - MongoDB for tests: either local compose stack or Testcontainers (see `testing.md`).
 
 ```bash
@@ -44,16 +43,14 @@ docfx Documentation/docfx.json
 Wiki markdown source: `Documentation/wiki/`. Site CNAME / pages deploy on tags `doc-*`.
 DocFX validates documentation structure and links, not whether C# snippets compile. When changing examples, compile representative complete snippets against the current library and verify behavioral examples separately. Keep validation output outside tracked generated directories (for example, `docfx build Documentation/docfx.json --output /tmp/mongodb-entities-docs`).
 
-## Codegen and migrations
-- No codegen step for the library.
-- **User** data migrations: implement `IMigration`, name `_NNN_…`, call `db.MigrateAsync()` / `MigrateAsync<T>()` / `MigrationsAsync(...)` at app startup, not a repo build step.
-
 ## Release (observed automation)
 | Trigger | Pipeline | Action |
 | --- | --- | --- |
 | Git tag `v*` | `azure-pipelines.yml` | Start compose Mongo, `dotnet test` |
 | Git tag `v*` | `.github/workflows/publish-to-nuget.yml` | `dotnet pack` + nuget push + GH release from `changelog.md` (skip GH release creation for `beta` tags) |
 | Git tag `doc-*` | `publish-gh-pages.yml` | DocFX → GitHub Pages |
+
+Azure tests are tag-only, not branch builds. NuGet publishing and tests independently react to `v*`; coordinate version/changelog before tagging.
 
 Bump package version in `MongoDB.Entities/MongoDB.Entities.csproj` (`Version`) and maintain root `changelog.md` for release notes.
 Keep release notes reader-focused. The v26 compatibility details, migration examples, and data/reference/file-chunk warnings live in `Documentation/wiki/Upgrade-to-v26.md`. When release notes need that guidance, link to the repository copy so GitHub releases do not depend on a separate docs-site publish.
@@ -89,7 +86,6 @@ Changelog is release notes. `Documentation/wiki/` and public API XML docs provid
 ## Env vars (names only)
 | Name | Use |
 | --- | --- |
-| `MONGODB_ENTITIES_TESTCONTAINERS` | If set (any value), tests use Testcontainers instead of localhost compose |
 | `NUGET_API_KEY` | GitHub Actions secret for nuget push (`NUGET_AUTH_TOKEN` env in workflow) |
 
 ## Sources

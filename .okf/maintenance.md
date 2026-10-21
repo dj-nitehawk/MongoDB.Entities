@@ -36,10 +36,9 @@ Evaluate `.okf/` when changes affect:
 | Runtime boundaries, views/sessions, persistence and write contracts | `architecture.md` |
 | Where to edit, generated paths | `code-map.md` |
 | Coding/API style | `conventions.md` |
-| Build/docs/release commands and changelog policy | `workflows.md` |
-| Test setup, suite selection, isolation | `testing.md` |
+| Build/docs/release commands, deployment/CI and changelog policy | `workflows.md` |
+| Test setup, local Mongo services, suite selection, isolation | `testing.md` |
 | Runtime/package compatibility | `dependencies.md` |
-| Deployment/CI services and configuration | `operations.md` |
 | Identity compatibility, environment traps, safety pointers | `gotchas.md` |
 
 Keep safety constraints at their detailed home; link from other topics rather than repeating implementation or assertion inventories. Read package versions from manifests, not copied snapshots.

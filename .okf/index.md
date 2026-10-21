@@ -17,7 +17,7 @@ Compact operational knowledge for agents working on MongoDB.Entities. Read relev
 * [Testing](testing.md): MSTest, MongoDB, Testcontainers
 
 ## Task-specific
-* [Dependencies](dependencies.md) · [Operations](operations.md) · [Gotchas](gotchas.md) · [Maintenance](maintenance.md)
+* [Dependencies](dependencies.md) · [Gotchas](gotchas.md) · [Maintenance](maintenance.md)
 
 ## Authority
 If OKF conflicts with source, tests, generated artifacts, or manifests: verify those, then update OKF.
