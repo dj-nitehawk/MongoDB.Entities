@@ -51,6 +51,8 @@ await db.Update<Author>()
 
 Instead of specifying each and every property with `.Modify()` you can simply supply a complete entity using `.ModifyWith()`. All properties of the matched documents will be updated with the corresponding property values of the supplied entity instance.
 
+`ModifyWith`, `ModifyOnly`, and `ModifyExcept` on both `Update` and `UpdateAndGet` only copy BSON-mapped properties other than the identity. Properties excluded by class maps, conventions, or `[BsonIgnore]` are ignored, even if selected explicitly. Register mappings before first use.  see the [partial-save guidance](Entities-Save.md#save-entities-partially).
+
 ```csharp
 await db.Update<Book>()
         .MatchID("xxxxxxxxxxxxx")

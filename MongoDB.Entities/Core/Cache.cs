@@ -87,13 +87,12 @@ static class Cache<T> where T : IEntity
         HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
         ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
 
-        _updatableProps = type.GetProperties()
-                              .Where(
-                                  p =>
-                                      p.PropertyType.Name != ManyBase.PropTypeName &&
-                                      !p.IsDefined(typeof(BsonIdAttribute), false) &&
-                                      !p.IsDefined(typeof(BsonIgnoreAttribute), false))
-                              .ToArray();
+        _updatableProps = BsonClassMap.AllMemberMaps
+                                      .Where(m => !Equals(m, idMap))
+                                      .Select(m => m.MemberInfo)
+                                      .OfType<PropertyInfo>()
+                                      .Where(p => p.PropertyType.Name != ManyBase.PropTypeName)
+                                      .ToArray();
 
         HasIgnoreIfDefaultProps = _updatableProps.Any(
             p =>
@@ -118,6 +117,7 @@ static class Cache<T> where T : IEntity
         var props = entity is IFileEntity
                         ? _updatableProps.Where(p => !FileMetadata.ManagedProperties.Contains(p.Name))
                         : _updatableProps;
+
         return HasIgnoreIfDefaultProps
                    ? props.Where(
                        p =>
@@ -192,15 +192,15 @@ static class Cache<T> where T : IEntity
     // generator registered with BsonSerializer.RegisterIdGenerator for the ID's CLR type, then
     // library defaults matching the ID formats generated for the well-known ID types.
     static IIdGenerator? ResolveIdGenerator(BsonMemberMap idMap)
-        => idMap.IdGenerator
-           ?? BsonSerializer.LookupIdGenerator(idMap.MemberType)
-           ?? (idMap.MemberType == typeof(string)
-                   ? StringObjectIdGenerator.Instance
-                   : idMap.MemberType == typeof(ObjectId)
-                       ? ObjectIdGenerator.Instance
-                       : idMap.MemberType == typeof(Guid)
-                           ? GuidGenerator.Instance
-                           : null);
+        => idMap.IdGenerator ??
+           BsonSerializer.LookupIdGenerator(idMap.MemberType) ??
+           (idMap.MemberType == typeof(string)
+                ? StringObjectIdGenerator.Instance
+                : idMap.MemberType == typeof(ObjectId)
+                    ? ObjectIdGenerator.Instance
+                    : idMap.MemberType == typeof(Guid)
+                        ? GuidGenerator.Instance
+                        : null);
 
     static BsonClassMap MapBsonClass(Type type)
     {

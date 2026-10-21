@@ -10,6 +10,13 @@ Deleting non-file entities with no registered relationships now uses one bulk de
 ## Bug fixes
 
 <details>
+<summary>Partial writes no longer persist properties excluded by your BSON mappings</summary>
+
+Partial saves and entity-based updates now honor properties excluded by class maps or conventions, just like full saves. They also leave class-map-configured identities out of updates. This prevents transient or sensitive values from being written unexpectedly. Previously stored fields are not removed automatically; review affected data and plan a deliberate cleanup. See the [partial-save guidance](Documentation/wiki/Entities-Save.md#save-entities-partially).
+
+</details>
+
+<details>
 <summary>Transactions keep your custom save and update hooks</summary>
 
 Starting a transaction directly from your derived database no longer skips validation, normalization, or hook-managed audit logic. Your hooks run with the transaction's session, without needing to call `WithModifiedBy()` first. See the [transaction guidance](Documentation/wiki/Transactions.md#custom-hooks).

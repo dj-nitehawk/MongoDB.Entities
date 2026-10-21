@@ -260,6 +260,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
     /// <summary>
     /// Modify ALL properties with the values from the supplied entity instance.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// </summary>
     /// <param name="entity">The entity instance to read the property values from</param>
     public Update<T> ModifyWith(T entity)
@@ -273,6 +274,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
     /// <summary>
     /// Modify ONLY the specified properties with the values from a given entity instance.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
@@ -287,6 +289,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
     /// <summary>
     /// Modify all EXCEPT the specified properties with the values from a given entity instance.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>

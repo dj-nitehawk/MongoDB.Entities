@@ -66,6 +66,8 @@ Replica set required for transaction tests.
 Custom `DB` subclasses in tests (`MyDbEntity`, etc.) exercise global filters and `OnBeforeSave` / `OnBeforeUpdate` hooks.
 
 ## Expectations
+
+- `TestMappedUpdates.cs` asserts raw BSON absence of explicitly unmapped, inherited-unmapped, convention-ignored, and `[BsonIgnore]` properties across single/batch partial saves (expression/string selectors), preserving saves, and both builders' entity-based modifications. Its 45 write cases include direct writes and caller-owned transaction commit/abort; renamed/inherited fields, a member serializer, and `[Preserve]` remain effective. A separate case checks class-map identity exclusion and that previously stored unmapped fields are not removed. Run with `dotnet test Tests/Tests.csproj -c Release --filter FullyQualifiedName~MappedUpdates`.
 - New public behavior: add/adjust MSTest methods under `EntityTests` (or sibling test classes); extend `Tests/Models` if new entity shapes needed.
 - Prefer real Mongo assertions over mocks.
 - `TransactionsEntity` audit-wrapper regressions create and drop isolated databases, pre-create collections, and explicitly supply audit metadata. They cover commit, abort, disposal, session-bound reads/updates/deletes, chained wrappers and filters, disposed-session failures, non-transactional audit views, and new-transaction session ownership.

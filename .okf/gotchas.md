@@ -7,6 +7,7 @@ tags: [gotcha]
 
 # Gotchas
 
+- **Partial-write eligibility follows BSON mappings:** `Cache<T>` derives update properties from `BsonClassMap.AllMemberMaps`, excluding `IdMemberMap` and relationships. Explicit/inherited unmapping and convention-based ignoring apply to single/batch partial saves, preserving saves, and both builders' `ModifyWith`/`ModifyOnly`/`ModifyExcept`, even for explicitly selected members. Existing conditional/default omission and managed file exclusions remain unchanged. Register mappings before first use. This prevents new writes of unmapped values but does not remove already stored fields; cleanup is an explicit application operation.
 - **Tests need Mongo.** Default path expects compose on `localhost:27017` with `admin`/`password`, `rs0`, `authSource=admin`. Without it, use `MONGODB_ENTITIES_TESTCONTAINERS=1` (Docker required).
 - **Replica set required** for multi-doc transactions and related tests; standalone Mongo will fail those cases.
 - **Replica set member host must be host-reachable.** Tests connect with `localhost:27017` + `replicaSet=rs0`. After hello/isMaster the driver follows the advertised member host. If `rs.initiate` used the compose service name (`mongodb:27017`), host-side clients get `Name or service not known` / server selection timeout on `Unspecified/mongodb:27017`. Use `localhost:27017` (as in `docker-compose.ci.yml`) or reconfig: `cfg.members[0].host='localhost:27017'; rs.reconfig(cfg,{force:true})`.

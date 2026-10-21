@@ -28,6 +28,8 @@ await db.SaveAsync(books);
 
 The above-mentioned `SaveAsync` methods will replace the entire document in the database with the values from the entity. If the goal is to only save the values of a subset of the properties, you have two convenient choices.
 
+Partial saves (single or batch), including `SavePreservingAsync`, only update BSON-mapped properties other than the identity. Properties excluded by `BsonClassMap.UnmapMember`, conventions, or `[BsonIgnore]` are ignored, even if explicitly selected. Register class maps and conventions before the entity type's first use. Existing conditional/default omission behavior and managed file metadata protection remain unchanged.
+
 ### Save only a few specified properties
 
 ```csharp

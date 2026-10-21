@@ -82,6 +82,7 @@ public partial class DB
 
     /// <summary>
     /// Saves an entity partially with only the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be saved can be specified with a 'New' expression.
@@ -97,6 +98,7 @@ public partial class DB
 
     /// <summary>
     /// Saves an entity partially with only the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be saved can be specified with an IEnumerable.
@@ -112,6 +114,7 @@ public partial class DB
 
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be saved can be specified with a 'New' expression.
@@ -128,6 +131,7 @@ public partial class DB
 
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be saved can be specified with an IEnumerable.
@@ -144,6 +148,7 @@ public partial class DB
 
     /// <summary>
     /// Saves an entity partially excluding the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be excluded can be specified with a 'New' expression.
@@ -159,6 +164,7 @@ public partial class DB
 
     /// <summary>
     /// Saves an entity partially excluding the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be saved can be specified with an IEnumerable.
@@ -174,6 +180,7 @@ public partial class DB
 
     /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be excluded can be specified with a 'New' expression.
@@ -190,6 +197,7 @@ public partial class DB
 
     /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>
     /// TIP: The properties to be saved can be specified with an IEnumerable.
@@ -206,6 +214,7 @@ public partial class DB
 
     /// <summary>
     /// Saves an entity partially while excluding some properties.
+    /// Only BSON-mapped properties other than the identity are eligible. Unmapped properties are ignored.
     /// The properties to be excluded can be specified using the [Preserve] or [DontPreserve] attributes.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
