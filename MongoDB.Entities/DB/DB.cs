@@ -26,10 +26,14 @@ public partial class DB
     readonly IMongoDatabase _mongoDb;
     DB? _hookContext;
 
+    /// <summary>
+    /// Creates a database wrapper with an independent snapshot of the source's global filter registrations.
+    /// </summary>
+    /// <param name="source">The database whose configuration is inherited. Later filter registrations on either instance do not affect the other.</param>
     protected DB(DB source)
     {
         _mongoDb = source.Database();
-        _globalFilters = source._globalFilters;
+        _globalFilters = source._globalFilters is null ? null : new(source._globalFilters);
         IgnoreGlobalFilters = source.IgnoreGlobalFilters;
         ModifiedBy = source.ModifiedBy;
         _hookContext = source._hookContext?.CloneHookContext();
@@ -53,7 +57,7 @@ public partial class DB
     /// When called on a transaction, the returned instance shares its session. The originating transaction remains responsible for committing, aborting,
     /// and disposing the session. Use the returned instance only while that session is alive.
     /// Derived save/update hooks are retained and observe this view's audit data and session. Hook state is shallow-copied; reference-type
-    /// dependencies remain shared. The source audit data is not changed.
+    /// dependencies remain shared. Global filter registrations are copied independently. The source audit data is not changed.
     /// </remarks>
     /// <param name="modifiedBy">the audit data to use</param>
     public DB WithModifiedBy(ModifiedBy modifiedBy)
@@ -82,6 +86,7 @@ public partial class DB
         _hookContext.ModifiedBy = ModifiedBy;
         _hookContext.SessionHandle = SessionHandle;
         _hookContext.IgnoreGlobalFilters = IgnoreGlobalFilters;
+        _hookContext._globalFilters = _globalFilters;
 
         return _hookContext;
     }

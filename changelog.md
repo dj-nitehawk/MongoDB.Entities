@@ -10,6 +10,13 @@ Deleting non-file entities with no registered relationships now uses one bulk de
 ## Bug fixes
 
 <details>
+<summary>Copied databases no longer change the source's tenant filters</summary>
+
+Creating a derived database from an already-filtered instance now keeps their filter registrations independent. Configuring the copy no longer redirects the source's queries, updates, or deletes to another tenant. Existing audit views and transactions keep their filters too, including reads performed by your hooks. See the [global-filter guidance](Documentation/wiki/Global-Filters.md#copying-database-instances).
+
+</details>
+
+<details>
 <summary>Partial writes no longer persist properties excluded by your BSON mappings</summary>
 
 Partial saves and entity-based updates now honor properties excluded by class maps or conventions, just like full saves. They also leave class-map-configured identities out of updates. This prevents transient or sensitive values from being written unexpectedly. Previously stored fields are not removed automatically; review affected data and plan a deliberate cleanup. See the [partial-save guidance](Documentation/wiki/Entities-Save.md#save-entities-partially).

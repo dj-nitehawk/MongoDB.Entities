@@ -67,6 +67,8 @@ Custom `DB` subclasses in tests (`MyDbEntity`, etc.) exercise global filters and
 
 ## Expectations
 
+- `GlobalFilterCopyTests` covers derived copies of plain/audited/transactional sources, inherited and independent registrations, existing builders, hook filter/audit context, updates and counts, direct-ID/conditional relationship deletes, and transaction commit/abort. Run with `dotnet test Tests/Tests.csproj -c Release --filter FullyQualifiedName~GlobalFilterCopyTests`.
+
 - `TestMappedUpdates.cs` asserts raw BSON absence of explicitly unmapped, inherited-unmapped, convention-ignored, and `[BsonIgnore]` properties across single/batch partial saves (expression/string selectors), preserving saves, and both builders' entity-based modifications. Its 45 write cases include direct writes and caller-owned transaction commit/abort; renamed/inherited fields, a member serializer, and `[Preserve]` remain effective. A separate case checks class-map identity exclusion and that previously stored unmapped fields are not removed. Run with `dotnet test Tests/Tests.csproj -c Release --filter FullyQualifiedName~MappedUpdates`.
 - New public behavior: add/adjust MSTest methods under `EntityTests` (or sibling test classes); extend `Tests/Models` if new entity shapes needed.
 - Prefer real Mongo assertions over mocks.

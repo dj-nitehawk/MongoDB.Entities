@@ -26,6 +26,14 @@ You can then instantiate your derived `DB` instance from anywhere like so:
 var db = new MyDatabase("DatabaseName");
 ```
 
+## Copying database instances
+
+Constructing a derived database with `base(source)`, creating an audit view with `WithModifiedBy()`, or starting a transaction copies the source's current filter registrations. The copy inherits all registered entity filters, including their prepend settings. Registering or replacing a filter on either instance later does not change the other instance's filters.
+
+Previously created query builders on the source are unaffected by registrations on a copy. Builders that retain an existing registration dictionary still observe intentional filter replacements on their own instance. Configure filters before creating builders; a builder created before the instance's first registration does not acquire that filter later.
+
+Derived hooks retained by audit views and transactions use the owning view's filters, audit data, and session. Filter copying does not create or dispose a session: audit views share the transaction session, while a new transaction owns its own session.
+
 ## Specify filters using a base class
 
 Filters can be specified on a per-entity type basis like above or common filters can be specified using a base class type like so:
