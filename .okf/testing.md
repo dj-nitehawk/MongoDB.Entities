@@ -35,6 +35,8 @@ tags: [test]
 - Binary fixture: `Tests/Models/test.jpg` (copy to output; used by file-entity tests). `Tests.csproj` still lists `Models\test.png` but that file is absent and unused.
 - Coverage collector: coverlet (package present; no mandated coverage gate in pipeline)
 
+- `AuditHookTests` runs save/insert/partial/preserving/replace and update/queue/UpdateAndGet paths through both audit views and direct-derived transactions. It checks rejecting hooks, exactly-once modifications, commit/abort/disposal, chained transaction views, retained overrides over an existing context, and independent sessions for transactions created from transaction views. `PipelineHookTests` covers direct-derived and audited transactions for all pipeline builders, including rejecting/modifying/observing hooks and session-bound reads.
+
 ## Commands
 
 `uploads_retry_index_initialization_after_failure` creates a temporary chunk-namespace view to reject index creation, repairs the namespace, then verifies concurrent uploads from two file types succeed with both indexes present. It uses an isolated database and the same client throughout.

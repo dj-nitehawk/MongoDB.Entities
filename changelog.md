@@ -10,6 +10,13 @@ Deleting non-file entities with no registered relationships now uses one bulk de
 ## Bug fixes
 
 <details>
+<summary>Transactions keep your custom save and update hooks</summary>
+
+Starting a transaction directly from your derived database no longer skips validation, normalization, or hook-managed audit logic. Your hooks run with the transaction's session, without needing to call `WithModifiedBy()` first. See the [transaction guidance](Documentation/wiki/Transactions.md#custom-hooks).
+
+</details>
+
+<details>
 <summary>Pipeline updates no longer skip your update hooks</summary>
 
 Your `OnBeforeUpdate` action now runs before pipeline updates from both update builders, including audit views. A rejecting hook prevents the write. If your hook adds regular modifications, pipeline execution now throws `ArgumentException` instead of silently ignoring them. Use regular updates with modifying hooks. See the [event-hook guidance](Documentation/wiki/Event-Hooks.md#pipeline-updates).

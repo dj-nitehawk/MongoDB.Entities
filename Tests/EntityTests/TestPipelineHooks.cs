@@ -81,13 +81,19 @@ public class PipelineHookTests
     }
 
     [TestMethod]
-    [DataRow("update", true)]
-    [DataRow("get", true)]
-    [DataRow("project", true)]
-    [DataRow("update", false)]
-    [DataRow("get", false)]
-    [DataRow("project", false)]
-    public async Task pipeline_hooks_preserve_transaction_context(string builder, bool commit)
+    [DataRow("update", true, false)]
+    [DataRow("get", true, false)]
+    [DataRow("project", true, false)]
+    [DataRow("update", false, false)]
+    [DataRow("get", false, false)]
+    [DataRow("project", false, false)]
+    [DataRow("update", true, true)]
+    [DataRow("get", true, true)]
+    [DataRow("project", true, true)]
+    [DataRow("update", false, true)]
+    [DataRow("get", false, true)]
+    [DataRow("project", false, true)]
+    public async Task pipeline_hooks_preserve_transaction_context(string builder, bool commit, bool directTransaction)
     {
         foreach (var mode in new[] { "reject", "modify", "same-field", "observe" })
         {
@@ -95,11 +101,11 @@ public class PipelineHookTests
             {
                 var entity = new PipelineHookEntity();
                 await db.SaveAsync(entity);
-                var source = new HookDb(db, mode);
+                var source = new HookDb(db.WithModifiedBy(User("transaction")), mode);
                 var expected = mode == "observe" ? "pipeline" : "original";
-                using (var transaction = source.WithModifiedBy(User("outer")).Transaction())
+                using (var transaction = directTransaction ? source.Transaction() : source.WithModifiedBy(User("outer")).Transaction())
                 {
-                    var view = transaction.WithModifiedBy(User("transaction"));
+                    var view = directTransaction ? transaction : transaction.WithModifiedBy(User("transaction"));
                     await view.SaveAsync(new PipelineHookEntity());
                     using var cancellation = new CancellationTokenSource();
                     if (mode == "reject")

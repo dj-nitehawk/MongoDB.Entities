@@ -33,6 +33,12 @@ It is best to always wrap the transaction in a `using statement` because reachin
 
 You can also call `.AbortAsync()` to abort a transaction prematurely if needed at which point all changes will be rolled back.
 
+## Custom hooks
+
+Transactions created directly from a derived `DB` retain its `OnBeforeSave` and `OnBeforeUpdate` hooks. You do not need to call `WithModifiedBy()` first. Hook reads and writes made through the hook context use the transaction's session and global filters. Validation exceptions prevent the affected write.
+
+Hooks run on a private shallow copy of the derived database, not the original instance. Reference-type dependencies remain shared. Audit views of the transaction keep the hooks and share its session; only the originating transaction owns that session. Creating another transaction from a view starts an independent session, not a nested transaction.
+
 ## Relationship Manipulation
 
 [relationships](Relationships-Referenced.md) within a transaction requires passing down the session to the `.Add()` and `.Remove()` methods as shown below.

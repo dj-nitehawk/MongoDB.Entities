@@ -53,6 +53,10 @@ await db.Update<Flower>()
         .ExecuteAsync();
 ```
 
+## Transactions
+
+Calling `derivedDb.Transaction()` preserves your save and update hooks, including validation-only pipeline hooks. No audit view is required. Hooks run on a private shallow copy of the derived database with the current transaction's audit data, session, and filter-ignore setting. Reads and writes through that context participate in the transaction. Reference-type dependencies remain shared, so avoid treating them as transaction-local state.
+
 ## Pipeline updates
 
 `ExecutePipelineAsync()` on both `Update` and `UpdateAndGet` invokes the action returned by `OnBeforeUpdate` once before writing, including when using `WithModifiedBy()` views. A hook exception prevents the write.

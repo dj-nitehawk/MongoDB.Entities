@@ -10,21 +10,33 @@ namespace MongoDB.Entities.Tests;
 public class AuditHookTests
 {
     [TestMethod]
-    [DataRow("save")]
-    [DataRow("save-batch")]
-    [DataRow("insert")]
-    [DataRow("insert-batch")]
-    [DataRow("only")]
-    [DataRow("only-batch")]
-    [DataRow("except")]
-    [DataRow("except-batch")]
-    [DataRow("preserving")]
-    [DataRow("replace")]
-    public async Task audit_views_preserve_save_hooks(string operation)
+    [DataRow("save", false)]
+    [DataRow("save", true)]
+    [DataRow("save-batch", false)]
+    [DataRow("save-batch", true)]
+    [DataRow("insert", false)]
+    [DataRow("insert", true)]
+    [DataRow("insert-batch", false)]
+    [DataRow("insert-batch", true)]
+    [DataRow("only", false)]
+    [DataRow("only", true)]
+    [DataRow("only-batch", false)]
+    [DataRow("only-batch", true)]
+    [DataRow("except", false)]
+    [DataRow("except", true)]
+    [DataRow("except-batch", false)]
+    [DataRow("except-batch", true)]
+    [DataRow("preserving", false)]
+    [DataRow("preserving", true)]
+    [DataRow("replace", false)]
+    [DataRow("replace", true)]
+    public async Task audit_views_preserve_save_hooks(string operation, bool directTransaction)
     {
         await WithDatabase(async (db, source) =>
         {
-            var view = source.WithModifiedBy(User("view"));
+            using var transaction = directTransaction ? source.Transaction() : null;
+            var view = (DB?)transaction ?? source.WithModifiedBy(User("view"));
+            var user = directTransaction ? "source" : "view";
             var entities = new[] { new AuditHookEntity(), new AuditHookEntity() };
             if (operation is "preserving" or "replace")
                 await db.WithModifiedBy(User("seed")).SaveAsync(entities);
@@ -43,27 +55,35 @@ public class AuditHookTests
                 case "replace": await view.Replace<AuditHookEntity>().MatchID(entities[0].ID).WithEntity(entities[0]).ExecuteAsync(); break;
             }
 
+            if (transaction is not null)
+                await transaction.CommitAsync();
+
             foreach (var entity in operation.EndsWith("batch") ? entities : entities.Take(1))
-                AssertSaved(await db.Find<AuditHookEntity>().OneAsync(entity.ID), "view");
+                AssertSaved(await db.Find<AuditHookEntity>().OneAsync(entity.ID), user);
             Assert.AreEqual("source", source.ModifiedBy?.UserID);
         });
     }
 
     [TestMethod]
-    [DataRow("update")]
-    [DataRow("queue")]
-    [DataRow("get")]
-    public async Task audit_views_preserve_update_hooks(string operation)
+    [DataRow("update", false)]
+    [DataRow("update", true)]
+    [DataRow("queue", false)]
+    [DataRow("queue", true)]
+    [DataRow("get", false)]
+    [DataRow("get", true)]
+    public async Task audit_views_preserve_update_hooks(string operation, bool directTransaction)
     {
         await WithDatabase(async (db, source) =>
         {
             var entity = new AuditHookEntity();
             await db.WithModifiedBy(User("seed")).SaveAsync(entity);
-            var view = source.WithModifiedBy(User("view"));
+            using var transaction = directTransaction ? source.Transaction() : null;
+            var view = (DB?)transaction ?? source.WithModifiedBy(User("view"));
+            var user = directTransaction ? "source" : "view";
             if (operation == "get")
             {
                 var result = await view.UpdateAndGet<AuditHookEntity>().MatchID(entity.ID).Modify(e => e.Name, "updated").ExecuteAsync();
-                Assert.AreEqual("view/view", result?.UpdateUser);
+                Assert.AreEqual(user + "/" + user, result?.UpdateUser);
             }
             else
             {
@@ -72,27 +92,35 @@ public class AuditHookTests
                     update.AddToQueue();
                 await update.ExecuteAsync();
             }
+            if (transaction is not null)
+                await transaction.CommitAsync();
             var saved = await db.Find<AuditHookEntity>().OneAsync(entity.ID);
             Assert.IsNotNull(saved);
             Assert.AreEqual(1, saved.UpdateCalls);
-            Assert.AreEqual("view/view", saved.UpdateUser);
-            Assert.AreEqual("view", saved.ModifiedBy.UserID);
+            Assert.AreEqual(user + "/" + user, saved.UpdateUser);
+            Assert.AreEqual(user, saved.ModifiedBy.UserID);
             Assert.AreEqual("source", source.ModifiedBy?.UserID);
         });
     }
 
     [TestMethod]
-    public async Task audit_views_reject_invalid_writes_before_persistence()
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task audit_views_reject_invalid_writes_before_persistence(bool directTransaction)
     {
         await WithDatabase(async (db, source) =>
         {
-            var view = source.WithModifiedBy(User("reject"));
+            var rejecting = new HookDb(db.WithModifiedBy(User("reject")));
+            using var transaction = directTransaction ? rejecting.Transaction() : null;
+            var view = (DB?)transaction ?? rejecting.WithModifiedBy(User("reject"));
             var entity = new AuditHookEntity();
             await Assert.ThrowsExactlyAsync<InvalidOperationException>(() => view.SaveAsync(entity));
             Assert.AreEqual(0L, await db.CountAsync<AuditHookEntity>());
             await db.WithModifiedBy(User("seed")).SaveAsync(entity);
             await Assert.ThrowsExactlyAsync<InvalidOperationException>(() =>
                 view.Update<AuditHookEntity>().MatchID(entity.ID).Modify(e => e.Name, "invalid").ExecuteAsync());
+            if (transaction is not null)
+                await transaction.CommitAsync();
             var saved = await db.Find<AuditHookEntity>().OneAsync(entity.ID);
             Assert.AreEqual("original", saved?.Name);
             Assert.AreEqual("seed", saved?.ModifiedBy.UserID);
@@ -124,15 +152,18 @@ public class AuditHookTests
     }
 
     [TestMethod]
-    [DataRow("commit")]
-    [DataRow("abort")]
-    [DataRow("dispose")]
-    public async Task transaction_audit_views_preserve_hooks_without_owning_the_session(string outcome)
+    [DataRow("commit", false)]
+    [DataRow("commit", true)]
+    [DataRow("abort", false)]
+    [DataRow("abort", true)]
+    [DataRow("dispose", false)]
+    [DataRow("dispose", true)]
+    public async Task transaction_audit_views_preserve_hooks_without_owning_the_session(string outcome, bool directTransaction)
     {
         await WithDatabase(async (db, source) =>
         {
             var entity = new AuditHookEntity();
-            using (var transaction = source.WithModifiedBy(User("transaction")).Transaction())
+            using (var transaction = directTransaction ? source.Transaction() : source.WithModifiedBy(User("transaction")).Transaction())
             {
                 var view = transaction.WithModifiedBy(User("view")).WithModifiedBy(User("chained"));
                 Assert.IsFalse(view is IDisposable);
@@ -155,19 +186,54 @@ public class AuditHookTests
         });
     }
 
+    [TestMethod]
+    public async Task transactions_from_transaction_views_own_independent_sessions()
+    {
+        await WithDatabase(async (db, source) =>
+        {
+            var outerEntity = new AuditHookEntity();
+            var innerEntity = new AuditHookEntity();
+            using (var outer = source.Transaction())
+            {
+                await outer.SaveAsync(outerEntity);
+                var view = outer.WithModifiedBy(User("inner"));
+                using (var inner = view.Transaction())
+                {
+                    Assert.AreNotSame(outer.Session, inner.Session);
+                    await inner.SaveAsync(innerEntity);
+                    await inner.Update<AuditHookEntity>().MatchID(innerEntity.ID).Modify(e => e.Name, "inner").ExecuteAsync();
+                    Assert.AreEqual(1L, (await inner.Find<AuditHookEntity>().OneAsync(innerEntity.ID))?.HookReadCount);
+                    await inner.CommitAsync();
+                }
+                Assert.IsTrue(outer.Session.IsInTransaction);
+                await outer.AbortAsync();
+            }
+            Assert.IsNull(await db.Find<AuditHookEntity>().OneAsync(outerEntity.ID));
+            AssertSaved(await db.Find<AuditHookEntity>().OneAsync(innerEntity.ID), "inner", 1);
+            var original = new AuditHookEntity();
+            await source.SaveAsync(original);
+            AssertSaved(await db.Find<AuditHookEntity>().OneAsync(original.ID), "source");
+        });
+    }
+
     static ModifiedBy User(string id) => new() { UserID = id };
 
     [TestMethod]
-    public async Task audit_view_retains_overrides_when_derived_from_an_existing_view()
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task audit_view_retains_overrides_when_derived_from_an_existing_view(bool directTransaction)
     {
         await WithDatabase(async (db, source) =>
         {
             var derived = new OverrideHookDb(source.WithModifiedBy(User("first")));
-            var view = derived.WithModifiedBy(User("second"));
+            using var transaction = directTransaction ? derived.Transaction() : null;
+            var view = (DB?)transaction ?? derived.WithModifiedBy(User("second"));
             var entity = new AuditHookEntity();
             await view.SaveAsync(entity);
+            if (transaction is not null)
+                await transaction.CommitAsync();
             var saved = await db.Find<AuditHookEntity>().OneAsync(entity.ID);
-            AssertSaved(saved, "second");
+            AssertSaved(saved, directTransaction ? "first" : "second");
             Assert.AreEqual("derived", saved?.Name);
         });
     }
