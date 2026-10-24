@@ -1,14 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests;
 
-public class _002_undo_field_rename : IMigration
+public class _002_undo_field_rename : IDatabaseMigration
 {
-    public async Task UpgradeAsync()
+    public async Task UpgradeAsync(DB db, CancellationToken cancellation = default)
     {
-        await DB.Default.Update<BookEntity>()
+        await db.WithModifiedBy(new ModifiedBy { UserID = "migration-test" }).Update<BookEntity>()
           .Match(_ => true)
           .Modify(b => b.Rename("Price", "SellingPrice"))
-          .ExecuteAsync().ConfigureAwait(false);
+          .ExecuteAsync(cancellation).ConfigureAwait(false);
     }
 }

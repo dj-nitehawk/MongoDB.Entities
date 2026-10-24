@@ -1,4 +1,20 @@
+## New features
+
+<details>
+<summary>Write migrations without wiring up the database yourself</summary>
+
+You can now implement `IDatabaseMigration` to receive the database and a cancellation token directly in `UpgradeAsync`. Migration runners also accept cancellation tokens for history operations and cooperative cancellation. Your existing `IMigration` classes keep working, but their bodies cannot be interrupted by the runner. Cancellation does not roll back changes, so make migrations safe to retry. See the [migration guide](Documentation/wiki/Data-Migrations.md).
+
+</details>
+
 ## Improvements
+
+<details>
+<summary>Less repeated work when discovering migrations</summary>
+
+Migration discovery now scans each eligible assembly once per run instead of repeating reflection work before execution.
+
+</details>
 
 <details>
 <summary>Fewer database requests for filtered batch deletes without relationships</summary>

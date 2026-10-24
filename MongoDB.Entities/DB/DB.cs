@@ -17,7 +17,7 @@ namespace MongoDB.Entities;
 public partial class DB
 {
     internal IServiceProvider? ServiceProvider { get; private set; }
-    internal Func<Type, IMigration>? MigrationActivator { get; private set; }
+    internal Func<Type, object>? MigrationActivator { get; private set; }
 
     static readonly ConcurrentDictionary<MongoClientSettings, MongoClient> _clients = new();
     static readonly ConcurrentDictionary<MongoClient, ConcurrentDictionary<string, DB>> _clientInstances = new();
@@ -288,6 +288,13 @@ public partial class DB
     /// </summary>
     /// <param name="activator">A function that creates an IMigration instance from a Type</param>
     public void SetMigrationActivator(Func<Type, IMigration> activator)
+        => MigrationActivator = activator;
+
+    /// <summary>
+    /// Provides a custom activator for either migration contract, taking precedence over the service provider.
+    /// </summary>
+    /// <param name="activator">A function that creates an IMigration or IDatabaseMigration instance from a Type</param>
+    public void SetMigrationActivator(Func<Type, object> activator)
         => MigrationActivator = activator;
 
     // ReSharper disable once VirtualMemberNeverOverridden.Global

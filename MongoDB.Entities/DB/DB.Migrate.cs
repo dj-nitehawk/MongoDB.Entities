@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
@@ -15,28 +16,64 @@ public partial class DB
     /// </summary>
     /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
     public Task MigrateAsync<T>() where T : class
-        => Migrate(typeof(T));
+        => MigrateAsync<T>(default);
 
     /// <summary>
-    /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
+    /// Discover and run migrations from the same assembly as the specified type.
+    /// </summary>
+    /// <typeparam name="T">A type from the assembly containing the migrations</typeparam>
+    /// <param name="cancellation">The token used for history operations and database migrations</param>
+    public Task MigrateAsync<T>(CancellationToken cancellation) where T : class
+        => Migrate(typeof(T), cancellation);
+
+    /// <summary>
+    /// Executes migration classes implementing IMigration or IDatabaseMigration in numeric order.
     /// <para>
     /// TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc.
-    /// and implement IMigration interface on them.
+    /// and implement either migration interface on them.
     /// Call this method at the startup of the application in order to run the migrations.
     /// </para>
     /// </summary>
     public Task MigrateAsync()
-        => Migrate(null);
+        => MigrateAsync(default);
+
+    /// <summary>
+    /// Discover and run migrations implementing IMigration or IDatabaseMigration in numeric order.
+    /// </summary>
+    /// <param name="cancellation">The token used for history operations and database migrations</param>
+    /// <remarks>
+    /// Legacy IMigration bodies cannot be interrupted by this token. Cancellation does not roll back changes,
+    /// and a migration whose completion is not recorded may run again.
+    /// </remarks>
+    public Task MigrateAsync(CancellationToken cancellation)
+        => Migrate(null, cancellation);
 
     /// <summary>
     /// Executes the given collection of IMigrations in the correct order to transform the database.
     /// </summary>
     /// <param name="migrations">The collection of migrations to execute</param>
     public Task MigrationsAsync(IEnumerable<IMigration> migrations)
-        => Execute(migrations);
+        => MigrationsAsync(migrations, default);
 
-    Task Migrate(Type? targetType)
+    /// <summary>
+    /// Executes supplied legacy migrations in numeric order. Their bodies do not receive the token.
+    /// </summary>
+    /// <param name="migrations">The collection of migrations to execute</param>
+    /// <param name="cancellation">The token used for history operations and checks around migration bodies</param>
+    public Task MigrationsAsync(IEnumerable<IMigration> migrations, CancellationToken cancellation)
+        => Execute(migrations, cancellation);
+
+    /// <summary>
+    /// Executes supplied database migrations in numeric order, passing this database instance and the token.
+    /// </summary>
+    /// <param name="migrations">The collection of migrations to execute</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task MigrationsAsync(IEnumerable<IDatabaseMigration> migrations, CancellationToken cancellation = default)
+        => Execute(migrations, cancellation);
+
+    Task Migrate(Type? targetType, CancellationToken cancellation)
     {
+        cancellation.ThrowIfCancellationRequested();
         IEnumerable<Assembly> assemblies;
 
         if (targetType == null)
@@ -64,39 +101,47 @@ public partial class DB
 
         var types = assemblies
                     .SelectMany(a => a.GetTypes())
-                    .Where(t => t.GetInterfaces().Contains(typeof(IMigration)));
+                    .Where(t => t.IsClass && !t.IsAbstract && !t.ContainsGenericParameters &&
+                                (typeof(IMigration).IsAssignableFrom(t) || typeof(IDatabaseMigration).IsAssignableFrom(t)))
+                    .ToArray();
 
-        return !types.Any()
-                   ? throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.")
+        return types.Length == 0
+                   ? throw new InvalidOperationException("Didn't find any classes that implement IMigration or IDatabaseMigration.")
                    : Execute(
                        types.Select(
                            t =>
                            {
+                               cancellation.ThrowIfCancellationRequested();
                                if (MigrationActivator != null)
                                    return MigrationActivator(t);
                                
                                if (ServiceProvider != null)
-                                   return (IMigration)ServiceProvider.GetService(t);
+                                   return ServiceProvider.GetService(t);
 
-                               return (IMigration)Activator.CreateInstance(t);
-                           }));
+                               return Activator.CreateInstance(t);
+                           }), cancellation);
     }
 
-    async Task Execute(IEnumerable<IMigration> migrations)
+    async Task Execute(IEnumerable<object> migrations, CancellationToken cancellation)
     {
+        cancellation.ThrowIfCancellationRequested();
         var lastMigNum = await Find<Migration, int>()
                                .Sort(m => m.Number, Order.Descending)
                                .Project(m => m.Number)
-                               .ExecuteFirstAsync()
+                               .ExecuteFirstAsync(cancellation)
                                .ConfigureAwait(false);
 
-        var dic = new SortedDictionary<int, (string name, IMigration migration)>();
+        var dic = new SortedDictionary<int, (string name, object migration)>();
 
         foreach (var m in migrations)
         {
+            cancellation.ThrowIfCancellationRequested();
+            if (m is not IMigration && m is not IDatabaseMigration)
+                throw new InvalidOperationException("Migration instances must implement IMigration or IDatabaseMigration.");
+
             var nameParts = m.GetType().Name.Split('_');
 
-            if (nameParts == null)
+            if (nameParts.Length < 3)
                 throw new InvalidOperationException("Please use the correct naming format for migration classes!");
 
             if (!int.TryParse(nameParts[1], out var migNumber))
@@ -115,10 +160,16 @@ public partial class DB
 
         foreach (var migration in dic)
         {
+            cancellation.ThrowIfCancellationRequested();
             sw.Start();
-            await migration.Value.migration.UpgradeAsync().ConfigureAwait(false);
+            if (migration.Value.migration is IDatabaseMigration databaseMigration)
+                await databaseMigration.UpgradeAsync(this, cancellation).ConfigureAwait(false);
+            else
+                await ((IMigration)migration.Value.migration).UpgradeAsync().ConfigureAwait(false);
+
+            cancellation.ThrowIfCancellationRequested();
             var mig = new Migration(migration.Key, migration.Value.name, sw.Elapsed.TotalSeconds);
-            await SaveAsync(mig).ConfigureAwait(false);
+            await SaveAsync(mig, cancellation).ConfigureAwait(false);
             sw.Stop();
             sw.Reset();
         }

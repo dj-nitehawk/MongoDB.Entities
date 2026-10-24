@@ -15,7 +15,9 @@ Async data-access library over `MongoDB.Driver`, not an application host. `DB` p
 - `InitAsync` caches clients by `MongoClientSettings` and DB instances by client/database. The first database selected for default client settings supplies `DB.Default`; initialization normally pings unless `skipNetworkPing` is set. Failed initialization removes partial cache entries.
 - Auth belongs to caller-supplied settings/connection strings. Optional `IServiceProvider` and migration activator support construction, not a framework dependency.
 - Persisted types implement marker `IEntity`, usually via `Entity`. Collection names come from the type or `[Collection]`.
-- Migration names supply numeric ordering; history lives in `_migration_history_`.
+- Migration names supply numeric ordering; history lives in `_migration_history_`. Present `IMigration` as the normal choice in public docs and `IDatabaseMigration` as an optional alternative, both valid and supported, not legacy versus replacement.
+- Migration discovery accepts concrete, closed `IMigration` and `IDatabaseMigration` classes. Both use one ordering/history stream; dual-contract classes execute only the database-aware body, with the runner's exact `DB` and token. The object-returning activator supports both contracts and wins over DI. Existing runner signatures and the legacy activator overload remain available.
+- Migration cancellation covers history I/O and checks around bodies; `IMigration` bodies receive no token. Cancellation/failure does not roll back writes, and unrecorded steps can rerun. History-write failures can have uncertain outcomes. See [migration usage and retry guidance](../Documentation/wiki/Data-Migrations.md#cancellation-and-retries).
 
 ## Views, filters, and sessions
 
